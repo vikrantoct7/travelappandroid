@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<typeInfoHistroy/>
+<typeInfoHistroy>
+<typeInfo handle="=MindYourTravel/C:\/Program Files\/Android\/android-sdk\/platforms\/android-19\/android.jar&lt;android.view(View$OnFocusChangeListener.class[OnFocusChangeListener" modifiers="1545" timestamp="1383020101000"/>
+<typeInfo handle="=MindYourTravel/C:\/Program Files\/Android\/android-sdk\/platforms\/android-19\/android.jar&lt;javax.xml.validation(Validator.class[Validator" modifiers="1057" timestamp="1383020101000"/>
+<typeInfo handle="=MindYourTravel/C:\/Program Files\/Android\/android-sdk\/platforms\/android-19\/android.jar&lt;android.text(TextWatcher.class[TextWatcher" modifiers="1537" timestamp="1383020101000"/>
+</typeInfoHistroy>
