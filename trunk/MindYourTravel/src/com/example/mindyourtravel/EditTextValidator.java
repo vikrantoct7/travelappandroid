@@ -8,11 +8,6 @@ public abstract class EditTextValidator implements TextWatcher {
 
 	private TextView textView;
 	
-	public EditTextValidator()
-	{
-		
-	}
-	
 	public EditTextValidator(TextView textView) {
         this.textView = textView;
     }
