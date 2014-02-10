@@ -6,10 +6,6 @@ import android.widget.TextView;
 
 public class TextViewValidator extends EditTextValidator implements OnFocusChangeListener{
 
-	public TextViewValidator()
-	{
-		
-	}
 	public TextViewValidator(TextView textView) {
 		super(textView);
 		// TODO Auto-generated constructor stub

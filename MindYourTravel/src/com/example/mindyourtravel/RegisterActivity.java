@@ -31,7 +31,7 @@ public class RegisterActivity extends Activity {
 				final EditText txtUserName= (EditText)findViewById(R.id.txtUserName);
 				final EditText txtPassword= (EditText)findViewById(R.id.txtPassword);
 				final EditText txtPhNo= (EditText)findViewById(R.id.txtPhNo);
-				TextViewValidator validator = new TextViewValidator();
+				GenericValidator validator = new GenericValidator();
 				boolean validationResult;
 				validationResult= validator.validate(txtFName);
 				validationResult =validationResult && validator.validate(txtLName);
