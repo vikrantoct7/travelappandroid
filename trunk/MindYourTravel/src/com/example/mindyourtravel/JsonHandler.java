@@ -19,7 +19,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class JsonHandler {
+	private static final JsonHandler _instance= new JsonHandler();
 	
+	//Private constructor to declare single ton class
+	private JsonHandler()
+	{
+		
+	}
+	
+	public static JsonHandler getInstance() {
+		return _instance;
+	}
 	//Method to send the data in json format and receive response in json format
 	public JSONObject PostJsonDataToServer(String url,JSONObject requestParameters)
 	{
@@ -98,5 +108,10 @@ public class JsonHandler {
 		}         
 		return answer.toString();        
 	} 
+	
+	public String getFullUrl(String relativePage)
+	{
+		return "http://192.168.0.100:90/" +relativePage;
+	}
 
 }
