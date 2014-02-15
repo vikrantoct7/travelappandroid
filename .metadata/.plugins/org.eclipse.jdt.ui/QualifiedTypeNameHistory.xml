@@ -2,9 +2,23 @@
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="javax.xml.validation.Validator"/>
 <fullyQualifiedTypeName name="android.widget.EditText"/>
-<fullyQualifiedTypeName name="android.widget.TextView"/>
-<fullyQualifiedTypeName name="com.example.mindyourtravel.R.id"/>
 <fullyQualifiedTypeName name="android.widget.Button"/>
 <fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
+<fullyQualifiedTypeName name="com.example.mindyourtravel.GenericValidator"/>
+<fullyQualifiedTypeName name="java.io.InputStream"/>
+<fullyQualifiedTypeName name="java.io.IOException"/>
+<fullyQualifiedTypeName name="java.io.BufferedReader"/>
+<fullyQualifiedTypeName name="java.io.InputStreamReader"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="org.json.JSONObject"/>
+<fullyQualifiedTypeName name="org.json.JSONException"/>
+<fullyQualifiedTypeName name="android.widget.RadioButton"/>
+<fullyQualifiedTypeName name="com.example.mindyourtravel.AppConstant"/>
+<fullyQualifiedTypeName name="com.example.mindyourtravel.PHP_ERROR_CODE"/>
+<fullyQualifiedTypeName name="com.example.mindyourtravel.AppConstant.PHP_ERROR_CODE"/>
+<fullyQualifiedTypeName name="android.view.View"/>
 <fullyQualifiedTypeName name="com.example.mindyourtravel.TextViewValidator"/>
+<fullyQualifiedTypeName name="com.example.mindyourtravel.R.string"/>
+<fullyQualifiedTypeName name="com.example.mindyourtravel.R.id"/>
+<fullyQualifiedTypeName name="android.widget.TextView"/>
 </qualifiedTypeNameHistroy>
