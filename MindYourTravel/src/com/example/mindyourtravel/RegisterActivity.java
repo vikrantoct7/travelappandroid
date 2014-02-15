@@ -1,10 +1,14 @@
 package com.example.mindyourtravel;
 
+import java.io.IOException;
+
+import org.apache.http.client.ClientProtocolException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,11 +23,23 @@ public class RegisterActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
+		
+		SetErrorLabelVisibility(View.INVISIBLE,R.string.lblError);
+		
 		addFocusChangeListernerOnEditText();
 		final Button btnSubmit = (Button)findViewById(R.id.btnRegister);
 		btnSubmit.setOnClickListener(addRegisterButtonListener);
-		
-		//addListnerOnRadioButton();
+
+	}
+	
+	private void SetErrorLabelVisibility(int visibility,int errorResId)
+	{
+		TextView lblError =(TextView)findViewById(R.id.lblErrorMsg);
+		if(lblError != null)
+		{
+			lblError.setVisibility(visibility);
+			lblError.setText(errorResId);
+		}
 	}
 	
 	private OnClickListener addRegisterButtonListener = new OnClickListener()
@@ -38,7 +54,7 @@ public class RegisterActivity extends Activity {
 				final TextView txtAge =(TextView)findViewById(R.id.txtAge);
 				GenericValidator validator = new GenericValidator();
 				boolean validationResult=true;
-				/*validationResult= validator.validate(txtFName);
+				validationResult= validator.validate(txtFName);
 				validationResult =validationResult && validator.validate(txtLName);
 				validationResult =validationResult && validator.validate(txtUserName);
 				validationResult =validationResult && validator.validate(txtPassword);
@@ -51,36 +67,59 @@ public class RegisterActivity extends Activity {
 				// find the radiobutton by returned id                        
 					validationResult=false;
 					((RadioButton) findViewById(R.id.rdoFemale)).setError("This is mandatory");
-				}*/
+				}
 				
 				if(validationResult)
 				{
 					try
 					{
 						JSONObject reqParameters= new JSONObject();
-						/*reqParameters.put("UFNAME", txtFName.getText());
+						reqParameters.put("UFNAME", txtFName.getText());
 						reqParameters.put("ULNAME", txtLName.getText());
 						reqParameters.put("ULOGIN", txtUserName.getText());
 						reqParameters.put("GENDER", selectedRdoOption.isChecked());
 						reqParameters.put("AGE", txtAge.getText());
 						reqParameters.put("UPASSWORD", txtPassword.getText());
-						reqParameters.put("UCONTACTNO", txtPhNo.getText());*/
-						reqParameters.put("UFNAME", "Vikrant");
-						reqParameters.put("ULNAME", "Jain");
-						reqParameters.put("ULOGIN", "vikrant");
-						reqParameters.put("GENDER", 1);
-						reqParameters.put("AGE", "34");
-						reqParameters.put("UPASSWORD", "ppppp");
-						reqParameters.put("UCONTACTNO", "9891109568");
+						reqParameters.put("UCONTACTNO", txtPhNo.getText());
 						JsonHandler jsonHandler =JsonHandler.getInstance();
 						String url=jsonHandler.getFullUrl("UserRegisteration.php");
 						JSONObject result = jsonHandler.PostJsonDataToServer(url, reqParameters);
-						String error= result.getString("result");
-						error=error;
+						String resultCode= result.getString("RESULT");
+						if(resultCode.contentEquals(AppConstant.PHPResponse_KO))
+						{
+							String errorCode=result.getString("ERRORCODE");
+							if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.ALREADYEXISTS))
+							{
+								SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorUserExist);
+							}
+							else if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
+							{
+								SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+							}
+						}
+						else
+						{
+							Intent intent = new Intent(v.getContext(),RegConfimationActivity.class);
+							intent.putExtra("USERNAME", txtUserName.getText().toString());
+							startActivity(intent);
+						}
+
 					}
 					catch(JSONException ex)
 					{
-						ex.printStackTrace();
+						SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+					}
+					catch (ClientProtocolException e)
+					{    
+						SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+					}    
+					catch (IOException e) 
+					{    
+						SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+					} 
+					catch(Exception e)
+					{
+						SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 					}
 				}
 			}
@@ -88,7 +127,7 @@ public class RegisterActivity extends Activity {
 	
 	private void addFocusChangeListernerOnEditText()
 	{
-		/*final TextView txtFName= (TextView)findViewById(R.id.txtFName);
+		final TextView txtFName= (TextView)findViewById(R.id.txtFName);
 		txtFName.setOnFocusChangeListener(new TextViewValidator(txtFName));
 		final TextView txtLName= (TextView)findViewById(R.id.txtLName);
 		txtLName.setOnFocusChangeListener(new TextViewValidator(txtLName));
@@ -97,7 +136,7 @@ public class RegisterActivity extends Activity {
 		final TextView txtPassword= (TextView)findViewById(R.id.txtPassword);
 		txtPassword.setOnFocusChangeListener(new TextViewValidator(txtPassword));
 		final TextView txtPhNo= (TextView)findViewById(R.id.txtPhNo);
-		txtPhNo.setOnFocusChangeListener(new TextViewValidator(txtPhNo));*/
+		txtPhNo.setOnFocusChangeListener(new TextViewValidator(txtPhNo));
 	}
 	
 	@Override
@@ -107,22 +146,4 @@ public class RegisterActivity extends Activity {
 		return true;
 	}
 	
-	/*public void addListenerOnButton() 
-	{                         
-		radioSexGroup = (RadioGroup) findViewById(R.id.radioGender);                
-		btnDisplay = (Button) findViewById(R.id.btnDisplay);                         
-		btnDisplay.setOnClickListener(new OnClickListener() {                             
-		@Override                    
-		public void onClick(View v) {                                 
-			// get selected radio button from radioGroup                        
-			int selectedId = radioSexGroup.getCheckedRadioButtonId();                                 
-			// find the radiobutton by returned id                        
-			radioSexButton = (RadioButton) findViewById(selectedId);                                 
-             
-		}                         
-		});          
-		
-	}*/
-	
-
 }
