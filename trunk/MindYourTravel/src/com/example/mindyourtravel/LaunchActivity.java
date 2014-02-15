@@ -16,6 +16,8 @@ public class LaunchActivity extends Activity {
 		setContentView(R.layout.activity_launch);
 		final Button btnSingUp =(Button)findViewById(R.id.btnSingUp);
 		btnSingUp.setOnClickListener(onClickBtnSingUp);
+		final Button btnLogin =(Button)findViewById(R.id.btnLoginBack);
+		btnLogin.setOnClickListener(onClickBtnLogin);
 	}
 
 	@Override
@@ -26,6 +28,17 @@ public class LaunchActivity extends Activity {
 	}
 	
 	private OnClickListener onClickBtnSingUp = new OnClickListener()
+	{
+		@Override
+		public void onClick(View view)
+		{
+			Intent intent = new Intent(view.getContext(),RegisterActivity.class);
+			
+			startActivity(intent);
+		}
+	};
+	
+	private OnClickListener onClickBtnLogin = new OnClickListener()
 	{
 		@Override
 		public void onClick(View view)

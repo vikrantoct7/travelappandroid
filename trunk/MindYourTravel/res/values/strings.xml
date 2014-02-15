@@ -16,5 +16,12 @@
     <string name="lblAge">Age :</string>
     <string name="lblContactNo">Contact No :</string>
     <string name="lblRegister">Register</string>
+    <string name="lblError">Error</string>
+    <string name="lblErrorUserExist">User already exist</string>
+    <string name="lblErrorTechnical">Technical error occurred. Please try again</string>
+    <string name="title_activity_registration_confimation">RegistrationConfimationActivity</string>
+    <string name="lblRegConfimation">User %s has been successfully registered. Please click on blow button to login into the application!</string>
+    <string name="lblGoToLoginBtn">Go back to login screen</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

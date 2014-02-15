@@ -8,39 +8,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".RegisterActivity" >
 
-    <TextView
-	     android:id="@+id/lblFName"
-	     android:layout_width="wrap_content"
-	     android:layout_height="wrap_content"
-	     android:layout_alignParentLeft="true"
-	     android:layout_alignParentTop="true"
-	     android:layout_marginLeft="40dp"
-	     android:layout_marginTop="2dp"
-	     android:text="@string/lblFName" />
-    
-    <EditText
-        android:id="@+id/txtFName"
-        android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/lblUserName"
-        android:ems="10"
-        android:inputType="text"
-        android:textSize="12sp" >
-
-	    <requestFocus />
-    </EditText>
-
-    <TextView
-        android:id="@+id/lblLName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtFName"
-        android:layout_marginTop="20dp"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/txtLName"
-        android:text="@string/lblLName" />
-
     <EditText
         android:id="@+id/txtLName"
         android:layout_width="wrap_content"
@@ -93,15 +60,6 @@
 	     android:layout_alignRight="@+id/txtFName"
 	     android:ems="10"
 	     android:inputType="textPassword" />
-	 
-	 <TextView
-	     android:id="@+id/lblGender"
-	     android:layout_width="wrap_content"
-	     android:layout_height="wrap_content"
-	     android:layout_marginTop="20dp"
-	     android:layout_alignBottom="@+id/rdoGender"
-	     android:layout_toLeftOf="@+id/txtUserName"
-	     android:text="@string/lblGender" />
 	 <RadioGroup
 	     android:id="@+id/rdoGender"
 	     android:layout_width="fill_parent"
@@ -123,15 +81,6 @@
 	         android:layout_height="wrap_content"
 	         android:text="@string/genderFemale" />
 	 </RadioGroup>
-	 <TextView
-	     android:id="@+id/lblAge"
-	     android:layout_width="wrap_content"
-	     android:layout_height="wrap_content"
-	     android:layout_alignRight="@+id/lblGender"
-	     android:layout_below="@+id/rdoGender"
-	     android:layout_marginTop="20dp"
-	     android:layout_centerVertical="true"
-	     android:text="@string/lblAge" />
 
 	 <EditText
 	     android:id="@+id/txtAge"
@@ -161,15 +110,71 @@
 	     android:layout_toRightOf="@+id/lblContactNo"
 	     android:ems="10"
 	     android:inputType="phone" />
-	<Button
-	     android:id="@+id/btnRegister"
-	     android:layout_width="wrap_content"
-	     android:layout_height="32dp"
-	     android:layout_alignLeft="@+id/txtPhNo"
-	     android:layout_below="@+id/txtPhNo"
-	     android:text="@string/lblRegister"
-	     android:layout_marginTop="20dp" />
 
-	
+	<TextView
+	    android:id="@+id/lblErrorMsg"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignLeft="@+id/lblFName"
+	    android:layout_alignParentRight="true"
+	    android:layout_alignParentTop="true"
+	    android:text="@string/lblError"
+	    android:textColor="#FF0000"
+	    android:visibility="visible" />
+
+	<TextView
+	    android:id="@+id/lblFName"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:layout_below="@+id/lblErrorMsg"
+	    android:layout_marginLeft="36dp"
+	    android:text="@string/lblFName" />
+
+	<EditText
+	    android:id="@+id/txtFName"
+	    android:layout_width="wrap_content"
+	    android:layout_height="32dp"
+	    android:layout_alignLeft="@+id/rdoGender"
+	    android:layout_alignTop="@+id/lblFName"
+	    android:ems="10"
+	    android:inputType="text"
+	    android:textSize="12sp" >
+
+	    <requestFocus />
+	</EditText>
+
+	<Button
+	    android:id="@+id/btnRegister"
+	    android:layout_width="wrap_content"
+	    android:layout_height="40dp"
+	    android:layout_below="@+id/txtPhNo"
+	    android:layout_centerHorizontal="true"
+	    android:layout_marginTop="17dp"
+	    android:text="@string/lblRegister" />
+
+	<TextView
+	    android:id="@+id/lblLName"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/txtFName"
+	    android:layout_toLeftOf="@+id/txtLName"
+	    android:text="@string/lblLName" />
+
+	<TextView
+	    android:id="@+id/lblGender"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignRight="@+id/lblLName"
+	    android:layout_alignTop="@+id/rdoGender"
+	    android:text="@string/lblGender" />
+
+	<TextView
+	    android:id="@+id/lblAge"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_centerVertical="true"
+	    android:layout_toLeftOf="@+id/txtUserName"
+	    android:text="@string/lblAge" />
 
 </RelativeLayout>

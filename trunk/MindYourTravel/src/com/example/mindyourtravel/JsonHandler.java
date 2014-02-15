@@ -18,7 +18,8 @@ import org.apache.http.protocol.HTTP;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class JsonHandler {
+public final class JsonHandler {
+	
 	private static final JsonHandler _instance= new JsonHandler();
 	
 	//Private constructor to declare single ton class
@@ -31,7 +32,7 @@ public class JsonHandler {
 		return _instance;
 	}
 	//Method to send the data in json format and receive response in json format
-	public JSONObject PostJsonDataToServer(String url,JSONObject requestParameters)
+	public JSONObject PostJsonDataToServer(String url,JSONObject requestParameters) throws JSONException, IOException
 	{
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpPost httpRequest = new HttpPost(url);
@@ -48,22 +49,25 @@ public class JsonHandler {
 		}
 		catch (JSONException e) 
 		{    
-			e.printStackTrace();   
+			e.printStackTrace();
+			throw e;
 		}    
 		catch (ClientProtocolException e)
 		{    
 			e.printStackTrace();   
+			throw e;
 		}    
 		catch (IOException e) 
 		{    
-			e.printStackTrace();   
+			e.printStackTrace();  
+			throw e;
 		} 
 		return jsonResultObject;
 	}
 	
 	//Method to send the request as basic name value pair and receive response in json format
 	@SuppressWarnings({"unused"})
-	private JSONObject PostValuePairDataToServer(String url, ArrayList<NameValuePair> requestParameters)
+	private JSONObject PostValuePairDataToServer(String url, ArrayList<NameValuePair> requestParameters) throws JSONException, IOException
 	{
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpPost httpRequest = new HttpPost(url);
@@ -78,14 +82,17 @@ public class JsonHandler {
 		catch (JSONException e) 
 		{    
 			e.printStackTrace();   
+			throw e;
 		}    
 		catch (ClientProtocolException e)
 		{    
-			e.printStackTrace();   
+			e.printStackTrace();  
+			throw e;
 		}    
 		catch (IOException e) 
 		{    
 			e.printStackTrace();   
+			throw e;
 		} 
 		return jsonResultObject;
 	}
