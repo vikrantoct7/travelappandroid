@@ -49,7 +49,7 @@ public class RegisterActivity extends Activity {
 				final TextView txtFName= (TextView)findViewById(R.id.txtFName);
 				final TextView txtLName= (TextView)findViewById(R.id.txtLName);
 				final TextView txtUserName= (TextView)findViewById(R.id.txtUserName);
-				final TextView txtPassword= (TextView)findViewById(R.id.txtPassword);
+				final TextView txtPassword= (TextView)findViewById(R.id.txtUserPassword);
 				final TextView txtPhNo= (TextView)findViewById(R.id.txtPhNo);
 				final TextView txtAge =(TextView)findViewById(R.id.txtAge);
 				GenericValidator validator = new GenericValidator();
@@ -133,7 +133,7 @@ public class RegisterActivity extends Activity {
 		txtLName.setOnFocusChangeListener(new TextViewValidator(txtLName));
 		final TextView txtUserName= (TextView)findViewById(R.id.txtUserName);
 		txtUserName.setOnFocusChangeListener(new TextViewValidator(txtUserName));
-		final TextView txtPassword= (TextView)findViewById(R.id.txtPassword);
+		final TextView txtPassword= (TextView)findViewById(R.id.txtUserPassword);
 		txtPassword.setOnFocusChangeListener(new TextViewValidator(txtPassword));
 		final TextView txtPhNo= (TextView)findViewById(R.id.txtPhNo);
 		txtPhNo.setOnFocusChangeListener(new TextViewValidator(txtPhNo));
