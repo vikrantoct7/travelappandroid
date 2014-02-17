@@ -18,6 +18,7 @@
     <string name="lblRegister">Register</string>
     <string name="lblError">Error</string>
     <string name="lblErrorUserExist">User already exist</string>
+    <string name="lblErrorUserNotExist">Login failed. Please check your credential.</string>
     <string name="lblErrorTechnical">Technical error occurred. Please try again</string>
     <string name="title_activity_registration_confimation">RegistrationConfimationActivity</string>
     <string name="lblRegConfimation">User %s has been successfully registered. Please click on blow button to login into the application!</string>

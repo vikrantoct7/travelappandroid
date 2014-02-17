@@ -47,11 +47,11 @@
 	     android:layout_height="wrap_content"
 	     android:layout_below="@+id/txtUserName"
 	     android:layout_marginTop="20dp"
-	     android:layout_toLeftOf="@+id/txtPassword"
+	     android:layout_toLeftOf="@+id/txtUserPassword"
 	     android:text="@string/lblPassword" />
 	 
 	 <EditText
-	     android:id="@+id/txtPassword"
+	     android:id="@+id/txtUserPassword"
 	     android:layout_width="wrap_content"
 	     android:layout_height="32dp"
 	     android:layout_alignBaseline="@+id/lblPassword"
@@ -64,7 +64,7 @@
 	     android:id="@+id/rdoGender"
 	     android:layout_width="fill_parent"
 	     android:layout_height="wrap_content"
-	     android:layout_below="@+id/txtPassword"
+	     android:layout_below="@+id/txtUserPassword"
 	     android:layout_marginTop="17dp"
 	     android:layout_toRightOf="@+id/lblContactNo"
 	     android:orientation="horizontal" >
@@ -106,7 +106,7 @@
 	     android:layout_height="32dp"
 	     android:layout_alignBaseline="@+id/lblContactNo"
 	     android:layout_alignBottom="@+id/lblContactNo"
-	     android:layout_alignRight="@+id/txtPassword"
+	     android:layout_alignRight="@+id/txtUserPassword"
 	     android:layout_toRightOf="@+id/lblContactNo"
 	     android:ems="10"
 	     android:inputType="phone" />
