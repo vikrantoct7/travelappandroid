@@ -5,7 +5,6 @@ import java.io.IOException;
 import org.apache.http.client.ClientProtocolException;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -21,6 +20,7 @@ public class LaunchActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_launch);
+			
 		final Button btnSingUp =(Button)findViewById(R.id.btnSingUp);
 		btnSingUp.setOnClickListener(onClickBtnSingUp);
 		final Button btnLoginSubmit =(Button)findViewById(R.id.btnLoginSubmit);
@@ -42,7 +42,6 @@ public class LaunchActivity extends Activity {
 		public void onClick(View view)
 		{
 			Intent intent = new Intent(view.getContext(),RegisterActivity.class);
-			
 			startActivity(intent);
 		}
 	};
@@ -52,6 +51,20 @@ public class LaunchActivity extends Activity {
 		@Override
 		public void onClick(View view)
 		{
+			
+			try
+			{
+			XmlUserRepository userRep = new XmlUserRepository();
+			}
+			catch(IOException e)
+			{
+				SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+			}
+			catch(Exception e)
+			{
+				SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+			}
+			
 			final  TextView txtUserName = (TextView)findViewById(R.id.txtLogin);
 			final  TextView txtPassword = (TextView)findViewById(R.id.txtPassword);
 			
