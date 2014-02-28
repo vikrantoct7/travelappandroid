@@ -9,12 +9,12 @@ try
 	$jsonInput = json_decode(filter_var(file_get_contents('php://input'), FILTER_UNSAFE_RAW)); 
 	$ULOGIN = $jsonInput->ULOGIN;
 	$UPASSWORD = $jsonInput->UPASSWORD;
-	$queryResult = $db->Query("CALL aasv_user_checkexistence('".$ULOGIN."','".$UPASSWORD."')");
+	$queryResult = $db->Query("CALL aasv_user_getloginuserdata('".$ULOGIN."','".$UPASSWORD."')");
 	if(mysql_num_rows($queryResult) > 0)
 	{
 		$result['RESULT'] = 'OK';
 		while($row = mysql_fetch_array($queryResult)){
-        $result['USERID'] = $row['USERID'];
+			$result['USERDATA'] = $row;
 		}
 	}
 	else
