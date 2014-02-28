@@ -24,5 +24,9 @@
     <string name="lblRegConfimation">User %s has been successfully registered. Please click on blow button to login into the application!</string>
     <string name="lblGoToLoginBtn">Go back to login screen</string>
     <string name="hello_world">Hello world!</string>
-
+    <string name="title_activity_home_page">HomePageActivity</string>
+    <string name="btnNewTravelPlan">New travel plan</string>
+    <string name="title_activity_travel_plan">TravelPlanActivity</string>
+    <string name="lblCurrentLoc">Current Location :</string>
+	<string name="lblCurLocNotfound">Current Location not found</string>
 </resources>

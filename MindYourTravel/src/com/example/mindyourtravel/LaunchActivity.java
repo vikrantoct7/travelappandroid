@@ -1,7 +1,6 @@
 package com.example.mindyourtravel;
 
 import java.io.IOException;
-
 import org.apache.http.client.ClientProtocolException;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,11 +15,18 @@ import android.widget.TextView;
 
 public class LaunchActivity extends Activity {
 
+	public static XmlDataRepository repository=null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_launch);
+		try {
+			repository = new XmlDataRepository();
 			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		final Button btnSingUp =(Button)findViewById(R.id.btnSingUp);
 		btnSingUp.setOnClickListener(onClickBtnSingUp);
 		final Button btnLoginSubmit =(Button)findViewById(R.id.btnLoginSubmit);
@@ -52,19 +58,6 @@ public class LaunchActivity extends Activity {
 		public void onClick(View view)
 		{
 			
-			try
-			{
-			XmlUserRepository userRep = new XmlUserRepository();
-			}
-			catch(IOException e)
-			{
-				SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-			}
-			catch(Exception e)
-			{
-				SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-			}
-			
 			final  TextView txtUserName = (TextView)findViewById(R.id.txtLogin);
 			final  TextView txtPassword = (TextView)findViewById(R.id.txtPassword);
 			
@@ -93,7 +86,18 @@ public class LaunchActivity extends Activity {
 				}
 				else
 				{
-					
+					JSONObject jsonData =result.getJSONObject("USERDATA");
+					UserDTO userDto = new UserDTO();
+					userDto.setUserId(jsonData.getInt("USERID"));
+					userDto.setFirstName(jsonData.getString("UFNAME"));
+					userDto.setLastName(jsonData.getString("ULNAME"));
+					userDto.setGender(jsonData.getBoolean("GENDER"));
+					userDto.setAge(jsonData.getInt("AGE"));
+					userDto.setContactNo(jsonData.getString("UCONTACTNO"));
+					userDto.setAppLoginUser(true);
+					repository.AddUserDTO(userDto);
+					Intent intent = new Intent(view.getContext(),HomePageActivity.class);
+					startActivity(intent);
 				}
 			}
 			catch(JSONException ex)
