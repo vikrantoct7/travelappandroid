@@ -1,0 +1,141 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".TravelPlanActivity" >
+
+     <TextView
+         android:id="@+id/lblCurrentLoc"
+         android:layout_width="75dp"
+         android:layout_height="wrap_content"
+         android:layout_alignParentLeft="true"
+         android:layout_alignParentTop="true"
+         android:layout_centerVertical="true"
+         android:layout_marginTop="20dp"
+         android:text="@string/lblCurrentLoc" />
+	<TextView
+	    android:id="@+id/lblStartPoint"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:layout_below="@+id/lblCurrentLoc"
+	    android:layout_marginTop="20dp"
+	    android:layout_toLeftOf="@+id/txtCurrentLoc"
+	    android:text="@string/lblStartPoint" />
+
+	<TextView
+	    android:id="@+id/lblEndPoint"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignRight="@+id/lblStartPoint"
+	    android:layout_below="@+id/txtStartPoint"
+	    android:layout_marginTop="14dp"
+	    android:text="@string/lblEndPoint" />
+
+	<EditText
+	    android:id="@+id/txtCurrentLoc"
+	    android:layout_width="180dp"
+	    android:layout_height="40dp"
+	    android:layout_alignTop="@+id/lblCurrentLoc"
+	    android:layout_marginLeft="14dp"
+	    android:layout_toRightOf="@+id/lblCurrentLoc"
+	    android:ems="10"
+	    android:inputType="text"
+	    android:text="@string/lblCurLocNotfound"
+	    android:textSize="12sp" >
+
+	    <requestFocus />
+	</EditText>
+
+	<EditText
+	    android:id="@+id/txtStartPoint"
+	    android:layout_width="180dp"
+	    android:layout_height="wrap_content"
+	    android:layout_alignBaseline="@+id/lblStartPoint"
+	    android:layout_alignBottom="@+id/lblStartPoint"
+	    android:layout_alignLeft="@+id/txtCurrentLoc"
+	    android:ems="10"
+	    android:inputType="text"
+	    android:textSize="12sp" />
+
+	<EditText
+	    android:id="@+id/txtEndPoint"
+	    android:layout_width="180dp"
+	    android:layout_height="wrap_content"
+	    android:layout_alignLeft="@+id/txtStartPoint"
+	    android:layout_alignTop="@+id/lblEndPoint"
+	    android:ems="10"
+	    android:inputType="text"
+	    android:textSize="12sp" />
+
+	<EditText
+	    android:id="@+id/txtStartTime"
+	    android:layout_width="100dp"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/txtEndPoint"
+	    android:layout_centerHorizontal="true"
+	    android:ems="10"
+	    android:inputType="text" />
+
+	<TextView
+	    android:id="@+id/lblTravelTime"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignBaseline="@+id/txtStartTime"
+	    android:layout_alignBottom="@+id/txtStartTime"
+	    android:layout_alignLeft="@+id/lblTravelMode"
+	    android:text="@string/lblTravelTime" />
+
+	<TextView
+	    android:id="@+id/lblTravelMode"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignLeft="@+id/lblStartPoint"
+	    android:layout_below="@+id/txtStartTime"
+	    android:layout_marginTop="18dp"
+	    android:text="@string/lblTravelMode" />
+
+	<EditText
+	    android:id="@+id/txtNoOfPass"
+	    android:layout_width="100dp"
+	    android:layout_height="wrap_content"
+	    android:layout_alignBottom="@+id/lblNoOfPassenger"
+	    android:layout_alignLeft="@+id/txtStartTime"
+	    android:ems="10"
+	    android:inputType="number"
+	    android:layout_marginTop="24dp"
+	    android:textSize="12sp" />
+
+	<TextView
+	    android:id="@+id/lblTravelErrorMsg"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:layout_alignParentTop="true"
+	    android:layout_alignRight="@+id/txtCurrentLoc"
+	    android:text="@string/lblError"
+	    android:textColor="#FF0000"
+	    android:visibility="visible" />
+
+	<Spinner
+	    android:id="@+id/ddTravelType"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignLeft="@+id/txtNoOfPass"
+	    android:layout_centerVertical="true"
+	    android:layout_marginTop="18dp"
+	    android:prompt="@string/ddTravelType" />
+
+	<TextView
+	    android:id="@+id/lblNoOfPassenger"
+	    android:layout_width="75dp"
+	    android:layout_height="wrap_content"
+	    android:layout_alignRight="@+id/lblTravelTime"
+	    android:layout_below="@+id/ddTravelType"
+	    android:text="@string/lblNoOfPassenger" />
+
+</RelativeLayout>
