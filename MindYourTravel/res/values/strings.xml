@@ -27,6 +27,12 @@
     <string name="title_activity_home_page">HomePageActivity</string>
     <string name="btnNewTravelPlan">New travel plan</string>
     <string name="title_activity_travel_plan">TravelPlanActivity</string>
-    <string name="lblCurrentLoc">Current Location :</string>
+    <string name="lblCurrentLoc">You\'r at Location  :</string>
 	<string name="lblCurLocNotfound">Current Location not found</string>
+	<string name="lblStartPoint">Start point :</string>
+	<string name="lblEndPoint">End point :</string>
+	<string name="lblTravelTime">Travel time :</string>
+	<string name="lblTravelMode">Travel mode :</string>
+	<string name="lblNoOfPassenger">No of passenger :</string>
+	<string name="ddTravelType">Select Travel Mode</string>
 </resources>
