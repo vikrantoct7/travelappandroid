@@ -67,8 +67,19 @@ public class RegisterActivity extends Activity {
 				// find the radiobutton by returned id                        
 					validationResult=false;
 					((RadioButton) findViewById(R.id.rdoFemale)).setError("This is mandatory");
+					return ;
 				}
 				
+				int genderValue=0;
+				if(selectedRdoOption.getId() ==R.id.rdoMale  )
+				{
+					genderValue =1;
+				}
+				else if(selectedRdoOption.getId() ==R.id.rdoFemale)
+				{
+					genderValue =2;
+				}
+								
 				if(validationResult)
 				{
 					try
@@ -77,7 +88,7 @@ public class RegisterActivity extends Activity {
 						reqParameters.put("UFNAME", txtFName.getText());
 						reqParameters.put("ULNAME", txtLName.getText());
 						reqParameters.put("ULOGIN", txtUserName.getText());
-						reqParameters.put("GENDER", selectedRdoOption.isChecked());
+						reqParameters.put("GENDER", genderValue);
 						reqParameters.put("AGE", txtAge.getText());
 						reqParameters.put("UPASSWORD", txtPassword.getText());
 						reqParameters.put("UCONTACTNO", txtPhNo.getText());

@@ -7,14 +7,31 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".HomePageActivity" >
+    <TableLayout
+        android:id="@+id/tblParentTravelDetails"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btnNewTravelPlan"
+        android:layout_below="@+id/lblTravelErrorMsg"
+        android:orientation="horizontal" >
+        
+    </TableLayout>
 
     <Button
         android:id="@+id/btnNewTravelPlan"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="20dp"
         android:text="@string/btnNewTravelPlan" />
+
+    <TextView
+        android:id="@+id/lblTravelErrorMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tblParentTravelDetails"
+        android:layout_below="@+id/btnNewTravelPlan"
+        android:text="@string/lblError"
+        android:textColor="#FF0000"
+        android:visibility="visible" />
 
 </RelativeLayout>

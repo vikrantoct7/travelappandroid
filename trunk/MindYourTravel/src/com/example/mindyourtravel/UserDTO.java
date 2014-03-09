@@ -12,7 +12,7 @@ public class UserDTO implements Serializable
 	private String firstName;
 	private String lastName;
 	private String contactNo;
-	private boolean gender;
+	private int gender;
 	private int age;
 	private boolean isAppLoginUser;
 	
@@ -51,11 +51,11 @@ public class UserDTO implements Serializable
 		this.userId = userId;
 	}
 
-	public boolean getGender() {
+	public int getGender() {
 		return gender;
 	}
 
-	public void setGender(boolean gender) {
+	public void setGender(int gender) {
 		this.gender = gender;
 	}
 
