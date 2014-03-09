@@ -8,173 +8,157 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".RegisterActivity" >
 
-    <EditText
-        android:id="@+id/txtLName"
-        android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:layout_alignBaseline="@+id/lblLName"
-        android:layout_alignBottom="@+id/lblLName"
-        android:layout_alignLeft="@+id/txtUserName"
-        android:ems="10"
-        android:inputType="text"
-        android:textSize="12sp"/>
-    
-	<TextView
-        android:id="@+id/lblUserName"
+     <TextView
+        android:id="@+id/lblErrorMsg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/lblLName"
-        android:layout_below="@+id/txtLName"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="20dp"
-        android:text="@string/lblUserName" />
-	
-    <EditText
-        android:id="@+id/txtUserName"
-        android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:layout_alignBaseline="@+id/lblUserName"
-        android:layout_alignBottom="@+id/lblUserName"
-        android:layout_toRightOf="@+id/lblFName"
-        android:layout_centerVertical="true"
-        android:ems="10"
-        android:inputType="text"
-        android:textSize="12sp" />
-	
-    <TextView
-	     android:id="@+id/lblPassword"
-	     android:layout_width="wrap_content"
-	     android:layout_height="wrap_content"
-	     android:layout_below="@+id/txtUserName"
-	     android:layout_marginTop="20dp"
-	     android:layout_toLeftOf="@+id/txtUserPassword"
-	     android:text="@string/lblPassword" />
-	 
-	 <EditText
-	     android:id="@+id/txtUserPassword"
-	     android:layout_width="wrap_content"
-	     android:layout_height="32dp"
-	     android:layout_alignBaseline="@+id/lblPassword"
-	     android:layout_alignBottom="@+id/lblPassword"
-	     android:layout_alignLeft="@+id/rdoGender"
-	     android:layout_alignRight="@+id/txtFName"
-	     android:ems="10"
-	     android:inputType="textPassword" />
-	 <RadioGroup
-	     android:id="@+id/rdoGender"
-	     android:layout_width="fill_parent"
-	     android:layout_height="wrap_content"
-	     android:layout_below="@+id/txtUserPassword"
-	     android:layout_marginTop="17dp"
-	     android:layout_toRightOf="@+id/lblContactNo"
-	     android:orientation="horizontal" >
+        android:layout_alignLeft="@+id/tblUserRegister"
+        android:text="@string/lblError"
+        android:textColor="#FF0000"
+        android:visibility="visible" />
 
-	     <RadioButton
-	         android:id="@+id/rdoMale"
-	         android:layout_width="wrap_content"
-	         android:layout_height="wrap_content"
-	         android:text="@string/genderMale" />
+    <TableLayout
+        android:id="@+id/tblUserRegister"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lblErrorMsg"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal" >
 
-	     <RadioButton
-	         android:id="@+id/rdoFemale"
-	         android:layout_width="wrap_content"
-	         android:layout_height="wrap_content"
-	         android:text="@string/genderFemale" />
-	 </RadioGroup>
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
 
-	 <EditText
-	     android:id="@+id/txtAge"
-	     android:layout_width="60dp"
-	     android:layout_height="32dp"
-	     android:layout_alignBaseline="@+id/lblAge"
-	     android:layout_alignBottom="@+id/lblAge"
-	     android:layout_toRightOf="@+id/lblUserName"
-	     android:inputType="number"
-	     android:ems="10" />
-	
-	  <TextView
-	     android:id="@+id/lblContactNo"
-	     android:layout_width="wrap_content"
-	     android:layout_height="wrap_content"
-	     android:layout_alignLeft="@+id/lblUserName"
-	     android:layout_below="@+id/txtAge"
-	     android:layout_marginTop="20dp"
-	     android:text="@string/lblContactNo" />
-	 <EditText
-	     android:id="@+id/txtPhNo"
-	     android:layout_width="wrap_content"
-	     android:layout_height="32dp"
-	     android:layout_alignBaseline="@+id/lblContactNo"
-	     android:layout_alignBottom="@+id/lblContactNo"
-	     android:layout_alignRight="@+id/txtUserPassword"
-	     android:layout_toRightOf="@+id/lblContactNo"
-	     android:ems="10"
-	     android:inputType="phone" />
+            <TextView
+                android:id="@+id/lblFName"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight=".65"
+                android:text="@string/lblFName" />
 
-	<TextView
-	    android:id="@+id/lblErrorMsg"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignLeft="@+id/lblFName"
-	    android:layout_alignParentRight="true"
-	    android:layout_alignParentTop="true"
-	    android:text="@string/lblError"
-	    android:textColor="#FF0000"
-	    android:visibility="visible" />
+            <EditText
+                android:id="@+id/txtFName"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="text"
+                android:textSize="12sp" >
+                <requestFocus />
+            </EditText>
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+            <TextView
+			    android:id="@+id/lblLName"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight=".65"
+			    android:text="@string/lblLName" />
+             <EditText
+	        	android:id="@+id/txtLName"
+	        	android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:ems="10"
+	        	android:inputType="text"
+	       		android:textSize="12sp"/>
+         </TableRow>
+         <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            <TextView
+			    android:id="@+id/lblAge"
+				android:layout_width="115dp"
+                android:layout_height="fill_parent"
+			    android:text="@string/lblAge" />
+            <EditText
+                android:id="@+id/txtAge"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number" />
+         </TableRow>
+         
+          <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+           <TextView
+			    android:id="@+id/lblGender"
+			   	android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight=".65"
+			    android:text="@string/lblGender" />
+             <RadioGroup
+			     android:id="@+id/rdoGender"
+	        	 android:layout_width="0dp"
+                 android:layout_height="fill_parent"
+                 android:layout_weight="1"
+			     android:orientation="horizontal" >
 
-	<TextView
-	    android:id="@+id/lblFName"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentLeft="true"
-	    android:layout_below="@+id/lblErrorMsg"
-	    android:layout_marginLeft="36dp"
-	    android:text="@string/lblFName" />
+			     <RadioButton
+			         android:id="@+id/rdoMale"
+			         android:layout_width="wrap_content"
+			         android:layout_height="wrap_content"
+			         android:text="@string/genderMale" />
+		
+			     <RadioButton
+			         android:id="@+id/rdoFemale"
+			         android:layout_width="wrap_content"
+			         android:layout_height="wrap_content"
+			         android:text="@string/genderFemale" />
+			 </RadioGroup>
+         </TableRow>
+         
+          <TableRow
+            android:id="@+id/tableRow5"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
 
-	<EditText
-	    android:id="@+id/txtFName"
-	    android:layout_width="wrap_content"
-	    android:layout_height="32dp"
-	    android:layout_alignLeft="@+id/rdoGender"
-	    android:layout_alignTop="@+id/lblFName"
-	    android:ems="10"
-	    android:inputType="text"
-	    android:textSize="12sp" >
+           <TextView
+	     		android:id="@+id/lblContactNo"
+			   	android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight=".65"
+	     		android:text="@string/lblContactNo" />
+          
+            <EditText
+	     		android:id="@+id/txtPhNo"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+	     		android:ems="10"
+	     		android:inputType="phone" />
+        	</TableRow>
+        	
+        	<TableRow
+	            android:id="@+id/tableRow6"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" >
 
-	    <requestFocus />
-	</EditText>
+        		<TextView
+        		    android:id="@+id/lblCondition"
+        		    android:layout_width="wrap_content"
+        		    android:layout_height="fill_parent"
+        		    android:paddingLeft="40dp"
+        		    android:text="@string/lblTermCondition" />
+
+        	</TableRow>
+    </TableLayout>
 
 	<Button
 	    android:id="@+id/btnRegister"
 	    android:layout_width="wrap_content"
 	    android:layout_height="40dp"
-	    android:layout_below="@+id/txtPhNo"
-	    android:layout_centerHorizontal="true"
-	    android:layout_marginTop="17dp"
+	    android:layout_below="@+id/tblUserRegister"
+	    android:layout_marginLeft="46dp"
+	    android:layout_marginTop="15dp"
+	    android:layout_toRightOf="@+id/lblErrorMsg"
 	    android:text="@string/lblRegister" />
-
-	<TextView
-	    android:id="@+id/lblLName"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_below="@+id/txtFName"
-	    android:layout_toLeftOf="@+id/txtLName"
-	    android:text="@string/lblLName" />
-
-	<TextView
-	    android:id="@+id/lblGender"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignRight="@+id/lblLName"
-	    android:layout_alignTop="@+id/rdoGender"
-	    android:text="@string/lblGender" />
-
-	<TextView
-	    android:id="@+id/lblAge"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_centerVertical="true"
-	    android:layout_toLeftOf="@+id/txtUserName"
-	    android:text="@string/lblAge" />
 
 </RelativeLayout>

@@ -8,11 +8,14 @@ import org.json.JSONObject;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -29,7 +32,17 @@ public class RegisterActivity extends Activity {
 		addFocusChangeListernerOnEditText();
 		final Button btnSubmit = (Button)findViewById(R.id.btnRegister);
 		btnSubmit.setOnClickListener(addRegisterButtonListener);
-
+		try
+		{
+			TelephonyManager tMgr =(TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE); 
+			String mPhoneNumber = tMgr.getLine1Number();
+			final EditText txtPhNo= (EditText)findViewById(R.id.txtPhNo);
+			txtPhNo.setText(mPhoneNumber);
+		}
+		catch(Exception ex)
+		{
+			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+		}
 	}
 	
 	private void SetErrorLabelVisibility(int visibility,int errorResId)
@@ -48,16 +61,16 @@ public class RegisterActivity extends Activity {
 			public void onClick(View v) {
 				final TextView txtFName= (TextView)findViewById(R.id.txtFName);
 				final TextView txtLName= (TextView)findViewById(R.id.txtLName);
-				final TextView txtUserName= (TextView)findViewById(R.id.txtUserName);
-				final TextView txtPassword= (TextView)findViewById(R.id.txtUserPassword);
+				//final TextView txtUserName= (TextView)findViewById(R.id.txtUserName);
+				//final TextView txtPassword= (TextView)findViewById(R.id.txtUserPassword);
 				final TextView txtPhNo= (TextView)findViewById(R.id.txtPhNo);
 				final TextView txtAge =(TextView)findViewById(R.id.txtAge);
 				GenericValidator validator = new GenericValidator();
 				boolean validationResult=true;
 				validationResult= validator.validate(txtFName);
 				validationResult =validationResult && validator.validate(txtLName);
-				validationResult =validationResult && validator.validate(txtUserName);
-				validationResult =validationResult && validator.validate(txtPassword);
+				//validationResult =validationResult && validator.validate(txtUserName);
+				//validationResult =validationResult && validator.validate(txtPassword);
 				validationResult= validationResult && validator.validate(txtPhNo);
 				RadioGroup rdoGender = (RadioGroup) findViewById(R.id.rdoGender);
 				// get selected radio button from radioGroup                        
@@ -87,10 +100,10 @@ public class RegisterActivity extends Activity {
 						JSONObject reqParameters= new JSONObject();
 						reqParameters.put("UFNAME", txtFName.getText());
 						reqParameters.put("ULNAME", txtLName.getText());
-						reqParameters.put("ULOGIN", txtUserName.getText());
+						//reqParameters.put("ULOGIN", txtUserName.getText());
 						reqParameters.put("GENDER", genderValue);
 						reqParameters.put("AGE", txtAge.getText());
-						reqParameters.put("UPASSWORD", txtPassword.getText());
+						//reqParameters.put("UPASSWORD", txtPassword.getText());
 						reqParameters.put("UCONTACTNO", txtPhNo.getText());
 						JsonHandler jsonHandler =JsonHandler.getInstance();
 						String url=jsonHandler.getFullUrl("UserRegisteration.php");
@@ -111,7 +124,7 @@ public class RegisterActivity extends Activity {
 						else
 						{
 							Intent intent = new Intent(v.getContext(),RegConfimationActivity.class);
-							intent.putExtra("USERNAME", txtUserName.getText().toString());
+							//intent.putExtra("USERNAME", txtUserName.getText().toString());
 							startActivity(intent);
 						}
 
@@ -142,10 +155,11 @@ public class RegisterActivity extends Activity {
 		txtFName.setOnFocusChangeListener(new TextViewValidator(txtFName));
 		final TextView txtLName= (TextView)findViewById(R.id.txtLName);
 		txtLName.setOnFocusChangeListener(new TextViewValidator(txtLName));
-		final TextView txtUserName= (TextView)findViewById(R.id.txtUserName);
+		/*final TextView txtUserName= (TextView)findViewById(R.id.txtUserName);
 		txtUserName.setOnFocusChangeListener(new TextViewValidator(txtUserName));
 		final TextView txtPassword= (TextView)findViewById(R.id.txtUserPassword);
 		txtPassword.setOnFocusChangeListener(new TextViewValidator(txtPassword));
+		*/
 		final TextView txtPhNo= (TextView)findViewById(R.id.txtPhNo);
 		txtPhNo.setOnFocusChangeListener(new TextViewValidator(txtPhNo));
 	}

@@ -55,22 +55,25 @@ public class HomePageActivity extends Activity {
 				
 				JSONArray jsonData =result.getJSONArray("DATAARRAY");
 
+				TableRow.LayoutParams tblparams = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT,TableRow.LayoutParams.WRAP_CONTENT);
+				
+				TableRow.LayoutParams rowparams = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT,TableRow.LayoutParams.WRAP_CONTENT);
+				TableRow.LayoutParams viewParams = new TableRow.LayoutParams(0,TableRow.LayoutParams.FILL_PARENT,1);
 				
 				for (int i=0;i<jsonData.length();i++ ) 
 				{
 					JSONObject datarow= jsonData.getJSONObject(i);
 					
 					TableLayout tblTravelDetails = new TableLayout(this);
-					TableRow.LayoutParams tblparams = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT,TableRow.LayoutParams.WRAP_CONTENT);
+					
 					tblTravelDetails.setLayoutParams(tblparams);
 					tblTravelDetails.setOrientation(LinearLayout.HORIZONTAL);
 					
 					TableRow tblrow1= new TableRow(this);
 					
-					TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT,TableRow.LayoutParams.WRAP_CONTENT);
-					TableRow.LayoutParams viewParams = new TableRow.LayoutParams(0,TableRow.LayoutParams.FILL_PARENT,1);
+
 					
-					tblrow1.setLayoutParams(params);
+					tblrow1.setLayoutParams(rowparams);
 					tblrow1.setPadding(0, 5, 0, 0);
 					TextView lblUserDetails =new TextView(this);
 					lblUserDetails.setLayoutParams(viewParams);
@@ -96,7 +99,7 @@ public class HomePageActivity extends Activity {
 					
 					TableRow tblrow2= new TableRow(this);
 					
-					tblrow2.setLayoutParams(params);
+					tblrow2.setLayoutParams(rowparams);
 					tblrow2.setPadding(0, 5, 0, 0);
 					TextView lblTravelDetails =new TextView(this);
 					lblTravelDetails.setLayoutParams(viewParams);
@@ -109,7 +112,7 @@ public class HomePageActivity extends Activity {
 					tblrow2.addView(displayTravelDetails);
 					
 					TableRow tblrow3= new TableRow(this);
-					tblrow3.setLayoutParams(params);
+					tblrow3.setLayoutParams(rowparams);
 					tblrow3.setPadding(0, 5, 0, 0);
 					TextView lblStartTime =new TextView(this);
 					lblStartTime.setLayoutParams(viewParams);
@@ -122,7 +125,7 @@ public class HomePageActivity extends Activity {
 					tblrow3.addView(displayStartTime);
 					
 					TableRow tblrow4= new TableRow(this);
-					tblrow4.setLayoutParams(params);
+					tblrow4.setLayoutParams(rowparams);
 					tblrow4.setPadding(0, 5, 0, 0);
 					TextView lblNoOfPassenger =new TextView(this);
 					lblNoOfPassenger.setLayoutParams(viewParams);
@@ -135,7 +138,7 @@ public class HomePageActivity extends Activity {
 					tblrow4.addView(displayNoOfPassenger);
 					
 					TableRow tblrow5= new TableRow(this);
-					tblrow5.setLayoutParams(params);
+					tblrow5.setLayoutParams(rowparams);
 					tblrow5.setPadding(0, 5, 0, 0);
 					Button btnConfimTravel = new Button(this);
 					btnConfimTravel.setText(R.string.btnConfimTravel);
