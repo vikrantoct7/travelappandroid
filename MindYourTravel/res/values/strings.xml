@@ -35,4 +35,8 @@
 	<string name="lblTravelMode">Travel mode :</string>
 	<string name="lblNoOfPassenger">No of passenger :</string>
 	<string name="ddTravelType">Select Travel Mode</string>
+	<string name="btnTravelSubmit">Submit</string>
+	<string name="lblUserDetails">User Details :</string>
+	<string name="lblTravelDetails">Travel Details :</string>
+	<string name="btnConfimTravel">Confirm</string>
 </resources>

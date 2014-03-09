@@ -16,6 +16,7 @@ import android.widget.TextView;
 public class LaunchActivity extends Activity {
 
 	public static XmlDataRepository repository=null;
+	public static int loginUserId;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -88,10 +89,11 @@ public class LaunchActivity extends Activity {
 				{
 					JSONObject jsonData =result.getJSONObject("USERDATA");
 					UserDTO userDto = new UserDTO();
-					userDto.setUserId(jsonData.getInt("USERID"));
+					loginUserId = jsonData.getInt("USERID");
+					userDto.setUserId(loginUserId);
 					userDto.setFirstName(jsonData.getString("UFNAME"));
 					userDto.setLastName(jsonData.getString("ULNAME"));
-					userDto.setGender(jsonData.getBoolean("GENDER"));
+					userDto.setGender(jsonData.getInt("GENDER"));
 					userDto.setAge(jsonData.getInt("AGE"));
 					userDto.setContactNo(jsonData.getString("UCONTACTNO"));
 					userDto.setAppLoginUser(true);

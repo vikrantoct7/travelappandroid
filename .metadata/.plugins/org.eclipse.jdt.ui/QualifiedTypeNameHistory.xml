@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="javax.xml.validation.Validator"/>
-<fullyQualifiedTypeName name="android.widget.EditText"/>
-<fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
 <fullyQualifiedTypeName name="com.example.mindyourtravel.GenericValidator"/>
 <fullyQualifiedTypeName name="java.io.BufferedReader"/>
 <fullyQualifiedTypeName name="java.io.InputStreamReader"/>
@@ -11,7 +8,6 @@
 <fullyQualifiedTypeName name="com.example.mindyourtravel.AppConstant.PHP_ERROR_CODE"/>
 <fullyQualifiedTypeName name="android.view.View"/>
 <fullyQualifiedTypeName name="com.example.mindyourtravel.TextViewValidator"/>
-<fullyQualifiedTypeName name="com.example.mindyourtravel.R.string"/>
 <fullyQualifiedTypeName name="android.webkit.JavascriptInterface"/>
 <fullyQualifiedTypeName name="android.os.Environment"/>
 <fullyQualifiedTypeName name="java.io.File"/>
@@ -28,7 +24,6 @@
 <fullyQualifiedTypeName name="com.example.mindyourtravel.HomePageActivity"/>
 <fullyQualifiedTypeName name="com.example.mindyourtravel.XmlDataRepository"/>
 <fullyQualifiedTypeName name="android.widget.Button"/>
-<fullyQualifiedTypeName name="com.example.mindyourtravel.R.id"/>
 <fullyQualifiedTypeName name="android.location.Address"/>
 <fullyQualifiedTypeName name="android.os.Bundle"/>
 <fullyQualifiedTypeName name="android.os.IBinder"/>
@@ -49,8 +44,20 @@
 <fullyQualifiedTypeName name="org.apache.http.impl.client.DefaultHttpClient"/>
 <fullyQualifiedTypeName name="org.json.JSONObject"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
-<fullyQualifiedTypeName name="org.json.JSONArray"/>
 <fullyQualifiedTypeName name="org.apache.http.client.ClientProtocolException"/>
 <fullyQualifiedTypeName name="org.json.JSONException"/>
 <fullyQualifiedTypeName name="java.io.IOException"/>
+<fullyQualifiedTypeName name="java.util.Calendar"/>
+<fullyQualifiedTypeName name="org.json.JSONArray"/>
+<fullyQualifiedTypeName name="android.widget.ArrayAdapter"/>
+<fullyQualifiedTypeName name="android.widget.Spinner"/>
+<fullyQualifiedTypeName name="android.widget.AdapterView"/>
+<fullyQualifiedTypeName name="android.widget.AdapterView.OnItemSelectedListener"/>
+<fullyQualifiedTypeName name="com.example.mindyourtravel.LaunchActivity"/>
+<fullyQualifiedTypeName name="com.example.mindyourtravel.R.id"/>
+<fullyQualifiedTypeName name="android.widget.TableLayout"/>
+<fullyQualifiedTypeName name="android.widget.TableRow"/>
+<fullyQualifiedTypeName name="com.example.mindyourtravel.R.string"/>
+<fullyQualifiedTypeName name="android.widget.HorizontalScrollView"/>
+<fullyQualifiedTypeName name="android.widget.LinearLayout"/>
 </qualifiedTypeNameHistroy>
