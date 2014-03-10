@@ -6,11 +6,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+//import android.widget.EditText;
 import android.widget.TextView;
 
 public class LaunchActivity extends Activity {
@@ -28,12 +31,40 @@ public class LaunchActivity extends Activity {
 			e.printStackTrace();
 		}
 		
-		final Button btnSingUp =(Button)findViewById(R.id.btnSingUp);
-		btnSingUp.setOnClickListener(onClickBtnSingUp);
-		final Button btnLoginSubmit =(Button)findViewById(R.id.btnLoginSubmit);
-		btnLoginSubmit.setOnClickListener(onClickBtnLogin);
-		
 		SetErrorLabelVisibility(View.INVISIBLE,R.string.lblError);
+		
+		if(repository.GetUsersData() ==null)
+		{
+			try
+			{
+				TelephonyManager tMgr =(TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE); 
+				String mPhoneNumber = tMgr.getLine1Number();
+				if(mPhoneNumber.trim().length() > 0)
+				{
+					CheckLogin(mPhoneNumber);
+				}
+			}
+			catch(Exception ex)
+			{
+				SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+			}
+			if(repository.GetUsersData() == null)
+			{
+				final Button btnSingUp =(Button)findViewById(R.id.btnSingUp);
+				btnSingUp.setOnClickListener(onClickBtnSingUp);
+				final Button btnLoginSubmit =(Button)findViewById(R.id.btnLoginSubmit);
+				btnLoginSubmit.setOnClickListener(onClickBtnLogin);
+			}
+			else
+			{
+				LaunchHomeActivity();
+			}
+		}
+		else
+		{
+			LaunchHomeActivity();
+		}
+
 	}
 
 	@Override
@@ -58,68 +89,75 @@ public class LaunchActivity extends Activity {
 		@Override
 		public void onClick(View view)
 		{
-			
 			final  TextView txtUserName = (TextView)findViewById(R.id.txtLogin);
-			final  TextView txtPassword = (TextView)findViewById(R.id.txtPassword);
-			
-			try
-			{
-				JSONObject reqParameters= new JSONObject();
-				reqParameters.put("ULOGIN", txtUserName.getText());
-				reqParameters.put("UPASSWORD", txtPassword.getText());
-				
-				JsonHandler jsonHandler =JsonHandler.getInstance();
-				String url=jsonHandler.getFullUrl("UserLogin.php");
-				JSONObject result = jsonHandler.PostJsonDataToServer(url, reqParameters);
-				String resultCode= result.getString("RESULT");
-				
-				if(resultCode.contentEquals(AppConstant.PHPResponse_KO))
-				{
-					String errorCode=result.getString("ERRORCODE");
-					if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.NOTEXISTS))
-					{
-						SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorUserNotExist);
-					}
-					else if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
-					{
-						SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-					}
-				}
-				else
-				{
-					JSONObject jsonData =result.getJSONObject("USERDATA");
-					UserDTO userDto = new UserDTO();
-					loginUserId = jsonData.getInt("USERID");
-					userDto.setUserId(loginUserId);
-					userDto.setFirstName(jsonData.getString("UFNAME"));
-					userDto.setLastName(jsonData.getString("ULNAME"));
-					userDto.setGender(jsonData.getInt("GENDER"));
-					userDto.setAge(jsonData.getInt("AGE"));
-					userDto.setContactNo(jsonData.getString("UCONTACTNO"));
-					userDto.setAppLoginUser(true);
-					repository.AddUserDTO(userDto);
-					Intent intent = new Intent(view.getContext(),HomePageActivity.class);
-					startActivity(intent);
-				}
-			}
-			catch(JSONException ex)
-			{
-				SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-			}
-			catch (ClientProtocolException e)
-			{    
-				SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-			}    
-			catch (IOException e) 
-			{    
-				SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-			} 
-			catch(Exception e)
-			{
-				SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-			}
+			//final  TextView txtPassword = (TextView)findViewById(R.id.txtPassword);
+			//final  TextView txtMobileNo = (TextView)findViewById(R.id.txtPassword);
+			CheckLogin(txtUserName.getText().toString());
+			LaunchHomeActivity();
 		}
 	};
+	
+	private void CheckLogin(String userMobileNo)
+	{
+		try
+		{
+			JSONObject reqParameters= new JSONObject();
+			//reqParameters.put("ULOGIN", txtUserName.getText());
+			//reqParameters.put("UPASSWORD", txtPassword.getText());
+			reqParameters.put("UMOBILENO", userMobileNo);
+			
+			JsonHandler jsonHandler =JsonHandler.getInstance();
+			String url=jsonHandler.getFullUrl("UserLogin.php");
+			JSONObject result = jsonHandler.PostJsonDataToServer(url, reqParameters);
+			String resultCode= result.getString("RESULT");
+			
+			if(resultCode.contentEquals(AppConstant.PHPResponse_KO))
+			{
+				String errorCode=result.getString("ERRORCODE");
+				/*if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.NOTEXISTS))
+				{
+					SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorUserNotExist);
+				}
+				else*/ 
+				if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
+				{
+					SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+				}
+			}
+			else
+			{
+				JSONObject jsonData =result.getJSONObject("USERDATA");
+				UserDTO userDto = new UserDTO();
+				loginUserId = jsonData.getInt("USERID");
+				userDto.setUserId(loginUserId);
+				userDto.setFirstName(jsonData.getString("UFNAME"));
+				userDto.setLastName(jsonData.getString("ULNAME"));
+				userDto.setGender(jsonData.getInt("GENDER"));
+				userDto.setAge(jsonData.getInt("AGE"));
+				userDto.setContactNo(jsonData.getString("UCONTACTNO"));
+				userDto.setAppLoginUser(true);
+				repository.AddUserDTO(userDto);
+				
+			}
+		}
+		catch(JSONException ex)
+		{
+			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+		}
+		catch (ClientProtocolException e)
+		{    
+			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+		}    
+		catch (IOException e) 
+		{    
+			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+		} 
+		catch(Exception e)
+		{
+			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+		}
+	}
+	
 	
 	private void SetErrorLabelVisibility(int visibility,int errorResId)
 	{
@@ -129,6 +167,12 @@ public class LaunchActivity extends Activity {
 			lblError.setVisibility(visibility);
 			lblError.setText(errorResId);
 		}
+	}
+	
+	private void LaunchHomeActivity()
+	{
+		Intent intent = new Intent(this.getApplicationContext(),HomePageActivity.class);
+		startActivity(intent);
 	}
 
 }

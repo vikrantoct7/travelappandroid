@@ -58,7 +58,7 @@ public class RegisterActivity extends Activity {
 	private OnClickListener addRegisterButtonListener = new OnClickListener()
 	{
 			@Override
-			public void onClick(View v) {
+			public void onClick(View view) {
 				final TextView txtFName= (TextView)findViewById(R.id.txtFName);
 				final TextView txtLName= (TextView)findViewById(R.id.txtLName);
 				//final TextView txtUserName= (TextView)findViewById(R.id.txtUserName);
@@ -123,8 +123,21 @@ public class RegisterActivity extends Activity {
 						}
 						else
 						{
-							Intent intent = new Intent(v.getContext(),RegConfimationActivity.class);
+							//Intent intent = new Intent(v.getContext(),RegConfimationActivity.class);
 							//intent.putExtra("USERNAME", txtUserName.getText().toString());
+							//startActivity(intent);
+							JSONObject jsonData =result.getJSONObject("USERDATA");
+							UserDTO userDto = new UserDTO();
+							LaunchActivity.loginUserId = jsonData.getInt("USERID");
+							userDto.setUserId(LaunchActivity.loginUserId);
+							userDto.setFirstName(jsonData.getString("UFNAME"));
+							userDto.setLastName(jsonData.getString("ULNAME"));
+							userDto.setGender(jsonData.getInt("GENDER"));
+							userDto.setAge(jsonData.getInt("AGE"));
+							userDto.setContactNo(jsonData.getString("UCONTACTNO"));
+							userDto.setAppLoginUser(true);
+							LaunchActivity.repository.AddUserDTO(userDto);
+							Intent intent = new Intent(view.getContext(),HomePageActivity.class);
 							startActivity(intent);
 						}
 

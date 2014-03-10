@@ -14,7 +14,6 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -40,11 +39,12 @@ public class HomePageActivity extends Activity {
 			if(resultCode.contentEquals(AppConstant.PHPResponse_KO))
 			{
 				String errorCode=result.getString("ERRORCODE");
-				if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.NOTEXISTS))
+				/*if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.NOTEXISTS))
 				{
 					SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorUserNotExist);
 				}
-				else if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
+				else*/ 
+				if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
 				{
 					SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 				}
@@ -55,9 +55,12 @@ public class HomePageActivity extends Activity {
 				
 				JSONArray jsonData =result.getJSONArray("DATAARRAY");
 
+				@SuppressWarnings("deprecation")
 				TableRow.LayoutParams tblparams = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT,TableRow.LayoutParams.WRAP_CONTENT);
 				
+				@SuppressWarnings("deprecation")
 				TableRow.LayoutParams rowparams = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT,TableRow.LayoutParams.WRAP_CONTENT);
+				@SuppressWarnings("deprecation")
 				TableRow.LayoutParams viewParams = new TableRow.LayoutParams(0,TableRow.LayoutParams.FILL_PARENT,1);
 				
 				for (int i=0;i<jsonData.length();i++ ) 
