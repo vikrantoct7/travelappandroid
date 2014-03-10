@@ -40,4 +40,5 @@
 	<string name="lblTravelDetails">Travel Details</string>
 	<string name="btnConfimTravel">Confirm</string>
 	<string name="lblTermCondition">I have read and agree to terms and condition for using this app</string>
+	<string name="lblLoginInformation">If you already register, please login with registered mobile no. otherwise click on "Sign Up" for register yourself.</string>
 </resources>

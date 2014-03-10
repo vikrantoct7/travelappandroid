@@ -6,12 +6,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import android.os.*;
 
 public final class XmlDataRepository {
 	
-	private ArrayList<UserDTO> _userData = new ArrayList<UserDTO>();
+	//private ArrayList<UserDTO> _userData = new ArrayList<UserDTO>();
+	private UserDTO _userData =null;
 	private File _userDataFile;
 	public XmlDataRepository () throws Exception 
 	{
@@ -30,7 +31,7 @@ public final class XmlDataRepository {
 				if(isDirectoryExist)
 				{
 					_userDataFile= new File(dirUserPath,AppConstant.DatabaseFile);
-					_userDataFile.delete();
+					//_userDataFile.delete();
 					if(!_userDataFile.exists())
 					{
 						_userDataFile.createNewFile();
@@ -39,14 +40,13 @@ public final class XmlDataRepository {
 				}
 			}
 		}
-		catch(IOException ex)
+		catch(Exception ex)
 		{
 			ex.printStackTrace();
 			throw ex;
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
 	private void ReadUserDataFile() throws IOException, ClassNotFoundException
 	{	
 		if(_userDataFile !=null)
@@ -56,9 +56,14 @@ public final class XmlDataRepository {
 				FileInputStream fs =new FileInputStream(_userDataFile);
 				if(fs.available()>0)
 				{
-					_userData.clear();
+					if(_userData ==null)
+					{
+						//_userData.clear();
+						_userData = new UserDTO();
+					}
 					ObjectInputStream  deserializer = new ObjectInputStream(fs);
-					_userData = (ArrayList<UserDTO>) deserializer.readObject();
+					//_userData = (ArrayList<UserDTO>) deserializer.readObject();
+					_userData = (UserDTO) deserializer.readObject();
 					deserializer.close();
 				}
 				fs.close();
@@ -68,7 +73,8 @@ public final class XmlDataRepository {
 	
 	private void WriteUserDataFile(UserDTO user) throws IOException
 	{
-		_userData.add(user);
+		//_userData.add(user);
+		_userData=user;
 		if(_userDataFile !=null)
 		{
 			if(_userDataFile.canWrite())
@@ -76,7 +82,7 @@ public final class XmlDataRepository {
 				ObjectOutputStream  serializer = new ObjectOutputStream(new FileOutputStream(_userDataFile));
 				serializer.writeObject(_userData);
 				serializer.close();
-				_userData.clear();
+				//_userData.clear();
 			}
 		}
 	}
@@ -93,7 +99,8 @@ public final class XmlDataRepository {
 		}
 	}
 	
-	public ArrayList<UserDTO> GetUsersData() 
+	//public ArrayList<UserDTO> GetUsersData()
+	public UserDTO GetUsersData()
 	{
 		try
 		{
@@ -116,7 +123,8 @@ public final class XmlDataRepository {
 		{
 			_userDataFile.delete();
 		}
-		_userData.clear();
+		//_userData.clear();
+		_userData=null;
 	}
 	
 }
