@@ -9,16 +9,20 @@ try
 	$jsonInput = json_decode(filter_var(file_get_contents('php://input'), FILTER_UNSAFE_RAW)); 
 	$UFNAME = $jsonInput->UFNAME;
 	$ULNAME = $jsonInput->ULNAME;
-	$ULOGIN = $jsonInput->ULOGIN;
+	//$ULOGIN = $jsonInput->ULOGIN;
 	$GENDER = $jsonInput->GENDER;
 	$AGE = $jsonInput->AGE;
-	$UPASSWORD = $jsonInput->UPASSWORD;
+	//$UPASSWORD = $jsonInput->UPASSWORD;
 	$UCONTACTNO = $jsonInput->UCONTACTNO;
-	$count = Count_Record('aasv_user','USERID','ULOGIN="'.$ULOGIN.'"');
+	//$count = Count_Record('aasv_user','USERID','ULOGIN="'.$ULOGIN.'"');
+	$count = Count_Record('aasv_user','USERID','UCONTACTNO="'.$UCONTACTNO.'"');
 	if($count <= 0)
 	{
-		$sql =$db->Query("CALL aasv_user_insert('".$UFNAME."','".$ULNAME."','".$ULOGIN."',".$GENDER.",'".$AGE."','".$UPASSWORD."','".$UCONTACTNO."')");
+		$sql =$db->Query("CALL aasv_user_insert('".$UFNAME."','".$ULNAME."','".$GENDER."','".$AGE."','".$UCONTACTNO."')");
 		$result['RESULT'] = 'OK';
+		while($row = mysql_fetch_array($sql)){
+			$result['USERDATA'] = $row;
+		}
 	}
 	else
 	{
