@@ -7,9 +7,11 @@ try
 {
 	
 	$jsonInput = json_decode(filter_var(file_get_contents('php://input'), FILTER_UNSAFE_RAW)); 
-	$ULOGIN = $jsonInput->ULOGIN;
-	$UPASSWORD = $jsonInput->UPASSWORD;
-	$queryResult = $db->Query("CALL aasv_user_getloginuserdata('".$ULOGIN."','".$UPASSWORD."')");
+	//$ULOGIN = $jsonInput->ULOGIN;
+	//$UPASSWORD = $jsonInput->UPASSWORD;
+	$UMOBILENO = $jsonInput->UMOBILENO;
+	//$queryResult = $db->Query("CALL aasv_user_getloginuserdata('".$ULOGIN."','".$UPASSWORD."')");
+	$queryResult = $db->Query("CALL aasv_user_getloginuserdata('".$UMOBILENO."')");
 	if(mysql_num_rows($queryResult) > 0)
 	{
 		$result['RESULT'] = 'OK';
