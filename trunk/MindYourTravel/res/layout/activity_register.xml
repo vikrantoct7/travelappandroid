@@ -160,20 +160,31 @@
         		    android:id="@+id/lblCondition"
         		    android:layout_width="wrap_content"
         		    android:layout_height="fill_parent"
-        		    android:paddingLeft="40dp"
+        		    android:paddingLeft="30dp"
         		    android:text="@string/lblTermCondition" />
 
         	</TableRow>
+        	<TableRow
+	            android:id="@+id/tableRow7"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" >
+				<TextView
+				    android:id="@+id/dumy1"
+				    android:layout_width="0dp"
+				    android:layout_height="fill_parent"
+				    android:layout_weight=".5" />
+        		<Button
+        		    android:id="@+id/btnRegister"
+        		    android:layout_width="wrap_content"
+        		    android:layout_height="fill_parent"
+        		    android:layout_weight=".5"
+        		    android:text="@string/lblRegister"
+        		    android:visibility="visible" />
+				<TextView
+				    android:id="@+id/dumy2"
+				    android:layout_width="0dp"
+				    android:layout_height="fill_parent"
+				    android:layout_weight=".5" />
+        	</TableRow>
     </TableLayout>
-
-    <Button
-        android:id="@+id/btnRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_below="@+id/tblUserRegister"
-        android:layout_marginLeft="60dp"
-        android:layout_toRightOf="@+id/lblErrorMsg"
-        android:visibility="visible"
-        android:text="@string/lblRegister" />
-
 </RelativeLayout>
