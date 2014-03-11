@@ -127,8 +127,8 @@ public class TravelPlanActivity extends Activity {
 		public void onClick(View view)
 		{
 			final  TextView txtCurrentLoc = (TextView)findViewById(R.id.txtCurrentLoc);
-			final  TextView txtStartPoint = (TextView)findViewById(R.id.txtStartPoint);
-			final  TextView txtEndPoint = (TextView)findViewById(R.id.txtEndPoint);
+			final  TextView txtStartPoint = (TextView)findViewById(R.id.txtStartLoc);
+			final  TextView txtEndPoint = (TextView)findViewById(R.id.txtEndLoc);
 			final  TextView txtStartTime = (TextView)findViewById(R.id.txtStartTime);
 			final  TextView txtNoOfPass = (TextView)findViewById(R.id.txtNoOfPass);
 			final  Spinner  ddTravelType =(Spinner)findViewById(R.id.ddTravelType);
