@@ -10,13 +10,22 @@ $conf["PREFIX"]="tbl_";
 class DB{
 	var $cn;
 	var $result;
+	var $DbHost;
+	var $DbUserName;
+	var $DbPassword;
+	var $DbName;
 	function DB(){
-		$DbHost=DB_HOST;
-		$DbUserName=DB_USER;
-		$DbPassword=DB_PASSWORD;
-		$DbName=DB_DATABASE;
-		$this->cn=@mysql_connect($DbHost,$DbUserName,$DbPassword);
-		mysql_select_db($DbName,$this->cn) or Site_Error("Configuration");
+		$this->DbHost=DB_HOST;
+		$this->DbUserName=DB_USER;
+		$this->DbPassword=DB_PASSWORD;
+		$this->DbName=DB_DATABASE;
+		$this->cn=@mysql_connect($this->DbHost,$this->DbUserName,$this->DbPassword);
+		mysql_select_db($this->DbName,$this->cn) or Site_Error("Configuration");
+	}
+	function ReConnect(){
+		mysql_close($this->cn);
+		$this->cn=@mysql_connect($this->DbHost,$this->DbUserName,$this->DbPassword);
+		mysql_select_db($this->DbName,$this->cn) or Site_Error("Configuration");
 	}
 	function Limit($offset){mysql_data_seek($this->result,$offset) or die(display_error(mysql_error(), mysql_errno(), $sql));}
 	function InsertId(){return mysql_insert_id($this->cn);}
@@ -43,15 +52,21 @@ class DB{
 		mysql_free_result( $cur );
 		return $array;
 	}
-	function FreeResult(){if(isset($this->result)) mysql_free_result($this->result);}
-	function Close(){
-		if($this->cn) mysql_close($this->cn);
+	function FreeResult(){
+	if(isset($this->result)) 
+		mysql_free_result($this->result);
 	}
+	function Close(){
+			mysql_close($this->cn);
+	}
+	
 	function __destruct(){
 		if($this->cn) mysql_close($this->cn);
 	}
 	function GetField($p){return mysql_fetch_field($this->result, $p);}
 	function NumField(){return mysql_num_fields($this->result);}
+	
+
 }
 function display_error($error, $error_num, $query){
 	$query='';
