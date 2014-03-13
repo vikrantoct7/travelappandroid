@@ -25,7 +25,7 @@ try
 		//Error code to define record is not exist
 		$result['ERRORCODE']="101";
 	}
-
+	$db->FreeResult();
 }
 catch(Exception $e)
 {

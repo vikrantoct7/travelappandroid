@@ -30,7 +30,7 @@ try
 		//Error code to define record already exist
 		$result['ERRORCODE']="102";
 	}
-
+	$db->FreeResult();
 }
 catch(Exception $e)
 {

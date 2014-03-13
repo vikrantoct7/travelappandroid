@@ -17,7 +17,7 @@ try
 		while($row = mysql_fetch_array($queryResult)){
 			$resultSet[]=$row;
 		}
-		$result['DATAARRAY'] = $resultSet;
+		$result['TRAVELLIST'] = $resultSet;
 	}
 	else
 	{
@@ -25,6 +25,7 @@ try
 		//Error code to define record is not exist
 		$result['ERRORCODE']="101";
 	}
+	$db->FreeResult();
 }
 catch(Exception $e)
 {
