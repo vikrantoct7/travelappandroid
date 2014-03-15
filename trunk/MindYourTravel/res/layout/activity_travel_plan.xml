@@ -39,15 +39,22 @@
                  android:layout_weight=".35"
                  android:text="@string/lblCurrentLoc" />
            
-             <TextView
+            <!--   <TextView
                  android:id="@+id/txtCurrentLoc"
                  android:layout_width="0dp"
                  android:layout_height="fill_parent"
                  android:layout_weight=".50"
                  android:text="@string/lblCurLocNotfound"
-                 android:textSize="12sp" >
+                 android:textSize="12sp" />
+             -->
+              <Spinner
+			    android:id="@+id/ddCurrentLoc"
+			    android:layout_width="0dp"
+			    android:layout_height="wrap_content"
+			    android:layout_weight=".50"
+			    android:prompt="@string/ddSelLocation" />
 
-			</TextView>
+
         </TableRow>
         
         <TableRow
@@ -86,7 +93,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight=".35"
 	    		android:text="@string/lblEndLoc" />
-
+			<!--  
 			<EditText
 			    android:id="@+id/txtEndLoc"
                 android:layout_width="0dp"
@@ -95,6 +102,14 @@
 			    android:ems="10"
 			    android:inputType="text"
 			    android:textSize="12sp" />
+			 -->
+			 <Spinner
+			    android:id="@+id/ddEndLocation"
+			    android:layout_width="0dp"
+			    android:layout_height="wrap_content"
+			    android:layout_weight=".50"
+			    android:prompt="@string/ddSelLocation" />
+			
          </TableRow>
          <TableRow
              android:id="@+id/tableRow4"

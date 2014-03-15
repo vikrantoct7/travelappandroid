@@ -59,7 +59,7 @@ public class LoginActivity extends Activity {
 				SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 			}
 			
-			Intent intent = new Intent(view.getContext(),HomePageActivity.class);
+			Intent intent = new Intent(view.getContext(),TravelListActivity.class);
 			startActivity(intent);
 		}
 	};

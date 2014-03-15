@@ -42,5 +42,10 @@
     <string name="lblTermCondition">I have read and agree to terms and condition for using this app</string>
     <string name="lblLoginInformation">If you already register, please login with registered mobile no. otherwise click on "Sign Up" for register yourself.</string>
     <string name="title_activity_login">LoginActivity</string>
-
+	<string name="ddSelLocation">Select location</string>
+	<string name="btnDeleteTravel">Delete</string>
+	<string name="titleConfirmBox">Confirm</string>
+	<string name="titlePlanDeleteMsg">Are you sure?</string>
+	<string name="lblYes">Yes</string>
+	<string name="lblNo">No</string>
 </resources>
