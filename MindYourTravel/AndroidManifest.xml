@@ -39,7 +39,7 @@
             android:label="@string/title_activity_registration_confimation" >
         </activity>
         <activity
-            android:name="com.example.mindyourtravel.HomePageActivity"
+            android:name="com.example.mindyourtravel.TravelListActivity"
             android:label="@string/title_activity_home_page" >
         </activity>
         <activity

@@ -88,7 +88,7 @@ public class LaunchActivity extends Activity {
 	
 	public void LaunchHomeActivity()
 	{
-		Intent intent = new Intent(this.getApplicationContext(),HomePageActivity.class);
+		Intent intent = new Intent(this.getApplicationContext(),TravelListActivity.class);
 		startActivity(intent);
 	}
 

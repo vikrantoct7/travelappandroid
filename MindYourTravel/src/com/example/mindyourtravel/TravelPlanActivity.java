@@ -30,9 +30,9 @@ public class TravelPlanActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_travel_plan);
 		
-		// create class object
+		/*// create class object
         gps = new GPSTracker(this);
-     // check if GPS enabled     
+        // check if GPS enabled     
         if(gps.canGetLocation())
         {
         	TextView curLocationView =(TextView) findViewById(R.id.txtCurrentLoc);
@@ -44,7 +44,7 @@ public class TravelPlanActivity extends Activity {
             // GPS or Network is not enabled
             // Ask user to enable GPS/network in settings
             gps.showSettingsAlert();
-       	}
+       	}*/
         
         SetErrorLabelVisibility(View.INVISIBLE,R.string.lblError);
         final EditText timebox= (EditText)findViewById(R.id.txtStartTime);
@@ -60,9 +60,9 @@ public class TravelPlanActivity extends Activity {
 		{
 		
 	        JSONObject reqParameters= new JSONObject();
-			reqParameters.put("DATATYPE", "TRAVELMODE");
+			reqParameters.put("CONUSERID", LaunchActivity.loginUserId);
 			JsonHandler jsonHandler =JsonHandler.getInstance();
-			String url=jsonHandler.getFullUrl("DataAdapterFactory.php");
+			String url=jsonHandler.getFullUrl("TravelPlanDataAdapter.php");
 			JSONObject result = jsonHandler.PostJsonDataToServer(url, reqParameters);
 			String resultCode= result.getString("RESULT");
 			if(resultCode.contentEquals(AppConstant.PHPResponse_KO))
@@ -79,19 +79,34 @@ public class TravelPlanActivity extends Activity {
 			}
 			else
 			{
-				JSONArray jsonData =result.getJSONArray("DATAARRAY");
-				String[] travelType =new String[jsonData.length()];
-				for (int i=0;i<jsonData.length();i++ ) 
+				JSONArray travelModeData =result.getJSONArray("TRAVELMODE");
+				String[] travelType =new String[travelModeData.length()];
+				for (int i=0;i<travelModeData.length();i++ ) 
 				{
-					JSONObject row= jsonData.getJSONObject(i);
+					JSONObject row= travelModeData.getJSONObject(i);
 					travelType[i] = row.getString("TYPE");
 				}
-				
-				
+
 				ArrayAdapter<String> adapterTravel = new ArrayAdapter<String>(this,  android.R.layout.simple_spinner_item, travelType);
 				adapterTravel.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 				final Spinner ddTravelType=(Spinner)findViewById(R.id.ddTravelType);
 				ddTravelType.setAdapter(adapterTravel);
+				
+				JSONArray cityLocalitesData =result.getJSONArray("CITYLOCALITES");
+				String[] cityLocalitesType =new String[cityLocalitesData.length()];
+				for (int i=0;i<cityLocalitesData.length();i++ ) 
+				{
+					JSONObject row= cityLocalitesData.getJSONObject(i);
+					cityLocalitesType[i] = row.getString("LOCALITY");
+				}
+
+				ArrayAdapter<String> adapterLocation = new ArrayAdapter<String>(this,  android.R.layout.simple_spinner_item, cityLocalitesType);
+				adapterLocation.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				final Spinner ddCurrentLoc=(Spinner)findViewById(R.id.ddCurrentLoc);
+				ddCurrentLoc.setAdapter(adapterLocation);
+				
+				final Spinner ddEndLocation=(Spinner)findViewById(R.id.ddEndLocation);
+				ddEndLocation.setAdapter(adapterLocation);
 			}
 		}
         catch (IOException e) 
@@ -126,9 +141,11 @@ public class TravelPlanActivity extends Activity {
 		@Override
 		public void onClick(View view)
 		{
-			final  TextView txtCurrentLoc = (TextView)findViewById(R.id.txtCurrentLoc);
+			//final  TextView txtCurrentLoc = (TextView)findViewById(R.id.txtCurrentLoc);
+			final  Spinner  ddCurrentLoc =(Spinner)findViewById(R.id.ddCurrentLoc);
 			final  TextView txtStartPoint = (TextView)findViewById(R.id.txtStartLoc);
-			final  TextView txtEndPoint = (TextView)findViewById(R.id.txtEndLoc);
+			//final  TextView txtEndPoint = (TextView)findViewById(R.id.txtEndLoc);
+			final  Spinner  ddEndLocation =(Spinner)findViewById(R.id.ddEndLocation);
 			final  TextView txtStartTime = (TextView)findViewById(R.id.txtStartTime);
 			final  TextView txtNoOfPass = (TextView)findViewById(R.id.txtNoOfPass);
 			final  Spinner  ddTravelType =(Spinner)findViewById(R.id.ddTravelType);
@@ -136,9 +153,11 @@ public class TravelPlanActivity extends Activity {
 			{
 				JSONObject reqParameters= new JSONObject();
 				reqParameters.put("USERID", LaunchActivity.loginUserId);
-				reqParameters.put("CURRLOCATION", txtCurrentLoc.getText());
+				//reqParameters.put("CURRLOCATION", txtCurrentLoc.getText());
+				reqParameters.put("CURRLOCATION", ddCurrentLoc.getSelectedItem());
 				reqParameters.put("STARTLOCATION", txtStartPoint.getText());
-				reqParameters.put("ENDLOCATION", txtEndPoint.getText());
+				//reqParameters.put("ENDLOCATION", txtEndPoint.getText());
+				reqParameters.put("ENDLOCATION", ddEndLocation.getSelectedItem());
 				reqParameters.put("TRAVELTIME", txtStartTime.getText());
 				reqParameters.put("TRAVELMODE", ddTravelType.getSelectedItem());
 				reqParameters.put("NOOFPASSENGER", txtNoOfPass.getText());
@@ -160,7 +179,7 @@ public class TravelPlanActivity extends Activity {
 				}
 				else
 				{
-					Intent intent = new Intent(view.getContext(),HomePageActivity.class);
+					Intent intent = new Intent(view.getContext(),TravelListActivity.class);
 					startActivity(intent);
 				}
 			}

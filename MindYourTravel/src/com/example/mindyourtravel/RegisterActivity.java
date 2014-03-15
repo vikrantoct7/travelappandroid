@@ -137,7 +137,7 @@ public class RegisterActivity extends Activity {
 							userDto.setContactNo(jsonData.getString("UCONTACTNO"));
 							userDto.setAppLoginUser(true);
 							LaunchActivity.repository.AddUserDTO(userDto);
-							Intent intent = new Intent(view.getContext(),HomePageActivity.class);
+							Intent intent = new Intent(view.getContext(),TravelListActivity.class);
 							startActivity(intent);
 						}
 
