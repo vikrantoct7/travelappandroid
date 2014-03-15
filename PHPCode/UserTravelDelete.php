@@ -7,8 +7,11 @@ try
 {
 	
 	$jsonInput = json_decode(filter_var(file_get_contents('php://input'), FILTER_UNSAFE_RAW)); 
+	$TRAVELID = $jsonInput->TRAVELID;
 	$CONUSERID = $jsonInput->CONUSERID;
 	
+	$queryResult = $db->Query("CALL aasv_user_traveldelete('".$TRAVELID."')");
+	$db->ReConnect();
 	$db->Query("CALL aasv_user_travelmatch('".$CONUSERID."')");
 	$result['TRAVELLIST'] = $db->loadObjectList();
 	if(count($result)>0)
