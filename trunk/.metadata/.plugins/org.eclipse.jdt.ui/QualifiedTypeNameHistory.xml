@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.example.mindyourtravel.GenericValidator"/>
-<fullyQualifiedTypeName name="java.io.BufferedReader"/>
-<fullyQualifiedTypeName name="java.io.InputStreamReader"/>
-<fullyQualifiedTypeName name="android.widget.RadioButton"/>
-<fullyQualifiedTypeName name="com.example.mindyourtravel.PHP_ERROR_CODE"/>
 <fullyQualifiedTypeName name="com.example.mindyourtravel.AppConstant.PHP_ERROR_CODE"/>
 <fullyQualifiedTypeName name="android.view.View"/>
 <fullyQualifiedTypeName name="com.example.mindyourtravel.TextViewValidator"/>
@@ -29,8 +24,6 @@
 <fullyQualifiedTypeName name="android.os.IBinder"/>
 <fullyQualifiedTypeName name="android.content.Intent"/>
 <fullyQualifiedTypeName name="android.app.Service"/>
-<fullyQualifiedTypeName name="android.app.AlertDialog"/>
-<fullyQualifiedTypeName name="android.content.DialogInterface"/>
 <fullyQualifiedTypeName name="android.provider.Settings"/>
 <fullyQualifiedTypeName name="android.widget.TextView"/>
 <fullyQualifiedTypeName name="android.location.Geocoder"/>
@@ -53,11 +46,18 @@
 <fullyQualifiedTypeName name="android.widget.Spinner"/>
 <fullyQualifiedTypeName name="android.widget.AdapterView"/>
 <fullyQualifiedTypeName name="android.widget.AdapterView.OnItemSelectedListener"/>
-<fullyQualifiedTypeName name="com.example.mindyourtravel.LaunchActivity"/>
 <fullyQualifiedTypeName name="com.example.mindyourtravel.R.id"/>
 <fullyQualifiedTypeName name="android.widget.TableLayout"/>
 <fullyQualifiedTypeName name="android.widget.TableRow"/>
 <fullyQualifiedTypeName name="com.example.mindyourtravel.R.string"/>
 <fullyQualifiedTypeName name="android.widget.HorizontalScrollView"/>
 <fullyQualifiedTypeName name="android.widget.LinearLayout"/>
+<fullyQualifiedTypeName name="android.content.Context"/>
+<fullyQualifiedTypeName name="android.telephony.TelephonyManager"/>
+<fullyQualifiedTypeName name="android.widget.EditText"/>
+<fullyQualifiedTypeName name="com.example.mindyourtravel.LaunchActivity"/>
+<fullyQualifiedTypeName name="com.example.mindyourtravel.LoginActivity"/>
+<fullyQualifiedTypeName name="android.app.AlertDialog"/>
+<fullyQualifiedTypeName name="android.content.DialogInterface"/>
+<fullyQualifiedTypeName name="java.util.Collections"/>
 </qualifiedTypeNameHistroy>
