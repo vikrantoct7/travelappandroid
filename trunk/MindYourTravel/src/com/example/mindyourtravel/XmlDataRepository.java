@@ -6,12 +6,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-//import java.util.ArrayList;
 import android.os.*;
 
 public final class XmlDataRepository {
 	
-	//private ArrayList<UserDTO> _userData = new ArrayList<UserDTO>();
+	//private SparseArray<UserDTO> _userList = new SparseArray<UserDTO>();
 	private UserDTO _userData =null;
 	private File _userDataFile;
 	public XmlDataRepository () throws Exception 
@@ -126,5 +125,23 @@ public final class XmlDataRepository {
 		//_userData.clear();
 		_userData=null;
 	}
+	
+	/*public void AddUserInList(int userId,UserDTO userObject)
+	{
+		if(_userList.indexOfKey(userId) != -1)
+		{
+			_userList.put(userId, userObject);
+		}
+	}
+	
+	public UserDTO GetUserFromList(int userId)
+	{
+		return _userList.get(userId);
+	}
+	
+	public void ClearUserList()
+	{
+		_userList.clear();
+	}*/
 	
 }

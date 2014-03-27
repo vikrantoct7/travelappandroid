@@ -1,18 +1,20 @@
 package com.example.mindyourtravel;
 
 import java.io.IOException;
-import java.util.Collections;
-
 import org.apache.http.client.ClientProtocolException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.example.mindyourtravel.R.id;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,9 +29,8 @@ public class TravelListActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_home_page);
-		final Button btnNewPlan = (Button)findViewById(R.id.btnNewTravelPlan);
-		btnNewPlan.setOnClickListener(onClickNewPlan);
+		setContentView(R.layout.activity_travel_list);
+		
 		SetErrorLabelVisibility(View.INVISIBLE,R.string.lblError);
 		try
 		{
@@ -42,11 +43,6 @@ public class TravelListActivity extends Activity {
 			if(resultCode.contentEquals(AppConstant.PHPResponse_KO))
 			{
 				String errorCode=result.getString("ERRORCODE");
-				/*if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.NOTEXISTS))
-				{
-					SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorUserNotExist);
-				}
-				else*/ 
 				if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
 				{
 					SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
@@ -54,8 +50,19 @@ public class TravelListActivity extends Activity {
 			}
 			else
 			{
+				final Button btnNewPlan = (Button)findViewById(R.id.btnNewTravelPlan);
+				btnNewPlan.setOnClickListener(onClickNewPlan);
+				
 				JSONArray jsonData =result.getJSONArray("TRAVELLIST");
-				generateTravelList(jsonData);
+				if(jsonData.length()>0)
+				{
+					btnNewPlan.setEnabled(false);
+					generateTravelList(jsonData);
+				}
+				else
+				{
+					btnNewPlan.setEnabled(true);
+				}
 				
 			}
 		}
@@ -76,7 +83,8 @@ public class TravelListActivity extends Activity {
 			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 		}
 		
-
+		final TableLayout tblUserDetail = (TableLayout) findViewById(R.id.tblUserDetail); 
+		tblUserDetail.setVisibility(View.INVISIBLE);
 	}
 
 	private void generateTravelList(JSONArray jsonData)
@@ -94,20 +102,28 @@ public class TravelListActivity extends Activity {
 			TableRow.LayoutParams rowparams = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT,TableRow.LayoutParams.WRAP_CONTENT);
 			@SuppressWarnings("deprecation")
 			TableRow.LayoutParams viewParams = new TableRow.LayoutParams(0,TableRow.LayoutParams.FILL_PARENT,1);
-			
+
 			for (int i=0;i<jsonData.length();i++ ) 
 			{
 				JSONObject datarow= jsonData.getJSONObject(i);
 				
-				TableLayout tblTravelDetails = new TableLayout(this);
+				UserDTO userDto = new UserDTO();
+				int userId = datarow.getInt("USERID");
+				userDto.setUserId(userId);
+				userDto.setFirstName(datarow.getString("UFNAME"));
+				userDto.setLastName(datarow.getString("ULNAME"));
+				userDto.setGender(datarow.getInt("GENDER"));
+				userDto.setAge(datarow.getInt("AGE"));
+				userDto.setContactNo(datarow.getString("UCONTACTNO"));
+				userDto.setAppLoginUser(false);
+		
 				
+				TableLayout tblTravelDetails = new TableLayout(this);
 				tblTravelDetails.setLayoutParams(tblparams);
 				tblTravelDetails.setOrientation(LinearLayout.HORIZONTAL);
 				
 				TableRow tblrow1= new TableRow(this);
-				
-	
-				
+			
 				tblrow1.setLayoutParams(rowparams);
 				tblrow1.setPadding(0, 5, 0, 0);
 				TextView lblUserDetails =new TextView(this);
@@ -116,18 +132,9 @@ public class TravelListActivity extends Activity {
 				
 				TextView displayUserDetails =new TextView(this);
 				displayUserDetails.setLayoutParams(viewParams);
-				int gender =datarow.getInt("GENDER");
-				String genderStr="M";
-				if(gender ==1)
-				{
-					genderStr="M";
-				}
-				else if(gender ==2)
-				{
-					genderStr="F";
-				}
-				String age = Integer.toString(datarow.getInt("AGE"));
-				String userDetail = datarow.getString("UFNAME") + " " +  datarow.getString("ULNAME") + " "  + age + " " +genderStr;
+				
+				String age = Integer.toString(userDto.getAge());
+				String userDetail = userDto.getUserFullName() + " "  + age + " " +userDto.getGenderStringValue();
 				displayUserDetails.setText(userDetail);
 				tblrow1.addView(lblUserDetails);
 				tblrow1.addView(displayUserDetails);
@@ -151,11 +158,11 @@ public class TravelListActivity extends Activity {
 				tblrow3.setPadding(0, 5, 0, 0);
 				TextView lblStartTime =new TextView(this);
 				lblStartTime.setLayoutParams(viewParams);
-				lblStartTime.setText(R.string.lblTravelTime);
+				lblStartTime.setText(R.string.lblTravelerTimeMode);
 				
 				TextView displayStartTime =new TextView(this);
 				displayStartTime.setLayoutParams(viewParams);
-				displayStartTime.setText(datarow.getString("TRAVELTIME"));
+				displayStartTime.setText(datarow.getString("TRAVELTIME") + "/"+ datarow.getString("TRAVELMODE"));
 				tblrow3.addView(lblStartTime);
 				tblrow3.addView(displayStartTime);
 				
@@ -176,15 +183,17 @@ public class TravelListActivity extends Activity {
 				tblrow5.setLayoutParams(rowparams);
 				tblrow5.setPadding(0, 5, 0, 0);
 				Button btnSubmitTravel = new Button(this);
+				// TODO To be check whether it is effective to use setTag method for passing object
 				if(datarow.getInt("ISSELFPLAN")==1)
 				{
 					btnSubmitTravel.setOnClickListener(onDeleteButton);
-					btnSubmitTravel.setHint(datarow.getString("TRAVELID"));
+					btnSubmitTravel.setTag(datarow.getString("TRAVELID"));
 					btnSubmitTravel.setText(R.string.btnDeleteTravel);
 				}
 				else
 				{
-					btnSubmitTravel.setHint(datarow.getString("USERID"));
+					btnSubmitTravel.setOnClickListener(onConfirmButton);
+					btnSubmitTravel.setTag(userDto);
 					btnSubmitTravel.setText(R.string.btnConfimTravel);
 				}
 				tblrow5.addView(btnSubmitTravel);
@@ -224,8 +233,41 @@ public class TravelListActivity extends Activity {
 		@Override
 		public void onClick(View view)
 		{
-			Intent intent = new Intent(view.getContext(),TravelPlanActivity.class);
-			startActivity(intent);
+			UserDTO userDto= (UserDTO) view.getTag();
+			
+			if(userDto !=null)
+			{
+				Context context =view.getContext();
+	
+				// Get the layout inflater    
+				LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				
+				View userView = mInflater.inflate(R.layout.customdialog,null);
+				TextView txtTravelerName = (TextView) userView.findViewById(id.txtTravelerName);
+				txtTravelerName.setText(userDto.getUserFullName());
+				TextView txtAge =(TextView) userView.findViewById(id.txtAge);
+				String age = Integer.toString(userDto.getAge());
+				txtAge.setText( age);
+				TextView txtGender = (TextView)userView.findViewById(id.txtGender);
+				txtGender.setText(userDto.getGenderStringValue());
+				TextView txtContactNo =(TextView)userView.findViewById(id.txtContactNo);
+				txtContactNo.setText(userDto.getContactNo());
+				
+				
+				//Ask the user if they want to quit
+		        new AlertDialog.Builder(context)
+		        .setIcon(android.R.drawable.ic_dialog_alert)
+		        .setView(userView)
+		        .setTitle(R.string.titleConfirmBox)
+		        .setPositiveButton(R.string.lblYes, new DialogInterface.OnClickListener() {
+		            @Override
+		            public void onClick(DialogInterface dialog, int which) {
+		              
+		            	}
+		            })
+			        .setNegativeButton(R.string.lblNo, null)
+			        .show();
+			}
 		}
 	};
 	
@@ -234,7 +276,7 @@ public class TravelListActivity extends Activity {
 		@Override
 		public void onClick(View view)
 		{
-			final Button deleteBtn = (Button)view;
+			final String travelid=(String) view.getTag();
 			
 			//Ask the user if they want to quit
 	        new AlertDialog.Builder(view.getContext())
@@ -244,10 +286,8 @@ public class TravelListActivity extends Activity {
 	        .setPositiveButton(R.string.lblYes, new DialogInterface.OnClickListener() {
 	            @Override
 	            public void onClick(DialogInterface dialog, int which) {
-	            		
 	            	try
 	            	{
-		            	String travelid=(String) deleteBtn.getHint();
 		            	JSONObject reqParameters= new JSONObject();
 		    			reqParameters.put("TRAVELID", travelid);
 		    			reqParameters.put("CONUSERID", LaunchActivity.loginUserId);

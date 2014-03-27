@@ -48,4 +48,6 @@
 	<string name="titlePlanDeleteMsg">Are you sure?</string>
 	<string name="lblYes">Yes</string>
 	<string name="lblNo">No</string>
+	<string name="lblTravelerName">Traveler Name</string>
+	<string name="lblTravelerTimeMode">Travel Time/Modee</string>
 </resources>
