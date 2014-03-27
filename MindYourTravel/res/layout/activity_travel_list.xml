@@ -1,0 +1,81 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent" 
+  android:layout_height="match_parent">
+
+<RelativeLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".TravelListActivity" >
+    <TableLayout
+        android:id="@+id/tblParentTravelDetails"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btnNewTravelPlan"
+        android:layout_below="@+id/lblTravelErrorMsg"
+        android:orientation="horizontal" >
+        
+    </TableLayout>
+
+    <Button
+        android:id="@+id/btnNewTravelPlan"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="@string/btnNewTravelPlan" />
+
+    <TextView
+        android:id="@+id/lblTravelErrorMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tblParentTravelDetails"
+        android:layout_below="@+id/btnNewTravelPlan"
+        android:text="@string/lblError"
+        android:textColor="#FF0000"
+        android:visibility="visible" />
+    
+    <TableLayout
+        android:id="@+id/tblUserDetail"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lblTravelErrorMsg"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        android:visibility="invisible" >
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:paddingBottom="10dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+             <TextView
+                 android:id="@+id/lblCurrentLoc"
+                 android:layout_width="0dp"
+                 android:layout_height="fill_parent"
+                 android:layout_weight=".35"
+                 android:text="@string/lblCurrentLoc" />
+      
+            
+        </TableRow>
+        
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+             
+            <TextView
+                android:id="@+id/lblStartLoc"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight=".35"
+                android:text="@string/lblStartLoc" />
+
+           
+         </TableRow>
+	</TableLayout>
+</RelativeLayout>
+</ScrollView>
