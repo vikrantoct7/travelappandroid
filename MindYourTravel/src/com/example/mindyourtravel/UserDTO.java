@@ -74,4 +74,23 @@ public class UserDTO implements Serializable
 	public void setAppLoginUser(boolean isAppLoginUser) {
 		this.isAppLoginUser = isAppLoginUser;
 	}
+	
+	public String getUserFullName()
+	{
+		return this.firstName +  this.lastName;
+	}
+	
+	public String getGenderStringValue()
+	{
+		String genderStr="M";
+		if(this.gender ==1)
+		{
+			genderStr="M";
+		}
+		else if(this.gender ==2)
+		{
+			genderStr="F";
+		}
+		return genderStr;
+	}
 }
