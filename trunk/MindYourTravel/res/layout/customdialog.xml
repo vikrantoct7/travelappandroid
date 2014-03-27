@@ -1,0 +1,92 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:padding="5dip" >
+    
+      <TableLayout
+        android:id="@+id/tblUserDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/lblTravelerName"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight=".65"
+                android:text="@string/lblTravelerName" />
+
+            <TextView
+                android:id="@+id/txtTravelerName"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight=".65"
+                android:text="@string/lblTravelerName" />
+        </TableRow>
+        <TableRow
+             android:id="@+id/tableRow2"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/lblAge"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight=".65"
+                android:text="@string/lblAge" />
+
+            <TextView
+                android:id="@+id/txtAge"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight=".65"
+                android:text="@string/lblAge" />
+
+         </TableRow>
+         
+          <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+           <TextView
+			    android:id="@+id/lblGender"
+			   	android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight=".65"
+			    android:text="@string/lblGender" />
+             <TextView
+			    android:id="@+id/txtGender"
+			   	android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight=".65"
+			    android:text="@string/lblGender" />
+         </TableRow>
+         
+          <TableRow
+            android:id="@+id/tableRow5"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+           <TextView
+	     		android:id="@+id/lblContactNo"
+			   	android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight=".65"
+	     		android:text="@string/lblContactNo" />
+          
+             <TextView
+	     		android:id="@+id/txtContactNo"
+			   	android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight=".65"
+	     		android:text="@string/lblContactNo" />
+        	</TableRow>
+        	
+    </TableLayout>
+</RelativeLayout>
