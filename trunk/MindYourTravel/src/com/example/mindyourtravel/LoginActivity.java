@@ -55,12 +55,13 @@ public class LoginActivity extends Activity {
 			//final  TextView txtMobileNo = (TextView)findViewById(R.id.txtPassword);
 			try {
 				ActivityHelper.CheckLogin(txtUserName.getText().toString());
+				Intent intent = new Intent(view.getContext(),TravelListActivity.class);
+				startActivity(intent);
 			} catch (Exception e) {
 				SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 			}
 			
-			Intent intent = new Intent(view.getContext(),TravelListActivity.class);
-			startActivity(intent);
+			
 		}
 	};
 	
