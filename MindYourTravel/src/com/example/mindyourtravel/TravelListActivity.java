@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import com.example.mindyourtravel.R.id;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -26,6 +27,7 @@ import android.widget.TextView;
 
 public class TravelListActivity extends Activity {
 
+	private int CurUserTravelID;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -50,19 +52,11 @@ public class TravelListActivity extends Activity {
 			}
 			else
 			{
-				final Button btnNewPlan = (Button)findViewById(R.id.btnNewTravelPlan);
-				btnNewPlan.setOnClickListener(onClickNewPlan);
-				
+		
 				JSONArray jsonData =result.getJSONArray("TRAVELLIST");
-				if(jsonData.length()>0)
-				{
-					btnNewPlan.setEnabled(false);
-					generateTravelList(jsonData);
-				}
-				else
-				{
-					btnNewPlan.setEnabled(true);
-				}
+				
+				generateTravelList(jsonData);
+				
 				
 			}
 		}
@@ -89,6 +83,17 @@ public class TravelListActivity extends Activity {
 
 	private void generateTravelList(JSONArray jsonData)
 	{
+		final Button btnNewPlan = (Button)findViewById(R.id.btnNewTravelPlan);
+		btnNewPlan.setOnClickListener(onClickNewPlan);
+		if(jsonData.length()>0)
+		{
+			btnNewPlan.setEnabled(false);
+		}
+		else
+		{
+			btnNewPlan.setEnabled(true);
+		}
+		SetErrorLabelVisibility(View.INVISIBLE,R.string.lblErrorTechnical);
 		try
 		{
 			TableLayout tblParentTravelDetails = (TableLayout) findViewById(R.id.tblParentTravelDetails);
@@ -115,6 +120,7 @@ public class TravelListActivity extends Activity {
 				userDto.setGender(datarow.getInt("GENDER"));
 				userDto.setAge(datarow.getInt("AGE"));
 				userDto.setContactNo(datarow.getString("UCONTACTNO"));
+				userDto.setTravelId(datarow.getInt("TRAVELID"));
 				userDto.setAppLoginUser(false);
 		
 				
@@ -183,20 +189,44 @@ public class TravelListActivity extends Activity {
 				tblrow5.setLayoutParams(rowparams);
 				tblrow5.setPadding(0, 5, 0, 0);
 				Button btnSubmitTravel = new Button(this);
+				Button btnShowMobileNo = null;
 				// TODO To be check whether it is effective to use setTag method for passing object
 				if(datarow.getInt("ISSELFPLAN")==1)
 				{
-					btnSubmitTravel.setOnClickListener(onDeleteButton);
-					btnSubmitTravel.setTag(datarow.getString("TRAVELID"));
+					CurUserTravelID=datarow.getInt("TRAVELID");
+					btnSubmitTravel.setOnClickListener(onDeleteAction);
+					btnSubmitTravel.setTag(Integer.toString(CurUserTravelID));
 					btnSubmitTravel.setText(R.string.btnDeleteTravel);
 				}
 				else
 				{
-					btnSubmitTravel.setOnClickListener(onConfirmButton);
-					btnSubmitTravel.setTag(userDto);
 					btnSubmitTravel.setText(R.string.btnConfimTravel);
+					int isconfirmed=0;
+					if(!datarow.isNull("ISCONFIRMED"))
+					{
+						isconfirmed =datarow.getInt("ISCONFIRMED");
+					}
+					if( isconfirmed ==1)
+					{
+						btnShowMobileNo = new Button(this);
+						btnShowMobileNo.setText(R.string.btnShowMobileNo);
+						btnShowMobileNo.setTag(userDto.getContactNo());
+						btnShowMobileNo.setOnClickListener(onShowMobileAction);
+						
+						btnSubmitTravel.setEnabled(false);
+					}
+					else
+					{
+						btnSubmitTravel.setOnClickListener(onConfirmAction);
+						btnSubmitTravel.setTag(userDto);
+					}
+					
 				}
 				tblrow5.addView(btnSubmitTravel);
+				if(btnShowMobileNo !=null)
+				{
+					tblrow5.addView(btnShowMobileNo);
+				}
 				
 				tblTravelDetails.addView(tblrow1);
 				tblTravelDetails.addView(tblrow2);
@@ -228,7 +258,33 @@ public class TravelListActivity extends Activity {
 		}
 	};
 	
-	private OnClickListener onConfirmButton = new OnClickListener()
+	private OnClickListener onShowMobileAction = new OnClickListener()
+	{
+		@Override
+		public void onClick(View view)
+		{
+			String strMobileNo=(String) view.getTag();
+			int lenght = strMobileNo.length();
+			final String mobileNoToCall = "91" + strMobileNo.substring(lenght -10, lenght);
+			 new AlertDialog.Builder(view.getContext())
+		        .setIcon(android.R.drawable.ic_dialog_info)
+		        .setTitle(R.string.titleShowMobileBox)
+		        .setMessage("Mobile No : "+ mobileNoToCall)
+		        .setPositiveButton(R.string.lblToCall, new DialogInterface.OnClickListener() {
+		            @Override
+		            public void onClick(DialogInterface dialog, int which) {
+		            //No implementation required
+		            	Intent intendtoCall= new Intent(Intent.ACTION_CALL);
+		            	intendtoCall.setData(Uri.parse("tel:"+mobileNoToCall));
+		            	startActivity(intendtoCall);
+		            }
+		        })
+		        .setNegativeButton(R.string.lblNo, null)
+		        .show();;
+		}
+	};
+	
+	private OnClickListener onConfirmAction = new OnClickListener()
 	{
 		@Override
 		public void onClick(View view)
@@ -252,7 +308,8 @@ public class TravelListActivity extends Activity {
 				txtGender.setText(userDto.getGenderStringValue());
 				TextView txtContactNo =(TextView)userView.findViewById(id.txtContactNo);
 				txtContactNo.setText(userDto.getContactNo());
-				
+				final int travelid =CurUserTravelID;
+				final int usertravelid =userDto.getTravelId();
 				
 				//Ask the user if they want to quit
 		        new AlertDialog.Builder(context)
@@ -262,8 +319,40 @@ public class TravelListActivity extends Activity {
 		        .setPositiveButton(R.string.lblYes, new DialogInterface.OnClickListener() {
 		            @Override
 		            public void onClick(DialogInterface dialog, int which) {
-		              
-		            	}
+		            	try
+		            	{
+			            	JSONObject reqParameters= new JSONObject();
+			    			reqParameters.put("CURUSERTRAVELID", travelid);
+			    			reqParameters.put("USERTRAVELID", usertravelid);
+			    			reqParameters.put("CONUSERID", LaunchActivity.loginUserId);
+			    			JsonHandler jsonHandler =JsonHandler.getInstance();
+			    			String url=jsonHandler.getFullUrl("UserTravelConfirm.php");
+			    			JSONObject result = jsonHandler.PostJsonDataToServer(url, reqParameters);
+			    			String resultCode= result.getString("RESULT");
+			    			if(resultCode.contentEquals(AppConstant.PHPResponse_KO))
+			    			{
+			    				String errorCode=result.getString("ERRORCODE");
+			    				
+			    				if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
+			    				{
+			    					SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+			    				}
+			    			}
+			    			else
+			    			{
+			    				JSONArray jsonData =result.getJSONArray("TRAVELLIST");
+			    				generateTravelList(jsonData);
+			    			}
+			            }
+				    	catch(JSONException ex)
+				    		{
+				    			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+				    		}
+			            	catch (IOException e) 
+			        		{    
+			        			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+			        		} 
+			            }
 		            })
 			        .setNegativeButton(R.string.lblNo, null)
 			        .show();
@@ -271,18 +360,17 @@ public class TravelListActivity extends Activity {
 		}
 	};
 	
-	private OnClickListener onDeleteButton = new OnClickListener()
+	private OnClickListener onDeleteAction = new OnClickListener()
 	{
 		@Override
 		public void onClick(View view)
 		{
 			final String travelid=(String) view.getTag();
-			
 			//Ask the user if they want to quit
 	        new AlertDialog.Builder(view.getContext())
 	        .setIcon(android.R.drawable.ic_dialog_alert)
 	        .setTitle(R.string.titleConfirmBox)
-	        .setMessage(R.string.titlePlanDeleteMsg)
+	        .setMessage(R.string.lblPlanDeleteMsg)
 	        .setPositiveButton(R.string.lblYes, new DialogInterface.OnClickListener() {
 	            @Override
 	            public void onClick(DialogInterface dialog, int which) {
@@ -323,8 +411,6 @@ public class TravelListActivity extends Activity {
 	        })
 	        .setNegativeButton(R.string.lblNo, null)
 	        .show();
-
-
 		}
 	};
 	

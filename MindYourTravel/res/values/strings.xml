@@ -45,9 +45,12 @@
 	<string name="ddSelLocation">Select location</string>
 	<string name="btnDeleteTravel">Delete</string>
 	<string name="titleConfirmBox">Confirm</string>
-	<string name="titlePlanDeleteMsg">Are you sure?</string>
+	<string name="lblPlanDeleteMsg">Are you sure, yuo want to delete your plan?</string>
 	<string name="lblYes">Yes</string>
 	<string name="lblNo">No</string>
 	<string name="lblTravelerName">Traveler Name</string>
-	<string name="lblTravelerTimeMode">Travel Time/Modee</string>
+	<string name="lblTravelerTimeMode">Travel Time/Mode</string>
+	<string name="btnShowMobileNo">Show Mobile No</string>
+	<string name="titleShowMobileBox">Mobile Information</string>
+	<string name="lblToCall">Call</string>
 </resources>

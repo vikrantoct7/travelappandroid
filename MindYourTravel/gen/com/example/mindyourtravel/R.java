@@ -108,6 +108,7 @@ public final class R {
         public static final int btnConfimTravel=0x7f050025;
         public static final int btnDeleteTravel=0x7f05002a;
         public static final int btnNewTravelPlan=0x7f050018;
+        public static final int btnShowMobileNo=0x7f050031;
         public static final int btnSingUp=0x7f050005;
         public static final int btnSubmit=0x7f050004;
         public static final int btnTravelSubmit=0x7f050022;
@@ -133,10 +134,12 @@ public final class R {
         public static final int lblNo=0x7f05002e;
         public static final int lblNoOfPassenger=0x7f050020;
         public static final int lblPassword=0x7f050003;
+        public static final int lblPlanDeleteMsg=0x7f05002c;
         public static final int lblRegConfimation=0x7f050014;
         public static final int lblRegister=0x7f05000e;
         public static final int lblStartLoc=0x7f05001c;
         public static final int lblTermCondition=0x7f050026;
+        public static final int lblToCall=0x7f050033;
         public static final int lblTravelDetails=0x7f050024;
         public static final int lblTravelMode=0x7f05001f;
         public static final int lblTravelTime=0x7f05001e;
@@ -146,7 +149,7 @@ public final class R {
         public static final int lblUserName=0x7f050002;
         public static final int lblYes=0x7f05002d;
         public static final int titleConfirmBox=0x7f05002b;
-        public static final int titlePlanDeleteMsg=0x7f05002c;
+        public static final int titleShowMobileBox=0x7f050032;
         public static final int title_activity_home_page=0x7f050017;
         public static final int title_activity_login=0x7f050028;
         public static final int title_activity_register=0x7f050006;
