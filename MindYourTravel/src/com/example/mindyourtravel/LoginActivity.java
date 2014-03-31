@@ -57,8 +57,10 @@ public class LoginActivity extends Activity {
 				ActivityHelper.CheckLogin(txtUserName.getText().toString());
 				Intent intent = new Intent(view.getContext(),TravelListActivity.class);
 				startActivity(intent);
-			} catch (Exception e) {
-				SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+			} 
+			catch (Exception e) 
+			{
+				SetErrorLabelVisibility(View.VISIBLE,e.getMessage());
 			}
 			
 			
@@ -75,4 +77,22 @@ public class LoginActivity extends Activity {
 		}
 	}
 	
+	private void SetErrorLabelVisibility(int visibility,String msg )
+	{
+		
+		if(msg.length()<=20)
+		{
+			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+		}
+		else
+		{
+			
+			TextView lblError =(TextView)findViewById(R.id.lblLoginErrorMsg);
+			//if(lblError != null)
+			//{
+				lblError.setVisibility(visibility);
+				lblError.setText(msg.substring(0, 20));
+			//}
+		}
+	}
 }

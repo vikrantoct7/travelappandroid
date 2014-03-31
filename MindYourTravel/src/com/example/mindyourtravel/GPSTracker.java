@@ -106,7 +106,7 @@ public class GPSTracker extends Service implements LocationListener {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
         return location;
@@ -234,7 +234,7 @@ public class GPSTracker extends Service implements LocationListener {
             }
         } 
         catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         return strLocation.toString();
 	}

@@ -14,15 +14,17 @@ public class LaunchActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_launch);
+		SetErrorLabelVisibility(View.INVISIBLE,R.string.lblError);
 		try {
+			
 			repository = new XmlDataRepository();
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			//SetErrorLabelVisibility(View.VISIBLE,R.string.lblError);
+			SetErrorLabelVisibility(View.VISIBLE,e.getMessage());
 		}
-		
-		SetErrorLabelVisibility(View.INVISIBLE,R.string.lblError);
-		
+			
 		String mPhoneNumber = ActivityHelper.getUserMobileNo(this);
 		if(repository.GetUsersData() ==null)
 		{
@@ -35,7 +37,15 @@ public class LaunchActivity extends Activity {
 			}
 			catch(Exception ex)
 			{
-				SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+				//SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+				if(ex.getMessage().length()>=10)
+				{
+					SetErrorLabelVisibility(View.VISIBLE,ex.getMessage().substring(0, 10));
+				}
+				else
+				{
+					SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+				}
 			}
 			if(repository.GetUsersData() == null)
 			{
@@ -90,6 +100,24 @@ public class LaunchActivity extends Activity {
 	{
 		Intent intent = new Intent(this.getApplicationContext(),TravelListActivity.class);
 		startActivity(intent);
+	}
+	
+	private void SetErrorLabelVisibility(int visibility,String msg )
+	{
+		if(msg.length()<=20)
+		{
+			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+		}
+		else
+		{
+			
+			TextView lblError =(TextView)findViewById(R.id.lblLaunchErrorMsg);
+			//if(lblError != null)
+			//{
+			lblError.setVisibility(visibility);
+			lblError.setText(msg.substring(0, 20));
+			//}
+		}
 	}
 
 }

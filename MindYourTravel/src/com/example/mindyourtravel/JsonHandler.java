@@ -49,17 +49,17 @@ public final class JsonHandler {
 		}
 		catch (JSONException e) 
 		{    
-			e.printStackTrace();
+			//e.printStackTrace();
 			throw e;
 		}    
 		catch (ClientProtocolException e)
 		{    
-			e.printStackTrace();   
+			//e.printStackTrace();   
 			throw e;
 		}    
 		catch (IOException e) 
 		{    
-			e.printStackTrace();  
+			//e.printStackTrace();  
 			throw e;
 		} 
 		return jsonResultObject;
@@ -81,23 +81,23 @@ public final class JsonHandler {
 		}
 		catch (JSONException e) 
 		{    
-			e.printStackTrace();   
+			//e.printStackTrace();   
 			throw e;
 		}    
 		catch (ClientProtocolException e)
 		{    
-			e.printStackTrace();  
+			//e.printStackTrace();  
 			throw e;
 		}    
 		catch (IOException e) 
 		{    
-			e.printStackTrace();   
+			//e.printStackTrace();   
 			throw e;
 		} 
 		return jsonResultObject;
 	}
 		
-	private String inputStreamToString(InputStream is) 
+	private String inputStreamToString(InputStream is) throws IOException 
 	{         
 		String rLine = "";         
 		StringBuilder answer = new StringBuilder();         
@@ -111,15 +111,16 @@ public final class JsonHandler {
 		}                    
 		catch (IOException e) 
 		{             
-			e.printStackTrace();          
+			//e.printStackTrace();
+			throw e;
 		}         
 		return answer.toString();        
 	} 
 	
 	public String getFullUrl(String relativePage)
 	{
-		return "http://192.168.0.100:90/" +relativePage;
-		//return "http://192.254.235.68/~rvsales/mobileapp/" +relativePage;
+		//return "http://192.168.0.100:90/" +relativePage;
+		return "http://192.254.235.68/~rvsales/mobileapp/" +relativePage;
 	}
 
 }
