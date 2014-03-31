@@ -41,7 +41,7 @@ public final class XmlDataRepository {
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
+			//ex.printStackTrace();
 			throw ex;
 		}
 	}
@@ -94,7 +94,7 @@ public final class XmlDataRepository {
 		}
 		catch(IOException ex)
 		{
-			 ex.printStackTrace();
+			 //ex.printStackTrace();
 		}
 	}
 	
@@ -107,11 +107,11 @@ public final class XmlDataRepository {
 		}
 		catch(IOException ex)
 		{
-			 ex.printStackTrace();
+			 //ex.printStackTrace();
 		}
 		catch(ClassNotFoundException ex)
 		{
-			 ex.printStackTrace();
+			 ///ex.printStackTrace();
 		}
 		return _userData;
 	}

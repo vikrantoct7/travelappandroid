@@ -52,15 +52,11 @@ public class TravelListActivity extends Activity {
 			}
 			else
 			{
-		
 				JSONArray jsonData =result.getJSONArray("TRAVELLIST");
-				
 				generateTravelList(jsonData);
-				
-				
 			}
 		}
-		catch(JSONException ex)
+		/*catch(JSONException ex)
 		{
 			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 		}
@@ -71,10 +67,11 @@ public class TravelListActivity extends Activity {
 		catch (IOException e) 
 		{    
 			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-		} 
+		} */
 		catch(Exception e)
 		{
-			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+			//SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+			SetErrorLabelVisibility(View.VISIBLE,e.getMessage());
 		}
 		
 		final TableLayout tblUserDetail = (TableLayout) findViewById(R.id.tblUserDetail); 
@@ -238,7 +235,8 @@ public class TravelListActivity extends Activity {
 		}
 		catch(JSONException ex)
 		{
-			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+			//SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+			SetErrorLabelVisibility(View.VISIBLE,ex.getMessage());
 		}
 	}
 	@Override
@@ -421,6 +419,24 @@ public class TravelListActivity extends Activity {
 		{
 			lblError.setVisibility(visibility);
 			lblError.setText(errorResId);
+		}
+	}
+	
+	private void SetErrorLabelVisibility(int visibility,String msg )
+	{
+		if(msg.length()<=20)
+		{
+			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+		}
+		else
+		{
+			
+			TextView lblError =(TextView)findViewById(R.id.lblTravelErrorMsg);
+			//if(lblError != null)
+			//{
+				lblError.setVisibility(visibility);
+				lblError.setText(msg.substring(0, 20));
+			//}
 		}
 	}
 

@@ -56,22 +56,22 @@ public final class ActivityHelper {
 		}
 		catch(JSONException e)
 		{
-			e.printStackTrace();
+			//e.printStackTrace();
 			throw e;
 		}
 		catch (ClientProtocolException e)
 		{    
-			e.printStackTrace();
+			//e.printStackTrace();
 			throw e;
 		}    
 		catch (IOException e) 
 		{    
-			e.printStackTrace();
+			//e.printStackTrace();
 			throw e;
 		} 
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			//e.printStackTrace();
 			throw e;
 		}
 	}
