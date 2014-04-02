@@ -56,22 +56,21 @@ public class TravelListActivity extends Activity {
 				generateTravelList(jsonData);
 			}
 		}
-		/*catch(JSONException ex)
+		catch(JSONException ex)
 		{
 			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 		}
-		catch (ClientProtocolException e)
+		catch (ClientProtocolException ex)
 		{    
 			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 		}    
-		catch (IOException e) 
+		catch (IOException ex) 
 		{    
 			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-		} */
-		catch(Exception e)
+		} 
+		catch(Exception ex)
 		{
-			//SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-			SetErrorLabelVisibility(View.VISIBLE,e.getMessage());
+			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 		}
 		
 		final TableLayout tblUserDetail = (TableLayout) findViewById(R.id.tblUserDetail); 
@@ -235,8 +234,7 @@ public class TravelListActivity extends Activity {
 		}
 		catch(JSONException ex)
 		{
-			//SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-			SetErrorLabelVisibility(View.VISIBLE,ex.getMessage());
+			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 		}
 	}
 	@Override
@@ -404,7 +402,7 @@ public class TravelListActivity extends Activity {
 		        		{    
 		        			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 		        		} 
-		            }
+	            }
 
 	        })
 	        .setNegativeButton(R.string.lblNo, null)
@@ -422,22 +420,8 @@ public class TravelListActivity extends Activity {
 		}
 	}
 	
-	private void SetErrorLabelVisibility(int visibility,String msg )
-	{
-		if(msg.length()<=20)
-		{
-			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-		}
-		else
-		{
-			
-			TextView lblError =(TextView)findViewById(R.id.lblTravelErrorMsg);
-			//if(lblError != null)
-			//{
-				lblError.setVisibility(visibility);
-				lblError.setText(msg.substring(0, 20));
-			//}
-		}
+	@Override
+	public void onBackPressed() {
+	    // do nothing.
 	}
-
 }

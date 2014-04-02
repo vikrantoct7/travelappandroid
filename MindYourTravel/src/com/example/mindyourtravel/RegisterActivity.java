@@ -45,15 +45,6 @@ public class RegisterActivity extends Activity {
 		}
 	}
 	
-	private void SetErrorLabelVisibility(int visibility,int errorResId)
-	{
-		TextView lblError =(TextView)findViewById(R.id.lblErrorMsg);
-		if(lblError != null)
-		{
-			lblError.setVisibility(visibility);
-			lblError.setText(errorResId);
-		}
-	}
 	
 	private OnClickListener addRegisterButtonListener = new OnClickListener()
 	{
@@ -184,4 +175,13 @@ public class RegisterActivity extends Activity {
 		return true;
 	}
 	
+	private void SetErrorLabelVisibility(int visibility,int errorResId)
+	{
+		TextView lblError =(TextView)findViewById(R.id.lblErrorMsg);
+		if(lblError != null)
+		{
+			lblError.setVisibility(visibility);
+			lblError.setText(errorResId);
+		}
+	}
 }

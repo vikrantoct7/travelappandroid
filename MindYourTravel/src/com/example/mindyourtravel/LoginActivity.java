@@ -51,16 +51,29 @@ public class LoginActivity extends Activity {
 		public void onClick(View view)
 		{
 			final  TextView txtUserName = (TextView)findViewById(R.id.txtLogin);
-			//final  TextView txtPassword = (TextView)findViewById(R.id.txtPassword);
-			//final  TextView txtMobileNo = (TextView)findViewById(R.id.txtPassword);
 			try {
-				ActivityHelper.CheckLogin(txtUserName.getText().toString());
-				Intent intent = new Intent(view.getContext(),TravelListActivity.class);
-				startActivity(intent);
+				
+				String errorCode = ActivityHelper.CheckLogin(txtUserName.getText().toString());
+				if(errorCode.length()> 0)
+				{
+					if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.NOTEXISTS))
+					{
+						SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorUserNotExist);
+					}
+					else if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
+					{
+						SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+					}
+				}
+				else
+				{
+					Intent intent = new Intent(view.getContext(),TravelListActivity.class);
+					startActivity(intent);
+				}
 			} 
 			catch (Exception e) 
 			{
-				SetErrorLabelVisibility(View.VISIBLE,e.getMessage());
+				SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 			}
 			
 			
@@ -77,22 +90,8 @@ public class LoginActivity extends Activity {
 		}
 	}
 	
-	private void SetErrorLabelVisibility(int visibility,String msg )
-	{
-		
-		if(msg.length()<=20)
-		{
-			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-		}
-		else
-		{
-			
-			TextView lblError =(TextView)findViewById(R.id.lblLoginErrorMsg);
-			//if(lblError != null)
-			//{
-				lblError.setVisibility(visibility);
-				lblError.setText(msg.substring(0, 20));
-			//}
-		}
+	@Override
+	public void onBackPressed() {
+	    // do nothing.
 	}
 }
