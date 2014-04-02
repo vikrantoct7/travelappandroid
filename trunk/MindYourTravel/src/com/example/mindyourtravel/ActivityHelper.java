@@ -11,13 +11,12 @@ import android.telephony.TelephonyManager;
 
 public final class ActivityHelper {
 
-	public static void CheckLogin(String userMobileNo) throws Exception
+	public static String CheckLogin(String userMobileNo) throws Exception
 	{
+		String errorCode="";
 		try
 		{
 			JSONObject reqParameters= new JSONObject();
-			//reqParameters.put("ULOGIN", txtUserName.getText());
-			//reqParameters.put("UPASSWORD", txtPassword.getText());
 			reqParameters.put("UMOBILENO", userMobileNo);
 			
 			JsonHandler jsonHandler =JsonHandler.getInstance();
@@ -27,16 +26,15 @@ public final class ActivityHelper {
 			
 			if(resultCode.contentEquals(AppConstant.PHPResponse_KO))
 			{
-				String errorCode=result.getString("ERRORCODE");
+				errorCode=result.getString("ERRORCODE");
 				/*if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.NOTEXISTS))
 				{
 					SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorUserNotExist);
 				}
-				else*/ 
-				if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
+				else if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
 				{
-					throw new Exception("Technical error in PHP code");
-				}
+					SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorUserNotExist);
+				}*/
 			}
 			else
 			{
@@ -51,7 +49,6 @@ public final class ActivityHelper {
 				userDto.setContactNo(jsonData.getString("UCONTACTNO"));
 				userDto.setAppLoginUser(true);
 				LaunchActivity.repository.AddUserDTO(userDto);
-				
 			}
 		}
 		catch(JSONException e)
@@ -74,6 +71,7 @@ public final class ActivityHelper {
 			//e.printStackTrace();
 			throw e;
 		}
+		return errorCode;
 	}
 	
 	public static String getUserMobileNo(Context context)

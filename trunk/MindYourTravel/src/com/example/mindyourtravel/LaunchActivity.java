@@ -1,11 +1,16 @@
 package com.example.mindyourtravel;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 
+@SuppressLint("NewApi")
 public class LaunchActivity extends Activity {
 
 	public static XmlDataRepository repository=null;
@@ -14,15 +19,19 @@ public class LaunchActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_launch);
+		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD) {
+			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+			StrictMode.setThreadPolicy(policy); 
+		}
+		
 		SetErrorLabelVisibility(View.INVISIBLE,R.string.lblError);
-		try {
-			
+		try 
+		{	
 			repository = new XmlDataRepository();
 			
-		} catch (Exception e) {
-			//e.printStackTrace();
-			//SetErrorLabelVisibility(View.VISIBLE,R.string.lblError);
-			SetErrorLabelVisibility(View.VISIBLE,e.getMessage());
+		} 
+		catch (Exception e) {
+			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 		}
 			
 		String mPhoneNumber = ActivityHelper.getUserMobileNo(this);
@@ -37,15 +46,7 @@ public class LaunchActivity extends Activity {
 			}
 			catch(Exception ex)
 			{
-				//SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-				if(ex.getMessage().length()>=10)
-				{
-					SetErrorLabelVisibility(View.VISIBLE,ex.getMessage().substring(0, 10));
-				}
-				else
-				{
-					SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-				}
+				SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 			}
 			if(repository.GetUsersData() == null)
 			{
@@ -68,7 +69,6 @@ public class LaunchActivity extends Activity {
 				LaunchHomeActivity();
 			}
 		}
-
 	}
 	
 	private void LaunchLoginWindew()
@@ -83,8 +83,11 @@ public class LaunchActivity extends Activity {
 		return true;
 	}
 	
-	
-	
+	public void LaunchHomeActivity()
+	{
+		Intent intent = new Intent(this.getApplicationContext(),TravelListActivity.class);
+		startActivity(intent);
+	}
 	
 	private void SetErrorLabelVisibility(int visibility,int errorResId)
 	{
@@ -93,30 +96,6 @@ public class LaunchActivity extends Activity {
 		{
 			lblError.setVisibility(visibility);
 			lblError.setText(errorResId);
-		}
-	}
-	
-	public void LaunchHomeActivity()
-	{
-		Intent intent = new Intent(this.getApplicationContext(),TravelListActivity.class);
-		startActivity(intent);
-	}
-	
-	private void SetErrorLabelVisibility(int visibility,String msg )
-	{
-		if(msg.length()<=20)
-		{
-			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-		}
-		else
-		{
-			
-			TextView lblError =(TextView)findViewById(R.id.lblLaunchErrorMsg);
-			//if(lblError != null)
-			//{
-			lblError.setVisibility(visibility);
-			lblError.setText(msg.substring(0, 20));
-			//}
 		}
 	}
 

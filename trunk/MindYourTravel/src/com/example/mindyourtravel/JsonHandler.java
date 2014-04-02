@@ -18,6 +18,9 @@ import org.apache.http.protocol.HTTP;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
+
+@SuppressLint("NewApi")
 public final class JsonHandler {
 	
 	private static final JsonHandler _instance= new JsonHandler();
@@ -119,8 +122,8 @@ public final class JsonHandler {
 	
 	public String getFullUrl(String relativePage)
 	{
-		//return "http://192.168.0.100:90/" +relativePage;
-		return "http://192.254.235.68/~rvsales/mobileapp/" +relativePage;
+		return "http://192.168.0.100:90/" +relativePage;
+		//return "http://192.254.235.68/~rvsales/mobileapp/" +relativePage;
 	}
 
 }
