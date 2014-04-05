@@ -9,28 +9,26 @@ try
 	$jsonInput = json_decode(filter_var(file_get_contents('php://input'), FILTER_UNSAFE_RAW)); 
 	$UFNAME = $jsonInput->UFNAME;
 	$ULNAME = $jsonInput->ULNAME;
-	//$ULOGIN = $jsonInput->ULOGIN;
+	$CITY = $jsonInput->CITY;
 	$GENDER = $jsonInput->GENDER;
 	$AGE = $jsonInput->AGE;
-	//$UPASSWORD = $jsonInput->UPASSWORD;
 	$UCONTACTNO = $jsonInput->UCONTACTNO;
-	//$count = Count_Record('aasv_user','USERID','ULOGIN="'.$ULOGIN.'"');
 	$count = Count_Record('aasv_user','USERID','UCONTACTNO="'.$UCONTACTNO.'"');
 	if($count <= 0)
 	{
-		$sql =$db->Query("CALL aasv_user_insert('".$UFNAME."','".$ULNAME."','".$GENDER."','".$AGE."','".$UCONTACTNO."')");
+		$sql =$db->Query("CALL aasv_user_insert('".$UFNAME."','".$ULNAME."','".$CITY."','".$GENDER."','".$AGE."','".$UCONTACTNO."')");
 		$result['RESULT'] = 'OK';
 		while($row = mysql_fetch_array($sql)){
 			$result['USERDATA'] = $row;
 		}
+		$db->FreeResult();
 	}
 	else
 	{
 		$result['RESULT'] = 'KO';
 		//Error code to define record already exist
-		$result['ERRORCODE']="102";
+		$result['ERRORCODE']='102';
 	}
-	$db->FreeResult();
 }
 catch(Exception $e)
 {
