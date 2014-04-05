@@ -17,7 +17,7 @@
     <string name="lblContactNo">Mobile No</string>
     <string name="lblRegister">I Agree</string>
     <string name="lblError">Error</string>
-    <string name="lblErrorUserExist">User already exist</string>
+    <string name="lblErrorUserExist">This mobile no is already exist.</string>
     <string name="lblErrorUserNotExist">Login failed. Please check your credential.</string>
     <string name="lblErrorTechnical">Technical error occurred. Please try again</string>
     <string name="title_activity_registration_confimation">RegistrationConfimationActivity</string>
@@ -45,7 +45,7 @@
 	<string name="ddSelLocation">Select location</string>
 	<string name="btnDeleteTravel">Delete</string>
 	<string name="titleConfirmBox">Confirm</string>
-	<string name="lblPlanDeleteMsg">Are you sure, yuo want to delete your plan?</string>
+	<string name="lblPlanDeleteMsg">Are you sure, you want to delete your plan?</string>
 	<string name="lblYes">Yes</string>
 	<string name="lblNo">No</string>
 	<string name="lblTravelerName">Traveler Name</string>
@@ -53,4 +53,6 @@
 	<string name="btnShowMobileNo">Show Mobile No</string>
 	<string name="titleShowMobileBox">Mobile Information</string>
 	<string name="lblToCall">Call</string>
+	<string name="lblCity">City</string>
+	<string name="ddSelCity">Select city</string>
 </resources>
