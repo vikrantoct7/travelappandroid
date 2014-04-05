@@ -66,13 +66,28 @@
                 android:ems="10"
 	        	android:inputType="text"
 	       		android:textSize="12sp"/>
-             
-                 
-             
          </TableRow>
-
-         <TableRow
+		<TableRow
              android:id="@+id/tableRow3"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/lblCity"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight=".33"
+                android:text="@string/lblCity" />
+			<Spinner
+			    android:id="@+id/ddCity"
+			    android:layout_width="0dp"
+			    android:layout_height="wrap_content"
+			    android:layout_weight=".50"
+			    android:prompt="@string/ddSelCity" />
+
+         </TableRow>
+         <TableRow
+             android:id="@+id/tableRow4"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content" >
 
@@ -100,7 +115,7 @@
          </TableRow>
          
           <TableRow
-            android:id="@+id/tableRow4"
+            android:id="@+id/tableRow5"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" >
            <TextView
@@ -131,7 +146,7 @@
          </TableRow>
          
           <TableRow
-            android:id="@+id/tableRow5"
+            android:id="@+id/tableRow6"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" >
 
@@ -152,7 +167,7 @@
         	</TableRow>
         	
         	<TableRow
-	            android:id="@+id/tableRow6"
+	            android:id="@+id/tableRow7"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content" >
 
@@ -165,7 +180,7 @@
 
         	</TableRow>
         	<TableRow
-	            android:id="@+id/tableRow7"
+	            android:id="@+id/tableRow8"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content" >
 				<TextView
