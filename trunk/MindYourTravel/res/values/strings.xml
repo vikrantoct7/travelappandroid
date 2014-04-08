@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="app_name">MindYourTravel</string>
+    <string name="app_name">Lets go</string>
     <string name="action_settings">Settings</string>
     <string name="lblUserName">Registered mobile</string>
     <string name="lblPassword">Password</string>
     <string name="btnSubmit">Login</string>
     <string name="btnSingUp">Sing Up</string>
-    <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_register">User Registration</string>
     <string name="lblFName">First Name</string>
     <string name="lblLName">Last Name</string>
     <string name="lblGender">Gender</string>
@@ -24,9 +23,9 @@
     <string name="lblRegConfimation">User %s has been successfully registered. Please click on blow button to login into the application!</string>
     <string name="lblGoToLoginBtn">Go back to login screen</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_home_page">HomePageActivity</string>
-    <string name="btnNewTravelPlan">New travel plan</string>
-    <string name="title_activity_travel_plan">TravelPlanActivity</string>
+    <string name="title_activity_home_page">Travel Details List</string>
+    <string name="btnNewTravelPlan">New plan</string>
+    <string name="title_activity_travel_plan">Enter Travel Details</string>
     <string name="lblCurrentLoc">Current Location</string>
     <string name="lblCurLocNotfound">Current Location not found</string>
     <string name="lblStartLoc">Start Location</string>
@@ -39,9 +38,9 @@
     <string name="lblUserDetails">User Details</string>
     <string name="lblTravelDetails">Travel Details</string>
     <string name="btnConfimTravel">Confirm</string>
-    <string name="lblTermCondition">I have read and agree to terms and condition for using this app</string>
+    <string name="lblTermCondition">I have read and agree to <a href="#">terms and condition </a> for using this app</string>
     <string name="lblLoginInformation">If you already register, please login with registered mobile no. otherwise click on "Sign Up" for register yourself.</string>
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_login">Login Page</string>
 	<string name="ddSelLocation">Select location</string>
 	<string name="btnDeleteTravel">Delete</string>
 	<string name="titleConfirmBox">Confirm</string>
@@ -55,4 +54,5 @@
 	<string name="lblToCall">Call</string>
 	<string name="lblCity">City</string>
 	<string name="ddSelCity">Select city</string>
+	<string name="lblBtnRefresh">Refresh</string>
 </resources>

@@ -24,6 +24,7 @@ public class LaunchActivity extends Activity {
 			StrictMode.setThreadPolicy(policy); 
 		}
 		
+		ActivityHelper.setApplicationTitle(getWindow());
 		SetErrorLabelVisibility(View.INVISIBLE,R.string.lblError);
 		try 
 		{	
