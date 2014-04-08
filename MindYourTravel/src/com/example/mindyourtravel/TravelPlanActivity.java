@@ -29,7 +29,7 @@ public class TravelPlanActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_travel_plan);
-		
+		ActivityHelper.setApplicationTitle(getWindow());
 		/*// create class object
         gps = new GPSTracker(this);
         // check if GPS enabled     

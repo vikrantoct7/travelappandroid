@@ -18,64 +18,47 @@
         android:layout_alignLeft="@+id/btnNewTravelPlan"
         android:layout_below="@+id/lblTravelErrorMsg"
         android:orientation="horizontal" >
-        
     </TableLayout>
 
     <Button
         android:id="@+id/btnNewTravelPlan"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="35dp"
         android:layout_alignParentTop="true"
-        android:text="@string/btnNewTravelPlan" />
+        android:background="#938953"
+        android:text="@string/btnNewTravelPlan"
+        android:textColor="#000000" />
 
     <TextView
         android:id="@+id/lblTravelErrorMsg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/tblParentTravelDetails"
+        android:layout_alignRight="@+id/tblParentTravelDetails"
         android:layout_below="@+id/btnNewTravelPlan"
         android:text="@string/lblError"
         android:textColor="#FF0000"
         android:visibility="visible" />
-    
-    <TableLayout
-        android:id="@+id/tblUserDetail"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/lblTravelErrorMsg"
-        android:layout_centerHorizontal="true"
-        android:orientation="horizontal"
-        android:visibility="invisible" >
-        <TableRow
-            android:id="@+id/tableRow1"
-            android:paddingBottom="10dp"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
 
-             <TextView
-                 android:id="@+id/lblCurrentLoc"
-                 android:layout_width="0dp"
-                 android:layout_height="fill_parent"
-                 android:layout_weight=".35"
-                 android:text="@string/lblCurrentLoc" />
-      
-            
-        </TableRow>
-        
-        <TableRow
-            android:id="@+id/tableRow2"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
-             
-            <TextView
-                android:id="@+id/lblStartLoc"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight=".35"
-                android:text="@string/lblStartLoc" />
+    <Button
+        android:id="@+id/btnRefresh"
+        android:layout_width="100dp"
+        android:layout_height="35dp"
+        android:layout_above="@+id/lblTravelErrorMsg"
+        android:layout_marginLeft="16dp"
+         android:textColor="#000000"
+        android:background="#938953"
+        android:layout_toRightOf="@+id/btnNewTravelPlan"
+        android:text="@string/lblBtnRefresh" />
 
-           
-         </TableRow>
-	</TableLayout>
-</RelativeLayout>
+	<Button
+	    android:id="@+id/btnQuit"
+	    android:layout_width="30dp"
+	    android:layout_height="28dp"
+	    android:layout_above="@+id/lblTravelErrorMsg"
+	    android:layout_alignParentRight="true"
+	    android:layout_alignTop="@+id/btnRefresh"
+	    android:background="@drawable/quit_icon" />
+
+    </RelativeLayout>
 </ScrollView>

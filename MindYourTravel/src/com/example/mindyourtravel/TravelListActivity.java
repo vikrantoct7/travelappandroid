@@ -1,7 +1,6 @@
 package com.example.mindyourtravel;
 
 import java.io.IOException;
-import org.apache.http.client.ClientProtocolException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -10,11 +9,13 @@ import com.example.mindyourtravel.R.id;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -32,8 +33,21 @@ public class TravelListActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_travel_list);
+		ActivityHelper.setApplicationTitle(getWindow());
 		
 		SetErrorLabelVisibility(View.INVISIBLE,R.string.lblError);
+		LoadTravelList();
+		
+		final Button btnRefresh = (Button)findViewById(R.id.btnRefresh);
+		btnRefresh.setOnClickListener(onClickRefresh);
+		
+		final Button btnQuit = (Button)findViewById(R.id.btnQuit);
+		btnQuit.setOnClickListener(onClickQuit);
+		
+	}
+	
+	private void LoadTravelList()
+	{
 		try
 		{
 			JSONObject reqParameters= new JSONObject();
@@ -60,23 +74,13 @@ public class TravelListActivity extends Activity {
 		{
 			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 		}
-		catch (ClientProtocolException ex)
-		{    
-			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-		}    
 		catch (IOException ex) 
 		{    
 			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 		} 
-		catch(Exception ex)
-		{
-			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-		}
-		
-		final TableLayout tblUserDetail = (TableLayout) findViewById(R.id.tblUserDetail); 
-		tblUserDetail.setVisibility(View.INVISIBLE);
 	}
 
+	@SuppressLint({ "ResourceAsColor", "NewApi" })
 	private void generateTravelList(JSONArray jsonData)
 	{
 		final Button btnNewPlan = (Button)findViewById(R.id.btnNewTravelPlan);
@@ -97,12 +101,14 @@ public class TravelListActivity extends Activity {
 			
 	
 			@SuppressWarnings("deprecation")
-			TableRow.LayoutParams tblparams = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT,TableRow.LayoutParams.WRAP_CONTENT);
-			
+			TableLayout.LayoutParams tblparams = new TableLayout.LayoutParams(TableLayout.LayoutParams.FILL_PARENT,TableLayout.LayoutParams.WRAP_CONTENT);
 			@SuppressWarnings("deprecation")
 			TableRow.LayoutParams rowparams = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT,TableRow.LayoutParams.WRAP_CONTENT);
 			@SuppressWarnings("deprecation")
 			TableRow.LayoutParams viewParams = new TableRow.LayoutParams(0,TableRow.LayoutParams.FILL_PARENT,1);
+			
+			int btnTextColor = Color.parseColor("#000000");
+			int btnBackColor = Color.parseColor("#938953");
 
 			for (int i=0;i<jsonData.length();i++ ) 
 			{
@@ -121,7 +127,10 @@ public class TravelListActivity extends Activity {
 		
 				
 				TableLayout tblTravelDetails = new TableLayout(this);
+				tblTravelDetails.setBackgroundColor(Color.WHITE);
 				tblTravelDetails.setLayoutParams(tblparams);
+				tblTravelDetails.setPadding(2, 0, 2, 0);
+				tblTravelDetails.setBackgroundResource(R.drawable.cell_shape_new);
 				tblTravelDetails.setOrientation(LinearLayout.HORIZONTAL);
 				
 				TableRow tblrow1= new TableRow(this);
@@ -129,10 +138,12 @@ public class TravelListActivity extends Activity {
 				tblrow1.setLayoutParams(rowparams);
 				tblrow1.setPadding(0, 5, 0, 0);
 				TextView lblUserDetails =new TextView(this);
+
 				lblUserDetails.setLayoutParams(viewParams);
 				lblUserDetails.setText(R.string.lblUserDetails);
 				
 				TextView displayUserDetails =new TextView(this);
+				displayUserDetails.setTextColor(btnTextColor);
 				displayUserDetails.setLayoutParams(viewParams);
 				
 				String age = Integer.toString(userDto.getAge());
@@ -150,6 +161,7 @@ public class TravelListActivity extends Activity {
 				lblTravelDetails.setText(R.string.lblTravelDetails);
 				
 				TextView displayTravelDetails =new TextView(this);
+				displayTravelDetails.setTextColor(btnTextColor);
 				displayTravelDetails.setLayoutParams(viewParams);
 				displayTravelDetails.setText(datarow.getString("CURRLOCATION") + "("+datarow.getString("STARTLOCATION")+") To " +datarow.getString("ENDLOCATION"));
 				tblrow2.addView(lblTravelDetails);
@@ -163,28 +175,18 @@ public class TravelListActivity extends Activity {
 				lblStartTime.setText(R.string.lblTravelerTimeMode);
 				
 				TextView displayStartTime =new TextView(this);
+				displayStartTime.setTextColor(btnTextColor);
 				displayStartTime.setLayoutParams(viewParams);
 				displayStartTime.setText(datarow.getString("TRAVELTIME") + "/"+ datarow.getString("TRAVELMODE"));
 				tblrow3.addView(lblStartTime);
 				tblrow3.addView(displayStartTime);
-				
-				TableRow tblrow4= new TableRow(this);
-				tblrow4.setLayoutParams(rowparams);
-				tblrow4.setPadding(0, 5, 0, 0);
-				TextView lblNoOfPassenger =new TextView(this);
-				lblNoOfPassenger.setLayoutParams(viewParams);
-				lblNoOfPassenger.setText(R.string.lblNoOfPassenger);
-				
-				TextView displayNoOfPassenger =new TextView(this);
-				displayNoOfPassenger.setLayoutParams(viewParams);
-				displayNoOfPassenger.setText(datarow.getString("NOOFPASSENGER"));
-				tblrow4.addView(lblNoOfPassenger);
-				tblrow4.addView(displayNoOfPassenger);
-				
+								
 				TableRow tblrow5= new TableRow(this);
 				tblrow5.setLayoutParams(rowparams);
 				tblrow5.setPadding(0, 5, 0, 0);
 				Button btnSubmitTravel = new Button(this);
+				btnSubmitTravel.setTextColor(btnTextColor);
+				btnSubmitTravel.setBackgroundColor(btnBackColor);
 				Button btnShowMobileNo = null;
 				// TODO To be check whether it is effective to use setTag method for passing object
 				if(datarow.getInt("ISSELFPLAN")==1)
@@ -205,6 +207,8 @@ public class TravelListActivity extends Activity {
 					if( isconfirmed ==1)
 					{
 						btnShowMobileNo = new Button(this);
+						btnShowMobileNo.setTextColor(btnTextColor);
+						btnShowMobileNo.setBackgroundColor(btnBackColor);
 						btnShowMobileNo.setText(R.string.btnShowMobileNo);
 						btnShowMobileNo.setTag(userDto.getContactNo());
 						btnShowMobileNo.setOnClickListener(onShowMobileAction);
@@ -227,7 +231,7 @@ public class TravelListActivity extends Activity {
 				tblTravelDetails.addView(tblrow1);
 				tblTravelDetails.addView(tblrow2);
 				tblTravelDetails.addView(tblrow3);
-				tblTravelDetails.addView(tblrow4);
+				//tblTravelDetails.addView(tblrow4);
 				tblTravelDetails.addView(tblrow5);
 				tblParentTravelDetails.addView(tblTravelDetails,i);
 			}
@@ -243,6 +247,27 @@ public class TravelListActivity extends Activity {
 		getMenuInflater().inflate(R.menu.home_page, menu);
 		return true;
 	}
+	
+	private OnClickListener onClickQuit = new OnClickListener()
+	{
+		@Override
+		public void onClick(View view)
+		{
+			finish();
+			System.exit(0);
+			android.os.Process.killProcess(android.os.Process.myPid());
+		}
+	};
+	
+	private OnClickListener onClickRefresh = new OnClickListener()
+	{
+		@Override
+		public void onClick(View view)
+		{
+			LoadTravelList();
+		}
+	};
+			
 	
 	private OnClickListener onClickNewPlan = new OnClickListener()
 	{

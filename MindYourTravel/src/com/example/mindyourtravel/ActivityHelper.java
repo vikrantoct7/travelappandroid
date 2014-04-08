@@ -6,7 +6,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.telephony.TelephonyManager;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 
 public final class ActivityHelper {
@@ -79,5 +87,26 @@ public final class ActivityHelper {
 	{
 		TelephonyManager tMgr =(TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE); 
 		return tMgr.getLine1Number();
+	}
+	
+	public static void setApplicationTitle(Window window)
+	{
+		setTitleColor(window);
+		setTitleAlignment(window);
+	}
+	public static void setTitleColor(Window window)
+	{
+		View title = window.findViewById(android.R.id.title);
+		View titleBar = (View) title.getParent();
+		titleBar.setBackgroundColor(Color.parseColor("#365F91"));
+	}
+	
+	public static void setTitleAlignment(Window window)
+	{
+		ViewGroup decorView= (ViewGroup) window.getDecorView();
+		LinearLayout root= (LinearLayout) decorView.getChildAt(0);
+		FrameLayout titleContainer= (FrameLayout) root.getChildAt(0);
+		TextView title= (TextView) titleContainer.getChildAt(0);
+		title.setGravity(Gravity.CENTER);
 	}
 }

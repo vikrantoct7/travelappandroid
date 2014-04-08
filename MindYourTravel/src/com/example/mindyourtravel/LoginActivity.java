@@ -15,6 +15,7 @@ public class LoginActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
+		ActivityHelper.setApplicationTitle(getWindow());
 		
 		final Button btnSingUp =(Button)findViewById(R.id.btnSingUp);
 		btnSingUp.setOnClickListener(onClickBtnSingUp);
