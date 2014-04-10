@@ -10,8 +10,9 @@ try
 	$CURUSERTRAVELID = $jsonInput->CURUSERTRAVELID;
 	$USERTRAVELID = $jsonInput->USERTRAVELID;
 	$CONUSERID = $jsonInput->CONUSERID;
+	$TRAVELERUSERID = $jsonInput->TRAVELERUSERID;
 	
-	$queryResult = $db->Query("CALL aasv_user_travelconfirm('".$CURUSERTRAVELID."','".$USERTRAVELID."')");
+	$queryResult = $db->Query("CALL aasv_user_travelconfirm('".$CURUSERTRAVELID."','".$USERTRAVELID."','".$CONUSERID."','".$TRAVELERUSERID."')");
 	$db->ReConnect();
 	$db->Query("CALL aasv_user_travelmatch('".$CONUSERID."')");
 	$result['TRAVELLIST'] = $db->loadObjectList();
