@@ -83,11 +83,10 @@ public class RegisterActivity extends Activity {
 			String mPhoneNumber = tMgr.getLine1Number();
 			final EditText txtPhNo= (EditText)findViewById(R.id.txtPhNo);
 			txtPhNo.setText(mPhoneNumber);
-			//TODO un-comment below code
-			/*if(mPhoneNumber.length()> 0)
+			if(mPhoneNumber.length()> 0)
 			{
 				txtPhNo.setEnabled(false);
-			}*/
+			}
 		}
 		catch(Exception ex)
 		{
@@ -111,15 +110,23 @@ public class RegisterActivity extends Activity {
 				validationResult =validationResult && validator.validate(txtLName);
 				validationResult= validationResult && validator.validate(txtPhNo);
 				validationResult= validationResult && validator.validate(txtAge);
+				
 				if(txtAge.getText().length()> 0)
 				{
 					int age = Integer.parseInt(txtAge.getText().toString());
 					if(age < 18 || age>70)
 					{
-						txtAge.setError("This age is not consider by Application!");
+						txtAge.setError("This age is not consider by Application.");
 						validationResult=false;
 					}
 				}
+				
+				if(txtPhNo.getText().length()<= 10)
+				{
+					txtPhNo.setError("Invalid mobile number.");
+					validationResult=false;
+				}
+				
 				RadioGroup rdoGender = (RadioGroup) findViewById(R.id.rdoGender);
 				// get selected radio button from radioGroup                        
 				RadioButton selectedRdoOption =((RadioButton) findViewById(rdoGender.getCheckedRadioButtonId()))  ;

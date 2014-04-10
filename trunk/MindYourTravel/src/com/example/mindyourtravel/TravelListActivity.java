@@ -109,6 +109,8 @@ public class TravelListActivity extends Activity {
 			
 			int btnTextColor = Color.parseColor("#000000");
 			int btnBackColor = Color.parseColor("#938953");
+			int isTravelAlreadyconfirmed=0;
+			int userIdWhoConfirmTravel=0;
 
 			for (int i=0;i<jsonData.length();i++ ) 
 			{
@@ -181,13 +183,13 @@ public class TravelListActivity extends Activity {
 				tblrow3.addView(lblStartTime);
 				tblrow3.addView(displayStartTime);
 								
-				TableRow tblrow5= new TableRow(this);
-				tblrow5.setLayoutParams(rowparams);
-				tblrow5.setPadding(0, 5, 0, 0);
+				TableRow tblrow4= new TableRow(this);
+				tblrow4.setLayoutParams(rowparams);
+				tblrow4.setPadding(0, 5, 0, 0);
 				Button btnSubmitTravel = new Button(this);
 				btnSubmitTravel.setTextColor(btnTextColor);
 				btnSubmitTravel.setBackgroundColor(btnBackColor);
-				Button btnShowMobileNo = null;
+				
 				// TODO To be check whether it is effective to use setTag method for passing object
 				if(datarow.getInt("ISSELFPLAN")==1)
 				{
@@ -195,44 +197,56 @@ public class TravelListActivity extends Activity {
 					btnSubmitTravel.setOnClickListener(onDeleteAction);
 					btnSubmitTravel.setTag(Integer.toString(CurUserTravelID));
 					btnSubmitTravel.setText(R.string.btnDeleteTravel);
+					tblrow4.addView(btnSubmitTravel);
 				}
 				else
 				{
-					btnSubmitTravel.setText(R.string.btnConfimTravel);
-					int isconfirmed=0;
-					if(!datarow.isNull("ISCONFIRMED"))
+					if(isTravelAlreadyconfirmed ==0 && !datarow.isNull("ISCONFIRMED"))
 					{
-						isconfirmed =datarow.getInt("ISCONFIRMED");
+						isTravelAlreadyconfirmed =datarow.getInt("ISCONFIRMED");
+						userIdWhoConfirmTravel =userId;
 					}
-					if( isconfirmed ==1)
+					if( isTravelAlreadyconfirmed ==1 && userIdWhoConfirmTravel ==userId)
 					{
+						Button btnShowMobileNo = null;
 						btnShowMobileNo = new Button(this);
 						btnShowMobileNo.setTextColor(btnTextColor);
 						btnShowMobileNo.setBackgroundColor(btnBackColor);
 						btnShowMobileNo.setText(R.string.btnShowMobileNo);
 						btnShowMobileNo.setTag(userDto.getContactNo());
 						btnShowMobileNo.setOnClickListener(onShowMobileAction);
-						
-						btnSubmitTravel.setEnabled(false);
+						tblrow4.addView(btnShowMobileNo);
+						//btnSubmitTravel.setEnabled(false);
 					}
 					else
 					{
-						btnSubmitTravel.setOnClickListener(onConfirmAction);
-						btnSubmitTravel.setTag(userDto);
+						if(isTravelAlreadyconfirmed ==1)
+						{
+							btnSubmitTravel.setEnabled(false);
+						}
+						else
+						{
+							btnSubmitTravel.setText(R.string.btnConfimTravel);
+							btnSubmitTravel.setOnClickListener(onConfirmAction);
+							btnSubmitTravel.setTag(userDto);
+							tblrow4.addView(btnSubmitTravel);
+						}
 					}
 					
 				}
-				tblrow5.addView(btnSubmitTravel);
+				/*tblrow5.addView(btnSubmitTravel);
 				if(btnShowMobileNo !=null)
 				{
+					TextView dummy =new TextView(this);
+					dummy.setLayoutParams(viewParams);
+					tblrow5.addView(dummy);
 					tblrow5.addView(btnShowMobileNo);
-				}
+				}*/
 				
 				tblTravelDetails.addView(tblrow1);
 				tblTravelDetails.addView(tblrow2);
 				tblTravelDetails.addView(tblrow3);
-				//tblTravelDetails.addView(tblrow4);
-				tblTravelDetails.addView(tblrow5);
+				tblTravelDetails.addView(tblrow4);
 				tblParentTravelDetails.addView(tblTravelDetails,i);
 			}
 		}
@@ -253,9 +267,15 @@ public class TravelListActivity extends Activity {
 		@Override
 		public void onClick(View view)
 		{
-			finish();
+			/*finish();
 			System.exit(0);
 			android.os.Process.killProcess(android.os.Process.myPid());
+			*/
+			Intent intent = new Intent(Intent.ACTION_MAIN);
+			intent.addCategory(Intent.CATEGORY_HOME);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intent);
+			
 		}
 	};
 	
@@ -331,6 +351,7 @@ public class TravelListActivity extends Activity {
 				txtContactNo.setText(userDto.getContactNo());
 				final int travelid =CurUserTravelID;
 				final int usertravelid =userDto.getTravelId();
+				final int traveleruserid =userDto.getUserId();
 				
 				//Ask the user if they want to quit
 		        new AlertDialog.Builder(context)
@@ -346,6 +367,7 @@ public class TravelListActivity extends Activity {
 			    			reqParameters.put("CURUSERTRAVELID", travelid);
 			    			reqParameters.put("USERTRAVELID", usertravelid);
 			    			reqParameters.put("CONUSERID", LaunchActivity.loginUserId);
+			    			reqParameters.put("TRAVELERUSERID", traveleruserid);
 			    			JsonHandler jsonHandler =JsonHandler.getInstance();
 			    			String url=jsonHandler.getFullUrl("UserTravelConfirm.php");
 			    			JSONObject result = jsonHandler.PostJsonDataToServer(url, reqParameters);
