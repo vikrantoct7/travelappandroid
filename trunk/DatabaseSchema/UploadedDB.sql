@@ -1,22 +1,3 @@
--- MySQL Administrator dump 1.4
---
--- ------------------------------------------------------
--- Server version	5.4.1-beta-community
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-
-
---
--- Definition of table `aasv_city`
---
 
 DROP TABLE IF EXISTS `aasv_city`;
 CREATE TABLE `aasv_city` (
@@ -25,9 +6,6 @@ CREATE TABLE `aasv_city` (
   PRIMARY KEY (`CITYID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `aasv_city`
---
 
 /*!40000 ALTER TABLE `aasv_city` DISABLE KEYS */;
 INSERT INTO `aasv_city` (`CITYID`,`CITY`) VALUES 
@@ -35,9 +13,6 @@ INSERT INTO `aasv_city` (`CITYID`,`CITY`) VALUES
 /*!40000 ALTER TABLE `aasv_city` ENABLE KEYS */;
 
 
---
--- Definition of table `aasv_citylocalities`
---
 
 DROP TABLE IF EXISTS `aasv_citylocalities`;
 CREATE TABLE `aasv_citylocalities` (
@@ -49,9 +24,7 @@ CREATE TABLE `aasv_citylocalities` (
   CONSTRAINT `FK_aasv_citylocalities_cityid` FOREIGN KEY (`CITYID`) REFERENCES `aasv_city` (`CITYID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `aasv_citylocalities`
---
+
 
 /*!40000 ALTER TABLE `aasv_citylocalities` DISABLE KEYS */;
 INSERT INTO `aasv_citylocalities` (`LOCALITYID`,`CITYID`,`LOCALITY`) VALUES 
@@ -66,9 +39,7 @@ INSERT INTO `aasv_citylocalities` (`LOCALITYID`,`CITYID`,`LOCALITY`) VALUES
 /*!40000 ALTER TABLE `aasv_citylocalities` ENABLE KEYS */;
 
 
---
--- Definition of table `aasv_travel`
---
+
 
 DROP TABLE IF EXISTS `aasv_travel`;
 CREATE TABLE `aasv_travel` (
@@ -92,9 +63,7 @@ CREATE TABLE `aasv_travel` (
 
 
 
---
--- Definition of table `aasv_travelconfirmdet`
---
+
 
 DROP TABLE IF EXISTS `aasv_travelconfirmdet`;
 CREATE TABLE `aasv_travelconfirmdet` (
@@ -110,9 +79,7 @@ CREATE TABLE `aasv_travelconfirmdet` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 
---
--- Definition of table `aasv_travelmode`
---
+
 
 DROP TABLE IF EXISTS `aasv_travelmode`;
 CREATE TABLE `aasv_travelmode` (
@@ -122,9 +89,7 @@ CREATE TABLE `aasv_travelmode` (
   PRIMARY KEY (`TMODE`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `aasv_travelmode`
---
+
 
 /*!40000 ALTER TABLE `aasv_travelmode` DISABLE KEYS */;
 INSERT INTO `aasv_travelmode` (`TMODE`,`TYPE`,`NOFPASSENGER`) VALUES 
@@ -133,9 +98,7 @@ INSERT INTO `aasv_travelmode` (`TMODE`,`TYPE`,`NOFPASSENGER`) VALUES
 /*!40000 ALTER TABLE `aasv_travelmode` ENABLE KEYS */;
 
 
---
--- Definition of table `aasv_user`
---
+
 
 DROP TABLE IF EXISTS `aasv_user`;
 CREATE TABLE `aasv_user` (
@@ -152,9 +115,6 @@ CREATE TABLE `aasv_user` (
   CONSTRAINT `FK_aasv_user__city_cityid` FOREIGN KEY (`CITYID`) REFERENCES `aasv_city` (`CITYID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1 COMMENT='User table';
 
---
--- Definition of procedure `aasv_city_getall`
---
 
 DROP PROCEDURE IF EXISTS `aasv_city_getall`;
 
@@ -169,9 +129,6 @@ END $$
 
 DELIMITER ;
 
---
--- Definition of procedure `aasv_travelmode_getall`
---
 
 DROP PROCEDURE IF EXISTS `aasv_travelmode_getall`;
 
@@ -186,9 +143,6 @@ END $$
 
 DELIMITER ;
 
---
--- Definition of procedure `aasv_travelplan_insert`
---
 
 DROP PROCEDURE IF EXISTS `aasv_travelplan_insert`;
 
@@ -212,9 +166,6 @@ END $$
 
 DELIMITER ;
 
---
--- Definition of procedure `aasv_travel_archives`
---
 
 DROP PROCEDURE IF EXISTS `aasv_travel_archives`;
 
@@ -263,9 +214,6 @@ END $$
 
 DELIMITER ;
 
---
--- Definition of procedure `aasv_user_getloginuserdata`
---
 
 DROP PROCEDURE IF EXISTS `aasv_user_getloginuserdata`;
 
@@ -273,7 +221,6 @@ DELIMITER $$
 
 /*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
 CREATE  PROCEDURE `aasv_user_getloginuserdata`(
-/*LOGIN VARCHAR(15),USERPASSWORD VARCHAR(15)*/
 MOBILENO VARCHAR(11)
 )
 BEGIN
@@ -284,9 +231,6 @@ END $$
 
 DELIMITER ;
 
---
--- Definition of procedure `aasv_user_getusercitylocalites`
---
 
 DROP PROCEDURE IF EXISTS `aasv_user_getusercitylocalites`;
 
@@ -304,9 +248,6 @@ END $$
 
 DELIMITER ;
 
---
--- Definition of procedure `aasv_user_insert`
---
 
 DROP PROCEDURE IF EXISTS `aasv_user_insert`;
 
@@ -334,9 +275,6 @@ END $$
 
 DELIMITER ;
 
---
--- Definition of procedure `aasv_user_travelconfirm`
---
 
 DROP PROCEDURE IF EXISTS `aasv_user_travelconfirm`;
 
@@ -355,9 +293,6 @@ END $$
 
 DELIMITER ;
 
---
--- Definition of procedure `aasv_user_traveldelete`
---
 
 DROP PROCEDURE IF EXISTS `aasv_user_traveldelete`;
 
@@ -385,10 +320,6 @@ END $$
 
 DELIMITER ;
 
---
--- Definition of procedure `aasv_user_travelmatch`
---
-
 DROP PROCEDURE IF EXISTS `aasv_user_travelmatch`;
 
 DELIMITER $$
@@ -415,13 +346,3 @@ END $$
 /*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
 
 DELIMITER ;
-
-
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
