@@ -106,6 +106,10 @@ public class TravelListActivity extends Activity {
 			TableRow.LayoutParams rowparams = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT,TableRow.LayoutParams.WRAP_CONTENT);
 			@SuppressWarnings("deprecation")
 			TableRow.LayoutParams viewParams = new TableRow.LayoutParams(0,TableRow.LayoutParams.FILL_PARENT,1);
+			@SuppressWarnings("deprecation")
+			TableRow.LayoutParams lblNoOfPassengerParams = new TableRow.LayoutParams(0,TableRow.LayoutParams.FILL_PARENT,(float)0.5);
+			@SuppressWarnings("deprecation")
+			TableRow.LayoutParams displayNoOfPassengerParams = new TableRow.LayoutParams(0,TableRow.LayoutParams.FILL_PARENT,(float)0.20);
 			
 			int btnTextColor = Color.parseColor("#000000");
 			int btnBackColor = Color.parseColor("#938953");
@@ -186,7 +190,20 @@ public class TravelListActivity extends Activity {
 				TableRow tblrow4= new TableRow(this);
 				tblrow4.setLayoutParams(rowparams);
 				tblrow4.setPadding(0, 5, 0, 0);
+				
+				TextView lblNoOfPassenger =new TextView(this);
+				
+				lblNoOfPassenger.setLayoutParams(lblNoOfPassengerParams);
+				lblNoOfPassenger.setText(R.string.lblNoOfPassenger);
+				
+				TextView displayNoOfPassenger =new TextView(this);
+				displayNoOfPassenger.setLayoutParams(displayNoOfPassengerParams);
+				displayNoOfPassenger.setText(datarow.getString("NOOFPASSENGER"));
+				tblrow4.addView(lblNoOfPassenger);
+				tblrow4.addView(displayNoOfPassenger);
+				
 				Button btnSubmitTravel = new Button(this);
+				btnSubmitTravel.setWidth(65);
 				btnSubmitTravel.setTextColor(btnTextColor);
 				btnSubmitTravel.setBackgroundColor(btnBackColor);
 				
@@ -210,13 +227,13 @@ public class TravelListActivity extends Activity {
 					{
 						Button btnShowMobileNo = null;
 						btnShowMobileNo = new Button(this);
+						btnShowMobileNo.setWidth(65);
 						btnShowMobileNo.setTextColor(btnTextColor);
 						btnShowMobileNo.setBackgroundColor(btnBackColor);
 						btnShowMobileNo.setText(R.string.btnShowMobileNo);
 						btnShowMobileNo.setTag(userDto.getContactNo());
 						btnShowMobileNo.setOnClickListener(onShowMobileAction);
 						tblrow4.addView(btnShowMobileNo);
-						//btnSubmitTravel.setEnabled(false);
 					}
 					else
 					{
@@ -234,14 +251,6 @@ public class TravelListActivity extends Activity {
 					}
 					
 				}
-				/*tblrow5.addView(btnSubmitTravel);
-				if(btnShowMobileNo !=null)
-				{
-					TextView dummy =new TextView(this);
-					dummy.setLayoutParams(viewParams);
-					tblrow5.addView(dummy);
-					tblrow5.addView(btnShowMobileNo);
-				}*/
 				
 				tblTravelDetails.addView(tblrow1);
 				tblTravelDetails.addView(tblrow2);
@@ -354,13 +363,13 @@ public class TravelListActivity extends Activity {
 				final int traveleruserid =userDto.getUserId();
 				
 				//Ask the user if they want to quit
-		        new AlertDialog.Builder(context)
-		        .setIcon(android.R.drawable.ic_dialog_alert)
-		        .setView(userView)
-		        .setTitle(R.string.titleConfirmBox)
-		        .setPositiveButton(R.string.lblYes, new DialogInterface.OnClickListener() {
-		            @Override
-		            public void onClick(DialogInterface dialog, int which) {
+		        //new AlertDialog.Builder(context)
+		        //.setIcon(android.R.drawable.ic_dialog_alert)
+		        //.setView(userView)
+		        //.setTitle(R.string.titleConfirmBox)
+		        //.setPositiveButton(R.string.lblYes, new DialogInterface.OnClickListener() {
+		        //    @Override
+		        //    public void onClick(DialogInterface dialog, int which) {
 		            	try
 		            	{
 			            	JSONObject reqParameters= new JSONObject();
@@ -395,10 +404,10 @@ public class TravelListActivity extends Activity {
 			        		{    
 			        			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 			        		} 
-			            }
-		            })
-			        .setNegativeButton(R.string.lblNo, null)
-			        .show();
+			            //}
+		            //})
+			        //.setNegativeButton(R.string.lblNo, null)
+			        //.show();
 			}
 		}
 	};

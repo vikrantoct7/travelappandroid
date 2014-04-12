@@ -31,6 +31,7 @@
         
         <TableRow
             android:id="@+id/tableRow1"
+            android:paddingBottom="5dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             >
@@ -50,12 +51,14 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
 		        android:ems="10"
+		        android:textSize="16sp"
 		        android:inputType="text" >
 		        <requestFocus />
 			</EditText>
          </TableRow>  
          <TableRow
             android:id="@+id/tableRow2"
+            android:paddingBottom="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
             <TextView 
@@ -66,6 +69,37 @@
                 android:text="@string/lblLoginInformation"
                 />
         </TableRow>
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:paddingBottom="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            
+		    <Button
+		        android:id="@+id/btnLoginSubmit"
+		        android:layout_width="0dp"
+		        android:layout_height="40dp"
+		        android:layout_weight=".35"
+		        android:background="#938953"
+		        android:text="@string/btnSubmit"
+		        android:textSize="16sp"
+		        android:textColor="#000000" />
+		    <TextView
+			    android:id="@+id/dumy"
+			    android:layout_width="0dp"
+			    android:layout_height="fill_parent"
+			    android:layout_weight=".3" />
+		    <Button
+		        android:id="@+id/btnSingUp"
+		        android:layout_width="0dp"
+		        android:layout_height="40dp"
+		        android:layout_weight=".35"
+		        android:textColor="#000000"
+		        android:background="#938953"
+		        android:textSize="16sp"
+		        android:text="@string/btnSingUp" />
+		    
+        </TableRow>    
     </TableLayout>
 	
     	
@@ -92,21 +126,6 @@
         android:inputType="text|textPassword" />
      -->
 
-    <Button
-        android:id="@+id/btnSingUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btnLoginSubmit"
-        android:layout_alignBottom="@+id/btnLoginSubmit"
-        android:layout_centerHorizontal="true"
-        android:text="@string/btnSingUp" />
-
-    <Button
-        android:id="@+id/btnLoginSubmit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tblUserLogin"
-        android:layout_below="@+id/tblUserLogin"
-        android:text="@string/btnSubmit" />
+    
 
 </RelativeLayout>

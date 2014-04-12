@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Let\'s go</string>
+    <string name="app_name">LetsGO</string>
     <string name="action_settings">Settings</string>
     <string name="lblUserName">Registered mobile number</string>
     <string name="lblPassword">Password</string>
@@ -23,7 +23,7 @@
     <string name="lblRegConfimation">User %s has been successfully registered. Please click on blow button to login into the application!</string>
     <string name="lblGoToLoginBtn">Go back to login screen</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_home_page">Travel Details List</string>
+    <string name="title_activity_home_page">Travel Detail List</string>
     <string name="btnNewTravelPlan">New plan</string>
     <string name="title_activity_travel_plan">Enter Travel Details</string>
     <string name="lblCurrentLoc">Current Location</string>
@@ -48,10 +48,11 @@
 	<string name="lblNo">No</string>
 	<string name="lblTravelerName">Traveler Name</string>
 	<string name="lblTravelerTimeMode">Travel Time/Mode</string>
-	<string name="btnShowMobileNo">Show Mobile No</string>
+	<string name="btnShowMobileNo">Call</string>
 	<string name="titleShowMobileBox">Mobile Information</string>
 	<string name="lblToCall">Call</string>
 	<string name="lblCity">City</string>
 	<string name="ddSelCity">Select city</string>
 	<string name="lblBtnRefresh">Refresh</string>
+	<string name="lblErrorForSameLocation">Start location and end location can not be same.</string>
 </resources>
