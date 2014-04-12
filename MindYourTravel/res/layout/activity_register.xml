@@ -27,6 +27,7 @@
 
         <TableRow
             android:id="@+id/tableRow1"
+            android:paddingBottom="5dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" >
 
@@ -35,6 +36,8 @@
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight=".65"
+                android:paddingTop="10dp"
+                android:textColor="#000000"
                 android:text="@string/lblFName" />
 
             <EditText
@@ -44,12 +47,13 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="text"
-                android:textSize="12sp" >
+                android:textSize="16sp" >
                 <requestFocus />
             </EditText>
         </TableRow>
         <TableRow
             android:id="@+id/tableRow2"
+            android:paddingBottom="5dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" >
             <TextView
@@ -57,6 +61,8 @@
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight=".65"
+                android:paddingTop="10dp"
+                android:textColor="#000000"
 			    android:text="@string/lblLName" />
              <EditText
 	        	android:id="@+id/txtLName"
@@ -65,10 +71,11 @@
                 android:layout_weight="1"
                 android:ems="10"
 	        	android:inputType="text"
-	       		android:textSize="12sp"/>
+	       		android:textSize="16sp"/>
          </TableRow>
 		<TableRow
              android:id="@+id/tableRow3"
+             android:paddingBottom="5dp"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content" >
 
@@ -77,6 +84,8 @@
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight=".33"
+                android:paddingTop="10dp"
+                android:textColor="#000000"
                 android:text="@string/lblCity" />
 			<Spinner
 			    android:id="@+id/ddCity"
@@ -88,6 +97,7 @@
          </TableRow>
          <TableRow
              android:id="@+id/tableRow4"
+             android:paddingBottom="5dp"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content" >
 
@@ -96,6 +106,8 @@
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight=".65"
+                android:paddingTop="10dp"
+                android:textColor="#000000"
                 android:text="@string/lblAge" />
 
             <EditText
@@ -104,6 +116,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight=".50"
                 android:ems="10"
+                android:textSize="16sp"
                 android:inputType="number" />
 
 			<TextView
@@ -116,6 +129,7 @@
          
           <TableRow
             android:id="@+id/tableRow5"
+            android:paddingBottom="5dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" >
            <TextView
@@ -123,6 +137,8 @@
 			   	android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight=".65"
+                android:paddingTop="10dp"
+                android:textColor="#000000"
 			    android:text="@string/lblGender" />
              <RadioGroup
 			     android:id="@+id/rdoGender"
@@ -147,6 +163,7 @@
          
           <TableRow
             android:id="@+id/tableRow6"
+            android:paddingBottom="5dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" >
 
@@ -155,6 +172,8 @@
 			   	android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight=".65"
+                android:paddingTop="10dp"
+                android:textColor="#000000"
 	     		android:text="@string/lblContactNo" />
           
             <EditText
@@ -168,6 +187,7 @@
         	
         	<TableRow
 	            android:id="@+id/tableRow7"
+	            android:paddingBottom="5dp"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content" >
 
@@ -176,11 +196,14 @@
         		    android:layout_width="wrap_content"
         		    android:layout_height="fill_parent"
         		    android:paddingLeft="30dp"
+        		    android:paddingTop="10dp"
+               		android:textColor="#000000"
         		    android:text="@string/lblTermCondition" />
 
         	</TableRow>
         	<TableRow
 	            android:id="@+id/tableRow8"
+	            android:paddingBottom="5dp"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content" >
 				<TextView
@@ -191,9 +214,11 @@
         		<Button
         		    android:id="@+id/btnRegister"
         		    android:layout_width="wrap_content"
-        		    android:layout_height="fill_parent"
+        		    android:layout_height="40dp"
         		    android:layout_weight=".5"
         		    android:text="@string/lblRegister"
+        		    android:textColor="#000000"
+        		    android:background="#938953"
         		    android:visibility="visible" />
 				<TextView
 				    android:id="@+id/dumy2"

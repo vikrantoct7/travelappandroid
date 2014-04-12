@@ -1,6 +1,9 @@
 package com.example.mindyourtravel;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import org.apache.http.client.ClientProtocolException;
 import org.json.JSONArray;
@@ -8,6 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.os.Bundle;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
@@ -138,6 +142,8 @@ public class TravelPlanActivity extends Activity {
 	
 	private OnClickListener onClickbtnTravelSubmit = new OnClickListener()
 	{
+		@SuppressLint("SimpleDateFormat")
+		@SuppressWarnings("deprecation")
 		@Override
 		public void onClick(View view)
 		{
@@ -149,55 +155,91 @@ public class TravelPlanActivity extends Activity {
 			final  TextView txtStartTime = (TextView)findViewById(R.id.txtStartTime);
 			final  TextView txtNoOfPass = (TextView)findViewById(R.id.txtNoOfPass);
 			final  Spinner  ddTravelType =(Spinner)findViewById(R.id.ddTravelType);
-			try
+			
+			boolean validationResult=true;
+			GenericValidator validator = new GenericValidator();
+			validationResult= validator.validate(txtStartPoint);
+			validationResult= validator.validate(txtNoOfPass);
+			if(validationResult)
 			{
-				JSONObject reqParameters= new JSONObject();
-				reqParameters.put("USERID", LaunchActivity.loginUserId);
-				//reqParameters.put("CURRLOCATION", txtCurrentLoc.getText());
-				reqParameters.put("CURRLOCATION", ddCurrentLoc.getSelectedItem());
-				reqParameters.put("STARTLOCATION", txtStartPoint.getText());
-				//reqParameters.put("ENDLOCATION", txtEndPoint.getText());
-				reqParameters.put("ENDLOCATION", ddEndLocation.getSelectedItem());
-				reqParameters.put("TRAVELTIME", txtStartTime.getText());
-				reqParameters.put("TRAVELMODE", ddTravelType.getSelectedItem());
-				reqParameters.put("NOOFPASSENGER", txtNoOfPass.getText());
-				JsonHandler jsonHandler =JsonHandler.getInstance();
-				String url=jsonHandler.getFullUrl("UserTravelPlan.php");
-				JSONObject result = jsonHandler.PostJsonDataToServer(url, reqParameters);
-				String resultCode= result.getString("RESULT");
-				if(resultCode.contentEquals(AppConstant.PHPResponse_KO))
+				
+				try{
+					SimpleDateFormat dateFormat= new SimpleDateFormat("hh:mm aa");
+					Date inputTime= dateFormat.parse(txtStartTime.getText().toString());
+					Date currentTime = dateFormat.parse(dateFormat.format(new Date()));
+					
+			        if(inputTime.getTime() < currentTime.getTime())
+			        {
+			        	txtStartTime.setError("Time can not be less than current time");
+			        	return ;
+			        }
+			        currentTime.setHours(currentTime.getHours()+2);
+			        if(inputTime.getTime() > currentTime.getTime())
+			        {
+			        	txtStartTime.setError("More than 2 hours advance time is not allow");
+			        	return ;
+			        }
+			        
+			        if(ddCurrentLoc.getSelectedItem() == ddEndLocation.getSelectedItem())
+			        {
+			        	SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorForSameLocation);
+			        	return;
+			        }
+				}
+				catch(ParseException e)
 				{
-					String errorCode=result.getString("ERRORCODE");
-					if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.NOTEXISTS))
+					txtStartTime.setError("Invalid time");
+				}
+				try
+				{
+					JSONObject reqParameters= new JSONObject();
+					reqParameters.put("USERID", LaunchActivity.loginUserId);
+					//reqParameters.put("CURRLOCATION", txtCurrentLoc.getText());
+					reqParameters.put("CURRLOCATION", ddCurrentLoc.getSelectedItem());
+					reqParameters.put("STARTLOCATION", txtStartPoint.getText());
+					//reqParameters.put("ENDLOCATION", txtEndPoint.getText());
+					reqParameters.put("ENDLOCATION", ddEndLocation.getSelectedItem());
+					reqParameters.put("TRAVELTIME", txtStartTime.getText());
+					reqParameters.put("TRAVELMODE", ddTravelType.getSelectedItem());
+					reqParameters.put("NOOFPASSENGER", txtNoOfPass.getText());
+					JsonHandler jsonHandler =JsonHandler.getInstance();
+					String url=jsonHandler.getFullUrl("UserTravelPlan.php");
+					JSONObject result = jsonHandler.PostJsonDataToServer(url, reqParameters);
+					String resultCode= result.getString("RESULT");
+					if(resultCode.contentEquals(AppConstant.PHPResponse_KO))
 					{
-						SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorUserNotExist);
+						String errorCode=result.getString("ERRORCODE");
+						if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.NOTEXISTS))
+						{
+							SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorUserNotExist);
+						}
+						else if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
+						{
+							SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+						}
 					}
-					else if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
+					else
 					{
-						SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+						Intent intent = new Intent(view.getContext(),TravelListActivity.class);
+						startActivity(intent);
 					}
 				}
-				else
+				catch(JSONException ex)
 				{
-					Intent intent = new Intent(view.getContext(),TravelListActivity.class);
-					startActivity(intent);
+					SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 				}
-			}
-			catch(JSONException ex)
-			{
-				SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-			}
-			catch (ClientProtocolException e)
-			{    
-				SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-			}    
-			catch (IOException e) 
-			{    
-				SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-			} 
-			catch(Exception e)
-			{
-				SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+				catch (ClientProtocolException e)
+				{    
+					SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+				}    
+				catch (IOException e) 
+				{    
+					SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+				} 
+				catch(Exception e)
+				{
+					SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+				}
 			}
 		}
 	};
