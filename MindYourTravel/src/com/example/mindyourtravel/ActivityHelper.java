@@ -105,8 +105,18 @@ public final class ActivityHelper {
 	{
 		ViewGroup decorView= (ViewGroup) window.getDecorView();
 		LinearLayout root= (LinearLayout) decorView.getChildAt(0);
-		FrameLayout titleContainer= (FrameLayout) root.getChildAt(0);
-		TextView title= (TextView) titleContainer.getChildAt(0);
-		title.setGravity(Gravity.CENTER);
+		if(root.getChildAt(0).getClass() ==FrameLayout.class ) 
+		{
+			FrameLayout titleContainer= (FrameLayout) root.getChildAt(0);
+			TextView title= (TextView) titleContainer.getChildAt(0);
+			title.setGravity(Gravity.CENTER);
+		}
+		else if(root.getChildAt(1).getClass() ==FrameLayout.class ) 
+		{
+			FrameLayout titleContainer= (FrameLayout) root.getChildAt(1);
+			TextView title= (TextView) titleContainer.getChildAt(0);
+			title.setGravity(Gravity.CENTER);
+		}
+	
 	}
 }
