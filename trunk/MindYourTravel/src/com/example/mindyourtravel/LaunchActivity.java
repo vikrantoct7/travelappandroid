@@ -19,17 +19,16 @@ public class LaunchActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_launch);
-		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD) {
+		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.FROYO) {
 			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 			StrictMode.setThreadPolicy(policy); 
-		}
+		}	
 		
-		ActivityHelper.setApplicationTitle(getWindow());
+		ActivityHelper.setApplicationTitle(this.getWindow());
 		SetErrorLabelVisibility(View.INVISIBLE,R.string.lblError);
 		try 
 		{	
 			repository = new XmlDataRepository();
-			
 		} 
 		catch (Exception e) {
 			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
