@@ -15,6 +15,8 @@ import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+//import com.android.internal.telephony.Phone; 
+//import com.android.internal.telephony.PhoneFactory; 
 
 
 public final class ActivityHelper {
@@ -87,6 +89,8 @@ public final class ActivityHelper {
 	{
 		TelephonyManager tMgr =(TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE); 
 		return tMgr.getLine1Number();
+		//Phone mPhone = PhoneFactory.getDefaultPhone();
+		//return mPhone.getLine1Number();
 	}
 	
 	public static void setApplicationTitle(Window window)

@@ -40,11 +40,16 @@ public class TravelListActivity extends Activity {
 		
 		final Button btnRefresh = (Button)findViewById(R.id.btnRefresh);
 		btnRefresh.setOnClickListener(onClickRefresh);
-		
-		final Button btnQuit = (Button)findViewById(R.id.btnQuit);
-		btnQuit.setOnClickListener(onClickQuit);
-		
+
 	}
+	
+	@Override
+	protected void onRestart()
+	{
+		super.onRestart();
+		LoadTravelList();
+	}
+	
 	
 	private void LoadTravelList()
 	{
@@ -142,7 +147,7 @@ public class TravelListActivity extends Activity {
 				TableRow tblrow1= new TableRow(this);
 			
 				tblrow1.setLayoutParams(rowparams);
-				tblrow1.setPadding(0, 5, 0, 0);
+				tblrow1.setPadding(0, 3, 0, 0);
 				TextView lblUserDetails =new TextView(this);
 
 				lblUserDetails.setLayoutParams(viewParams);
@@ -161,7 +166,7 @@ public class TravelListActivity extends Activity {
 				TableRow tblrow2= new TableRow(this);
 				
 				tblrow2.setLayoutParams(rowparams);
-				tblrow2.setPadding(0, 5, 0, 0);
+				tblrow2.setPadding(0, 3, 0, 0);
 				TextView lblTravelDetails =new TextView(this);
 				lblTravelDetails.setLayoutParams(viewParams);
 				lblTravelDetails.setText(R.string.lblTravelDetails);
@@ -175,7 +180,7 @@ public class TravelListActivity extends Activity {
 				
 				TableRow tblrow3= new TableRow(this);
 				tblrow3.setLayoutParams(rowparams);
-				tblrow3.setPadding(0, 5, 0, 0);
+				tblrow3.setPadding(0, 3, 0, 0);
 				TextView lblStartTime =new TextView(this);
 				lblStartTime.setLayoutParams(viewParams);
 				lblStartTime.setText(R.string.lblTravelerTimeMode);
@@ -189,7 +194,7 @@ public class TravelListActivity extends Activity {
 								
 				TableRow tblrow4= new TableRow(this);
 				tblrow4.setLayoutParams(rowparams);
-				tblrow4.setPadding(0, 5, 0, 0);
+				tblrow4.setPadding(0, 3, 0, 0);
 				
 				TextView lblNoOfPassenger =new TextView(this);
 				
@@ -271,22 +276,18 @@ public class TravelListActivity extends Activity {
 		return true;
 	}
 	
-	private OnClickListener onClickQuit = new OnClickListener()
+	/*private OnClickListener onClickQuit = new OnClickListener()
 	{
 		@Override
 		public void onClick(View view)
 		{
-			/*finish();
-			System.exit(0);
-			android.os.Process.killProcess(android.os.Process.myPid());
-			*/
 			Intent intent = new Intent(Intent.ACTION_MAIN);
 			intent.addCategory(Intent.CATEGORY_HOME);
 			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(intent);
 			
 		}
-	};
+	};*/
 	
 	private OnClickListener onClickRefresh = new OnClickListener()
 	{

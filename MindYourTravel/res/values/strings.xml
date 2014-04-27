@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">LetsGO</string>
     <string name="action_settings">Settings</string>
     <string name="lblUserName">Registered mobile number</string>
@@ -19,8 +20,6 @@
     <string name="lblErrorUserExist">This mobile no is already exist.</string>
     <string name="lblErrorUserNotExist">Login failed. Please check your credential.</string>
     <string name="lblErrorTechnical">Technical error occurred. Please try again</string>
-    <string name="title_activity_registration_confimation">RegistrationConfimationActivity</string>
-    <string name="lblRegConfimation">User %s has been successfully registered. Please click on blow button to login into the application!</string>
     <string name="lblGoToLoginBtn">Go back to login screen</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_home_page">Travel Detail List</string>
@@ -40,19 +39,21 @@
     <string name="btnConfimTravel">Confirm</string>
     <string name="lblTermCondition">I have read and agree to <a href="#">terms and condition </a> for using this app</string>
     <string name="lblLoginInformation">If you already registered, please login with registered mobile number. otherwise click on "Sign Up" for register yourself.</string>
-	<string name="ddSelLocation">Select location</string>
-	<string name="btnDeleteTravel">Delete</string>
-	<string name="titleConfirmBox">Confirm</string>
-	<string name="lblPlanDeleteMsg">Are you sure, you want to delete your plan?</string>
-	<string name="lblYes">Yes</string>
-	<string name="lblNo">No</string>
-	<string name="lblTravelerName">Traveler Name</string>
-	<string name="lblTravelerTimeMode">Travel Time/Mode</string>
-	<string name="btnShowMobileNo">Call</string>
-	<string name="titleShowMobileBox">Mobile Information</string>
-	<string name="lblToCall">Call</string>
-	<string name="lblCity">City</string>
-	<string name="ddSelCity">Select city</string>
-	<string name="lblBtnRefresh">Refresh</string>
-	<string name="lblErrorForSameLocation">Start location and end location can not be same.</string>
+    <string name="ddSelLocation">Select location</string>
+    <string name="btnDeleteTravel">Delete</string>
+    <string name="titleConfirmBox">Confirm</string>
+    <string name="lblPlanDeleteMsg">Are you sure, you want to delete your plan?</string>
+    <string name="lblYes">Yes</string>
+    <string name="lblNo">No</string>
+    <string name="lblTravelerName">Traveler Name</string>
+    <string name="lblTravelerTimeMode">Travel Time/Mode</string>
+    <string name="btnShowMobileNo">Call</string>
+    <string name="titleShowMobileBox">Mobile Information</string>
+    <string name="lblToCall">Call</string>
+    <string name="lblCity">City</string>
+    <string name="ddSelCity">Select city</string>
+    <string name="lblBtnRefresh">Refresh</string>
+    <string name="lblErrorForSameLocation">Start location and end location can not be same.</string>
+    <string name="title_activity_location_locator">LocationLocatorActivity</string>
+
 </resources>

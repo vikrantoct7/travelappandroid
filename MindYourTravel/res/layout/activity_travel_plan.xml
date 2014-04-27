@@ -36,10 +36,10 @@
                  android:id="@+id/lblCurrentLoc"
                  android:layout_width="0dp"
                  android:layout_height="fill_parent"
-                 android:layout_weight=".35"
+                 android:layout_weight=".25"
                  android:paddingTop="10dp"
-                 android:textColor="#000000"
-                 android:text="@string/lblCurrentLoc" />
+                 android:text="@string/lblCurrentLoc"
+                 android:textColor="#000000" />
            
             <!--   <TextView
                  android:id="@+id/txtCurrentLoc"
@@ -49,13 +49,13 @@
                  android:text="@string/lblCurLocNotfound"
                  android:textSize="12sp" />
              -->
-              <Spinner
-			    android:id="@+id/ddCurrentLoc"
-			    android:layout_width="0dp"
-			    android:layout_height="wrap_content"
-			    android:layout_weight=".50"
-			    android:prompt="@string/ddSelLocation" />
 
+              <Spinner
+                  android:id="@+id/ddCurrentLoc"
+                  android:layout_width="0dp"
+                  android:layout_height="wrap_content"
+                  android:layout_weight=".50"
+                  android:prompt="@string/ddSelLocation" />
 
         </TableRow>
         
@@ -69,10 +69,10 @@
                 android:id="@+id/lblStartLoc"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_weight=".35"
+                android:layout_weight=".25"
                 android:paddingTop="10dp"
-                android:textColor="#000000"
-                android:text="@string/lblStartLoc" />
+                android:text="@string/lblStartLoc"
+                android:textColor="#000000" />
 
             <EditText
                 android:id="@+id/txtStartLoc"
@@ -94,13 +94,14 @@
              android:layout_height="wrap_content" >
 
             <TextView
-	    		android:id="@+id/lblEndLoc"
-	            android:layout_width="0dp"
+                android:id="@+id/lblEndLoc"
+                android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_weight=".35"
+                android:layout_weight=".25"
                 android:paddingTop="10dp"
-                android:textColor="#000000"
-	    		android:text="@string/lblEndLoc" />
+                android:text="@string/lblEndLoc"
+                android:textColor="#000000" />
+
 			<!--  
 			<EditText
 			    android:id="@+id/txtEndLoc"
@@ -115,9 +116,13 @@
 			    android:id="@+id/ddEndLocation"
 			    android:layout_width="0dp"
 			    android:layout_height="wrap_content"
-			    android:layout_weight=".50"
+			    android:layout_weight=".40"
 			    android:prompt="@string/ddSelLocation" />
-			
+			<Button
+		    android:id="@+id/btnPlusLoc"
+		    android:layout_width="30dp"
+		    android:layout_height="28dp"
+		    android:background="@drawable/plus_icon" />
          </TableRow>
          <TableRow
              android:id="@+id/tableRow4"
@@ -126,13 +131,13 @@
              android:layout_height="wrap_content">
 
 			<TextView
-	    		android:id="@+id/lblTravelMode"
-	  			android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".35"
-                android:paddingTop="10dp"
-                android:textColor="#000000"
-	    		android:text="@string/lblTravelMode" />
+			    android:id="@+id/lblTravelMode"
+			    android:layout_width="0dp"
+			    android:layout_height="wrap_content"
+			    android:layout_weight=".25"
+			    android:paddingTop="10dp"
+			    android:text="@string/lblTravelMode"
+			    android:textColor="#000000" />
 
 			<Spinner
 			    android:id="@+id/ddTravelType"
@@ -149,13 +154,13 @@
              android:layout_height="wrap_content" >
 			
             <TextView
-	    		android:id="@+id/lblTravelTime"
-	            android:layout_width="0dp"
+                android:id="@+id/lblTravelTime"
+                android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_weight=".35"
+                android:layout_weight=".25"
                 android:paddingTop="10dp"
-                android:textColor="#000000"
-	    		android:text="@string/lblTravelTime" />
+                android:text="@string/lblTravelTime"
+                android:textColor="#000000" />
 			
             <EditText
 	   			android:id="@+id/txtStartTime"
@@ -174,14 +179,15 @@
              android:paddingBottom="5dp"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content" >
+
 			<TextView
-	    		android:id="@+id/lblNoOfPassenger"
-	   			android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight=".35"
-                android:paddingTop="10dp"
-                android:textColor="#000000"
-	    		android:text="@string/lblNoOfPassenger" />
+			    android:id="@+id/lblNoOfPassenger"
+			    android:layout_width="0dp"
+			    android:layout_height="fill_parent"
+			    android:layout_weight=".25"
+			    android:paddingTop="10dp"
+			    android:text="@string/lblNoOfPassenger"
+			    android:textColor="#000000" />
 				
 			<EditText
 	    		android:id="@+id/txtNoOfPass"

@@ -177,9 +177,6 @@ public class RegisterActivity extends Activity {
 						}
 						else
 						{
-							//Intent intent = new Intent(v.getContext(),RegConfimationActivity.class);
-							//intent.putExtra("USERNAME", txtUserName.getText().toString());
-							//startActivity(intent);
 							JSONObject jsonData =result.getJSONObject("USERDATA");
 							UserDTO userDto = new UserDTO();
 							LaunchActivity.loginUserId = jsonData.getInt("USERID");
