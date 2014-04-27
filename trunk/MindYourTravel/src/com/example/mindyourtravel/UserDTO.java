@@ -96,7 +96,7 @@ public class UserDTO implements Serializable
 	
 	public String getUserFullName()
 	{
-		return this.firstName +  this.lastName;
+		return this.firstName + " "+  this.lastName;
 	}
 	
 	public String getGenderStringValue()

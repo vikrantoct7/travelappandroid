@@ -50,15 +50,6 @@
         android:background="#938953"
         android:layout_toRightOf="@+id/btnNewTravelPlan"
         android:text="@string/lblBtnRefresh" />
- 
-	<Button
-	    android:id="@+id/btnQuit"
-	    android:layout_width="30dp"
-	    android:layout_height="28dp"
-	    android:layout_above="@+id/lblTravelErrorMsg"
-	    android:layout_alignParentRight="true"
-	    android:layout_alignTop="@+id/btnRefresh"
-	    android:background="@drawable/quit_icon" />
- 
+  
     </RelativeLayout>
 </ScrollView>
