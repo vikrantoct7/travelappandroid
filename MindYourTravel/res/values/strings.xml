@@ -54,6 +54,9 @@
     <string name="ddSelCity">Select city</string>
     <string name="lblBtnRefresh">Refresh</string>
     <string name="lblErrorForSameLocation">Start location and end location can not be same.</string>
-    <string name="title_activity_location_locator">LocationLocatorActivity</string>
-
+    <string name="title_activity_location_locator">Location Locator</string>
+	<string name="str_atv_places">Enter Place Here</string>
+	<string name="lblSubLocality">Sub Locality</string>
+	<string name="lblLocality">Locality</string>
+	<string name="lblOK">OK</string>
 </resources>
