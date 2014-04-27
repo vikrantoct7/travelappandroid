@@ -121,6 +121,9 @@ public class TravelPlanActivity extends Activity {
 		{
 			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 		}
+        
+        final Button btnPlusLoc = (Button)findViewById(R.id.btnPlusLoc);
+        btnPlusLoc.setOnClickListener(onClickBtnPlusLoc);
 	}
 
 	@Override
@@ -241,6 +244,16 @@ public class TravelPlanActivity extends Activity {
 					SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 				}
 			}
+		}
+	};
+	
+	private OnClickListener onClickBtnPlusLoc = new OnClickListener()
+	{
+		@Override
+		public void onClick(View view)
+		{
+			Intent intent = new Intent(view.getContext(),LocationLocatorActivity.class);
+			startActivity(intent);
 		}
 	};
 
