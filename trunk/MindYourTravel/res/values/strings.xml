@@ -59,4 +59,5 @@
 	<string name="lblSubLocality">Sub Locality</string>
 	<string name="lblLocality">Locality</string>
 	<string name="lblOK">OK</string>
+	 <string name="lblErrorLocalityExist">This locality is already exist.</string>
 </resources>
