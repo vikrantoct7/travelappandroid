@@ -40,7 +40,8 @@ public class GPSTracker extends Service implements LocationListener {
 
     // Declaring a Location Manager
     protected LocationManager locationManager;
-
+    
+    
     public GPSTracker(Context context) {
         this.mContext = context;
         getLocation();
@@ -237,5 +238,24 @@ public class GPSTracker extends Service implements LocationListener {
             //e.printStackTrace();
         }
         return strLocation.toString();
+	}
+	
+	public String getCurrentCity()
+	{
+		String userCity="";
+        List<Address> addresses;
+        try {
+            addresses = Geocoder.getFromLocation(getLatitude(),	getLongitude()	, 1);
+            if (addresses.size() > 0)
+            {
+            	Address add = addresses.get(0);
+            	userCity =add.getLocality();
+            	
+            }
+        } 
+        catch (Exception e) {
+            //e.printStackTrace();
+        }
+		return userCity;
 	}
 }
