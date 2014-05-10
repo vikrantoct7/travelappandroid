@@ -2,6 +2,7 @@ package com.example.mindyourtravel;
 
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
@@ -11,15 +12,20 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.text.Editable;
@@ -36,6 +42,20 @@ public class LocationLocatorActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_location_locator);
 		ActivityHelper.setApplicationTitle(this.getWindow());
+		
+		Bundle extras  = getIntent().getExtras();
+		
+		final TextView lblLocPosition =(TextView) findViewById(R.id.lblLocPosition);
+		lblLocPosition.setText(extras.getString("LOCPOSITION"));
+		
+		final TextView lblPersistPosition =(TextView) findViewById(R.id.lblPersistPosition);
+		lblPersistPosition.setText(extras.getString("PERSISTPOSITION"));
+		
+		SetErrorLabelVisibility(View.INVISIBLE,R.string.lblError);
+		
+		final Button btnLocationOK =(Button)findViewById(R.id.btnLocationOK);
+		btnLocationOK.setOnClickListener(onClickbtnLocationOK);
+		
 		
 		atvPlaces = (AutoCompleteTextView) findViewById(R.id.atv_places);
 		atvPlaces.setThreshold(1);	
@@ -226,4 +246,71 @@ public class LocationLocatorActivity extends Activity {
 	}
 
 
+	private OnClickListener onClickbtnLocationOK = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			TextView lblSelectedLoc =(TextView)findViewById(R.id.lblSelectedSubLocality);
+			TextView lblSelectedLocality =(TextView)findViewById(R.id.lblSelectedLocality);
+			if(lblSelectedLoc.getText().length()>0)
+			{
+				try
+            	{
+	            	JSONObject reqParameters= new JSONObject();
+	    			reqParameters.put("LOCALITYNAME", lblSelectedLoc.getText());
+	    			reqParameters.put("CITYNAME", lblSelectedLocality.getText());
+	    			JsonHandler jsonHandler =JsonHandler.getInstance();
+	    			String url=jsonHandler.getFullUrl("LocalityDataAdapter.php");
+	    			JSONObject result = jsonHandler.PostJsonDataToServer(url, reqParameters);
+	    			String resultCode= result.getString("RESULT");
+	    			if(resultCode.contentEquals(AppConstant.PHPResponse_KO))
+	    			{
+	    				String errorCode=result.getString("ERRORCODE");
+	    				
+	    				if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.ALREADYEXISTS))
+	    				{
+	    					GoToTravelPlanActivity(v, lblSelectedLoc.getText(),
+									lblSelectedLocality.getText());
+	    				}
+	    			}
+	    			else
+	    			{
+	    				GoToTravelPlanActivity(v, lblSelectedLoc.getText(),
+								lblSelectedLocality.getText());
+	    			}
+	            }
+		    	catch(JSONException ex)
+		    		{
+		    			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+		    		}
+	            	catch (IOException e) 
+	        		{    
+	        			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+	        		} 
+			}
+		}
+
+	};
+	
+	private void GoToTravelPlanActivity(View v, CharSequence lblSelectedLoc,
+			CharSequence lblSelectedLocality) {
+		final TextView lblLocPosition =(TextView) findViewById(R.id.lblLocPosition);
+		final TextView lblPersistPosition =(TextView) findViewById(R.id.lblPersistPosition);
+	
+		Intent intent = new Intent(v.getContext(),TravelPlanActivity.class);
+		intent.putExtra("SELLOCALITY", lblSelectedLoc);
+		intent.putExtra("SELCITY", lblSelectedLocality);
+		intent.putExtra("LOCPOSITION", lblLocPosition.getText());
+		intent.putExtra("PERSISTPOSITION", lblPersistPosition.getText());
+		startActivity(intent);
+	}
+	private void SetErrorLabelVisibility(int visibility,int errorResId)
+	{
+		TextView lblError =(TextView)findViewById(R.id.lblLocErrorMsg);
+		if(lblError != null)
+		{
+			lblError.setVisibility(visibility);
+			lblError.setText(errorResId);
+		}
+	}
 }

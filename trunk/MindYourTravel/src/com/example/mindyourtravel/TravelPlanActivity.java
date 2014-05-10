@@ -34,22 +34,36 @@ public class TravelPlanActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_travel_plan);
 		ActivityHelper.setApplicationTitle(getWindow());
-		/*// create class object
-        gps = new GPSTracker(this);
-        // check if GPS enabled     
-        if(gps.canGetLocation())
-        {
-        	TextView curLocationView =(TextView) findViewById(R.id.txtCurrentLoc);
-    		curLocationView.setText(gps.getCurrentLocation(this));
-        		
-       	}else
-       	{
-    		// can't get location
-            // GPS or Network is not enabled
-            // Ask user to enable GPS/network in settings
-            gps.showSettingsAlert();
-       	}*/
-        
+		
+        String selLocality="";
+		String userCity ="";
+		String locPosition="";
+		String persistPosition="";
+		Bundle extras  = getIntent().getExtras();
+		if(extras != null) {
+			 selLocality=extras.getString("SELLOCALITY");
+			 userCity=extras.getString("SELCITY");
+			 locPosition= extras.getString("LOCPOSITION");
+			 persistPosition= extras.getString("PERSISTPOSITION");
+		 }
+		else
+		{
+			// create class object
+	        gps = new GPSTracker(this);
+	        // check if GPS enabled     
+	        if(gps.canGetLocation())
+	        {
+	        	//TextView curLocationView =(TextView) findViewById(R.id.txtCurrentLoc);
+	    		//curLocationView.setText(gps.getCurrentLocation(this));
+	        	userCity=gps.getCurrentCity();
+	       	}else
+	       	{
+	    		// can't get location
+	            // GPS or Network is not enabled
+	            // Ask user to enable GPS/network in settings
+	            gps.showSettingsAlert();
+	       	}
+		}
         SetErrorLabelVisibility(View.INVISIBLE,R.string.lblError);
         final EditText timebox= (EditText)findViewById(R.id.txtStartTime);
         Calendar cal= Calendar.getInstance();
@@ -60,11 +74,14 @@ public class TravelPlanActivity extends Activity {
         final Button btnTravelSubmit =(Button)findViewById(R.id.btnTravelSubmit);
         btnTravelSubmit.setOnClickListener(onClickbtnTravelSubmit);
         
+
+        
         try
 		{
 		
 	        JSONObject reqParameters= new JSONObject();
-			reqParameters.put("CONUSERID", LaunchActivity.loginUserId);
+			reqParameters.put("LOGGEDINUSERID", LaunchActivity.loginUserId);
+			reqParameters.put("GPSLOCATIONCITY", userCity);
 			JsonHandler jsonHandler =JsonHandler.getInstance();
 			String url=jsonHandler.getFullUrl("TravelPlanDataAdapter.php");
 			JSONObject result = jsonHandler.PostJsonDataToServer(url, reqParameters);
@@ -103,14 +120,32 @@ public class TravelPlanActivity extends Activity {
 					JSONObject row= cityLocalitesData.getJSONObject(i);
 					cityLocalitesType[i] = row.getString("LOCALITY");
 				}
-
+				
+				
 				ArrayAdapter<String> adapterLocation = new ArrayAdapter<String>(this,  android.R.layout.simple_spinner_item, cityLocalitesType);
 				adapterLocation.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				
 				final Spinner ddCurrentLoc=(Spinner)findViewById(R.id.ddCurrentLoc);
 				ddCurrentLoc.setAdapter(adapterLocation);
 				
 				final Spinner ddEndLocation=(Spinner)findViewById(R.id.ddEndLocation);
 				ddEndLocation.setAdapter(adapterLocation);
+				
+				int spinnerPosition = adapterLocation.getPosition(selLocality);
+				int existingPersistPosition = adapterLocation.getPosition(persistPosition);
+				if(locPosition.equals("CURLOC"))
+				{
+					//set the default according to value
+					ddCurrentLoc.setSelection(spinnerPosition);
+					ddEndLocation.setSelection(existingPersistPosition);
+				}
+				else if(locPosition.equals("ENDLOC"))
+				{
+					//set the default according to value
+					ddCurrentLoc.setSelection(existingPersistPosition);
+					ddEndLocation.setSelection(spinnerPosition);
+				}
+				
 			}
 		}
         catch (IOException e) 
@@ -121,9 +156,11 @@ public class TravelPlanActivity extends Activity {
 		{
 			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 		}
+        final Button btnPlusCurLoc = (Button)findViewById(R.id.btnPlusCurLoc);
+        btnPlusCurLoc.setOnClickListener(onClickCurLocBtnPlusLoc);
         
-        final Button btnPlusLoc = (Button)findViewById(R.id.btnPlusLoc);
-        btnPlusLoc.setOnClickListener(onClickBtnPlusLoc);
+        final Button btnPlusEndLoc = (Button)findViewById(R.id.btnPlusEndLoc);
+        btnPlusEndLoc.setOnClickListener(onClickEndLocBtnPlusLoc);
 	}
 
 	@Override
@@ -247,12 +284,30 @@ public class TravelPlanActivity extends Activity {
 		}
 	};
 	
-	private OnClickListener onClickBtnPlusLoc = new OnClickListener()
+	private OnClickListener onClickEndLocBtnPlusLoc = new OnClickListener()
 	{
 		@Override
 		public void onClick(View view)
 		{
+			final  Spinner  ddCurrentLoc =(Spinner)findViewById(R.id.ddCurrentLoc);
 			Intent intent = new Intent(view.getContext(),LocationLocatorActivity.class);
+			intent.putExtra("LOCPOSITION", "ENDLOC");
+			intent.putExtra("PERSISTPOSITION", ddCurrentLoc.getSelectedItem().toString());
+			startActivity(intent);
+		}
+	};
+	
+	private OnClickListener onClickCurLocBtnPlusLoc = new OnClickListener()
+	{
+		@Override
+		public void onClick(View view)
+		{
+			
+			final  Spinner  ddEndLocation =(Spinner)findViewById(R.id.ddEndLocation);
+			
+			Intent intent = new Intent(view.getContext(),LocationLocatorActivity.class);
+			intent.putExtra("LOCPOSITION", "CURLOC");
+			intent.putExtra("PERSISTPOSITION", ddEndLocation.getSelectedItem().toString());
 			startActivity(intent);
 		}
 	};
