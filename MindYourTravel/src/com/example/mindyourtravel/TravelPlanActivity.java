@@ -65,21 +65,14 @@ public class TravelPlanActivity extends Activity {
 	       	}
 		}
         SetErrorLabelVisibility(View.INVISIBLE,R.string.lblError);
-        final EditText timebox= (EditText)findViewById(R.id.txtStartTime);
-        Calendar cal= Calendar.getInstance();
-        cal.setTimeInMillis(System.currentTimeMillis());
-        String showTime=String.format("%1$tI:%1$tM %1$Tp",cal);
-        timebox.setText(showTime);
+
         
         final Button btnTravelSubmit =(Button)findViewById(R.id.btnTravelSubmit);
         btnTravelSubmit.setOnClickListener(onClickbtnTravelSubmit);
         
-
-        
         try
 		{
-		
-	        JSONObject reqParameters= new JSONObject();
+		    JSONObject reqParameters= new JSONObject();
 			reqParameters.put("LOGGEDINUSERID", LaunchActivity.loginUserId);
 			reqParameters.put("GPSLOCATIONCITY", userCity);
 			JsonHandler jsonHandler =JsonHandler.getInstance();
@@ -146,6 +139,8 @@ public class TravelPlanActivity extends Activity {
 					ddEndLocation.setSelection(spinnerPosition);
 				}
 				
+				FillStartTimeDd();
+				
 			}
 		}
         catch (IOException e) 
@@ -180,6 +175,32 @@ public class TravelPlanActivity extends Activity {
 		}
 	}
 	
+	private void FillStartTimeDd()
+	{
+		String[] StartTime =new String[8];
+		
+        Calendar cal= Calendar.getInstance();
+        cal.setTimeInMillis(System.currentTimeMillis());
+        int sysMinutes= cal.getTime().getMinutes();
+        int calMinutes = sysMinutes +(15-sysMinutes % 15);
+        Date calculatedDate= cal.getTime();
+
+        for (int i=0;i<8;i++ ) 
+		{ 
+        	calculatedDate.setMinutes(calMinutes);
+            String showTime=String.format("%1$tI:%1$tM %1$Tp",calculatedDate);
+            calMinutes =calculatedDate.getMinutes();
+        	StartTime[i]=showTime;
+        	calMinutes =calMinutes+15;
+		}
+        
+        ArrayAdapter<String> adapterStartTime = new ArrayAdapter<String>(this,  android.R.layout.simple_spinner_item, StartTime);
+        adapterStartTime.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		final Spinner ddStartTime=(Spinner)findViewById(R.id.ddStartTime);
+		ddStartTime.setAdapter(adapterStartTime);
+        
+	}
+	
 	private OnClickListener onClickbtnTravelSubmit = new OnClickListener()
 	{
 		@SuppressLint("SimpleDateFormat")
@@ -192,7 +213,7 @@ public class TravelPlanActivity extends Activity {
 			final  TextView txtStartPoint = (TextView)findViewById(R.id.txtStartLoc);
 			//final  TextView txtEndPoint = (TextView)findViewById(R.id.txtEndLoc);
 			final  Spinner  ddEndLocation =(Spinner)findViewById(R.id.ddEndLocation);
-			final  TextView txtStartTime = (TextView)findViewById(R.id.txtStartTime);
+			final  Spinner ddStartTime = (Spinner)findViewById(R.id.ddStartTime);
 			final  TextView txtNoOfPass = (TextView)findViewById(R.id.txtNoOfPass);
 			final  Spinner  ddTravelType =(Spinner)findViewById(R.id.ddTravelType);
 			
@@ -203,7 +224,7 @@ public class TravelPlanActivity extends Activity {
 			if(validationResult)
 			{
 				
-				try{
+				/*try{
 					SimpleDateFormat dateFormat= new SimpleDateFormat("hh:mm aa");
 					Date inputTime= dateFormat.parse(txtStartTime.getText().toString());
 					Date currentTime = dateFormat.parse(dateFormat.format(new Date()));
@@ -229,7 +250,7 @@ public class TravelPlanActivity extends Activity {
 				catch(ParseException e)
 				{
 					txtStartTime.setError("Invalid time");
-				}
+				}*/
 				try
 				{
 					JSONObject reqParameters= new JSONObject();
@@ -239,7 +260,7 @@ public class TravelPlanActivity extends Activity {
 					reqParameters.put("STARTLOCATION", txtStartPoint.getText());
 					//reqParameters.put("ENDLOCATION", txtEndPoint.getText());
 					reqParameters.put("ENDLOCATION", ddEndLocation.getSelectedItem());
-					reqParameters.put("TRAVELTIME", txtStartTime.getText());
+					reqParameters.put("TRAVELTIME", ddStartTime.getSelectedItem());
 					reqParameters.put("TRAVELMODE", ddTravelType.getSelectedItem());
 					reqParameters.put("NOOFPASSENGER", txtNoOfPass.getText());
 					JsonHandler jsonHandler =JsonHandler.getInstance();
@@ -292,7 +313,12 @@ public class TravelPlanActivity extends Activity {
 			final  Spinner  ddCurrentLoc =(Spinner)findViewById(R.id.ddCurrentLoc);
 			Intent intent = new Intent(view.getContext(),LocationLocatorActivity.class);
 			intent.putExtra("LOCPOSITION", "ENDLOC");
-			intent.putExtra("PERSISTPOSITION", ddCurrentLoc.getSelectedItem().toString());
+			String curLocation="";
+			if(ddCurrentLoc.getSelectedItem() !=null)
+			{
+				curLocation =ddCurrentLoc.getSelectedItem().toString();
+			}
+			intent.putExtra("PERSISTPOSITION", curLocation);
 			startActivity(intent);
 		}
 	};
@@ -307,7 +333,12 @@ public class TravelPlanActivity extends Activity {
 			
 			Intent intent = new Intent(view.getContext(),LocationLocatorActivity.class);
 			intent.putExtra("LOCPOSITION", "CURLOC");
-			intent.putExtra("PERSISTPOSITION", ddEndLocation.getSelectedItem().toString());
+			String endLocation="";
+			if(ddEndLocation.getSelectedItem() !=null)
+			{
+				endLocation =ddEndLocation.getSelectedItem().toString();
+			}
+			intent.putExtra("PERSISTPOSITION", endLocation);
 			startActivity(intent);
 		}
 	};
