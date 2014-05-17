@@ -121,7 +121,7 @@ public class RegisterActivity extends Activity {
 					}
 				}
 				
-				if(txtPhNo.getText().length()<= 10)
+				if(txtPhNo.getText().length()< 10)
 				{
 					txtPhNo.setError("Invalid mobile number.");
 					validationResult=false;

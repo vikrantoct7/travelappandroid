@@ -24,6 +24,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.SimpleAdapter;
@@ -58,10 +59,27 @@ public class LocationLocatorActivity extends Activity {
 		
 		
 		atvPlaces = (AutoCompleteTextView) findViewById(R.id.atv_places);
-		atvPlaces.setThreshold(1);	
-				
+		atvPlaces.setThreshold(3);	
+		final PlacesAutoCompleteAdapter adapter = new PlacesAutoCompleteAdapter(this,android.R.layout.simple_list_item_1);
+		atvPlaces.setAdapter(adapter);
+		atvPlaces.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				@SuppressWarnings("unchecked")
+				HashMap<String, String> hm = (HashMap<String, String>) adapter.getItem(position);
+				if(hm !=null)
+				{
+					TextView lblSelectedLoc =(TextView)findViewById(R.id.lblSelectedSubLocality);
+					lblSelectedLoc.setText(hm.get("sublocality"));
+					
+					TextView lblSelectedLocality =(TextView)findViewById(R.id.lblSelectedLocality);
+					lblSelectedLocality.setText(hm.get("locality"));
+				}
+			}
+	    });
 		
-		atvPlaces.addTextChangedListener(new TextWatcher() {
+		/*atvPlaces.addTextChangedListener(new TextWatcher() {
 				
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {				
@@ -79,7 +97,7 @@ public class LocationLocatorActivity extends Activity {
 			public void afterTextChanged(Editable s) {
 				// TODO Auto-generated method stub		
 			}
-		});	
+		});	*/
 		
 	}
 
@@ -191,7 +209,7 @@ public class LocationLocatorActivity extends Activity {
 			
 			List<HashMap<String, String>> places = null;
 			
-            PlaceJSONParser placeJsonParser = new PlaceJSONParser();
+            PlaceJSONParserHashMap placeJsonParser = new PlaceJSONParserHashMap();
             
             try{
             	jObject = new JSONObject(jsonData[0]);
@@ -213,10 +231,12 @@ public class LocationLocatorActivity extends Activity {
 				int[] to = new int[] { android.R.id.text1 };
 				
 				// Creating a SimpleAdapter for the AutoCompleteTextView			
-				final SimpleAdapter adapter = new SimpleAdapter(getBaseContext(), result, android.R.layout.simple_list_item_1, from, to);				
+				final SimpleAdapter adapter = new SimpleAdapter(getBaseContext(), result, android.R.layout.simple_list_item_1, from, to);
+				//final ArrayAdapter<HashMap<String, String>> adapter = new ArrayAdapter<HashMap<String, String>>(getBaseContext(),  android.R.layout.simple_list_item_1,result);
 				
 				// Setting the adapter
 				atvPlaces.setAdapter(adapter);
+				
 				
 				atvPlaces.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 					@Override

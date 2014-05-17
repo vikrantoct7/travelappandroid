@@ -9,10 +9,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class PlaceJSONParser {
+public class PlaceJSONParserHashMap {
 	
 	/** Receives a JSONObject and returns a list */
-	public ArrayList<HashMap<String, String>> parse(JSONObject jObject){
+	public List<HashMap<String,String>> parse(JSONObject jObject){
 	
 		
 		JSONArray jPlaces = null;
@@ -29,9 +29,9 @@ public class PlaceJSONParser {
 	}
 	
 	
-	private ArrayList<HashMap<String, String>> getPlaces(JSONArray jPlaces){
+	private List<HashMap<String, String>> getPlaces(JSONArray jPlaces){
 		int placesCount = jPlaces.length();
-		ArrayList<HashMap<String, String>> placesList = new ArrayList<HashMap<String, String>>(placesCount);
+		List<HashMap<String, String>> placesList = new ArrayList<HashMap<String,String>>();
 		HashMap<String, String> place = null;	
 
 		/** Taking each place, parses and adds to list object */
