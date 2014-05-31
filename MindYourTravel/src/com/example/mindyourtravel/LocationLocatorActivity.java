@@ -11,11 +11,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -24,13 +21,11 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.text.Editable;
-import android.text.TextWatcher;
+
 
 public class LocationLocatorActivity extends Activity {
 
@@ -46,11 +41,11 @@ public class LocationLocatorActivity extends Activity {
 		
 		Bundle extras  = getIntent().getExtras();
 		
-		final TextView lblLocPosition =(TextView) findViewById(R.id.lblLocPosition);
-		lblLocPosition.setText(extras.getString("LOCPOSITION"));
+		//final TextView lblLocPosition =(TextView) findViewById(R.id.lblLocPosition);
+		//lblLocPosition.setText(extras.getString("LOCPOSITION"));
 		
-		final TextView lblPersistPosition =(TextView) findViewById(R.id.lblPersistPosition);
-		lblPersistPosition.setText(extras.getString("PERSISTPOSITION"));
+		//final TextView lblPersistPosition =(TextView) findViewById(R.id.lblPersistPosition);
+		//lblPersistPosition.setText(extras.getString("PERSISTPOSITION"));
 		
 		SetErrorLabelVisibility(View.INVISIBLE,R.string.lblError);
 		
@@ -66,7 +61,6 @@ public class LocationLocatorActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				@SuppressWarnings("unchecked")
 				HashMap<String, String> hm = (HashMap<String, String>) adapter.getItem(position);
 				if(hm !=null)
 				{
@@ -78,26 +72,6 @@ public class LocationLocatorActivity extends Activity {
 				}
 			}
 	    });
-		
-		/*atvPlaces.addTextChangedListener(new TextWatcher() {
-				
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {				
-				placesTask = new PlacesTask();				
-				placesTask.execute(s.toString());
-			}
-			
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
-				// TODO Auto-generated method stub
-			}
-			
-			@Override
-			public void afterTextChanged(Editable s) {
-				// TODO Auto-generated method stub		
-			}
-		});	*/
 		
 	}
 
@@ -142,7 +116,7 @@ public class LocationLocatorActivity extends Activity {
      }	
 	
 	// Fetches all places from GooglePlaces AutoComplete Web Service
-	private class PlacesTask extends AsyncTask<String, Void, String>{
+	public class PlacesTask extends AsyncTask<String, Void, String>{
 
 		@Override
 		protected String doInBackground(String... place){
@@ -200,7 +174,7 @@ public class LocationLocatorActivity extends Activity {
 	
 	
 	/** A class to parse the Google Places in JSON format */
-    private class ParserTask extends AsyncTask<String, Integer, List<HashMap<String,String>>>{
+	public class ParserTask extends AsyncTask<String, Integer, List<HashMap<String,String>>>{
 
     	JSONObject jObject;
     	
@@ -255,6 +229,7 @@ public class LocationLocatorActivity extends Activity {
 					}
 			    });
 		}			
+    	
     }   
     
 	@Override
@@ -314,14 +289,14 @@ public class LocationLocatorActivity extends Activity {
 	
 	private void GoToTravelPlanActivity(View v, CharSequence lblSelectedLoc,
 			CharSequence lblSelectedLocality) {
-		final TextView lblLocPosition =(TextView) findViewById(R.id.lblLocPosition);
-		final TextView lblPersistPosition =(TextView) findViewById(R.id.lblPersistPosition);
+		//final TextView lblLocPosition =(TextView) findViewById(R.id.lblLocPosition);
+		//final TextView lblPersistPosition =(TextView) findViewById(R.id.lblPersistPosition);
 	
 		Intent intent = new Intent(v.getContext(),TravelPlanActivity.class);
 		intent.putExtra("SELLOCALITY", lblSelectedLoc);
 		intent.putExtra("SELCITY", lblSelectedLocality);
-		intent.putExtra("LOCPOSITION", lblLocPosition.getText());
-		intent.putExtra("PERSISTPOSITION", lblPersistPosition.getText());
+		//intent.putExtra("LOCPOSITION", lblLocPosition.getText());
+		//intent.putExtra("PERSISTPOSITION", lblPersistPosition.getText());
 		startActivity(intent);
 	}
 	private void SetErrorLabelVisibility(int visibility,int errorResId)
