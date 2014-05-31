@@ -6,7 +6,7 @@
     <string name="lblUserName">Registered mobile number</string>
     <string name="lblPassword">Password</string>
     <string name="btnSubmit">Login</string>
-    <string name="btnSingUp">Sing Up</string>
+    <string name="btnSingUp">Sign Up</string>
     <string name="title_activity_register">User Registration</string>
     <string name="lblFName">First Name</string>
     <string name="lblLName">Last Name</string>
@@ -18,7 +18,7 @@
     <string name="lblRegister">I Agree</string>
     <string name="lblError">Error</string>
     <string name="lblErrorUserExist">This mobile no is already exist.</string>
-    <string name="lblErrorUserNotExist">Login failed. Please check your credential.</string>
+    <string name="lblErrorUserNotExist">Login failed. Please check your mobile no.</string>
     <string name="lblErrorTechnical">Technical error occurred. Please try again</string>
     <string name="lblGoToLoginBtn">Go back to login screen</string>
     <string name="hello_world">Hello world!</string>
@@ -54,6 +54,7 @@
     <string name="ddSelCity">Select city</string>
     <string name="lblBtnRefresh">Refresh</string>
     <string name="lblErrorForSameLocation">Start location and end location can not be same.</string>
+    <string name="lblErrorForTotalNoOfPerson">Total No of person can not be empty or zero.</string>
     <string name="title_activity_location_locator">Location Locator</string>
 	<string name="str_atv_places">Enter Place Here</string>
 	<string name="lblSubLocality">Sub Locality</string>
