@@ -1,7 +1,5 @@
 package com.example.mindyourtravel;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -19,7 +17,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -27,7 +24,7 @@ import android.widget.TextView;
 public class TravelPlanActivity extends Activity {
 
 	GPSTracker gps;
-
+	public static TravelPlanDTO travelPlanDTO=null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +36,22 @@ public class TravelPlanActivity extends Activity {
 		String userCity ="";
 		String locPosition="";
 		String persistPosition="";
+		String persistTravelMode="";
 		Bundle extras  = getIntent().getExtras();
 		if(extras != null) {
 			 selLocality=extras.getString("SELLOCALITY");
 			 userCity=extras.getString("SELCITY");
-			 locPosition= extras.getString("LOCPOSITION");
-			 persistPosition= extras.getString("PERSISTPOSITION");
+			 if(travelPlanDTO !=null)
+			 {
+				 final  TextView txtStartPoint = (TextView)findViewById(R.id.txtStartLoc);
+				 final  TextView txtNoOfPass = (TextView)findViewById(R.id.txtNoOfPass);
+				
+				 locPosition= travelPlanDTO.getLocationPosition();
+				 persistPosition= travelPlanDTO.getLocationValue();
+				 txtStartPoint.setText(travelPlanDTO.getStartLocation());
+				 txtNoOfPass.setText(travelPlanDTO.getTotalNoOfPerson());
+				 persistTravelMode = travelPlanDTO.getTravelMode();
+			 }
 		 }
 		else
 		{
@@ -53,7 +60,6 @@ public class TravelPlanActivity extends Activity {
 	        // check if GPS enabled     
 	        if(gps.canGetLocation())
 	        {
-	        	//TextView curLocationView =(TextView) findViewById(R.id.txtCurrentLoc);
 	    		//curLocationView.setText(gps.getCurrentLocation(this));
 	        	userCity=gps.getCurrentCity();
 	       	}else
@@ -105,6 +111,8 @@ public class TravelPlanActivity extends Activity {
 				adapterTravel.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 				final Spinner ddTravelType=(Spinner)findViewById(R.id.ddTravelType);
 				ddTravelType.setAdapter(adapterTravel);
+				int spinnerTravelPosition=adapterTravel.getPosition(persistTravelMode);
+				ddTravelType.setSelection(spinnerTravelPosition);
 				
 				JSONArray cityLocalitesData =result.getJSONArray("CITYLOCALITES");
 				String[] cityLocalitesType =new String[cityLocalitesData.length()];
@@ -196,8 +204,15 @@ public class TravelPlanActivity extends Activity {
         
         ArrayAdapter<String> adapterStartTime = new ArrayAdapter<String>(this,  android.R.layout.simple_spinner_item, StartTime);
         adapterStartTime.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+       
 		final Spinner ddStartTime=(Spinner)findViewById(R.id.ddStartTime);
 		ddStartTime.setAdapter(adapterStartTime);
+		if(travelPlanDTO !=null)
+        {
+        	int spinnerPosition = adapterStartTime.getPosition(travelPlanDTO.getStartTime());
+        	ddStartTime.setSelection(spinnerPosition);
+        }
+		
         
 	}
 	
@@ -208,6 +223,7 @@ public class TravelPlanActivity extends Activity {
 		@Override
 		public void onClick(View view)
 		{
+			travelPlanDTO=null;
 			//final  TextView txtCurrentLoc = (TextView)findViewById(R.id.txtCurrentLoc);
 			final  Spinner  ddCurrentLoc =(Spinner)findViewById(R.id.ddCurrentLoc);
 			final  TextView txtStartPoint = (TextView)findViewById(R.id.txtStartLoc);
@@ -223,6 +239,17 @@ public class TravelPlanActivity extends Activity {
 			validationResult= validator.validate(txtNoOfPass);
 			if(validationResult)
 			{
+				if(ddCurrentLoc.getSelectedItem() == ddEndLocation.getSelectedItem())
+		        {
+		        	SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorForSameLocation);
+		        	return;
+		        }
+				
+				if(txtNoOfPass.getText().toString().equals("0"))
+				{
+					SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorForTotalNoOfPerson);
+		        	return;
+				}
 				
 				/*try{
 					SimpleDateFormat dateFormat= new SimpleDateFormat("hh:mm aa");
@@ -310,15 +337,22 @@ public class TravelPlanActivity extends Activity {
 		@Override
 		public void onClick(View view)
 		{
-			final  Spinner  ddCurrentLoc =(Spinner)findViewById(R.id.ddCurrentLoc);
+			
 			Intent intent = new Intent(view.getContext(),LocationLocatorActivity.class);
-			intent.putExtra("LOCPOSITION", "ENDLOC");
-			String curLocation="";
-			if(ddCurrentLoc.getSelectedItem() !=null)
-			{
-				curLocation =ddCurrentLoc.getSelectedItem().toString();
-			}
-			intent.putExtra("PERSISTPOSITION", curLocation);
+						
+			final  Spinner  ddCurrentLoc =(Spinner)findViewById(R.id.ddCurrentLoc);
+			final  TextView txtStartPoint = (TextView)findViewById(R.id.txtStartLoc);
+			final  Spinner ddStartTime = (Spinner)findViewById(R.id.ddStartTime);
+			final  TextView txtNoOfPass = (TextView)findViewById(R.id.txtNoOfPass);
+			final  Spinner  ddTravelType =(Spinner)findViewById(R.id.ddTravelType);
+			travelPlanDTO = new TravelPlanDTO();
+			travelPlanDTO.setLocationPosition("ENDLOC");
+			travelPlanDTO.setLocationValue(ddCurrentLoc.getSelectedItem().toString());
+			travelPlanDTO.setStartLocation(txtStartPoint.getText().toString());
+			travelPlanDTO.setStartTime(ddStartTime.getSelectedItem().toString());
+			travelPlanDTO.setTravelMode(ddTravelType.getSelectedItem().toString());
+			travelPlanDTO.setTotalNoOfPerson(txtNoOfPass.getText().toString());
+			
 			startActivity(intent);
 		}
 	};
@@ -328,17 +362,20 @@ public class TravelPlanActivity extends Activity {
 		@Override
 		public void onClick(View view)
 		{
+			Intent intent = new Intent(view.getContext(),LocationLocatorActivity.class);
 			
 			final  Spinner  ddEndLocation =(Spinner)findViewById(R.id.ddEndLocation);
-			
-			Intent intent = new Intent(view.getContext(),LocationLocatorActivity.class);
-			intent.putExtra("LOCPOSITION", "CURLOC");
-			String endLocation="";
-			if(ddEndLocation.getSelectedItem() !=null)
-			{
-				endLocation =ddEndLocation.getSelectedItem().toString();
-			}
-			intent.putExtra("PERSISTPOSITION", endLocation);
+			final  TextView txtStartPoint = (TextView)findViewById(R.id.txtStartLoc);
+			final  Spinner ddStartTime = (Spinner)findViewById(R.id.ddStartTime);
+			final  TextView txtNoOfPass = (TextView)findViewById(R.id.txtNoOfPass);
+			final  Spinner  ddTravelType =(Spinner)findViewById(R.id.ddTravelType);
+			travelPlanDTO = new TravelPlanDTO();
+			travelPlanDTO.setLocationPosition("CURLOC");
+			travelPlanDTO.setLocationValue(ddEndLocation.getSelectedItem().toString());
+			travelPlanDTO.setStartLocation(txtStartPoint.getText().toString());
+			travelPlanDTO.setStartTime(ddStartTime.getSelectedItem().toString());
+			travelPlanDTO.setTravelMode(ddTravelType.getSelectedItem().toString());
+			travelPlanDTO.setTotalNoOfPerson(txtNoOfPass.getText().toString());
 			startActivity(intent);
 		}
 	};
