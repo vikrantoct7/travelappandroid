@@ -347,7 +347,10 @@ public class TravelPlanActivity extends Activity {
 			final  Spinner  ddTravelType =(Spinner)findViewById(R.id.ddTravelType);
 			travelPlanDTO = new TravelPlanDTO();
 			travelPlanDTO.setLocationPosition("ENDLOC");
-			travelPlanDTO.setLocationValue(ddCurrentLoc.getSelectedItem().toString());
+			if(ddCurrentLoc.getSelectedItem() !=null)
+			{
+				travelPlanDTO.setLocationValue(ddCurrentLoc.getSelectedItem().toString());
+			}
 			travelPlanDTO.setStartLocation(txtStartPoint.getText().toString());
 			travelPlanDTO.setStartTime(ddStartTime.getSelectedItem().toString());
 			travelPlanDTO.setTravelMode(ddTravelType.getSelectedItem().toString());
@@ -371,7 +374,10 @@ public class TravelPlanActivity extends Activity {
 			final  Spinner  ddTravelType =(Spinner)findViewById(R.id.ddTravelType);
 			travelPlanDTO = new TravelPlanDTO();
 			travelPlanDTO.setLocationPosition("CURLOC");
-			travelPlanDTO.setLocationValue(ddEndLocation.getSelectedItem().toString());
+			if(ddEndLocation.getSelectedItem() !=null)
+			{
+				travelPlanDTO.setLocationValue(ddEndLocation.getSelectedItem().toString());
+			}
 			travelPlanDTO.setStartLocation(txtStartPoint.getText().toString());
 			travelPlanDTO.setStartTime(ddStartTime.getSelectedItem().toString());
 			travelPlanDTO.setTravelMode(ddTravelType.getSelectedItem().toString());
