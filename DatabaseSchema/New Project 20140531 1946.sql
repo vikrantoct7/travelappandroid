@@ -27,12 +27,11 @@ CREATE TABLE `aasv_city` (
   `CITYID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `CITY` varchar(30) NOT NULL,
   PRIMARY KEY (`CITYID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `aasv_city`
 --
-
 
 
 --
@@ -47,11 +46,13 @@ CREATE TABLE `aasv_citylocalities` (
   PRIMARY KEY (`LOCALITYID`),
   KEY `FK_aasv_citylocalities_cityid` (`CITYID`),
   CONSTRAINT `FK_aasv_citylocalities_cityid` FOREIGN KEY (`CITYID`) REFERENCES `aasv_city` (`CITYID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `aasv_citylocalities`
 --
+
+
 
 --
 -- Definition of table `aasv_travel`
@@ -68,14 +69,14 @@ CREATE TABLE `aasv_travel` (
   `TRAVELMODE` varchar(15) NOT NULL,
   `NOOFPASSENGER` tinyint(3) unsigned NOT NULL,
   `DATCRETRAVEL` datetime NOT NULL,
-  `ISCONFIRMED` bit(1) NOT NULL,
+  `ISCONFIRMED` tinyint(3) unsigned NOT NULL,
   `CONFIRMDAT` datetime DEFAULT NULL,
   `ISDELETED` bit(1) NOT NULL,
   `DALETEDDAT` datetime DEFAULT NULL,
   PRIMARY KEY (`TRAVELID`),
   KEY `FK_aasv_travel_userid` (`USERID`),
   CONSTRAINT `FK_aasv_travel_userid` FOREIGN KEY (`USERID`) REFERENCES `aasv_user` (`USERID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `aasv_travel`
@@ -97,7 +98,7 @@ CREATE TABLE `aasv_travelconfirmdet` (
   `USERID` int(10) unsigned NOT NULL,
   `MAPEDUSERID` int(10) unsigned NOT NULL,
   PRIMARY KEY (`DETIDSYS`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `aasv_travelconfirmdet`
@@ -120,7 +121,8 @@ CREATE TABLE `aasv_travelmode` (
 --
 
 /*!40000 ALTER TABLE `aasv_travelmode` DISABLE KEYS */;
-INSERT INTO `aasv_travelmode` VALUES  (1,'AUTO',3),
+INSERT INTO `aasv_travelmode` (`TMODE`,`TYPE`,`NOFPASSENGER`) VALUES 
+ (1,'AUTO',3),
  (2,'TAXI',4);
 /*!40000 ALTER TABLE `aasv_travelmode` ENABLE KEYS */;
 
@@ -142,12 +144,11 @@ CREATE TABLE `aasv_user` (
   PRIMARY KEY (`USERID`),
   KEY `FK_aasv_user__city_cityid` (`CITYID`),
   CONSTRAINT `FK_aasv_user__city_cityid` FOREIGN KEY (`CITYID`) REFERENCES `aasv_city` (`CITYID`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1 COMMENT='User table';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1 COMMENT='User table';
 
 --
 -- Dumping data for table `aasv_user`
 --
-
 --
 -- Definition of procedure `aasv_citylocalities_insert`
 --
@@ -157,7 +158,7 @@ DROP PROCEDURE IF EXISTS `aasv_citylocalities_insert`;
 DELIMITER $$
 
 /*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
-CREATE  PROCEDURE `aasv_citylocalities_insert`(LOCALITYNAME VARCHAR(30),
+CREATE PROCEDURE `aasv_citylocalities_insert`(LOCALITYNAME VARCHAR(30),
 CITYNAME VARCHAR(30))
 BEGIN
 
@@ -190,7 +191,7 @@ DROP PROCEDURE IF EXISTS `aasv_city_getall`;
 DELIMITER $$
 
 /*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
-CREATE  PROCEDURE `aasv_city_getall`()
+CREATE PROCEDURE `aasv_city_getall`()
 BEGIN
       SELECT CITYID,CITY FROM aasv_city;
 END $$
@@ -207,7 +208,7 @@ DROP PROCEDURE IF EXISTS `aasv_travelmode_getall`;
 DELIMITER $$
 
 /*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
-CREATE  PROCEDURE `aasv_travelmode_getall`()
+CREATE PROCEDURE `aasv_travelmode_getall`()
 BEGIN
       SELECT TMODE,TYPE,NOFPASSENGER FROM aasv_travelmode;
 END $$
@@ -224,7 +225,7 @@ DROP PROCEDURE IF EXISTS `aasv_travelplan_insert`;
 DELIMITER $$
 
 /*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
-CREATE  PROCEDURE `aasv_travelplan_insert`(
+CREATE PROCEDURE `aasv_travelplan_insert`(
 USERID INT,
 CURRLOCATION VARCHAR(30),
 STARTLOCATION VARCHAR(30),
@@ -250,7 +251,7 @@ DROP PROCEDURE IF EXISTS `aasv_travel_archives`;
 DELIMITER $$
 
 /*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
-CREATE  PROCEDURE `aasv_travel_archives`()
+CREATE PROCEDURE `aasv_travel_archives`()
 BEGIN
 
       DECLARE TRAVELDETID INT;
@@ -301,7 +302,7 @@ DROP PROCEDURE IF EXISTS `aasv_user_getloginuserdata`;
 DELIMITER $$
 
 /*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
-CREATE  PROCEDURE `aasv_user_getloginuserdata`(
+CREATE PROCEDURE `aasv_user_getloginuserdata`(
 /*LOGIN VARCHAR(15),USERPASSWORD VARCHAR(15)*/
 MOBILENO VARCHAR(11)
 )
@@ -322,7 +323,7 @@ DROP PROCEDURE IF EXISTS `aasv_user_getusercitylocalites`;
 DELIMITER $$
 
 /*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
-CREATE  PROCEDURE `aasv_user_getusercitylocalites`(LOGINUSERID INT,GPSLOCCITY VARCHAR(50))
+CREATE PROCEDURE `aasv_user_getusercitylocalites`(LOGINUSERID INT,GPSLOCCITY VARCHAR(50))
 BEGIN
 
 IF LENGTH(GPSLOCCITY) = 0 THEN
@@ -349,7 +350,7 @@ DROP PROCEDURE IF EXISTS `aasv_user_insert`;
 DELIMITER $$
 
 /*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
-CREATE  PROCEDURE `aasv_user_insert`(FNAME VARCHAR(20),
+CREATE PROCEDURE `aasv_user_insert`(FNAME VARCHAR(20),
 LNAME VARCHAR(20),
 CITYNAME VARCHAR(20),
 SEX SMALLINT,
@@ -379,7 +380,7 @@ DROP PROCEDURE IF EXISTS `aasv_user_travelconfirm`;
 DELIMITER $$
 
 /*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
-CREATE  PROCEDURE `aasv_user_travelconfirm`(
+CREATE PROCEDURE `aasv_user_travelconfirm`(
 CURUSERTRAVELID INT,USERTRAVELID INT,CURUSERID INT,TRAVELERUSERID INT)
 BEGIN
       UPDATE aasv_travel SET  ISCONFIRMED=1,CONFIRMDAT=NOW() WHERE TRAVELID=CURUSERTRAVELID;
@@ -400,7 +401,7 @@ DROP PROCEDURE IF EXISTS `aasv_user_traveldelete`;
 DELIMITER $$
 
 /*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
-CREATE  PROCEDURE `aasv_user_traveldelete`(SELTRAVELID INT)
+CREATE PROCEDURE `aasv_user_traveldelete`(SELTRAVELID INT)
 BEGIN
       DECLARE TRAVELDETID INT;
       UPDATE aasv_travel SET  ISDELETED=1,DALETEDDAT=NOW() WHERE TRAVELID=SELTRAVELID;
@@ -430,15 +431,15 @@ DROP PROCEDURE IF EXISTS `aasv_user_travelmatch`;
 DELIMITER $$
 
 /*!50003 SET @TEMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ $$
-CREATE  PROCEDURE `aasv_user_travelmatch`(LOGINUSERID INT)
+CREATE PROCEDURE `aasv_user_travelmatch`(LOGINUSERID INT)
 BEGIN
 
       /*Delete travels which are passed in last three hours*/
       CALL aasv_travel_archives();
 
       SELECT otherusers.TRAVELID,matchusers.USERID,matchusers.UCONTACTNO,otherusers.TRAVELID,matchusers.UFNAME ,matchusers.ULNAME,matchusers.GENDER,matchusers.AGE,matchusers.UCONTACTNO,
-        otherusers.CURRLOCATION,otherusers.STARTLOCATION,otherusers.ENDLOCATION,otherusers.STARTLOCATION,otherusers.NOOFPASSENGER,otherusers.TRAVELMODE,otherusers.TRAVELTIME,
-      otherusers.USERID=LOGINUSERID AS ISSELFPLAN, otherusers.ISCONFIRMED
+        otherusers.CURRLOCATION,otherusers.STARTLOCATION,otherusers.ENDLOCATION,otherusers.STARTLOCATION,otherusers.NOOFPASSENGER,otherusers.TRAVELMODE,otherusers.TRAVELTIME
+        ,otherusers.USERID=LOGINUSERID AS ISSELFPLAN,otherusers.ISCONFIRMED
       FROM aasv_travel otherusers
       INNER JOIN aasv_user matchusers ON matchusers.USERID=otherusers.USERID
       WHERE otherusers.ISDELETED=0 AND EXISTS(SELECT 1 FROM aasv_travel connecteduser
