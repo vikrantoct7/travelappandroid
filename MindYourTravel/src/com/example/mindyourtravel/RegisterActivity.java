@@ -85,7 +85,7 @@ public class RegisterActivity extends Activity {
 			txtPhNo.setText(mPhoneNumber);
 			if(mPhoneNumber.length()> 0)
 			{
-				txtPhNo.setEnabled(false);
+				//txtPhNo.setEnabled(false);
 			}
 		}
 		catch(Exception ex)
