@@ -7,7 +7,7 @@
     android:paddingRight="8dp"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".TravelPlanActivity" >
-
+ 
     <TextView
 	    android:id="@+id/lblTravelErrorMsg"
 	    android:layout_width="wrap_content"
@@ -19,7 +19,7 @@
 	    android:textColor="#FF0000"
 	    android:visibility="visible" />
     
-    <TableLayout
+     <TableLayout
         android:id="@+id/tblTravelPlan"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -40,32 +40,23 @@
                  android:paddingTop="10dp"
                  android:text="@string/lblCurrentLoc"
                  android:textColor="#000000" />
-           
-            <!--   <TextView
-                 android:id="@+id/txtCurrentLoc"
-                 android:layout_width="0dp"
-                 android:layout_height="fill_parent"
-                 android:layout_weight=".50"
-                 android:text="@string/lblCurLocNotfound"
-                 android:textSize="12sp" />
-             -->
-
-              <Spinner
+            
+             <Spinner
                   android:id="@+id/ddCurrentLoc"
                   android:layout_width="0dp"
                   android:layout_height="wrap_content"
                   android:layout_weight=".45"
                   android:prompt="@string/ddSelLocation" />
-
+			
               <Button
                   android:id="@+id/btnPlusCurLoc"
                   android:layout_width="25dp"
                   android:layout_height="28dp"
                   android:background="@drawable/plus_icon" />
-
+			 
         </TableRow>
         
-        <TableRow
+         <TableRow
             android:id="@+id/tableRow2"
             android:paddingBottom="5dp"
             android:layout_width="fill_parent"
@@ -108,17 +99,7 @@
                 android:text="@string/lblEndLoc"
                 android:textColor="#000000" />
 
-			<!--  
-			<EditText
-			    android:id="@+id/txtEndLoc"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight=".50"
-			    android:ems="10"
-			    android:inputType="text"
-			    android:textSize="12sp" />
-			 -->
-
+			 
 			 <Spinner
 			     android:id="@+id/ddEndLocation"
 			     android:layout_width="0dp"
@@ -131,8 +112,9 @@
 			    android:layout_width="25dp"
 			    android:layout_height="28dp"
 			    android:background="@drawable/plus_icon" />
-
+			 
          </TableRow>
+
          <TableRow
              android:id="@+id/tableRow4"
              android:paddingBottom="5dp"
@@ -147,15 +129,17 @@
 			    android:paddingTop="10dp"
 			    android:text="@string/lblTravelMode"
 			    android:textColor="#000000" />
-
+ 
 			<Spinner
 			    android:id="@+id/ddTravelType"
 			    android:layout_width="0dp"
 			    android:layout_height="wrap_content"
 			    android:layout_weight=".52"
-			    android:prompt="@string/ddTravelType" />
+			    android:prompt="@string/ddTravelType" /> 
 
          </TableRow>
+
+        
         <TableRow
              android:id="@+id/tableRow5"
              android:paddingBottom="5dp"
@@ -170,23 +154,14 @@
                 android:paddingTop="10dp"
                 android:text="@string/lblTravelTime"
                 android:textColor="#000000" />
-			<!-- 
-            <EditText
-                android:id="@+id/txtStartTime"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight=".55"
-                android:ems="10"
-                android:inputType="text"
-                android:textSize="16sp" />
-                -->
-
+ 
                 <Spinner
                     android:id="@+id/ddStartTime"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight=".52"
                     android:prompt="@string/ddTravelType" />
+                     
 			
          </TableRow>
 
@@ -240,6 +215,7 @@
 				    android:layout_height="fill_parent"
 				    android:layout_weight=".5" />
         	</TableRow>
+         
     </TableLayout>
   
 </RelativeLayout>

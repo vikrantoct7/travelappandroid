@@ -30,14 +30,16 @@ public class TravelPlanActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_travel_plan);
-		ActivityHelper.setApplicationTitle(getWindow());
 		
-        String selLocality="";
+		String selLocality="";
 		String userCity ="";
 		String locPosition="";
 		String persistPosition="";
 		String persistTravelMode="";
-		Bundle extras  = getIntent().getExtras();
+		
+		ActivityHelper.setApplicationTitle(getWindow());
+		
+        Bundle extras  = getIntent().getExtras();
 		if(extras != null) {
 			 selLocality=extras.getString("SELLOCALITY");
 			 userCity=extras.getString("SELCITY");
@@ -71,7 +73,7 @@ public class TravelPlanActivity extends Activity {
 	       	}
 		}
         SetErrorLabelVisibility(View.INVISIBLE,R.string.lblError);
-
+		
         
         final Button btnTravelSubmit =(Button)findViewById(R.id.btnTravelSubmit);
         btnTravelSubmit.setOnClickListener(onClickbtnTravelSubmit);
@@ -224,10 +226,8 @@ public class TravelPlanActivity extends Activity {
 		public void onClick(View view)
 		{
 			travelPlanDTO=null;
-			//final  TextView txtCurrentLoc = (TextView)findViewById(R.id.txtCurrentLoc);
 			final  Spinner  ddCurrentLoc =(Spinner)findViewById(R.id.ddCurrentLoc);
 			final  TextView txtStartPoint = (TextView)findViewById(R.id.txtStartLoc);
-			//final  TextView txtEndPoint = (TextView)findViewById(R.id.txtEndLoc);
 			final  Spinner  ddEndLocation =(Spinner)findViewById(R.id.ddEndLocation);
 			final  Spinner ddStartTime = (Spinner)findViewById(R.id.ddStartTime);
 			final  TextView txtNoOfPass = (TextView)findViewById(R.id.txtNoOfPass);
@@ -250,42 +250,12 @@ public class TravelPlanActivity extends Activity {
 					SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorForTotalNoOfPerson);
 		        	return;
 				}
-				
-				/*try{
-					SimpleDateFormat dateFormat= new SimpleDateFormat("hh:mm aa");
-					Date inputTime= dateFormat.parse(txtStartTime.getText().toString());
-					Date currentTime = dateFormat.parse(dateFormat.format(new Date()));
-					
-			        if(inputTime.getTime() < currentTime.getTime())
-			        {
-			        	txtStartTime.setError("Time can not be less than current time");
-			        	return ;
-			        }
-			        currentTime.setHours(currentTime.getHours()+2);
-			        if(inputTime.getTime() > currentTime.getTime())
-			        {
-			        	txtStartTime.setError("More than 2 hours advance time is not allow");
-			        	return ;
-			        }
-			        
-			        if(ddCurrentLoc.getSelectedItem() == ddEndLocation.getSelectedItem())
-			        {
-			        	SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorForSameLocation);
-			        	return;
-			        }
-				}
-				catch(ParseException e)
-				{
-					txtStartTime.setError("Invalid time");
-				}*/
 				try
 				{
 					JSONObject reqParameters= new JSONObject();
 					reqParameters.put("USERID", LaunchActivity.loginUserId);
-					//reqParameters.put("CURRLOCATION", txtCurrentLoc.getText());
 					reqParameters.put("CURRLOCATION", ddCurrentLoc.getSelectedItem());
 					reqParameters.put("STARTLOCATION", txtStartPoint.getText());
-					//reqParameters.put("ENDLOCATION", txtEndPoint.getText());
 					reqParameters.put("ENDLOCATION", ddEndLocation.getSelectedItem());
 					reqParameters.put("TRAVELTIME", ddStartTime.getSelectedItem());
 					reqParameters.put("TRAVELMODE", ddTravelType.getSelectedItem());
@@ -329,6 +299,7 @@ public class TravelPlanActivity extends Activity {
 					SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 				}
 			}
+			
 		}
 	};
 	
@@ -357,6 +328,7 @@ public class TravelPlanActivity extends Activity {
 			travelPlanDTO.setTotalNoOfPerson(txtNoOfPass.getText().toString());
 			
 			startActivity(intent);
+			
 		}
 	};
 	
@@ -383,6 +355,7 @@ public class TravelPlanActivity extends Activity {
 			travelPlanDTO.setTravelMode(ddTravelType.getSelectedItem().toString());
 			travelPlanDTO.setTotalNoOfPerson(txtNoOfPass.getText().toString());
 			startActivity(intent);
+			
 		}
 	};
 
