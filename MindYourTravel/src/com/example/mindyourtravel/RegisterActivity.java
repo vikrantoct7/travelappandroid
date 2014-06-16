@@ -85,7 +85,7 @@ public class RegisterActivity extends Activity {
 			txtPhNo.setText(mPhoneNumber);
 			if(mPhoneNumber.length()> 0)
 			{
-				//txtPhNo.setEnabled(false);
+				txtPhNo.setEnabled(false);
 			}
 		}
 		catch(Exception ex)
@@ -121,9 +121,9 @@ public class RegisterActivity extends Activity {
 					}
 				}
 				
-				if(txtPhNo.getText().length()< 10)
+				if(txtPhNo.getText().length()!= 10)
 				{
-					txtPhNo.setError("Invalid mobile number.");
+					txtPhNo.setError("Use 10 digit mobile number.");
 					validationResult=false;
 				}
 				
@@ -219,11 +219,6 @@ public class RegisterActivity extends Activity {
 		txtFName.setOnFocusChangeListener(new TextViewValidator(txtFName));
 		final TextView txtLName= (TextView)findViewById(R.id.txtLName);
 		txtLName.setOnFocusChangeListener(new TextViewValidator(txtLName));
-		/*final TextView txtUserName= (TextView)findViewById(R.id.txtUserName);
-		txtUserName.setOnFocusChangeListener(new TextViewValidator(txtUserName));
-		final TextView txtPassword= (TextView)findViewById(R.id.txtUserPassword);
-		txtPassword.setOnFocusChangeListener(new TextViewValidator(txtPassword));
-		*/
 		final TextView txtAge= (TextView)findViewById(R.id.txtAge);
 		txtAge.setOnFocusChangeListener(new TextViewValidator(txtAge));
 		final TextView txtPhNo= (TextView)findViewById(R.id.txtPhNo);
