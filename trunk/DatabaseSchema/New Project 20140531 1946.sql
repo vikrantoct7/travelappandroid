@@ -445,7 +445,7 @@ BEGIN
       WHERE otherusers.ISDELETED=0 AND EXISTS(SELECT 1 FROM aasv_travel connecteduser
             WHERE  connecteduser.ISDELETED=0 AND connecteduser.CURRLOCATION=otherusers.CURRLOCATION
             /*AND onnecteduser.ENDLOCATION =otherusers.ENDLOCATION */
-            AND connecteduser.USERID=LOGINUSERID ANd (connecteduser.TRAVELID=otherusers.TRAVELID  OR connecteduser.NOOFPASSENGER +otherusers.NOOFPASSENGER
+            AND connecteduser.USERID=LOGINUSERID AND otherusers.ISCONFIRMED<= connecteduser.ISCONFIRMED ANd (connecteduser.TRAVELID=otherusers.TRAVELID  OR connecteduser.NOOFPASSENGER +otherusers.NOOFPASSENGER
        <= (SELECT NOFPASSENGER FROM aasv_travelmode WHERE aasv_travelmode.TYPE =otherusers.TRAVELMODE)))
       ORDER BY ISSELFPLAN DESC,ISCONFIRMED DESC;
 END $$
