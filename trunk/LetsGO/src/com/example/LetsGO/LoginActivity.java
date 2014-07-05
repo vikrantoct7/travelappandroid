@@ -1,6 +1,6 @@
 package com.example.LetsGO;
 
-import com.example.mindyourtravel.R;
+import com.example.LetsGO.R;
 
 import android.os.Bundle;
 import android.app.Activity;

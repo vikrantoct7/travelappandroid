@@ -14,7 +14,7 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.example.mindyourtravel.R;
+import com.example.LetsGO.R;
 
 import android.app.Activity;
 import android.content.Intent;

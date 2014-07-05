@@ -5,8 +5,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.example.mindyourtravel.R;
-import com.example.mindyourtravel.R.id;
+import com.example.LetsGO.R;
+import com.example.LetsGO.R.id;
 
 import android.net.Uri;
 import android.os.Bundle;
