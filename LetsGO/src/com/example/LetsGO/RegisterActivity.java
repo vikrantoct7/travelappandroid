@@ -7,8 +7,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.example.mindyourtravel.R;
-import com.example.mindyourtravel.R.string;
+import com.example.LetsGO.R;
+import com.example.LetsGO.R.string;
 
 import android.os.Bundle;
 import android.app.Activity;

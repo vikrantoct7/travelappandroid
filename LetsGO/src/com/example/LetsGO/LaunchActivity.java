@@ -1,5 +1,5 @@
 package com.example.LetsGO;
-import com.example.mindyourtravel.R;
+import com.example.LetsGO.R;
 
 import android.os.Build;
 import android.os.Bundle;
