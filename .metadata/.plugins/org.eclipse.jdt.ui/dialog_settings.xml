@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
+	<item value="2" key="TypeHierarchyViewPart.hierarchyview"/>
+	<item value="filter_imports;" key="filters_last_used"/>
+	<item value="480,510" key="UserLibraryLoadSaveDialog.size"/>
+	<item value="C:\Program Files\Android\android-sdk\platforms\android-19" key="org.eclipse.jdt.ui.lastextjar"/>
+	<item value="3" key="TypeHierarchyViewPart.orientation"/>
+	<item value="false" key="TypeHierarchyViewPart.qualifiednames"/>
+	<item value="false" key="TypeHierarchyViewPart.linkeditors"/>
 	<section name="OptionalMessageDialog.hide.">
 		<item value="true" key="org.eclipse.jdt.ui.typecomment.deprecated"/>
 	</section>
@@ -7,7 +14,36 @@
 		<item value="false" key="GenerateJavadoc"/>
 	</section>
 	<section name="BuildPathsPropertyPage">
-		<item value="3" key="pageIndex"/>
+		<item value="2" key="pageIndex"/>
+	</section>
+	<section name="JavaSearchPage">
+		<item value="false" key="CASE_SENSITIVE"/>
+		<item value="11" key="INCLUDE_MASK"/>
+		<item value="2" key="HISTORY_SIZE"/>
+		<section name="HISTORY0">
+			<item value="11" key="includeMask"/>
+			<item value="2" key="limitTo"/>
+			<item value="0" key="scope"/>
+			<item value="ArrayAdapter" key="pattern"/>
+			<item value="" key="javaElement"/>
+			<item value="0" key="searchFor"/>
+			<item value="0" key="matchLocations"/>
+			<item value="false" key="isCaseSensitive"/>
+			<list key="workingSets">
+			</list>
+		</section>
+		<section name="HISTORY1">
+			<item value="11" key="includeMask"/>
+			<item value="2" key="limitTo"/>
+			<item value="0" key="scope"/>
+			<item value="putExtra" key="pattern"/>
+			<item value="" key="javaElement"/>
+			<item value="0" key="searchFor"/>
+			<item value="0" key="matchLocations"/>
+			<item value="false" key="isCaseSensitive"/>
+			<list key="workingSets">
+			</list>
+		</section>
 	</section>
 	<section name="RefactoringWizard.preview">
 		<item value="400" key="height"/>
@@ -21,6 +57,31 @@
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="quick_assist_proposal_size">
+	</section>
+	<section name="ClasspathContainerSelectionPage">
+		<item value="4" key="index"/>
+	</section>
+	<section name="javadoc">
+		<item value="false" key="nodeprecatedlist"/>
+		<item value="false" key="notree"/>
+		<item value="true" key="splitindex"/>
+		<item value="" key="javadoc_command_history"/>
+		<item value="true" key="use"/>
+		<item value="false" key="nonavbar"/>
+		<item value="public" key="access"/>
+		<item value="true" key="version"/>
+		<item value="false" key="nodeprecated"/>
+		<item value="D:\GoogleRepository\travelappandroid\Trunk\MindYourTravel\doc" key="destdir"/>
+		<item value="true" key="author"/>
+		<item value="" key="docletname"/>
+		<item value="1.6" key="source"/>
+		<item value="false" key="openinbrowser"/>
+		<item value="false" key="noindex"/>
+		<item value="" key="docletpath"/>
+		<item value="D:\GoogleRepository\travelappandroid\Trunk\MindYourTravel\javadoc.xml" key="antpath"/>
+		<item value="true" key="fromStandard"/>
+		<section name="projects">
+		</section>
 	</section>
 	<section name="org.eclipse.jdt.internal.ui.dialogs.OpenTypeSelectionDialog2">
 		<item value="true" key="ShowStatusLine"/>
@@ -54,9 +115,15 @@
 	</section>
 	<section name="completion_proposal_size">
 	</section>
+	<section name="ExtractMethodWizard">
+		<item value="false" key="ThrowRuntimeExceptions"/>
+		<item value="false" key="GenerateJavadoc"/>
+		<item value="2" key="AccessModifier"/>
+	</section>
 	<section name="JavaElementSearchActions">
 	</section>
 	<section name="org.eclipse.ltk.ui.refactoring.settings">
+		<item value="false" key="renameSubpackages"/>
 		<item value="false" key="updateQualifiedNames"/>
 		<item value="*" key="patterns"/>
 		<item value="1" key="updateSimilarElementsMatchStrategy"/>
@@ -69,5 +136,14 @@
 		<item value="false" key="create_unimplemented"/>
 	</section>
 	<section name="RenameInformationPopup">
+	</section>
+	<section name="OccurrencesSearchResultPage">
+	</section>
+	<section name="JavadocWizardDialog">
+		<item value="616" key="DIALOG_WIDTH"/>
+		<item value="8" key="DIALOG_Y_ORIGIN"/>
+		<item value="383" key="DIALOG_X_ORIGIN"/>
+		<item value="615" key="DIALOG_HEIGHT"/>
+		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 	</section>
 </section>
