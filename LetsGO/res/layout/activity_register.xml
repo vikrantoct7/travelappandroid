@@ -1,0 +1,230 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".RegisterActivity" >
+
+     <TextView
+        android:id="@+id/lblErrorMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tblUserRegister"
+        android:text="@string/lblError"
+        android:textColor="#FF0000"
+        android:visibility="visible" />
+
+    <TableLayout
+        android:id="@+id/tblUserRegister"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lblErrorMsg"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal" >
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:paddingBottom="5dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/lblFName"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight=".65"
+                android:paddingTop="10dp"
+                android:textColor="#000000"
+                android:text="@string/lblFName" />
+
+            <EditText
+                android:id="@+id/txtFName"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="text"
+                android:textSize="16sp" >
+                <requestFocus />
+            </EditText>
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:paddingBottom="5dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+            <TextView
+			    android:id="@+id/lblLName"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight=".65"
+                android:paddingTop="10dp"
+                android:textColor="#000000"
+			    android:text="@string/lblLName" />
+             <EditText
+	        	android:id="@+id/txtLName"
+	        	android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:ems="10"
+	        	android:inputType="text"
+	       		android:textSize="16sp"/>
+         </TableRow>
+		<TableRow
+             android:id="@+id/tableRow3"
+             android:paddingBottom="5dp"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/lblCity"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight=".33"
+                android:paddingTop="10dp"
+                android:textColor="#000000"
+                android:text="@string/lblCity" />
+			<Spinner
+			    android:id="@+id/ddCity"
+			    android:layout_width="0dp"
+			    android:layout_height="wrap_content"
+			    android:layout_weight=".50"
+			    android:prompt="@string/ddSelCity" />
+
+         </TableRow>
+         <TableRow
+             android:id="@+id/tableRow4"
+             android:paddingBottom="5dp"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/lblAge"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight=".65"
+                android:paddingTop="10dp"
+                android:textColor="#000000"
+                android:text="@string/lblAge" />
+
+            <EditText
+                android:id="@+id/txtAge"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight=".50"
+                android:ems="10"
+                android:textSize="16sp"
+                android:inputType="number" />
+
+			<TextView
+			    android:id="@+id/dumy"
+			    android:layout_width="0dp"
+			    android:layout_height="fill_parent"
+			    android:layout_weight=".5" />
+
+         </TableRow>
+         
+          <TableRow
+            android:id="@+id/tableRow5"
+            android:paddingBottom="5dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+           <TextView
+			    android:id="@+id/lblGender"
+			   	android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight=".65"
+                android:paddingTop="10dp"
+                android:textColor="#000000"
+			    android:text="@string/lblGender" />
+             <RadioGroup
+			     android:id="@+id/rdoGender"
+	        	 android:layout_width="0dp"
+                 android:layout_height="fill_parent"
+                 android:layout_weight="1"
+			     android:orientation="horizontal" >
+
+			     <RadioButton
+			         android:id="@+id/rdoMale"
+			         android:layout_width="wrap_content"
+			         android:layout_height="wrap_content"
+			         android:text="@string/genderMale" />
+		
+			     <RadioButton
+			         android:id="@+id/rdoFemale"
+			         android:layout_width="wrap_content"
+			         android:layout_height="wrap_content"
+			         android:text="@string/genderFemale" />
+			 </RadioGroup>
+         </TableRow>
+         
+          <TableRow
+            android:id="@+id/tableRow6"
+            android:paddingBottom="5dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+           <TextView
+	     		android:id="@+id/lblContactNo"
+			   	android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight=".65"
+                android:paddingTop="10dp"
+                android:textColor="#000000"
+	     		android:text="@string/lblContactNo" />
+          
+            <EditText
+	     		android:id="@+id/txtPhNo"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:maxLength="10"
+	     		android:ems="10"
+	     		android:inputType="phone" />
+        	</TableRow>
+        	
+        	<TableRow
+	            android:id="@+id/tableRow7"
+	            android:paddingBottom="5dp"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" >
+
+        		<TextView
+        		    android:id="@+id/lblCondition"
+        		    android:layout_width="wrap_content"
+        		    android:layout_height="fill_parent"
+        		    android:paddingLeft="30dp"
+        		    android:paddingTop="10dp"
+               		android:textColor="#000000"/>
+
+        	</TableRow>
+        	<TableRow
+	            android:id="@+id/tableRow8"
+	            android:paddingBottom="5dp"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" >
+				<TextView
+				    android:id="@+id/dumy1"
+				    android:layout_width="0dp"
+				    android:layout_height="fill_parent"
+				    android:layout_weight=".5" />
+        		<Button
+        		    android:id="@+id/btnRegister"
+        		    android:layout_width="wrap_content"
+        		    android:layout_height="40dp"
+        		    android:layout_weight=".5"
+        		    android:text="@string/lblRegister"
+        		    android:textColor="#000000"
+        		    android:background="#938953"
+        		    android:visibility="visible" />
+				<TextView
+				    android:id="@+id/dumy2"
+				    android:layout_width="0dp"
+				    android:layout_height="fill_parent"
+				    android:layout_weight=".5" />
+        	</TableRow>
+    </TableLayout>
+</RelativeLayout>
