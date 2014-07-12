@@ -124,6 +124,8 @@ CREATE TABLE `aasv_travelmode` (
 INSERT INTO `aasv_travelmode` (`TMODE`,`TYPE`,`NOFPASSENGER`) VALUES 
  (1,'AUTO',3),
  (2,'TAXI',4);
+ (3,'PRIVATE VECHICLE',4);
+ (4,'CAB',4);
 /*!40000 ALTER TABLE `aasv_travelmode` ENABLE KEYS */;
 
 
