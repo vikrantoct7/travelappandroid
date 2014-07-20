@@ -38,7 +38,7 @@
     <string name="lblTravelDetails">Travel Details</string>
     <string name="btnConfimTravel">Confirm</string>
     <string name="lblTermCondition">I have read and agree to <a href="https://www.google.com">terms and condition </a> for using this app</string>
-    <string name="lblLoginInformation">If you already registered, please login with registered mobile number. otherwise click on "Sign Up" for register yourself.</string>
+    <string name="lblLoginInformation">If you already registered, please login with registered 10 digits mobile number. otherwise click on "Sign Up" for register yourself.</string>
     <string name="ddSelLocation">Select location</string>
     <string name="btnDeleteTravel">Delete</string>
     <string name="titleConfirmBox">Confirm</string>
