@@ -317,7 +317,7 @@ public class TravelListActivity extends Activity {
 		{
 			String strMobileNo=(String) view.getTag();
 			int lenght = strMobileNo.length();
-			final String mobileNoToCall = "91" + strMobileNo.substring(lenght -10, lenght);
+			final String mobileNoToCall = "0" + strMobileNo.substring(lenght -10, lenght);
 			 new AlertDialog.Builder(view.getContext())
 		        .setIcon(android.R.drawable.ic_dialog_info)
 		        .setTitle(R.string.titleShowMobileBox)

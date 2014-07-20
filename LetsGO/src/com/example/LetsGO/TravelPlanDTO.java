@@ -8,6 +8,8 @@ public class TravelPlanDTO {
 	private String travelMode;
 	private String startTime;
 	private String totalNoOfPerson;
+	private String userCurLocCity;
+	private String userEndLocCity;
 	
 	public String getLocationPosition()
 	{
@@ -62,5 +64,23 @@ public class TravelPlanDTO {
 	public void setTotalNoOfPerson(String totalNoOfPerson) {
         this.totalNoOfPerson = totalNoOfPerson;
     }
+	
+	public String getCurUserCity()
+	{
+		return this.userCurLocCity;
+	}
+	
+	public void setCurUserCity(String userCity) {
+        this.userCurLocCity = userCity;
+    } 
+	
+	public String getEndUserCity()
+	{
+		return this.userEndLocCity;
+	}
+	
+	public void setEndUserCity(String userCity) {
+        this.userEndLocCity = userCity;
+    } 
 
 }
