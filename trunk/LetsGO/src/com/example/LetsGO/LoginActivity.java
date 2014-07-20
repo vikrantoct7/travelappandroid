@@ -56,22 +56,29 @@ public class LoginActivity extends Activity {
 			final  TextView txtUserName = (TextView)findViewById(R.id.txtLogin);
 			try {
 				
-				String errorCode = ActivityHelper.CheckLogin(txtUserName.getText().toString());
-				if(errorCode.length()> 0)
+				if(txtUserName.getText().length()!= 10)
 				{
-					if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.NOTEXISTS))
-					{
-						SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorUserNotExist);
-					}
-					else if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
-					{
-						SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-					}
+					txtUserName.setError("Use 10 digit mobile number.");
 				}
 				else
 				{
-					Intent intent = new Intent(view.getContext(),TravelListActivity.class);
-					startActivity(intent);
+					String errorCode = ActivityHelper.CheckLogin(txtUserName.getText().toString());
+					if(errorCode.length()> 0)
+					{
+						if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.NOTEXISTS))
+						{
+							SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorUserNotExist);
+						}
+						else if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
+						{
+							SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+						}
+					}
+					else
+					{
+						Intent intent = new Intent(view.getContext(),TravelListActivity.class);
+						startActivity(intent);
+					}
 				}
 			} 
 			catch (Exception e) 

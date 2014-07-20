@@ -27,6 +27,8 @@ public class TravelPlanActivity extends Activity {
 
 	GPSTracker gps;
 	public static TravelPlanDTO travelPlanDTO=null;
+	String userStartLocCity ="";
+	String userEndLocCity ="";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,17 +36,16 @@ public class TravelPlanActivity extends Activity {
 		setContentView(R.layout.activity_travel_plan);
 		
 		String selLocality="";
-		String userCity ="";
+		
 		String locPosition="";
 		String persistPosition="";
 		String persistTravelMode="";
+		
 		
 		ActivityHelper.setApplicationTitle(getWindow());
 		
         Bundle extras  = getIntent().getExtras();
 		if(extras != null) {
-			 selLocality=extras.getString("SELLOCALITY");
-			 userCity=extras.getString("SELCITY");
 			 if(travelPlanDTO !=null)
 			 {
 				 final  TextView txtStartPoint = (TextView)findViewById(R.id.txtStartLoc);
@@ -55,7 +56,30 @@ public class TravelPlanActivity extends Activity {
 				 txtStartPoint.setText(travelPlanDTO.getStartLocation());
 				 txtNoOfPass.setText(travelPlanDTO.getTotalNoOfPerson());
 				 persistTravelMode = travelPlanDTO.getTravelMode();
+				 userStartLocCity=travelPlanDTO.getCurUserCity();
+				 userEndLocCity=travelPlanDTO.getEndUserCity();
 			 }
+			selLocality=extras.getString("SELLOCALITY");
+			if(locPosition.equals("CURLOC"))
+			{
+				//set the default according to value
+				userStartLocCity=extras.getString("SELCITY");
+				if(userEndLocCity.length()==0)
+				{
+					userEndLocCity=userStartLocCity;
+				}
+
+			}
+			else if(locPosition.equals("ENDLOC"))
+			{
+				//set the default according to value
+				userEndLocCity=extras.getString("SELCITY");
+				if(userStartLocCity.length()==0)
+				{
+					userStartLocCity=userEndLocCity;
+				}
+			}
+			 
 		 }
 		else
 		{
@@ -65,7 +89,8 @@ public class TravelPlanActivity extends Activity {
 	        if(gps.canGetLocation())
 	        {
 	    		//curLocationView.setText(gps.getCurrentLocation(this));
-	        	userCity=gps.getCurrentCity();
+	        	userStartLocCity=gps.getCurrentCity();
+	        	userEndLocCity=userStartLocCity;
 	       	}else
 	       	{
 	    		// can't get location
@@ -84,7 +109,8 @@ public class TravelPlanActivity extends Activity {
 		{
 		    JSONObject reqParameters= new JSONObject();
 			reqParameters.put("LOGGEDINUSERID", LaunchActivity.loginUserId);
-			reqParameters.put("GPSLOCATIONCITY", userCity);
+			reqParameters.put("STARTLOCATIONCITY", userStartLocCity);
+			reqParameters.put("ENDLOCATIONCITY", userEndLocCity);
 			JsonHandler jsonHandler =JsonHandler.getInstance();
 			String url=jsonHandler.getFullUrl("TravelPlanDataAdapter.php");
 			JSONObject result = jsonHandler.PostJsonDataToServer(url, reqParameters);
@@ -118,34 +144,32 @@ public class TravelPlanActivity extends Activity {
 				int spinnerTravelPosition=adapterTravel.getPosition(persistTravelMode);
 				ddTravelType.setSelection(spinnerTravelPosition);
 				
-				JSONArray cityLocalitesData =result.getJSONArray("CITYLOCALITES");
-				String[] cityLocalitesType =new String[cityLocalitesData.length()];
-				for (int i=0;i<cityLocalitesData.length();i++ ) 
+				ArrayAdapter<String> adapterCurLocation = GetLocationAdapterFromJsonResult(result,"STARTCITYLOCALITES");
+				ArrayAdapter<String> adapterEndLocation = adapterCurLocation;
+				if(userStartLocCity !=userEndLocCity)
 				{
-					JSONObject row= cityLocalitesData.getJSONObject(i);
-					cityLocalitesType[i] = row.getString("LOCALITY");
+					adapterEndLocation = GetLocationAdapterFromJsonResult(result,"ENDCITYLOCALITES");
 				}
 				
-				
-				ArrayAdapter<String> adapterLocation = new ArrayAdapter<String>(this,  android.R.layout.simple_spinner_item, cityLocalitesType);
-				adapterLocation.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-				
 				final Spinner ddCurrentLoc=(Spinner)findViewById(R.id.ddCurrentLoc);
-				ddCurrentLoc.setAdapter(adapterLocation);
+				ddCurrentLoc.setAdapter(adapterCurLocation);
 				
 				final Spinner ddEndLocation=(Spinner)findViewById(R.id.ddEndLocation);
-				ddEndLocation.setAdapter(adapterLocation);
+				ddEndLocation.setAdapter(adapterEndLocation);
 				
-				int spinnerPosition = adapterLocation.getPosition(selLocality);
-				int existingPersistPosition = adapterLocation.getPosition(persistPosition);
+				
 				if(locPosition.equals("CURLOC"))
 				{
+					int spinnerPosition = adapterCurLocation.getPosition(selLocality);
+					int existingPersistPosition = adapterEndLocation.getPosition(persistPosition);
 					//set the default according to value
 					ddCurrentLoc.setSelection(spinnerPosition);
 					ddEndLocation.setSelection(existingPersistPosition);
 				}
 				else if(locPosition.equals("ENDLOC"))
 				{
+					int spinnerPosition = adapterEndLocation.getPosition(selLocality);
+					int existingPersistPosition = adapterCurLocation.getPosition(persistPosition);
 					//set the default according to value
 					ddCurrentLoc.setSelection(existingPersistPosition);
 					ddEndLocation.setSelection(spinnerPosition);
@@ -168,6 +192,23 @@ public class TravelPlanActivity extends Activity {
         
         final Button btnPlusEndLoc = (Button)findViewById(R.id.btnPlusEndLoc);
         btnPlusEndLoc.setOnClickListener(onClickEndLocBtnPlusLoc);
+        
+
+	}
+
+	private ArrayAdapter<String> GetLocationAdapterFromJsonResult(JSONObject result,String type) 
+			throws JSONException {
+		JSONArray cityLocalitesData =result.getJSONArray(type);
+		String[] cityLocalitesType =new String[cityLocalitesData.length()];
+		for (int i=0;i<cityLocalitesData.length();i++ ) 
+		{
+			JSONObject row= cityLocalitesData.getJSONObject(i);
+			cityLocalitesType[i] = row.getString("LOCALITY");
+		}
+						
+		ArrayAdapter<String> adapterLocation = new ArrayAdapter<String>(this,  android.R.layout.simple_spinner_item, cityLocalitesType);
+		adapterLocation.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		return adapterLocation;
 	}
 
 	@Override
@@ -318,6 +359,7 @@ public class TravelPlanActivity extends Activity {
 			final  Spinner ddStartTime = (Spinner)findViewById(R.id.ddStartTime);
 			final  TextView txtNoOfPass = (TextView)findViewById(R.id.txtNoOfPass);
 			final  Spinner  ddTravelType =(Spinner)findViewById(R.id.ddTravelType);
+			
 			travelPlanDTO = new TravelPlanDTO();
 			travelPlanDTO.setLocationPosition("ENDLOC");
 			if(ddCurrentLoc.getSelectedItem() !=null)
@@ -328,7 +370,8 @@ public class TravelPlanActivity extends Activity {
 			travelPlanDTO.setStartTime(ddStartTime.getSelectedItem().toString());
 			travelPlanDTO.setTravelMode(ddTravelType.getSelectedItem().toString());
 			travelPlanDTO.setTotalNoOfPerson(txtNoOfPass.getText().toString());
-			
+			travelPlanDTO.setCurUserCity(userStartLocCity);
+			travelPlanDTO.setEndUserCity(userEndLocCity);
 			startActivity(intent);
 			
 		}
@@ -346,6 +389,7 @@ public class TravelPlanActivity extends Activity {
 			final  Spinner ddStartTime = (Spinner)findViewById(R.id.ddStartTime);
 			final  TextView txtNoOfPass = (TextView)findViewById(R.id.txtNoOfPass);
 			final  Spinner  ddTravelType =(Spinner)findViewById(R.id.ddTravelType);
+
 			travelPlanDTO = new TravelPlanDTO();
 			travelPlanDTO.setLocationPosition("CURLOC");
 			if(ddEndLocation.getSelectedItem() !=null)
@@ -356,6 +400,8 @@ public class TravelPlanActivity extends Activity {
 			travelPlanDTO.setStartTime(ddStartTime.getSelectedItem().toString());
 			travelPlanDTO.setTravelMode(ddTravelType.getSelectedItem().toString());
 			travelPlanDTO.setTotalNoOfPerson(txtNoOfPass.getText().toString());
+			travelPlanDTO.setCurUserCity(userStartLocCity);
+			travelPlanDTO.setEndUserCity(userEndLocCity);
 			startActivity(intent);
 			
 		}

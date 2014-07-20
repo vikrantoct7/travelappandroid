@@ -67,16 +67,46 @@ public class PlaceJSONParser {
 			place.put("reference",reference);
 			JSONArray mtypes = jPlace.getJSONArray("types");
 			JSONArray terms = jPlace.getJSONArray("terms");
-			if(mtypes.length()>0)
+			if(terms.length()>2)
 			{
-				String subLocalityType = mtypes.getString(0);
+				JSONObject subLocalityObject = terms.getJSONObject(0);
+				place.put("sublocality", subLocalityObject.getString("value"));
+				JSONObject localityObject = terms.getJSONObject(terms.length()-3);
+				place.put("locality", localityObject.getString("value"));
+				/*String subLocalityType = mtypes.getString(0);
 				if(subLocalityType.equalsIgnoreCase("sublocality"))
 				{
 					JSONObject subLocalityObject = terms.getJSONObject(0);
 					place.put("sublocality", subLocalityObject.getString("value"));
-					JSONObject localityObject = terms.getJSONObject(1);
+					JSONObject localityObject = terms.getJSONObject(terms.length()-3);
 					place.put("locality", localityObject.getString("value"));
 				}
+				else if(subLocalityType.equalsIgnoreCase("sublocality_level_1")
+						|| subLocalityType.equalsIgnoreCase("sublocality_level_2")
+						||subLocalityType.equalsIgnoreCase("neighborhood"))
+				{
+						JSONObject subLocalityObject = terms.getJSONObject(0);
+						place.put("sublocality", subLocalityObject.getString("value"));
+						JSONObject localityObject = terms.getJSONObject(terms.length()-3);
+						place.put("locality", localityObject.getString("value"));
+				}
+				else if(subLocalityType.equalsIgnoreCase("subway_station")
+						|| subLocalityType.equalsIgnoreCase("bus_station")
+						|| subLocalityType.equalsIgnoreCase("train_station"))
+				{
+					JSONObject subLocalityObject = terms.getJSONObject(0);
+					place.put("sublocality", subLocalityObject.getString("value"));
+					JSONObject localityObject = terms.getJSONObject(terms.length()-3);
+					place.put("locality", localityObject.getString("value"));
+				}
+				else if(subLocalityType.equalsIgnoreCase("locality")
+						||subLocalityType.equalsIgnoreCase("administrative_area_level_1"))
+				{
+					JSONObject subLocalityObject = terms.getJSONObject(0);
+					place.put("sublocality", subLocalityObject.getString("value"));
+					JSONObject localityObject = terms.getJSONObject(0);
+					place.put("locality", localityObject.getString("value"));
+				}*/
 			}
 			
 			

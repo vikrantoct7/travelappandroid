@@ -44,12 +44,6 @@ public class LocationLocatorActivity extends Activity {
 		
 		Bundle extras  = getIntent().getExtras();
 		
-		//final TextView lblLocPosition =(TextView) findViewById(R.id.lblLocPosition);
-		//lblLocPosition.setText(extras.getString("LOCPOSITION"));
-		
-		//final TextView lblPersistPosition =(TextView) findViewById(R.id.lblPersistPosition);
-		//lblPersistPosition.setText(extras.getString("PERSISTPOSITION"));
-		
 		SetErrorLabelVisibility(View.INVISIBLE,R.string.lblError);
 		
 		final Button btnLocationOK =(Button)findViewById(R.id.btnLocationOK);
