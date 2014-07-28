@@ -56,12 +56,12 @@ public class LoginActivity extends Activity {
 			final  TextView txtUserName = (TextView)findViewById(R.id.txtLogin);
 			try {
 				
-				if(txtUserName.getText().length()!= 10)
-				{
-					txtUserName.setError("Use 10 digit mobile number.");
-				}
-				else
-				{
+				//if(txtUserName.getText().length()!= 10)
+				//{
+				//	txtUserName.setError("Use 10 digit mobile number.");
+				//}
+				//else
+				//{
 					String errorCode = ActivityHelper.CheckLogin(txtUserName.getText().toString());
 					if(errorCode.length()> 0)
 					{
@@ -79,7 +79,7 @@ public class LoginActivity extends Activity {
 						Intent intent = new Intent(view.getContext(),TravelListActivity.class);
 						startActivity(intent);
 					}
-				}
+				//}
 			} 
 			catch (Exception e) 
 			{
