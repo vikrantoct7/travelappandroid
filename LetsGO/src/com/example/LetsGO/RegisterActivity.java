@@ -8,7 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.LetsGO.R;
-import com.example.LetsGO.R.string;
+//import com.example.LetsGO.R.string;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -37,7 +37,7 @@ public class RegisterActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
 		ActivityHelper.setApplicationTitle(getWindow());
-		SetErrorLabelVisibility(View.INVISIBLE,R.string.lblError);
+		setErrorLabelVisibility(View.INVISIBLE,R.string.lblError);
 		
 		addFocusChangeListernerOnEditText();
 		final Button btnSubmit = (Button)findViewById(R.id.btnRegister);
@@ -47,14 +47,14 @@ public class RegisterActivity extends Activity {
 			JSONObject reqParameters= new JSONObject();
 			JsonHandler jsonHandler =JsonHandler.getInstance();
 			String url=jsonHandler.getFullUrl("CityDataAdapter.php");
-			JSONObject result = jsonHandler.PostJsonDataToServer(url, reqParameters);
+			JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters);
 			String resultCode= result.getString("RESULT");
-			if(resultCode.contentEquals(AppConstant.PHPResponse_KO))
+			if(resultCode.contentEquals(AppConstant.PHPRESPONSE_KO))
 			{
 				String errorCode=result.getString("ERRORCODE");
 				if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
 				{
-					SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+					setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 				}
 			}
 			else
@@ -78,11 +78,11 @@ public class RegisterActivity extends Activity {
 		}
         catch (IOException e) 
 		{    
-			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+			setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 		} 
 		catch(JSONException ex)
 		{
-			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+			setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 		}
 		try
 		{
@@ -97,7 +97,7 @@ public class RegisterActivity extends Activity {
 		}
 		catch(Exception ex)
 		{
-			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+			setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 		}
 		
 		//Place hyper link
@@ -175,18 +175,18 @@ public class RegisterActivity extends Activity {
 						reqParameters.put("UCONTACTNO", txtPhNo.getText());
 						JsonHandler jsonHandler =JsonHandler.getInstance();
 						String url=jsonHandler.getFullUrl("UserRegisteration.php");
-						JSONObject result = jsonHandler.PostJsonDataToServer(url, reqParameters);
+						JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters);
 						String resultCode= result.getString("RESULT");
-						if(resultCode.contentEquals(AppConstant.PHPResponse_KO))
+						if(resultCode.contentEquals(AppConstant.PHPRESPONSE_KO))
 						{
 							String errorCode=result.getString("ERRORCODE");
 							if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.ALREADYEXISTS))
 							{
-								SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorUserExist);
+								setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorUserExist);
 							}
 							else if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
 							{
-								SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+								setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 							}
 						}
 						else
@@ -201,7 +201,7 @@ public class RegisterActivity extends Activity {
 							userDto.setAge(jsonData.getInt("AGE"));
 							userDto.setContactNo(jsonData.getString("UCONTACTNO"));
 							userDto.setAppLoginUser(true);
-							LaunchActivity.repository.AddUserDTO(userDto);
+							LaunchActivity.repository.addUserDTO(userDto);
 							Intent intent = new Intent(view.getContext(),TravelListActivity.class);
 							startActivity(intent);
 						}
@@ -209,19 +209,19 @@ public class RegisterActivity extends Activity {
 					}
 					catch(JSONException ex)
 					{
-						SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+						setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 					}
 					catch (ClientProtocolException e)
 					{    
-						SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+						setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 					}    
 					catch (IOException e) 
 					{    
-						SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+						setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 					} 
 					catch(Exception e)
 					{
-						SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+						setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 					}
 				}
 			}
@@ -246,7 +246,7 @@ public class RegisterActivity extends Activity {
 		return true;
 	}
 	
-	private void SetErrorLabelVisibility(int visibility,int errorResId)
+	private void setErrorLabelVisibility(int visibility,int errorResId)
 	{
 		TextView lblError =(TextView)findViewById(R.id.lblErrorMsg);
 		if(lblError != null)

@@ -29,15 +29,15 @@ import android.widget.TextView;
 
 public class TravelListActivity extends Activity {
 
-	private int CurUserTravelID;
+	private int currentUserTravelID;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_travel_list);
 		ActivityHelper.setApplicationTitle(getWindow());
 		
-		SetErrorLabelVisibility(View.INVISIBLE,R.string.lblError);
-		LoadTravelList();
+		setErrorLabelVisibility(View.INVISIBLE,R.string.lblError);
+		loadTravelList();
 		
 		final Button btnRefresh = (Button)findViewById(R.id.btnRefresh);
 		btnRefresh.setOnClickListener(onClickRefresh);
@@ -48,11 +48,11 @@ public class TravelListActivity extends Activity {
 	protected void onRestart()
 	{
 		super.onRestart();
-		LoadTravelList();
+		loadTravelList();
 	}
 	
 	
-	private void LoadTravelList()
+	private void loadTravelList()
 	{
 		try
 		{
@@ -60,14 +60,14 @@ public class TravelListActivity extends Activity {
 			reqParameters.put("CONUSERID", LaunchActivity.loginUserId);
 			JsonHandler jsonHandler =JsonHandler.getInstance();
 			String url=jsonHandler.getFullUrl("UserTravelList.php");
-			JSONObject result = jsonHandler.PostJsonDataToServer(url, reqParameters);
+			JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters);
 			String resultCode= result.getString("RESULT");
-			if(resultCode.contentEquals(AppConstant.PHPResponse_KO))
+			if(resultCode.contentEquals(AppConstant.PHPRESPONSE_KO))
 			{
 				String errorCode=result.getString("ERRORCODE");
 				if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
 				{
-					SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+					setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 				}
 			}
 			else
@@ -78,11 +78,11 @@ public class TravelListActivity extends Activity {
 		}
 		catch(JSONException ex)
 		{
-			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+			setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 		}
 		catch (IOException ex) 
 		{    
-			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+			setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 		} 
 	}
 
@@ -99,7 +99,7 @@ public class TravelListActivity extends Activity {
 		{
 			btnNewPlan.setEnabled(true);
 		}
-		SetErrorLabelVisibility(View.INVISIBLE,R.string.lblErrorTechnical);
+		setErrorLabelVisibility(View.INVISIBLE,R.string.lblErrorTechnical);
 		try
 		{
 			TableLayout tblParentTravelDetails = (TableLayout) findViewById(R.id.tblParentTravelDetails);
@@ -215,9 +215,9 @@ public class TravelListActivity extends Activity {
 				// TODO To be check whether it is effective to use setTag method for passing object
 				if(datarow.getInt("ISSELFPLAN")==1)
 				{
-					CurUserTravelID=datarow.getInt("TRAVELID");
+					currentUserTravelID=datarow.getInt("TRAVELID");
 					btnSubmitTravel.setOnClickListener(onDeleteAction);
-					btnSubmitTravel.setTag(Integer.toString(CurUserTravelID));
+					btnSubmitTravel.setTag(Integer.toString(currentUserTravelID));
 					btnSubmitTravel.setText(R.string.btnDeleteTravel);
 					tblrow4.addView(btnSubmitTravel);
 				}
@@ -265,7 +265,7 @@ public class TravelListActivity extends Activity {
 		}
 		catch(JSONException ex)
 		{
-			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+			setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 		}
 	}
 	@Override
@@ -293,7 +293,7 @@ public class TravelListActivity extends Activity {
 		@Override
 		public void onClick(View view)
 		{
-			LoadTravelList();
+			loadTravelList();
 		}
 	};
 			
@@ -358,7 +358,7 @@ public class TravelListActivity extends Activity {
 				txtGender.setText(userDto.getGenderStringValue());
 				TextView txtContactNo =(TextView)userView.findViewById(id.txtContactNo);
 				txtContactNo.setText(userDto.getContactNo());
-				final int travelid =CurUserTravelID;
+				final int travelid =currentUserTravelID;
 				final int usertravelid =userDto.getTravelId();
 				final int traveleruserid =userDto.getUserId();
 				
@@ -379,15 +379,15 @@ public class TravelListActivity extends Activity {
 			    			reqParameters.put("TRAVELERUSERID", traveleruserid);
 			    			JsonHandler jsonHandler =JsonHandler.getInstance();
 			    			String url=jsonHandler.getFullUrl("UserTravelConfirm.php");
-			    			JSONObject result = jsonHandler.PostJsonDataToServer(url, reqParameters);
+			    			JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters);
 			    			String resultCode= result.getString("RESULT");
-			    			if(resultCode.contentEquals(AppConstant.PHPResponse_KO))
+			    			if(resultCode.contentEquals(AppConstant.PHPRESPONSE_KO))
 			    			{
 			    				String errorCode=result.getString("ERRORCODE");
 			    				
 			    				if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
 			    				{
-			    					SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+			    					setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 			    				}
 			    			}
 			    			else
@@ -398,11 +398,11 @@ public class TravelListActivity extends Activity {
 			            }
 				    	catch(JSONException ex)
 				    		{
-				    			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+				    			setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 				    		}
 			            	catch (IOException e) 
 			        		{    
-			        			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+			        			setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 			        		} 
 			            //}
 		            //})
@@ -433,15 +433,15 @@ public class TravelListActivity extends Activity {
 		    			reqParameters.put("CONUSERID", LaunchActivity.loginUserId);
 		    			JsonHandler jsonHandler =JsonHandler.getInstance();
 		    			String url=jsonHandler.getFullUrl("UserTravelDelete.php");
-		    			JSONObject result = jsonHandler.PostJsonDataToServer(url, reqParameters);
+		    			JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters);
 		    			String resultCode= result.getString("RESULT");
-		    			if(resultCode.contentEquals(AppConstant.PHPResponse_KO))
+		    			if(resultCode.contentEquals(AppConstant.PHPRESPONSE_KO))
 		    			{
 		    				String errorCode=result.getString("ERRORCODE");
 		    				
 		    				if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
 		    				{
-		    					SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+		    					setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 		    				}
 		    			}
 		    			else
@@ -452,11 +452,11 @@ public class TravelListActivity extends Activity {
 		            }
 			    	catch(JSONException ex)
 			    		{
-			    			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+			    			setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 			    		}
 		            	catch (IOException e) 
 		        		{    
-		        			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+		        			setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 		        		} 
 	            }
 
@@ -466,7 +466,7 @@ public class TravelListActivity extends Activity {
 		}
 	};
 	
-	private void SetErrorLabelVisibility(int visibility,int errorResId)
+	private void setErrorLabelVisibility(int visibility,int errorResId)
 	{
 		TextView lblError =(TextView)findViewById(R.id.lblTravelErrorMsg);
 		if(lblError != null)

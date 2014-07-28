@@ -128,10 +128,10 @@ public class TelephonyInfo {
 
             Object[] obParameter = new Object[1];
             obParameter[0] = slotID;
-            Object ob_phone = getSimID.invoke(telephony, obParameter);
+            Object obPhone = getSimID.invoke(telephony, obParameter);
 
-            if(ob_phone != null){
-                imei = ob_phone.toString();
+            if(obPhone != null){
+                imei = obPhone.toString();
 
             }
         } catch (Exception e) {
@@ -158,10 +158,10 @@ public class TelephonyInfo {
 
             Object[] obParameter = new Object[1];
             obParameter[0] = slotID;
-            Object ob_phone = getSimStateGemini.invoke(telephony, obParameter);
+            Object obPhone = getSimStateGemini.invoke(telephony, obParameter);
 
-            if(ob_phone != null){
-                int simState = Integer.parseInt(ob_phone.toString());
+            if(obPhone != null){
+                int simState = Integer.parseInt(obPhone.toString());
                 if(simState == TelephonyManager.SIM_STATE_READY){
                     isReady = true;
                 }

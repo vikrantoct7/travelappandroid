@@ -99,7 +99,7 @@ public class TravelPlanActivity extends Activity {
 	            gps.showSettingsAlert();
 	       	}
 		}
-        SetErrorLabelVisibility(View.INVISIBLE,R.string.lblError);
+        setErrorLabelVisibility(View.INVISIBLE,R.string.lblError);
 		
         
         final Button btnTravelSubmit =(Button)findViewById(R.id.btnTravelSubmit);
@@ -113,18 +113,18 @@ public class TravelPlanActivity extends Activity {
 			reqParameters.put("ENDLOCATIONCITY", userEndLocCity);
 			JsonHandler jsonHandler =JsonHandler.getInstance();
 			String url=jsonHandler.getFullUrl("TravelPlanDataAdapter.php");
-			JSONObject result = jsonHandler.PostJsonDataToServer(url, reqParameters);
+			JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters);
 			String resultCode= result.getString("RESULT");
-			if(resultCode.contentEquals(AppConstant.PHPResponse_KO))
+			if(resultCode.contentEquals(AppConstant.PHPRESPONSE_KO))
 			{
 				String errorCode=result.getString("ERRORCODE");
 				if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.NOTEXISTS))
 				{
-					SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorUserNotExist);
+					setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorUserNotExist);
 				}
 				else if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
 				{
-					SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+					setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 				}
 			}
 			else
@@ -144,11 +144,11 @@ public class TravelPlanActivity extends Activity {
 				int spinnerTravelPosition=adapterTravel.getPosition(persistTravelMode);
 				ddTravelType.setSelection(spinnerTravelPosition);
 				
-				ArrayAdapter<String> adapterCurLocation = GetLocationAdapterFromJsonResult(result,"STARTCITYLOCALITES");
+				ArrayAdapter<String> adapterCurLocation = getLocationAdapterFromJsonResult(result,"STARTCITYLOCALITES");
 				ArrayAdapter<String> adapterEndLocation = adapterCurLocation;
 				if(!userStartLocCity.equalsIgnoreCase(userEndLocCity) )
 				{
-					adapterEndLocation = GetLocationAdapterFromJsonResult(result,"ENDCITYLOCALITES");
+					adapterEndLocation = getLocationAdapterFromJsonResult(result,"ENDCITYLOCALITES");
 				}
 				
 				final Spinner ddCurrentLoc=(Spinner)findViewById(R.id.ddCurrentLoc);
@@ -175,17 +175,17 @@ public class TravelPlanActivity extends Activity {
 					ddEndLocation.setSelection(spinnerPosition);
 				}
 				
-				FillStartTimeDd();
+				fillStartTimeDd();
 				
 			}
 		}
         catch (IOException e) 
 		{    
-			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+			setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 		} 
 		catch(JSONException ex)
 		{
-			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+			setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 		}
         final Button btnPlusCurLoc = (Button)findViewById(R.id.btnPlusCurLoc);
         btnPlusCurLoc.setOnClickListener(onClickCurLocBtnPlusLoc);
@@ -196,7 +196,7 @@ public class TravelPlanActivity extends Activity {
 
 	}
 
-	private ArrayAdapter<String> GetLocationAdapterFromJsonResult(JSONObject result,String type) 
+	private ArrayAdapter<String> getLocationAdapterFromJsonResult(JSONObject result,String type) 
 			throws JSONException {
 		JSONArray cityLocalitesData =result.getJSONArray(type);
 		String[] cityLocalitesType =new String[cityLocalitesData.length()];
@@ -218,7 +218,7 @@ public class TravelPlanActivity extends Activity {
 		return true;
 	}
 	
-	private void SetErrorLabelVisibility(int visibility,int errorResId)
+	private void setErrorLabelVisibility(int visibility,int errorResId)
 	{
 		TextView lblError =(TextView)findViewById(R.id.lblTravelErrorMsg);
 		if(lblError != null)
@@ -228,9 +228,9 @@ public class TravelPlanActivity extends Activity {
 		}
 	}
 	
-	private void FillStartTimeDd()
+	private void fillStartTimeDd()
 	{
-		String[] StartTime =new String[8];
+		String[] startTime =new String[8];
 		
         Calendar cal= Calendar.getInstance();
         cal.setTimeInMillis(System.currentTimeMillis());
@@ -243,11 +243,11 @@ public class TravelPlanActivity extends Activity {
         	calculatedDate.setMinutes(calMinutes);
             String showTime=String.format("%1$tI:%1$tM %1$Tp",calculatedDate);
             calMinutes =calculatedDate.getMinutes();
-        	StartTime[i]=showTime;
+        	startTime[i]=showTime;
         	calMinutes =calMinutes+15;
 		}
         
-        ArrayAdapter<String> adapterStartTime = new ArrayAdapter<String>(this,  android.R.layout.simple_spinner_item, StartTime);
+        ArrayAdapter<String> adapterStartTime = new ArrayAdapter<String>(this,  android.R.layout.simple_spinner_item, startTime);
         adapterStartTime.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
        
 		final Spinner ddStartTime=(Spinner)findViewById(R.id.ddStartTime);
@@ -264,7 +264,6 @@ public class TravelPlanActivity extends Activity {
 	private OnClickListener onClickbtnTravelSubmit = new OnClickListener()
 	{
 		@SuppressLint("SimpleDateFormat")
-		@SuppressWarnings("deprecation")
 		@Override
 		public void onClick(View view)
 		{
@@ -284,13 +283,13 @@ public class TravelPlanActivity extends Activity {
 			{
 				if(ddCurrentLoc.getSelectedItem() == ddEndLocation.getSelectedItem())
 		        {
-		        	SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorForSameLocation);
+		        	setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorForSameLocation);
 		        	return;
 		        }
 				
 				if(txtNoOfPass.getText().toString().equals("0"))
 				{
-					SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorForTotalNoOfPerson);
+					setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorForTotalNoOfPerson);
 		        	return;
 				}
 				try
@@ -305,18 +304,18 @@ public class TravelPlanActivity extends Activity {
 					reqParameters.put("NOOFPASSENGER", txtNoOfPass.getText());
 					JsonHandler jsonHandler =JsonHandler.getInstance();
 					String url=jsonHandler.getFullUrl("UserTravelPlan.php");
-					JSONObject result = jsonHandler.PostJsonDataToServer(url, reqParameters);
+					JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters);
 					String resultCode= result.getString("RESULT");
-					if(resultCode.contentEquals(AppConstant.PHPResponse_KO))
+					if(resultCode.contentEquals(AppConstant.PHPRESPONSE_KO))
 					{
 						String errorCode=result.getString("ERRORCODE");
 						if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.NOTEXISTS))
 						{
-							SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorUserNotExist);
+							setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorUserNotExist);
 						}
 						else if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
 						{
-							SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+							setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 						}
 					}
 					else
@@ -327,19 +326,19 @@ public class TravelPlanActivity extends Activity {
 				}
 				catch(JSONException ex)
 				{
-					SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+					setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 				}
 				catch (ClientProtocolException e)
 				{    
-					SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+					setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 				}    
 				catch (IOException e) 
 				{    
-					SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+					setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 				} 
 				catch(Exception e)
 				{
-					SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+					setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 				}
 			}
 			

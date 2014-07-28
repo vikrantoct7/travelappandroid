@@ -18,10 +18,9 @@ import android.widget.TextView;
 //import com.android.internal.telephony.Phone; 
 //import com.android.internal.telephony.PhoneFactory; 
 
-
 public final class ActivityHelper {
 
-	public static String CheckLogin(String userMobileNo) throws Exception
+	public static String checkLogin(String userMobileNo) throws Exception
 	{
 		String errorCode="";
 		try
@@ -31,10 +30,10 @@ public final class ActivityHelper {
 			
 			JsonHandler jsonHandler =JsonHandler.getInstance();
 			String url=jsonHandler.getFullUrl("UserLogin.php");
-			JSONObject result = jsonHandler.PostJsonDataToServer(url, reqParameters);
+			JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters);
 			String resultCode= result.getString("RESULT");
 			
-			if(resultCode.contentEquals(AppConstant.PHPResponse_KO))
+			if(resultCode.contentEquals(AppConstant.PHPRESPONSE_KO))
 			{
 				errorCode=result.getString("ERRORCODE");
 				/*if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.NOTEXISTS))
@@ -59,7 +58,7 @@ public final class ActivityHelper {
 				userDto.setAge(jsonData.getInt("AGE"));
 				userDto.setContactNo(jsonData.getString("UCONTACTNO"));
 				userDto.setAppLoginUser(true);
-				LaunchActivity.repository.AddUserDTO(userDto);
+				LaunchActivity.repository.addUserDTO(userDto);
 			}
 		}
 		catch(JSONException e)

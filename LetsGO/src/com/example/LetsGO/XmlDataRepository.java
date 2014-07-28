@@ -11,15 +11,15 @@ import android.os.*;
 public final class XmlDataRepository {
 	
 	//private SparseArray<UserDTO> _userList = new SparseArray<UserDTO>();
-	private UserDTO _userData =null;
-	private File _userDataFile;
+	private UserDTO userDataDto =null;
+	private File userDataFile;
 	public XmlDataRepository () throws Exception 
 	{
 		try
 		{
 			if(Environment.getExternalStorageDirectory().exists())
 			{
-				String userStoragePath =Environment.getExternalStorageDirectory()+"/"+AppConstant.StorageFolder;
+				String userStoragePath =Environment.getExternalStorageDirectory()+"/"+AppConstant.STORAGEFOLDER;
 				File dirUserPath = new File(userStoragePath);
 				boolean isDirectoryExist =dirUserPath.exists();
 				if(!isDirectoryExist)
@@ -29,13 +29,13 @@ public final class XmlDataRepository {
 				
 				if(isDirectoryExist)
 				{
-					_userDataFile= new File(dirUserPath,AppConstant.DatabaseFile);
+					userDataFile= new File(dirUserPath,AppConstant.DATABASEFILE);
 					//_userDataFile.delete();
-					if(!_userDataFile.exists())
+					if(!userDataFile.exists())
 					{
-						_userDataFile.createNewFile();
+						userDataFile.createNewFile();
 					}
-					ReadUserDataFile();
+					readUserDataFile();
 				}
 			}
 		}
@@ -46,23 +46,23 @@ public final class XmlDataRepository {
 		}
 	}
 	
-	private void ReadUserDataFile() throws IOException, ClassNotFoundException
+	private void readUserDataFile() throws IOException, ClassNotFoundException
 	{	
-		if(_userDataFile !=null)
+		if(userDataFile !=null)
 		{
-			if(_userDataFile.canRead())
+			if(userDataFile.canRead())
 			{
-				FileInputStream fs =new FileInputStream(_userDataFile);
+				FileInputStream fs =new FileInputStream(userDataFile);
 				if(fs.available()>0)
 				{
-					if(_userData ==null)
+					if(userDataDto ==null)
 					{
 						//_userData.clear();
-						_userData = new UserDTO();
+						userDataDto = new UserDTO();
 					}
 					ObjectInputStream  deserializer = new ObjectInputStream(fs);
 					//_userData = (ArrayList<UserDTO>) deserializer.readObject();
-					_userData = (UserDTO) deserializer.readObject();
+					userDataDto = (UserDTO) deserializer.readObject();
 					deserializer.close();
 				}
 				fs.close();
@@ -70,27 +70,27 @@ public final class XmlDataRepository {
 		}
 	}
 	
-	private void WriteUserDataFile(UserDTO user) throws IOException
+	private void writeUserDataFile(UserDTO user) throws IOException
 	{
 		//_userData.add(user);
-		_userData=user;
-		if(_userDataFile !=null)
+		userDataDto=user;
+		if(userDataFile !=null)
 		{
-			if(_userDataFile.canWrite())
+			if(userDataFile.canWrite())
 			{
-				ObjectOutputStream  serializer = new ObjectOutputStream(new FileOutputStream(_userDataFile));
-				serializer.writeObject(_userData);
+				ObjectOutputStream  serializer = new ObjectOutputStream(new FileOutputStream(userDataFile));
+				serializer.writeObject(userDataDto);
 				serializer.close();
 				//_userData.clear();
 			}
 		}
 	}
 	
-	public void AddUserDTO(UserDTO user)
+	public void addUserDTO(UserDTO user)
 	{
 		try
 		{
-			WriteUserDataFile(user);
+			writeUserDataFile(user);
 		}
 		catch(IOException ex)
 		{
@@ -99,11 +99,11 @@ public final class XmlDataRepository {
 	}
 	
 	//public ArrayList<UserDTO> GetUsersData()
-	public UserDTO GetUsersData()
+	public UserDTO getUsersData()
 	{
 		try
 		{
-			ReadUserDataFile();
+			readUserDataFile();
 		}
 		catch(IOException ex)
 		{
@@ -113,17 +113,17 @@ public final class XmlDataRepository {
 		{
 			 ///ex.printStackTrace();
 		}
-		return _userData;
+		return userDataDto;
 	}
 	
-	public void ClearRepository()
+	public void clearRepository()
 	{
-		if(_userDataFile !=null)
+		if(userDataFile !=null)
 		{
-			_userDataFile.delete();
+			userDataFile.delete();
 		}
 		//_userData.clear();
-		_userData=null;
+		userDataDto=null;
 	}
 	
 	/*public void AddUserInList(int userId,UserDTO userObject)

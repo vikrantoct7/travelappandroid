@@ -42,9 +42,7 @@ public class LocationLocatorActivity extends Activity {
 		setContentView(R.layout.activity_location_locator);
 		ActivityHelper.setApplicationTitle(this.getWindow());
 		
-		Bundle extras  = getIntent().getExtras();
-		
-		SetErrorLabelVisibility(View.INVISIBLE,R.string.lblError);
+		setErrorLabelVisibility(View.INVISIBLE,R.string.lblError);
 		
 		final Button btnLocationOK =(Button)findViewById(R.id.btnLocationOK);
 		btnLocationOK.setOnClickListener(onClickbtnLocationOK);
@@ -253,38 +251,38 @@ public class LocationLocatorActivity extends Activity {
 	    			reqParameters.put("CITYNAME", lblSelectedLocality.getText());
 	    			JsonHandler jsonHandler =JsonHandler.getInstance();
 	    			String url=jsonHandler.getFullUrl("LocalityDataAdapter.php");
-	    			JSONObject result = jsonHandler.PostJsonDataToServer(url, reqParameters);
+	    			JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters);
 	    			String resultCode= result.getString("RESULT");
-	    			if(resultCode.contentEquals(AppConstant.PHPResponse_KO))
+	    			if(resultCode.contentEquals(AppConstant.PHPRESPONSE_KO))
 	    			{
 	    				String errorCode=result.getString("ERRORCODE");
 	    				
 	    				if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.ALREADYEXISTS))
 	    				{
-	    					GoToTravelPlanActivity(v, lblSelectedLoc.getText(),
+	    					goToTravelPlanActivity(v, lblSelectedLoc.getText(),
 									lblSelectedLocality.getText());
 	    				}
 	    			}
 	    			else
 	    			{
-	    				GoToTravelPlanActivity(v, lblSelectedLoc.getText(),
+	    				goToTravelPlanActivity(v, lblSelectedLoc.getText(),
 								lblSelectedLocality.getText());
 	    			}
 	            }
 		    	catch(JSONException ex)
 		    		{
-		    			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+		    			setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 		    		}
 	            	catch (IOException e) 
 	        		{    
-	        			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+	        			setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 	        		} 
 			}
 		}
 
 	};
 	
-	private void GoToTravelPlanActivity(View v, CharSequence lblSelectedLoc,
+	private void goToTravelPlanActivity(View v, CharSequence lblSelectedLoc,
 			CharSequence lblSelectedLocality) {
 		//final TextView lblLocPosition =(TextView) findViewById(R.id.lblLocPosition);
 		//final TextView lblPersistPosition =(TextView) findViewById(R.id.lblPersistPosition);
@@ -296,7 +294,7 @@ public class LocationLocatorActivity extends Activity {
 		//intent.putExtra("PERSISTPOSITION", lblPersistPosition.getText());
 		startActivity(intent);
 	}
-	private void SetErrorLabelVisibility(int visibility,int errorResId)
+	private void setErrorLabelVisibility(int visibility,int errorResId)
 	{
 		TextView lblError =(TextView)findViewById(R.id.lblLocErrorMsg);
 		if(lblError != null)

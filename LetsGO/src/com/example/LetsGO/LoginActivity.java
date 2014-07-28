@@ -28,7 +28,7 @@ public class LoginActivity extends Activity {
 		final  TextView txtUserName = (TextView)findViewById(R.id.txtLogin);
 		txtUserName.setText(mPhoneNumber);
 		
-		SetErrorLabelVisibility(View.INVISIBLE,R.string.lblError);
+		setErrorLabelVisibility(View.INVISIBLE,R.string.lblError);
 	}
 
 	@Override
@@ -62,16 +62,16 @@ public class LoginActivity extends Activity {
 				//}
 				//else
 				//{
-					String errorCode = ActivityHelper.CheckLogin(txtUserName.getText().toString());
+					String errorCode = ActivityHelper.checkLogin(txtUserName.getText().toString());
 					if(errorCode.length()> 0)
 					{
 						if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.NOTEXISTS))
 						{
-							SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorUserNotExist);
+							setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorUserNotExist);
 						}
 						else if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
 						{
-							SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+							setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 						}
 					}
 					else
@@ -83,14 +83,14 @@ public class LoginActivity extends Activity {
 			} 
 			catch (Exception e) 
 			{
-				SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+				setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 			}
 			
 			
 		}
 	};
 	
-	private void SetErrorLabelVisibility(int visibility,int errorResId)
+	private void setErrorLabelVisibility(int visibility,int errorResId)
 	{
 		TextView lblError =(TextView)findViewById(R.id.lblLoginErrorMsg);
 		if(lblError != null)

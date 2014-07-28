@@ -23,7 +23,7 @@ import android.annotation.SuppressLint;
 @SuppressLint("NewApi")
 public final class JsonHandler {
 	
-	private static final JsonHandler _instance= new JsonHandler();
+	private static final JsonHandler _INSTANCE= new JsonHandler();
 	
 	//Private constructor to declare single ton class
 	private JsonHandler()
@@ -32,10 +32,10 @@ public final class JsonHandler {
 	}
 	
 	public static JsonHandler getInstance() {
-		return _instance;
+		return _INSTANCE;
 	}
 	//Method to send the data in json format and receive response in json format
-	public JSONObject PostJsonDataToServer(String url,JSONObject requestParameters) throws JSONException, IOException
+	public JSONObject postJsonDataToServer(String url,JSONObject requestParameters) throws JSONException, IOException
 	{
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpPost httpRequest = new HttpPost(url);
@@ -70,7 +70,7 @@ public final class JsonHandler {
 	
 	//Method to send the request as basic name value pair and receive response in json format
 	@SuppressWarnings({"unused"})
-	private JSONObject PostValuePairDataToServer(String url, ArrayList<NameValuePair> requestParameters) throws JSONException, IOException
+	private JSONObject postValuePairDataToServer(String url, ArrayList<NameValuePair> requestParameters) throws JSONException, IOException
 	{
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpPost httpRequest = new HttpPost(url);
@@ -122,8 +122,8 @@ public final class JsonHandler {
 	
 	public String getFullUrl(String relativePage)
 	{
-		//return "http://192.168.0.100:90/" +relativePage;
-		return "http://letsgetout.esy.es/" +relativePage;
+		return "http://192.168.0.100:90/" +relativePage;
+		//return "http://letsgetout.esy.es/" +relativePage;
 	}
 
 }
