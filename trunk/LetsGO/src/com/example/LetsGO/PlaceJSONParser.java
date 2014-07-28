@@ -65,7 +65,7 @@ public class PlaceJSONParser {
 			place.put("description", description);
 			place.put("_id",id);
 			place.put("reference",reference);
-			JSONArray mtypes = jPlace.getJSONArray("types");
+			//JSONArray mtypes = jPlace.getJSONArray("types");
 			JSONArray terms = jPlace.getJSONArray("terms");
 			if(terms.length()>2)
 			{

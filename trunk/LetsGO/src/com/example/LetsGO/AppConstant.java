@@ -1,10 +1,10 @@
 package com.example.LetsGO;
 
 public final class AppConstant {
-	public static final String PHPResponse_OK="OK";
-	public static final String PHPResponse_KO="KO";
-	public static final String DatabaseFile = "Users.db";
-	public static final String StorageFolder ="MindYourTravel";
+	public static final String PHPRESPONSE_OK="OK";
+	public static final String PHPRESPONSE_KO="KO";
+	public static final String DATABASEFILE = "Users.db";
+	public static final String STORAGEFOLDER ="LetsGO";
 	
 	public static final class PHP_ERROR_CODE
 	{

@@ -37,20 +37,20 @@ public class LaunchActivity extends Activity {
 		}
 			
 		String mPhoneNumber = ActivityHelper.getUserMobileNo(this);
-		if(repository.GetUsersData() ==null)
+		if(repository.getUsersData() ==null)
 		{
 			try
 			{
 				if(mPhoneNumber.trim().length() > 0)
 				{
-					ActivityHelper.CheckLogin(mPhoneNumber);
+					ActivityHelper.checkLogin(mPhoneNumber);
 				}
 			}
 			catch(Exception ex)
 			{
 				SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 			}
-			if(repository.GetUsersData() == null)
+			if(repository.getUsersData() == null)
 			{
 				LaunchLoginWindew();
 			}
@@ -61,9 +61,9 @@ public class LaunchActivity extends Activity {
 		}
 		else
 		{
-			if(repository.GetUsersData().getContactNo() != mPhoneNumber)
+			if(repository.getUsersData().getContactNo() != mPhoneNumber)
 			{
-				repository.ClearRepository();
+				repository.clearRepository();
 				LaunchLoginWindew();
 			}
 			else
