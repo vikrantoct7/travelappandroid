@@ -146,7 +146,7 @@ public class TravelPlanActivity extends Activity {
 				
 				ArrayAdapter<String> adapterCurLocation = GetLocationAdapterFromJsonResult(result,"STARTCITYLOCALITES");
 				ArrayAdapter<String> adapterEndLocation = adapterCurLocation;
-				if(userStartLocCity !=userEndLocCity)
+				if(!userStartLocCity.equalsIgnoreCase(userEndLocCity) )
 				{
 					adapterEndLocation = GetLocationAdapterFromJsonResult(result,"ENDCITYLOCALITES");
 				}

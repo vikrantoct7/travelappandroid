@@ -24,7 +24,7 @@ public class LaunchActivity extends Activity {
 		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.FROYO) {
 			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 			StrictMode.setThreadPolicy(policy); 
-		}	
+		}
 		
 		ActivityHelper.setApplicationTitle(this.getWindow());
 		SetErrorLabelVisibility(View.INVISIBLE,R.string.lblError);

@@ -115,7 +115,7 @@ public class TravelListActivity extends Activity {
 			@SuppressWarnings("deprecation")
 			TableRow.LayoutParams lblNoOfPassengerParams = new TableRow.LayoutParams(0,TableRow.LayoutParams.FILL_PARENT,(float)0.5);
 			@SuppressWarnings("deprecation")
-			TableRow.LayoutParams displayNoOfPassengerParams = new TableRow.LayoutParams(0,TableRow.LayoutParams.FILL_PARENT,(float)0.20);
+			TableRow.LayoutParams displayNoOfPassengerParams = new TableRow.LayoutParams(0,TableRow.LayoutParams.FILL_PARENT,(float)0.25);
 			
 			int btnTextColor = Color.parseColor("#000000");
 			int btnBackColor = Color.parseColor("#938953");
@@ -209,7 +209,6 @@ public class TravelListActivity extends Activity {
 				tblrow4.addView(displayNoOfPassenger);
 				
 				Button btnSubmitTravel = new Button(this);
-				btnSubmitTravel.setWidth(65);
 				btnSubmitTravel.setTextColor(btnTextColor);
 				btnSubmitTravel.setBackgroundColor(btnBackColor);
 				
@@ -233,7 +232,6 @@ public class TravelListActivity extends Activity {
 					{
 						Button btnShowMobileNo = null;
 						btnShowMobileNo = new Button(this);
-						btnShowMobileNo.setWidth(65);
 						btnShowMobileNo.setTextColor(btnTextColor);
 						btnShowMobileNo.setBackgroundColor(btnBackColor);
 						btnShowMobileNo.setText(R.string.btnShowMobileNo);
