@@ -62,7 +62,7 @@ public class LoginActivity extends Activity {
 				//}
 				//else
 				//{
-					String errorCode = ActivityHelper.checkLogin(txtUserName.getText().toString());
+					String errorCode = ActivityHelper.checkLogin(txtUserName.getText().toString(),view.getContext());
 					if(errorCode.length()> 0)
 					{
 						if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.NOTEXISTS))

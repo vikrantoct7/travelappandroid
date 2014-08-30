@@ -113,70 +113,73 @@ public class TravelPlanActivity extends Activity {
 			reqParameters.put("ENDLOCATIONCITY", userEndLocCity);
 			JsonHandler jsonHandler =JsonHandler.getInstance();
 			String url=jsonHandler.getFullUrl("TravelPlanDataAdapter.php");
-			JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters);
-			String resultCode= result.getString("RESULT");
-			if(resultCode.contentEquals(AppConstant.PHPRESPONSE_KO))
+			JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters,this);
+			if(result !=null)
 			{
-				String errorCode=result.getString("ERRORCODE");
-				if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.NOTEXISTS))
+				String resultCode= result.getString("RESULT");
+				if(resultCode.contentEquals(AppConstant.PHPRESPONSE_KO))
 				{
-					setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorUserNotExist);
+					String errorCode=result.getString("ERRORCODE");
+					if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.NOTEXISTS))
+					{
+						setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorUserNotExist);
+					}
+					else if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
+					{
+						setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+					}
 				}
-				else if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
+				else
 				{
-					setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+					JSONArray travelModeData =result.getJSONArray("TRAVELMODE");
+					String[] travelType =new String[travelModeData.length()];
+					for (int i=0;i<travelModeData.length();i++ ) 
+					{
+						JSONObject row= travelModeData.getJSONObject(i);
+						travelType[i] = row.getString("TYPE");
+					}
+	
+					ArrayAdapter<String> adapterTravel = new ArrayAdapter<String>(this,  android.R.layout.simple_spinner_item, travelType);
+					adapterTravel.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+					final Spinner ddTravelType=(Spinner)findViewById(R.id.ddTravelType);
+					ddTravelType.setAdapter(adapterTravel);
+					int spinnerTravelPosition=adapterTravel.getPosition(persistTravelMode);
+					ddTravelType.setSelection(spinnerTravelPosition);
+					
+					ArrayAdapter<String> adapterCurLocation = getLocationAdapterFromJsonResult(result,"STARTCITYLOCALITES");
+					ArrayAdapter<String> adapterEndLocation = adapterCurLocation;
+					if(!userStartLocCity.equalsIgnoreCase(userEndLocCity) )
+					{
+						adapterEndLocation = getLocationAdapterFromJsonResult(result,"ENDCITYLOCALITES");
+					}
+					
+					final Spinner ddCurrentLoc=(Spinner)findViewById(R.id.ddCurrentLoc);
+					ddCurrentLoc.setAdapter(adapterCurLocation);
+					
+					final Spinner ddEndLocation=(Spinner)findViewById(R.id.ddEndLocation);
+					ddEndLocation.setAdapter(adapterEndLocation);
+					
+					
+					if(locPosition.equals("CURLOC"))
+					{
+						int spinnerPosition = adapterCurLocation.getPosition(selLocality);
+						int existingPersistPosition = adapterEndLocation.getPosition(persistPosition);
+						//set the default according to value
+						ddCurrentLoc.setSelection(spinnerPosition);
+						ddEndLocation.setSelection(existingPersistPosition);
+					}
+					else if(locPosition.equals("ENDLOC"))
+					{
+						int spinnerPosition = adapterEndLocation.getPosition(selLocality);
+						int existingPersistPosition = adapterCurLocation.getPosition(persistPosition);
+						//set the default according to value
+						ddCurrentLoc.setSelection(existingPersistPosition);
+						ddEndLocation.setSelection(spinnerPosition);
+					}
+					
+					fillStartTimeDd();
+					
 				}
-			}
-			else
-			{
-				JSONArray travelModeData =result.getJSONArray("TRAVELMODE");
-				String[] travelType =new String[travelModeData.length()];
-				for (int i=0;i<travelModeData.length();i++ ) 
-				{
-					JSONObject row= travelModeData.getJSONObject(i);
-					travelType[i] = row.getString("TYPE");
-				}
-
-				ArrayAdapter<String> adapterTravel = new ArrayAdapter<String>(this,  android.R.layout.simple_spinner_item, travelType);
-				adapterTravel.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-				final Spinner ddTravelType=(Spinner)findViewById(R.id.ddTravelType);
-				ddTravelType.setAdapter(adapterTravel);
-				int spinnerTravelPosition=adapterTravel.getPosition(persistTravelMode);
-				ddTravelType.setSelection(spinnerTravelPosition);
-				
-				ArrayAdapter<String> adapterCurLocation = getLocationAdapterFromJsonResult(result,"STARTCITYLOCALITES");
-				ArrayAdapter<String> adapterEndLocation = adapterCurLocation;
-				if(!userStartLocCity.equalsIgnoreCase(userEndLocCity) )
-				{
-					adapterEndLocation = getLocationAdapterFromJsonResult(result,"ENDCITYLOCALITES");
-				}
-				
-				final Spinner ddCurrentLoc=(Spinner)findViewById(R.id.ddCurrentLoc);
-				ddCurrentLoc.setAdapter(adapterCurLocation);
-				
-				final Spinner ddEndLocation=(Spinner)findViewById(R.id.ddEndLocation);
-				ddEndLocation.setAdapter(adapterEndLocation);
-				
-				
-				if(locPosition.equals("CURLOC"))
-				{
-					int spinnerPosition = adapterCurLocation.getPosition(selLocality);
-					int existingPersistPosition = adapterEndLocation.getPosition(persistPosition);
-					//set the default according to value
-					ddCurrentLoc.setSelection(spinnerPosition);
-					ddEndLocation.setSelection(existingPersistPosition);
-				}
-				else if(locPosition.equals("ENDLOC"))
-				{
-					int spinnerPosition = adapterEndLocation.getPosition(selLocality);
-					int existingPersistPosition = adapterCurLocation.getPosition(persistPosition);
-					//set the default according to value
-					ddCurrentLoc.setSelection(existingPersistPosition);
-					ddEndLocation.setSelection(spinnerPosition);
-				}
-				
-				fillStartTimeDd();
-				
 			}
 		}
         catch (IOException e) 
@@ -304,24 +307,27 @@ public class TravelPlanActivity extends Activity {
 					reqParameters.put("NOOFPASSENGER", txtNoOfPass.getText());
 					JsonHandler jsonHandler =JsonHandler.getInstance();
 					String url=jsonHandler.getFullUrl("UserTravelPlan.php");
-					JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters);
-					String resultCode= result.getString("RESULT");
-					if(resultCode.contentEquals(AppConstant.PHPRESPONSE_KO))
+					JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters,view.getContext());
+					if(result!=null)
 					{
-						String errorCode=result.getString("ERRORCODE");
-						if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.NOTEXISTS))
+						String resultCode= result.getString("RESULT");
+						if(resultCode.contentEquals(AppConstant.PHPRESPONSE_KO))
 						{
-							setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorUserNotExist);
+							String errorCode=result.getString("ERRORCODE");
+							if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.NOTEXISTS))
+							{
+								setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorUserNotExist);
+							}
+							else if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
+							{
+								setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+							}
 						}
-						else if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
+						else
 						{
-							setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+							Intent intent = new Intent(view.getContext(),TravelListActivity.class);
+							startActivity(intent);
 						}
-					}
-					else
-					{
-						Intent intent = new Intent(view.getContext(),TravelListActivity.class);
-						startActivity(intent);
 					}
 				}
 				catch(JSONException ex)

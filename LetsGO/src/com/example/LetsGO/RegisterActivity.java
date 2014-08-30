@@ -47,33 +47,36 @@ public class RegisterActivity extends Activity {
 			JSONObject reqParameters= new JSONObject();
 			JsonHandler jsonHandler =JsonHandler.getInstance();
 			String url=jsonHandler.getFullUrl("CityDataAdapter.php");
-			JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters);
-			String resultCode= result.getString("RESULT");
-			if(resultCode.contentEquals(AppConstant.PHPRESPONSE_KO))
+			JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters,this);
+			if(result !=null)
 			{
-				String errorCode=result.getString("ERRORCODE");
-				if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
+				String resultCode= result.getString("RESULT");
+				if(resultCode.contentEquals(AppConstant.PHPRESPONSE_KO))
 				{
-					setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+					String errorCode=result.getString("ERRORCODE");
+					if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
+					{
+						setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+					}
 				}
-			}
-			else
-			{
-				
-				JSONArray cityData =result.getJSONArray("CITYDATA");
-				ArrayList<String> cityAdapeterData = new ArrayList<String>();
-
-				for (int i=0;i<cityData.length();i++ ) 
+				else
 				{
-					JSONObject row= cityData.getJSONObject(i);
-					cityAdapeterData.add(row.getString("CITY"));
+					
+					JSONArray cityData =result.getJSONArray("CITYDATA");
+					ArrayList<String> cityAdapeterData = new ArrayList<String>();
+	
+					for (int i=0;i<cityData.length();i++ ) 
+					{
+						JSONObject row= cityData.getJSONObject(i);
+						cityAdapeterData.add(row.getString("CITY"));
+					}
+					
+					ArrayAdapter<String> adapterCity = new ArrayAdapter<String>(this,  android.R.layout.simple_spinner_item,cityAdapeterData);
+					adapterCity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+					final Spinner ddCity=(Spinner)findViewById(R.id.ddCity);
+					ddCity.setAdapter(adapterCity);
+					
 				}
-				
-				ArrayAdapter<String> adapterCity = new ArrayAdapter<String>(this,  android.R.layout.simple_spinner_item,cityAdapeterData);
-				adapterCity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-				final Spinner ddCity=(Spinner)findViewById(R.id.ddCity);
-				ddCity.setAdapter(adapterCity);
-				
 			}
 		}
         catch (IOException e) 
@@ -175,35 +178,38 @@ public class RegisterActivity extends Activity {
 						reqParameters.put("UCONTACTNO", txtPhNo.getText());
 						JsonHandler jsonHandler =JsonHandler.getInstance();
 						String url=jsonHandler.getFullUrl("UserRegisteration.php");
-						JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters);
-						String resultCode= result.getString("RESULT");
-						if(resultCode.contentEquals(AppConstant.PHPRESPONSE_KO))
+						JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters,view.getContext());
+						if(result !=null)
 						{
-							String errorCode=result.getString("ERRORCODE");
-							if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.ALREADYEXISTS))
+							String resultCode= result.getString("RESULT");
+							if(resultCode.contentEquals(AppConstant.PHPRESPONSE_KO))
 							{
-								setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorUserExist);
+								String errorCode=result.getString("ERRORCODE");
+								if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.ALREADYEXISTS))
+								{
+									setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorUserExist);
+								}
+								else if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
+								{
+									setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+								}
 							}
-							else if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
+							else
 							{
-								setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+								JSONObject jsonData =result.getJSONObject("USERDATA");
+								UserDTO userDto = new UserDTO();
+								LaunchActivity.loginUserId = jsonData.getInt("USERID");
+								userDto.setUserId(LaunchActivity.loginUserId);
+								userDto.setFirstName(jsonData.getString("UFNAME"));
+								userDto.setLastName(jsonData.getString("ULNAME"));
+								userDto.setGender(jsonData.getInt("GENDER"));
+								userDto.setAge(jsonData.getInt("AGE"));
+								userDto.setContactNo(jsonData.getString("UCONTACTNO"));
+								userDto.setAppLoginUser(true);
+								LaunchActivity.repository.addUserDTO(userDto);
+								Intent intent = new Intent(view.getContext(),TravelListActivity.class);
+								startActivity(intent);
 							}
-						}
-						else
-						{
-							JSONObject jsonData =result.getJSONObject("USERDATA");
-							UserDTO userDto = new UserDTO();
-							LaunchActivity.loginUserId = jsonData.getInt("USERID");
-							userDto.setUserId(LaunchActivity.loginUserId);
-							userDto.setFirstName(jsonData.getString("UFNAME"));
-							userDto.setLastName(jsonData.getString("ULNAME"));
-							userDto.setGender(jsonData.getInt("GENDER"));
-							userDto.setAge(jsonData.getInt("AGE"));
-							userDto.setContactNo(jsonData.getString("UCONTACTNO"));
-							userDto.setAppLoginUser(true);
-							LaunchActivity.repository.addUserDTO(userDto);
-							Intent intent = new Intent(view.getContext(),TravelListActivity.class);
-							startActivity(intent);
 						}
 
 					}

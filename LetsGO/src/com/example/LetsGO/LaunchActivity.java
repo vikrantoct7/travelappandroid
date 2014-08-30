@@ -1,12 +1,14 @@
 package com.example.LetsGO;
 import com.example.LetsGO.R;
 
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
@@ -43,7 +45,7 @@ public class LaunchActivity extends Activity {
 			{
 				if(mPhoneNumber.trim().length() > 0)
 				{
-					ActivityHelper.checkLogin(mPhoneNumber);
+					ActivityHelper.checkLogin(mPhoneNumber,this);
 				}
 			}
 			catch(Exception ex)
@@ -100,5 +102,15 @@ public class LaunchActivity extends Activity {
 			lblError.setText(errorResId);
 		}
 	}
+	
+	public boolean checkInternetConnection() {
+        final ConnectivityManager conMgr = (ConnectivityManager) getSystemService (Context.CONNECTIVITY_SERVICE);
+        if (conMgr.getActiveNetworkInfo() != null && conMgr.getActiveNetworkInfo().isAvailable() &&    conMgr.getActiveNetworkInfo().isConnected()) {
+              return true;
+        } else {
+              //System.out.println("Internet Connection Not Present");
+            return false;
+        }
+     }
 
 }

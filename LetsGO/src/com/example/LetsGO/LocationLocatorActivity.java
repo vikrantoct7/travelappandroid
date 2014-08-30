@@ -251,22 +251,25 @@ public class LocationLocatorActivity extends Activity {
 	    			reqParameters.put("CITYNAME", lblSelectedLocality.getText());
 	    			JsonHandler jsonHandler =JsonHandler.getInstance();
 	    			String url=jsonHandler.getFullUrl("LocalityDataAdapter.php");
-	    			JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters);
-	    			String resultCode= result.getString("RESULT");
-	    			if(resultCode.contentEquals(AppConstant.PHPRESPONSE_KO))
+	    			JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters,v.getContext());
+	    			if(result !=null)
 	    			{
-	    				String errorCode=result.getString("ERRORCODE");
-	    				
-	    				if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.ALREADYEXISTS))
-	    				{
-	    					goToTravelPlanActivity(v, lblSelectedLoc.getText(),
+		    			String resultCode= result.getString("RESULT");
+		    			if(resultCode.contentEquals(AppConstant.PHPRESPONSE_KO))
+		    			{
+		    				String errorCode=result.getString("ERRORCODE");
+		    				
+		    				if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.ALREADYEXISTS))
+		    				{
+		    					goToTravelPlanActivity(v, lblSelectedLoc.getText(),
+										lblSelectedLocality.getText());
+		    				}
+		    			}
+		    			else
+		    			{
+		    				goToTravelPlanActivity(v, lblSelectedLoc.getText(),
 									lblSelectedLocality.getText());
-	    				}
-	    			}
-	    			else
-	    			{
-	    				goToTravelPlanActivity(v, lblSelectedLoc.getText(),
-								lblSelectedLocality.getText());
+		    			}
 	    			}
 	            }
 		    	catch(JSONException ex)

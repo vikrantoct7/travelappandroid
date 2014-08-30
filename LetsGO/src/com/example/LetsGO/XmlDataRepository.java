@@ -30,7 +30,7 @@ public final class XmlDataRepository {
 				if(isDirectoryExist)
 				{
 					userDataFile= new File(dirUserPath,AppConstant.DATABASEFILE);
-					//_userDataFile.delete();
+					//userDataFile.delete();
 					if(!userDataFile.exists())
 					{
 						userDataFile.createNewFile();
