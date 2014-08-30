@@ -205,11 +205,12 @@
 				    android:layout_weight=".5" />
 				
 				<Button
-	    			android:id="@+id/btnTravelSubmit"
-					android:layout_width="wrap_content"
-        		    android:layout_height="fill_parent"
-        		    android:layout_weight=".5"
-	    			android:text="@string/btnTravelSubmit" />
+			        android:id="@+id/btnTravelSubmit"
+			        android:layout_width="100dp"
+        			android:layout_height="35dp"
+			        android:textColor="#000000"
+			        android:background="#938953"
+			        android:text="@string/btnTravelSubmit" />
 				
 				<TextView
 				    android:id="@+id/dumy2"

@@ -46,7 +46,7 @@
         android:layout_height="35dp"
         android:layout_above="@+id/lblTravelErrorMsg"
         android:layout_marginLeft="16dp"
-         android:textColor="#000000"
+        android:textColor="#000000"
         android:background="#938953"
         android:layout_toRightOf="@+id/btnNewTravelPlan"
         android:text="@string/lblBtnRefresh" />

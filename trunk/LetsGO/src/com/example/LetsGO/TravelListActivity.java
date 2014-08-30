@@ -60,20 +60,23 @@ public class TravelListActivity extends Activity {
 			reqParameters.put("CONUSERID", LaunchActivity.loginUserId);
 			JsonHandler jsonHandler =JsonHandler.getInstance();
 			String url=jsonHandler.getFullUrl("UserTravelList.php");
-			JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters);
-			String resultCode= result.getString("RESULT");
-			if(resultCode.contentEquals(AppConstant.PHPRESPONSE_KO))
+			JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters,this);
+			if(result!=null)
 			{
-				String errorCode=result.getString("ERRORCODE");
-				if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
+				String resultCode= result.getString("RESULT");
+				if(resultCode.contentEquals(AppConstant.PHPRESPONSE_KO))
 				{
-					setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+					String errorCode=result.getString("ERRORCODE");
+					if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
+					{
+						setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+					}
 				}
-			}
-			else
-			{
-				JSONArray jsonData =result.getJSONArray("TRAVELLIST");
-				generateTravelList(jsonData);
+				else
+				{
+					JSONArray jsonData =result.getJSONArray("TRAVELLIST");
+					generateTravelList(jsonData);
+				}
 			}
 		}
 		catch(JSONException ex)
@@ -379,21 +382,24 @@ public class TravelListActivity extends Activity {
 			    			reqParameters.put("TRAVELERUSERID", traveleruserid);
 			    			JsonHandler jsonHandler =JsonHandler.getInstance();
 			    			String url=jsonHandler.getFullUrl("UserTravelConfirm.php");
-			    			JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters);
-			    			String resultCode= result.getString("RESULT");
-			    			if(resultCode.contentEquals(AppConstant.PHPRESPONSE_KO))
+			    			JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters,view.getContext());
+			    			if(result !=null)
 			    			{
-			    				String errorCode=result.getString("ERRORCODE");
-			    				
-			    				if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
-			    				{
-			    					setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-			    				}
-			    			}
-			    			else
-			    			{
-			    				JSONArray jsonData =result.getJSONArray("TRAVELLIST");
-			    				generateTravelList(jsonData);
+				    			String resultCode= result.getString("RESULT");
+				    			if(resultCode.contentEquals(AppConstant.PHPRESPONSE_KO))
+				    			{
+				    				String errorCode=result.getString("ERRORCODE");
+				    				
+				    				if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
+				    				{
+				    					setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+				    				}
+				    			}
+				    			else
+				    			{
+				    				JSONArray jsonData =result.getJSONArray("TRAVELLIST");
+				    				generateTravelList(jsonData);
+				    			}
 			    			}
 			            }
 				    	catch(JSONException ex)
@@ -415,11 +421,11 @@ public class TravelListActivity extends Activity {
 	private OnClickListener onDeleteAction = new OnClickListener()
 	{
 		@Override
-		public void onClick(View view)
+		public void onClick(final View dialogView)
 		{
-			final String travelid=(String) view.getTag();
+			final String travelid=(String) dialogView.getTag();
 			//Ask the user if they want to quit
-	        new AlertDialog.Builder(view.getContext())
+	        new AlertDialog.Builder(dialogView.getContext())
 	        .setIcon(android.R.drawable.ic_dialog_alert)
 	        .setTitle(R.string.titleConfirmBox)
 	        .setMessage(R.string.lblPlanDeleteMsg)
@@ -433,21 +439,24 @@ public class TravelListActivity extends Activity {
 		    			reqParameters.put("CONUSERID", LaunchActivity.loginUserId);
 		    			JsonHandler jsonHandler =JsonHandler.getInstance();
 		    			String url=jsonHandler.getFullUrl("UserTravelDelete.php");
-		    			JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters);
-		    			String resultCode= result.getString("RESULT");
-		    			if(resultCode.contentEquals(AppConstant.PHPRESPONSE_KO))
+		    			JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters,dialogView.getContext());
+		    			if(result !=null)
 		    			{
-		    				String errorCode=result.getString("ERRORCODE");
-		    				
-		    				if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
-		    				{
-		    					setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-		    				}
-		    			}
-		    			else
-		    			{
-		    				JSONArray jsonData =result.getJSONArray("TRAVELLIST");
-		    				generateTravelList(jsonData);
+			    			String resultCode= result.getString("RESULT");
+			    			if(resultCode.contentEquals(AppConstant.PHPRESPONSE_KO))
+			    			{
+			    				String errorCode=result.getString("ERRORCODE");
+			    				
+			    				if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
+			    				{
+			    					setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+			    				}
+			    			}
+			    			else
+			    			{
+			    				JSONArray jsonData =result.getJSONArray("TRAVELLIST");
+			    				generateTravelList(jsonData);
+			    			}
 		    			}
 		            }
 			    	catch(JSONException ex)

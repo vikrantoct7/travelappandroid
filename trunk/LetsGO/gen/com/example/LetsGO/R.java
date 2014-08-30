@@ -154,6 +154,7 @@ public final class R {
         public static final int lblFName=0x7f050007;
         public static final int lblGender=0x7f050009;
         public static final int lblGoToLoginBtn=0x7f050013;
+        public static final int lblInternetWarningTitle=0x7f05003c;
         public static final int lblLName=0x7f050008;
         public static final int lblLocality=0x7f050039;
         public static final int lblLoginInformation=0x7f050025;

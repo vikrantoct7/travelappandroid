@@ -14,6 +14,8 @@ public final class AppConstant {
 		public static final String ALREADYEXISTS ="102";
 		//Error code to define technical error
 		public static final String TECHNICAL ="103";
+		//Error code to define internet connectivity issue
+		public static final String INTERNETISSUE ="104";
 	}
 	
 

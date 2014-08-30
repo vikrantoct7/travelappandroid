@@ -5,6 +5,8 @@ import org.apache.http.client.ClientProtocolException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.example.LetsGO.AppConstant.PHP_ERROR_CODE;
+
 import android.content.Context;
 import android.graphics.Color;
 import android.telephony.TelephonyManager;
@@ -20,7 +22,7 @@ import android.widget.TextView;
 
 public final class ActivityHelper {
 
-	public static String checkLogin(String userMobileNo) throws Exception
+	public static String checkLogin(String userMobileNo,Context _context) throws Exception
 	{
 		String errorCode="";
 		try
@@ -30,35 +32,42 @@ public final class ActivityHelper {
 			
 			JsonHandler jsonHandler =JsonHandler.getInstance();
 			String url=jsonHandler.getFullUrl("UserLogin.php");
-			JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters);
-			String resultCode= result.getString("RESULT");
-			
-			if(resultCode.contentEquals(AppConstant.PHPRESPONSE_KO))
+			JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters,_context);
+			if(result !=null)
 			{
-				errorCode=result.getString("ERRORCODE");
-				/*if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.NOTEXISTS))
+				String resultCode= result.getString("RESULT");
+				
+				if(resultCode.contentEquals(AppConstant.PHPRESPONSE_KO))
 				{
-					SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorUserNotExist);
+					errorCode=result.getString("ERRORCODE");
+					/*if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.NOTEXISTS))
+					{
+						SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorUserNotExist);
+					}
+					else if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
+					{
+						SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorUserNotExist);
+					}*/
 				}
-				else if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
+				else
 				{
-					SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorUserNotExist);
-				}*/
+					JSONObject jsonData =result.getJSONObject("USERDATA");
+					UserDTO userDto = new UserDTO();
+					LaunchActivity.loginUserId = jsonData.getInt("USERID");
+					userDto.setUserId(LaunchActivity.loginUserId);
+					userDto.setFirstName(jsonData.getString("UFNAME"));
+					userDto.setLastName(jsonData.getString("ULNAME"));
+					userDto.setCityId(jsonData.getInt("CITYID"));
+					userDto.setGender(jsonData.getInt("GENDER"));
+					userDto.setAge(jsonData.getInt("AGE"));
+					userDto.setContactNo(jsonData.getString("UCONTACTNO"));
+					userDto.setAppLoginUser(true);
+					LaunchActivity.repository.addUserDTO(userDto);
+				}
 			}
 			else
 			{
-				JSONObject jsonData =result.getJSONObject("USERDATA");
-				UserDTO userDto = new UserDTO();
-				LaunchActivity.loginUserId = jsonData.getInt("USERID");
-				userDto.setUserId(LaunchActivity.loginUserId);
-				userDto.setFirstName(jsonData.getString("UFNAME"));
-				userDto.setLastName(jsonData.getString("ULNAME"));
-				userDto.setCityId(jsonData.getInt("CITYID"));
-				userDto.setGender(jsonData.getInt("GENDER"));
-				userDto.setAge(jsonData.getInt("AGE"));
-				userDto.setContactNo(jsonData.getString("UCONTACTNO"));
-				userDto.setAppLoginUser(true);
-				LaunchActivity.repository.addUserDTO(userDto);
+				errorCode=PHP_ERROR_CODE.INTERNETISSUE;
 			}
 		}
 		catch(JSONException e)
