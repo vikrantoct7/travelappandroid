@@ -1,5 +1,7 @@
 package com.example.LetsGoo;
 
+import java.net.ConnectException;
+
 import com.example.LetsGoo.R;
 
 import android.os.Bundle;
@@ -81,6 +83,10 @@ public class LoginActivity extends Activity {
 					}
 				//}
 			} 
+			catch(ConnectException ie)
+			{
+				setErrorLabelVisibility(View.VISIBLE,R.string.InternetConnectiivityErrorMsg);
+			}
 			catch (Exception e) 
 			{
 				setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);

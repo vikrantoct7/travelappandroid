@@ -1,6 +1,8 @@
 package com.example.LetsGoo;
 
 import java.io.IOException;
+import java.net.ConnectException;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -78,6 +80,10 @@ public class TravelListActivity extends Activity {
 					generateTravelList(jsonData);
 				}
 			}
+		}
+		catch(ConnectException ie)
+		{
+			setErrorLabelVisibility(View.VISIBLE,R.string.InternetConnectiivityErrorMsg);
 		}
 		catch(JSONException ex)
 		{
@@ -402,14 +408,18 @@ public class TravelListActivity extends Activity {
 				    			}
 			    			}
 			            }
+		            	catch(ConnectException ie)
+						{
+							setErrorLabelVisibility(View.VISIBLE,R.string.InternetConnectiivityErrorMsg);
+						}
 				    	catch(JSONException ex)
-				    		{
-				    			setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-				    		}
-			            	catch (IOException e) 
-			        		{    
-			        			setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-			        		} 
+				    	{
+				    		setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+				    	}
+			            catch (IOException e) 
+			        	{    
+			        		setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+			        	} 
 			            //}
 		            //})
 			        //.setNegativeButton(R.string.lblNo, null)
@@ -459,14 +469,18 @@ public class TravelListActivity extends Activity {
 			    			}
 		    			}
 		            }
+	            	catch(ConnectException ie)
+					{
+						setErrorLabelVisibility(View.VISIBLE,R.string.InternetConnectiivityErrorMsg);
+					}
 			    	catch(JSONException ex)
-			    		{
-			    			setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-			    		}
-		            	catch (IOException e) 
-		        		{    
-		        			setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-		        		} 
+			    	{
+			    		setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+			   		}
+		           	catch (IOException e) 
+		       		{    
+		       			setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+		       		} 
 	            }
 
 	        })

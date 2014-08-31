@@ -67,7 +67,7 @@ public final class ActivityHelper {
 			}
 			else
 			{
-				errorCode=PHP_ERROR_CODE.INTERNETISSUE;
+				errorCode=PHP_ERROR_CODE.TECHNICAL;
 			}
 		}
 		catch(JSONException e)

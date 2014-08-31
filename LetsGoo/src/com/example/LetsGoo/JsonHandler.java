@@ -3,6 +3,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.ConnectException;
 import java.util.ArrayList;
 
 import org.apache.http.HttpResponse;
@@ -17,20 +18,10 @@ import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.example.LetsGoo.R;
-
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
-import android.view.Gravity;
-import android.widget.TextView;
 
 @SuppressLint("NewApi")
 public final class JsonHandler {
@@ -43,28 +34,12 @@ public final class JsonHandler {
 		
 	}
 	
-	public boolean checkInternetConnection(Context _context) {
-        final ConnectivityManager conMgr = (ConnectivityManager) _context.getSystemService (Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetwork = conMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-        boolean isConnected = activeNetwork != null &&   activeNetwork.isConnected();
-        if (isConnected) {
-              return true;
-        } else {
-        	       	
-        	new AlertDialog.Builder(_context)
-	        .setIcon(android.R.drawable.ic_dialog_alert)
-	        //.setCustomTitle(title)
-	        .setTitle(R.string.lblInternetWarningTitle)
-	        .setMessage("Internent connection is not avaiable.Please try later...")
-	        .setNegativeButton("OK", new DialogInterface.OnClickListener() {
-	            public void onClick(DialogInterface dialog, int id) {
-	            	dialog.cancel();
-	            	}
-	        	})
-	        .show();;
-	        
-            return false;
-        }
+	public boolean checkInternetConnection(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+		boolean isConnected =activeNetwork != null && activeNetwork.isConnected();
+		
+	    return isConnected;
      }
 	
 	public static JsonHandler getInstance() {
@@ -74,36 +49,37 @@ public final class JsonHandler {
 	public JSONObject postJsonDataToServer(String url,JSONObject requestParameters,Context _context) throws JSONException, IOException
 	{
 		JSONObject jsonResultObject =null;
-		if(checkInternetConnection(_context))
+		if(!checkInternetConnection(_context))
+			throw new ConnectException("Internent connection Error");
+		
+		HttpClient httpClient = new DefaultHttpClient();
+		HttpPost httpRequest = new HttpPost(url);
+		try
 		{
-			HttpClient httpClient = new DefaultHttpClient();
-			HttpPost httpRequest = new HttpPost(url);
-			try
-			{
-				httpRequest.setHeader("json",requestParameters.toString());
-				StringEntity s = new StringEntity(requestParameters.toString());
-				s.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
-				httpRequest.setEntity(s);
-				HttpResponse response = httpClient.execute(httpRequest);
-				String jsonResult = inputStreamToString(response.getEntity().getContent());
-				jsonResultObject = new JSONObject(jsonResult);
-			}
-			catch (JSONException e) 
-			{    
-				//e.printStackTrace();
-				throw e;
-			}    
-			catch (ClientProtocolException e)
-			{    
-				//e.printStackTrace();   
-				throw e;
-			}    
-			catch (IOException e) 
-			{    
-				//e.printStackTrace();  
-				throw e;
-			} 
+			httpRequest.setHeader("json",requestParameters.toString());
+			StringEntity s = new StringEntity(requestParameters.toString());
+			s.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+			httpRequest.setEntity(s);
+			HttpResponse response = httpClient.execute(httpRequest);
+			String jsonResult = inputStreamToString(response.getEntity().getContent());
+			jsonResultObject = new JSONObject(jsonResult);
 		}
+		catch (JSONException e) 
+		{    
+			//e.printStackTrace();
+			throw e;
+		}    
+		catch (ClientProtocolException e)
+		{    
+			//e.printStackTrace();   
+			throw e;
+		}    
+		catch (IOException e) 
+		{    
+			//e.printStackTrace();  
+			throw e;
+		} 
+
 		return jsonResultObject;
 	}
 	

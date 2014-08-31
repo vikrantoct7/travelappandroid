@@ -1,4 +1,6 @@
 package com.example.LetsGoo;
+import java.net.ConnectException;
+
 import com.example.LetsGoo.R;
 
 import android.net.ConnectivityManager;
@@ -47,6 +49,10 @@ public class LaunchActivity extends Activity {
 				{
 					ActivityHelper.checkLogin(mPhoneNumber,this);
 				}
+			}
+			catch(ConnectException ie)
+			{
+				SetErrorLabelVisibility(View.VISIBLE,R.string.InternetConnectiivityErrorMsg);
 			}
 			catch(Exception ex)
 			{

@@ -1,6 +1,7 @@
 package com.example.LetsGoo;
 
 import java.io.IOException;
+import java.net.ConnectException;
 import java.util.ArrayList;
 import org.apache.http.client.ClientProtocolException;
 import org.json.JSONArray;
@@ -77,6 +78,10 @@ public class RegisterActivity extends Activity {
 					
 				}
 			}
+		}
+		catch(ConnectException ie)
+		{
+			setErrorLabelVisibility(View.VISIBLE,R.string.InternetConnectiivityErrorMsg);
 		}
         catch (IOException e) 
 		{    
@@ -211,6 +216,10 @@ public class RegisterActivity extends Activity {
 							}
 						}
 
+					}
+					catch(ConnectException ie)
+					{
+						setErrorLabelVisibility(View.VISIBLE,R.string.InternetConnectiivityErrorMsg);
 					}
 					catch(JSONException ex)
 					{

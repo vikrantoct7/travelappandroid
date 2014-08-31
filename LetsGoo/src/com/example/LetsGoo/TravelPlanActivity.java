@@ -1,5 +1,6 @@
 package com.example.LetsGoo;
 import java.io.IOException;
+import java.net.ConnectException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -182,6 +183,10 @@ public class TravelPlanActivity extends Activity {
 				}
 			}
 		}
+        catch(ConnectException ie)
+		{
+			setErrorLabelVisibility(View.VISIBLE,R.string.InternetConnectiivityErrorMsg);
+		}
         catch (IOException e) 
 		{    
 			setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
@@ -329,6 +334,10 @@ public class TravelPlanActivity extends Activity {
 							startActivity(intent);
 						}
 					}
+				}
+				catch(ConnectException ie)
+				{
+					setErrorLabelVisibility(View.VISIBLE,R.string.InternetConnectiivityErrorMsg);
 				}
 				catch(JSONException ex)
 				{
