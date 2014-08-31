@@ -61,5 +61,5 @@
 	<string name="lblLocality">Locality</string>
 	<string name="lblOK">OK</string>
 	<string name="lblErrorLocalityExist">This locality is already exist.</string>
-	<string name="lblInternetWarningTitle">Internet Connectivity warning</string>
+	<string name="InternetConnectiivityErrorMsg">Internent connection is not avaiable.Please try later.</string>
 </resources>

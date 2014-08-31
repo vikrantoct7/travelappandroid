@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -272,14 +273,18 @@ public class LocationLocatorActivity extends Activity {
 		    			}
 	    			}
 	            }
-		    	catch(JSONException ex)
-		    		{
-		    			setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-		    		}
-	            	catch (IOException e) 
-	        		{    
-	        			setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-	        		} 
+				catch(ConnectException ie)
+				{
+					setErrorLabelVisibility(View.VISIBLE,R.string.InternetConnectiivityErrorMsg);
+				}
+				catch(JSONException ex)
+		    	{
+		    		setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+		    	}
+	            catch (IOException e) 
+	        	{    
+	        		setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+	        	} 
 			}
 		}
 
