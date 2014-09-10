@@ -56,10 +56,25 @@
     <string name="lblErrorForSameLocation">Start location and end location can not be same.</string>
     <string name="lblErrorForTotalNoOfPerson">Total No of person can not be empty or zero.</string>
     <string name="title_activity_location_locator">Location Locator</string>
-	<string name="str_atv_places">Enter Place Here</string>
-	<string name="lblSubLocality">Sub Locality</string>
-	<string name="lblLocality">Locality</string>
-	<string name="lblOK">OK</string>
-	<string name="lblErrorLocalityExist">This locality is already exist.</string>
-	<string name="InternetConnectiivityErrorMsg">Internent connection is not avaiable.Please try later.</string>
+    <string name="str_atv_places">Enter Place Here</string>
+    <string name="lblSubLocality">Sub Locality</string>
+    <string name="lblLocality">Locality</string>
+    <string name="lblOK">OK</string>
+    <string name="lblErrorLocalityExist">This locality is already exist.</string>
+    <string name="InternetConnectiivityErrorMsg">Internent connection is not avaiable.Please try later.</string>
+    <string name="title_activity_terms_and_condition">Terms And Condition</string>
+	<string name="termsandcondition">This App is made available to benefit the travelers by sharing their vehicle with travelers traveling same destination. The App function will be limited to connect the two interested travelers by sharing their mobile numbers. 
+	    Travelers are therefore recommended to verify contact and share their travel in own responsibility. 
+	   \n\nThe App may contain links to websites/services operated by third parties and for those we do not have any influence or control .
+\n\nYou are agreed with following terms and conditions. If you do not agree, do not register yourself in LetsGoo.
+\n\n
+ i) Sharing your personal information including mobile no by using register yourself in LetsGoo App and we are bound to keep confidential your information and will not use any commercial purpose.
+\n
+ ii)	We can discontinue our service with you at any point of time in case, we found you in misusing or any offence by using this App . 
+\n
+ iii)	Agreed to share your personal information to other user, whose match found with your travel root.
+\n\n
+If you like to share your feedback or wish to contact to us, please visit below URL
+   </string>
+   <string name="feedbackurl"><a href="www.facebook.com/LetsGoo">www.facebook.com/LetsGoo</a></string>
 </resources>
