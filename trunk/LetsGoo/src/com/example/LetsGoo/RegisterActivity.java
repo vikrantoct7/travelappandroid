@@ -3,6 +3,8 @@ package com.example.LetsGoo;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
+
 import org.apache.http.client.ClientProtocolException;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,6 +29,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.text.*;
 import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 
 
 
@@ -109,10 +112,9 @@ public class RegisterActivity extends Activity {
 		
 		//Place hyper link
 	    TextView link = (TextView) findViewById(R.id.lblCondition);
-	    link.setText(Html.fromHtml("I have read and agree to <a href='www.facebook.com/Travelsharesave'>terms and condition </a> for using this app."));
+	    link.setText(Html.fromHtml("I have read and agree to <a href=\"TermsAndCondition://TermsAndCondition\">terms and condition</a> for using this app."));
 	    link.setMovementMethod(LinkMovementMethod.getInstance());
-
-
+  
 	}
 	
 	
