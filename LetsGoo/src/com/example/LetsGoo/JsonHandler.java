@@ -38,6 +38,7 @@ public final class JsonHandler {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 		boolean isConnected =activeNetwork != null && activeNetwork.isConnected();
+		//isConnected=false;
 	    return isConnected;
      }
 	

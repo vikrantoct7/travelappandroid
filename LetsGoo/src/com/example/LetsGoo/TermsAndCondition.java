@@ -16,7 +16,7 @@ public class TermsAndCondition extends Activity {
 		ActivityHelper.setApplicationTitle(getWindow());
 		
 		TextView link = (TextView) findViewById(R.id.feedbackurl);
-	    link.setText(Html.fromHtml("<a href='https://www.facebook.com/pages/LetsGoo-Android-Based-Mobile-App/685251354855265'>www.facebook.com/LetsGoo</a>"));
+	    link.setText(Html.fromHtml("<br>CONTACT US: <br><a href='https://www.facebook.com/pages/LetsGoo-Android-Based-Mobile-App/685251354855265'>www.facebook.com/LetsGoo</a><br><font color='#6B71FF'><u>saavy.brothers@gmail.com</u></font>"));
 	    link.setMovementMethod(LinkMovementMethod.getInstance());
 	}
 
