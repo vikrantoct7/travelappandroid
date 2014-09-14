@@ -295,9 +295,15 @@ public class TravelPlanActivity extends Activity {
 		        	return;
 		        }
 				
-				if(txtNoOfPass.getText().toString().equals("0"))
+				int noOfPass = Integer.parseInt(txtNoOfPass.getText().toString());
+				if(noOfPass==0)
 				{
 					setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorForTotalNoOfPerson);
+		        	return;
+				}
+				else if(noOfPass>10)
+				{
+					setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorForTotalNoOfPersonGTTen);
 		        	return;
 				}
 				try

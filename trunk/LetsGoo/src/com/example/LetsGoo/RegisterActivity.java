@@ -45,6 +45,20 @@ public class RegisterActivity extends Activity {
 		addFocusChangeListernerOnEditText();
 		final Button btnSubmit = (Button)findViewById(R.id.btnRegister);
 		btnSubmit.setOnClickListener(addRegisterButtonListener);
+		// create class object
+		GPSTracker gps = new GPSTracker(this);
+		String userCurrentCity="";
+        // check if GPS enabled     
+        if(gps.canGetLocation())
+        {
+        	userCurrentCity=gps.getCurrentCity();
+       	}else
+       	{
+    		// can't get location
+            // GPS or Network is not enabled
+            // Ask user to enable GPS/network in settings
+            gps.showSettingsAlert();
+       	}
 		try
 		{
 			JSONObject reqParameters= new JSONObject();
@@ -67,7 +81,14 @@ public class RegisterActivity extends Activity {
 					
 					JSONArray cityData =result.getJSONArray("CITYDATA");
 					ArrayList<String> cityAdapeterData = new ArrayList<String>();
-	
+					
+					if(userCurrentCity.length()>0)
+					{
+						if(!cityData.toString().toLowerCase().contains(userCurrentCity.toLowerCase()))
+						{
+							cityAdapeterData.add(userCurrentCity);
+						}
+					}
 					for (int i=0;i<cityData.length();i++ ) 
 					{
 						JSONObject row= cityData.getJSONObject(i);

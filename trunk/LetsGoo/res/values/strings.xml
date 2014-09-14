@@ -55,6 +55,7 @@
     <string name="lblBtnRefresh">Refresh</string>
     <string name="lblErrorForSameLocation">Start location and end location can not be same.</string>
     <string name="lblErrorForTotalNoOfPerson">Total No of person can not be empty or zero.</string>
+    <string name="lblErrorForTotalNoOfPersonGTTen">Total No of person can not be greater than 10.</string>
     <string name="title_activity_location_locator">Location Locator</string>
     <string name="str_atv_places">Enter Place Here</string>
     <string name="lblSubLocality">Sub Locality</string>
@@ -63,18 +64,12 @@
     <string name="lblErrorLocalityExist">This locality is already exist.</string>
     <string name="InternetConnectiivityErrorMsg">Internent connection is not avaiable.Please try later.</string>
     <string name="title_activity_terms_and_condition">Terms And Condition</string>
-	<string name="termsandcondition">This App is made available to benefit the travelers by sharing their vehicle with travelers traveling same destination. The App function will be limited to connect the two interested travelers by sharing their mobile numbers. 
-	    Travelers are therefore recommended to verify contact and share their travel in own responsibility. 
-	   \n\nThe App may contain links to websites/services operated by third parties and for those we do not have any influence or control .
-\n\nYou are agreed with following terms and conditions. If you do not agree, do not register yourself in LetsGoo.
-\n\n
- i) Sharing your personal information including mobile no by using register yourself in LetsGoo App and we are bound to keep confidential your information and will not use any commercial purpose.
-\n
- ii)	We can discontinue our service with you at any point of time in case, we found you in misusing or any offence by using this App . 
-\n
- iii)	Agreed to share your personal information to other user, whose match found with your travel root.
-\n\n
-If you like to share your feedback or wish to contact to us, please visit below URL
+	<string name="termsandcondition">By downloading or otherwise accessing the LetsGoo App you agree to be bound by the following terms and conditions. If you do not comply or agree with these Terms and Conditions, you should stop using the App and uninstall it with immediate effect.
+	    \n\nSole motive of this App is to provide ride partner(s) for the same destination travel. This would save money for the travellers who otherwise would be travelling and paying alone. The App function will be limited to connect the two interested travelers by sharing their mobile numbers.
+	    \n\nIt is travellers’ onus to verify the mobile contact and then choose to share the ride. It is left for travelers’ judgment to select the ride partner and App doesn’t control, in anyway, whom you choose to travel with.
+	    \n\nThe App may contain links to websites/services operated by third parties. You may or may not choose to avail these offerings; App or App owners have no control on these services.
+	    \n\nYour contacts details are safe with us.We promise not to use your personal information for any commercial use.
+	    \n\nWe reserves the right to suspend or cease providing any services relating to the apps published by it, with or without notice, and shall have no liability or responsibility to you in any manner whatsoever if it chooses to do so.
    </string>
-   <string name="feedbackurl"><a href="www.facebook.com/LetsGoo">www.facebook.com/LetsGoo</a></string>
+   <string name="feedbackurl">CONTACT US: \n<a href="www.facebook.com/LetsGoo">www.facebook.com/LetsGoo</a>\nsaavy.brothers@gmail.com</string>
 </resources>
