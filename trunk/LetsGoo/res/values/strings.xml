@@ -64,11 +64,10 @@
     <string name="lblErrorLocalityExist">This locality is already exist.</string>
     <string name="InternetConnectiivityErrorMsg">Internent connection is not avaiable.Please try later.</string>
     <string name="title_activity_terms_and_condition">Terms And Condition</string>
-	<string name="termsandcondition">By downloading or otherwise accessing the LetsGoo App you agree to be bound by the following terms and conditions. If you do not comply or agree with these Terms and Conditions, you should stop using the App and uninstall it with immediate effect.
-	    \n\nSole motive of this App is to provide ride partner(s) for the same destination travel. This would save money for the travellers who otherwise would be travelling and paying alone. The App function will be limited to connect the two interested travelers by sharing their mobile numbers.
-	    \n\nIt is travellers’ onus to verify the mobile contact and then choose to share the ride. It is left for travelers’ judgment to select the ride partner and App doesn’t control, in anyway, whom you choose to travel with.
-	    \n\nThe App may contain links to websites/services operated by third parties. You may or may not choose to avail these offerings; App or App owners have no control on these services.
-	    \n\nYour contacts details are safe with us.We promise not to use your personal information for any commercial use.
+	<string name="termsandcondition">By downloading or otherwise accessing the App you agree to be bound by the following terms and conditions. If you do not agree with these Terms, you should stop using the App immediately.
+	    \n\nThis App is made available to benefit the travelers by sharing their vehicle with travelers traveling same destination. The App function will be limited to connect the two interested travelers by sharing their mobile numbers. Travelers are therefore recommended to verify contact and share their travel in own responsibility.
+	    \n\nThe App may contain links to websites/services operated by third parties and for those we do not have any influence or control.
+	    \n\nWe will not use your personal information including mobile number for any commercial use. And will be deleted in routine manner.
 	    \n\nWe reserves the right to suspend or cease providing any services relating to the apps published by it, with or without notice, and shall have no liability or responsibility to you in any manner whatsoever if it chooses to do so.
    </string>
    <string name="feedbackurl">CONTACT US: \n<a href="www.facebook.com/LetsGoo">www.facebook.com/LetsGoo</a>\nsaavy.brothers@gmail.com</string>
