@@ -22,7 +22,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             >
-	    	<com.example.LetsGoo.CustomAutoCompleteTextView
+	    	<saavy.brothers.LetsGoo.CustomAutoCompleteTextView
 		        android:id="@+id/atv_places"
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"     

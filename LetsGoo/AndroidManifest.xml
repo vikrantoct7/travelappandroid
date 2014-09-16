@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.LetsGoo"
-    android:versionCode="1"
-    android:versionName="1.0" >
+    package="saavy.brothers.LetsGoo"
+    android:versionCode="2"
+    android:versionName="1.0.1" >
 
     <uses-sdk
-        android:maxSdkVersion="14"
+        android:maxSdkVersion="19"
         android:minSdkVersion="8"
-        android:targetSdkVersion="14" />
+        android:targetSdkVersion="19" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -25,7 +25,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.LetsGoo.LaunchActivity"
+            android:name="saavy.brothers.LetsGoo.LaunchActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,27 +33,27 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.LetsGoo.RegisterActivity"
+            android:name="saavy.brothers.LetsGoo.RegisterActivity"
             android:label="@string/title_activity_register" >
         </activity>
         <activity
-            android:name="com.example.LetsGoo.TravelListActivity"
+            android:name="saavy.brothers.LetsGoo.TravelListActivity"
             android:label="@string/title_activity_home_page" >
         </activity>
         <activity
-            android:name="com.example.LetsGoo.TravelPlanActivity"
+            android:name="saavy.brothers.LetsGoo.TravelPlanActivity"
             android:label="@string/title_activity_travel_plan" >
         </activity>
         <activity
-            android:name="com.example.LetsGoo.LoginActivity"
+            android:name="saavy.brothers.LetsGoo.LoginActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.example.LetsGoo.LocationLocatorActivity"
+            android:name="saavy.brothers.LetsGoo.LocationLocatorActivity"
             android:label="@string/title_activity_location_locator" >
         </activity>
         <activity
-            android:name="com.example.LetsGoo.TermsAndCondition"
+            android:name="saavy.brothers.LetsGoo.TermsAndCondition"
             android:label="@string/title_activity_terms_and_condition" >
  			<intent-filter>
                 <data  android:scheme="TermsAndCondition"/>
