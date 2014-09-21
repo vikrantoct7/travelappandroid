@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+
+import android.content.Context;
 import android.os.*;
 
 public final class XmlDataRepository {
@@ -13,13 +15,21 @@ public final class XmlDataRepository {
 	//private SparseArray<UserDTO> _userList = new SparseArray<UserDTO>();
 	private UserDTO userDataDto =null;
 	private File userDataFile;
-	public XmlDataRepository () throws Exception 
+	public XmlDataRepository (Context context) throws Exception 
 	{
 		try
 		{
+			String userStoragePath="";
 			if(Environment.getExternalStorageDirectory().exists())
 			{
-				String userStoragePath =Environment.getExternalStorageDirectory()+"/"+AppConstant.STORAGEFOLDER;
+				userStoragePath =Environment.getExternalStorageDirectory()+"/"+AppConstant.STORAGEFOLDER;
+			}
+			else 
+			{
+				userStoragePath=context.getFilesDir().getParent();
+			}
+			if(userStoragePath.length()>0)
+			{
 				File dirUserPath = new File(userStoragePath);
 				boolean isDirectoryExist =dirUserPath.exists();
 				if(!isDirectoryExist)

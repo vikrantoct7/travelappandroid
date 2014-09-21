@@ -97,7 +97,15 @@ public final class ActivityHelper {
 	public static String getUserMobileNo(Context context)
 	{
 		TelephonyManager tMgr =(TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE); 
-		return tMgr.getLine1Number();
+		String phoneNo=tMgr.getLine1Number();
+		if(phoneNo !=null)
+		{
+			if(phoneNo.length()>10)
+			{
+				phoneNo=phoneNo.substring(phoneNo.length() -10, phoneNo.length());
+			}
+		}
+		return phoneNo;
 		//Phone mPhone = PhoneFactory.getDefaultPhone();
 		//return mPhone.getLine1Number();
 	}

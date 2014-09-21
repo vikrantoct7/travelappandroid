@@ -41,6 +41,7 @@
     <string name="lblLoginInformation">If you already registered, please login with registered 10 digits mobile number. otherwise click on "Sign Up" for register yourself.</string>
     <string name="ddSelLocation">Select location</string>
     <string name="btnDeleteTravel">Delete</string>
+     <string name="lblTravelConfirmed">Already Confirmed</string>
     <string name="titleConfirmBox">Confirm</string>
     <string name="lblPlanDeleteMsg">Are you sure, you want to delete your plan?</string>
     <string name="lblYes">Yes</string>
@@ -71,4 +72,5 @@
 	    \n\nWe reserves the right to suspend or cease providing any services relating to the apps published by it, with or without notice, and shall have no liability or responsibility to you in any manner whatsoever if it chooses to do so.
    </string>
    <string name="feedbackurl">CONTACT US: \n<a href="www.facebook.com/LetsGoo">www.facebook.com/LetsGoo</a>\nsaavy.brothers@gmail.com</string>
+   <string name="hintMinimumlengthForLocation">Minimum 5 characters allow searching location</string>
 </resources>
