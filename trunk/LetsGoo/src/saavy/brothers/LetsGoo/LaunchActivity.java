@@ -35,7 +35,7 @@ public class LaunchActivity extends Activity {
 		SetErrorLabelVisibility(View.INVISIBLE,R.string.lblError);
 		try 
 		{	
-			repository = new XmlDataRepository();
+			repository = new XmlDataRepository(this);
 		} 
 		catch (Exception e) {
 			SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);

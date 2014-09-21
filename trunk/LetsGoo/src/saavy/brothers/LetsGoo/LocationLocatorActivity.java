@@ -50,7 +50,7 @@ public class LocationLocatorActivity extends Activity {
 		
 		
 		atvPlaces = (AutoCompleteTextView) findViewById(R.id.atv_places);
-		atvPlaces.setThreshold(3);	
+		atvPlaces.setThreshold(6);	
 		final PlacesAutoCompleteAdapter adapter = new PlacesAutoCompleteAdapter(this,android.R.layout.simple_list_item_1);
 		atvPlaces.setAdapter(adapter);
 		atvPlaces.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -19,12 +19,16 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.text.Layout.Alignment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -128,8 +132,8 @@ public class TravelListActivity extends Activity {
 			
 			int btnTextColor = Color.parseColor("#000000");
 			int btnBackColor = Color.parseColor("#938953");
-			int isTravelAlreadyconfirmed=0;
-			int userIdWhoConfirmTravel=0;
+			int isTravelAlreadyconfirmedByCurrentUser=0;
+			int textSize=12;
 
 			for (int i=0;i<jsonData.length();i++ ) 
 			{
@@ -155,7 +159,6 @@ public class TravelListActivity extends Activity {
 				tblTravelDetails.setOrientation(LinearLayout.HORIZONTAL);
 				
 				TableRow tblrow1= new TableRow(this);
-			
 				tblrow1.setLayoutParams(rowparams);
 				tblrow1.setPadding(0, 3, 0, 0);
 				TextView lblUserDetails =new TextView(this);
@@ -164,6 +167,7 @@ public class TravelListActivity extends Activity {
 				lblUserDetails.setText(R.string.lblUserDetails);
 				
 				TextView displayUserDetails =new TextView(this);
+				displayUserDetails.setTextSize(textSize);
 				displayUserDetails.setTextColor(btnTextColor);
 				displayUserDetails.setLayoutParams(viewParams);
 				
@@ -178,10 +182,12 @@ public class TravelListActivity extends Activity {
 				tblrow2.setLayoutParams(rowparams);
 				tblrow2.setPadding(0, 3, 0, 0);
 				TextView lblTravelDetails =new TextView(this);
+				lblTravelDetails.setTextSize(textSize);
 				lblTravelDetails.setLayoutParams(viewParams);
 				lblTravelDetails.setText(R.string.lblTravelDetails);
 				
 				TextView displayTravelDetails =new TextView(this);
+				displayTravelDetails.setTextSize(textSize);
 				displayTravelDetails.setTextColor(btnTextColor);
 				displayTravelDetails.setLayoutParams(viewParams);
 				displayTravelDetails.setText(datarow.getString("CURRLOCATION") + "("+datarow.getString("STARTLOCATION")+") To " +datarow.getString("ENDLOCATION"));
@@ -196,6 +202,7 @@ public class TravelListActivity extends Activity {
 				lblStartTime.setText(R.string.lblTravelerTimeMode);
 				
 				TextView displayStartTime =new TextView(this);
+				displayStartTime.setTextSize(textSize);
 				displayStartTime.setTextColor(btnTextColor);
 				displayStartTime.setLayoutParams(viewParams);
 				displayStartTime.setText(datarow.getString("TRAVELTIME") + "/"+ datarow.getString("TRAVELMODE"));
@@ -207,23 +214,30 @@ public class TravelListActivity extends Activity {
 				tblrow4.setPadding(0, 3, 0, 0);
 				
 				TextView lblNoOfPassenger =new TextView(this);
-				
+				lblNoOfPassenger.setTextSize(textSize);
 				lblNoOfPassenger.setLayoutParams(lblNoOfPassengerParams);
 				lblNoOfPassenger.setText(R.string.lblNoOfPassenger);
 				
 				TextView displayNoOfPassenger =new TextView(this);
+				displayNoOfPassenger.setTextSize(textSize);
 				displayNoOfPassenger.setLayoutParams(displayNoOfPassengerParams);
 				displayNoOfPassenger.setText(datarow.getString("NOOFPASSENGER"));
 				tblrow4.addView(lblNoOfPassenger);
 				tblrow4.addView(displayNoOfPassenger);
 				
 				Button btnSubmitTravel = new Button(this);
+				btnSubmitTravel.setTextSize(textSize);
 				btnSubmitTravel.setTextColor(btnTextColor);
 				btnSubmitTravel.setBackgroundColor(btnBackColor);
-				
+	
 				// TODO To be check whether it is effective to use setTag method for passing object
 				if(datarow.getInt("ISSELFPLAN")==1)
 				{
+					if(isTravelAlreadyconfirmedByCurrentUser ==0 && !datarow.isNull("ISCONFIRMED"))
+					{
+						isTravelAlreadyconfirmedByCurrentUser =datarow.getInt("ISCONFIRMED");
+					}
+					
 					currentUserTravelID=datarow.getInt("TRAVELID");
 					btnSubmitTravel.setOnClickListener(onDeleteAction);
 					btnSubmitTravel.setTag(Integer.toString(currentUserTravelID));
@@ -232,15 +246,11 @@ public class TravelListActivity extends Activity {
 				}
 				else
 				{
-					if(isTravelAlreadyconfirmed ==0 && !datarow.isNull("ISCONFIRMED"))
+					
+					if( !datarow.isNull("CONFIRMEDTO"))
 					{
-						isTravelAlreadyconfirmed =datarow.getInt("ISCONFIRMED");
-						userIdWhoConfirmTravel =userId;
-					}
-					if( isTravelAlreadyconfirmed ==1 && userIdWhoConfirmTravel ==userId)
-					{
-						Button btnShowMobileNo = null;
-						btnShowMobileNo = new Button(this);
+						Button btnShowMobileNo = new Button(this);
+						btnShowMobileNo.setTextSize(textSize);
 						btnShowMobileNo.setTextColor(btnTextColor);
 						btnShowMobileNo.setBackgroundColor(btnBackColor);
 						btnShowMobileNo.setText(R.string.btnShowMobileNo);
@@ -250,9 +260,29 @@ public class TravelListActivity extends Activity {
 					}
 					else
 					{
-						if(isTravelAlreadyconfirmed ==1)
+						int isUserConfirmTravel =0;
+						if(!datarow.isNull("ISCONFIRMED"))
 						{
-							btnSubmitTravel.setEnabled(false);
+							isUserConfirmTravel =datarow.getInt("ISCONFIRMED");
+							
+						}
+						if(isTravelAlreadyconfirmedByCurrentUser ==1 || isUserConfirmTravel ==1 )
+						{
+							
+							if(isUserConfirmTravel ==1)
+							{
+								
+								TextView confirmedMsg= new TextView(this);
+								confirmedMsg.setTextSize(textSize);
+								confirmedMsg.setBackgroundColor(btnBackColor);
+								confirmedMsg.setText(R.string.lblTravelConfirmed);
+								tblrow4.addView(confirmedMsg);
+							}
+							else
+							{
+								btnSubmitTravel.setEnabled(false);
+							}
+							
 						}
 						else
 						{
@@ -324,7 +354,7 @@ public class TravelListActivity extends Activity {
 		{
 			String strMobileNo=(String) view.getTag();
 			int lenght = strMobileNo.length();
-			final String mobileNoToCall = "0" + strMobileNo.substring(lenght -10, lenght);
+			final String mobileNoToCall = strMobileNo.substring(lenght -10, lenght);
 			 new AlertDialog.Builder(view.getContext())
 		        .setIcon(android.R.drawable.ic_dialog_info)
 		        .setTitle(R.string.titleShowMobileBox)

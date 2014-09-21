@@ -117,8 +117,7 @@ public class RegisterActivity extends Activity {
 		}
 		try
 		{
-			TelephonyManager tMgr =(TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE); 
-			String mPhoneNumber = tMgr.getLine1Number();
+			String mPhoneNumber =  ActivityHelper.getUserMobileNo(this);
 			final EditText txtPhNo= (EditText)findViewById(R.id.txtPhNo);
 			txtPhNo.setText(mPhoneNumber);
 			if(mPhoneNumber.length()> 0)
