@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 public class LoginActivity extends Activity {
@@ -18,7 +19,9 @@ public class LoginActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		setContentView(R.layout.activity_login);
+		
 		ActivityHelper.setApplicationTitle(this.getWindow());
 		
 		final Button btnSingUp =(Button)findViewById(R.id.btnSingUp);
@@ -98,16 +101,23 @@ public class LoginActivity extends Activity {
 	
 	private void setErrorLabelVisibility(int visibility,int errorResId)
 	{
-		TextView lblError =(TextView)findViewById(R.id.lblLoginErrorMsg);
-		if(lblError != null)
+		TableRow tableRow2 =(TableRow)findViewById(R.id.ErrorRowOnLoginPage);
+		if(tableRow2 !=null)
 		{
-			lblError.setVisibility(visibility);
-			lblError.setText(errorResId);
+			TextView lblError =(TextView)findViewById(R.id.lblLoginErrorMsgOnLoginPage);
+			if(lblError != null)
+			{
+				tableRow2.setVisibility(visibility);
+				lblError.setText(errorResId);
+			}
 		}
 	}
 	
 	@Override
 	public void onBackPressed() {
-	    // do nothing.
+		Intent startMain = new Intent(Intent.ACTION_MAIN);      
+        startMain.addCategory(Intent.CATEGORY_HOME);                        
+        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);          
+        startActivity(startMain); 
 	}
 }

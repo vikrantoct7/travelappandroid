@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 //import com.android.internal.telephony.Phone; 
 //import com.android.internal.telephony.PhoneFactory; 
@@ -105,6 +106,10 @@ public final class ActivityHelper {
 				phoneNo=phoneNo.substring(phoneNo.length() -10, phoneNo.length());
 			}
 		}
+		else
+		{
+			phoneNo="";
+		}
 		return phoneNo;
 		//Phone mPhone = PhoneFactory.getDefaultPhone();
 		//return mPhone.getLine1Number();
@@ -112,7 +117,7 @@ public final class ActivityHelper {
 	
 	public static void setApplicationTitle(Window window)
 	{
-		setTitleColor(window);
+		//setTitleColor(window);
 		setTitleAlignment(window);
 	}
 	public static void setTitleColor(Window window)
@@ -135,8 +140,20 @@ public final class ActivityHelper {
 		else if(root.getChildAt(1).getClass() ==FrameLayout.class ) 
 		{
 			FrameLayout titleContainer= (FrameLayout) root.getChildAt(1);
-			TextView title= (TextView) titleContainer.getChildAt(0);
-			title.setGravity(Gravity.CENTER);
+			if(titleContainer.getChildAt(0).getClass()==RelativeLayout.class)
+			{
+				RelativeLayout relativeLayout=(RelativeLayout)titleContainer.getChildAt(0);
+				if(relativeLayout.getChildAt(0).getClass()==TextView.class)
+				{
+					TextView title= (TextView) relativeLayout.getChildAt(0);
+					title.setGravity(Gravity.CENTER);
+				}
+			}
+			else if(titleContainer.getChildAt(0).getClass()==TextView.class)
+			{
+				TextView title= (TextView) titleContainer.getChildAt(0);
+				title.setGravity(Gravity.CENTER);
+			}
 		}
 	
 	}

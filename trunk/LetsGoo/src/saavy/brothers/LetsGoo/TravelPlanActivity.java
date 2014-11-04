@@ -1,6 +1,7 @@
 package saavy.brothers.LetsGoo;
 import java.io.IOException;
 import java.net.ConnectException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -15,12 +16,16 @@ import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 
@@ -29,7 +34,10 @@ public class TravelPlanActivity extends Activity {
 	GPSTracker gps;
 	public static TravelPlanDTO travelPlanDTO=null;
 	String userStartLocCity ="";
-	String userEndLocCity ="";
+	String userEndLocCity =""; 
+	String Travel_hint="[Chose travel mode]";
+	String Start_loc_hint="[Select Start location]";
+	String End_loc_hint="[Select End location]";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +117,7 @@ public class TravelPlanActivity extends Activity {
         try
 		{
 		    JSONObject reqParameters= new JSONObject();
-			reqParameters.put("LOGGEDINUSERID", LaunchActivity.loginUserId);
+			reqParameters.put("LOGGEDINUSERID", LaunchActivity.getUserId());
 			reqParameters.put("STARTLOCATIONCITY", userStartLocCity);
 			reqParameters.put("ENDLOCATIONCITY", userEndLocCity);
 			JsonHandler jsonHandler =JsonHandler.getInstance();
@@ -133,22 +141,30 @@ public class TravelPlanActivity extends Activity {
 				else
 				{
 					JSONArray travelModeData =result.getJSONArray("TRAVELMODE");
-					String[] travelType =new String[travelModeData.length()];
+					ArrayList<String> travelType =new ArrayList<String>(); 
 					for (int i=0;i<travelModeData.length();i++ ) 
 					{
 						JSONObject row= travelModeData.getJSONObject(i);
-						travelType[i] = row.getString("TYPE");
+						travelType.add(row.getString("TYPE"));
 					}
-	
-					ArrayAdapter<String> adapterTravel = new ArrayAdapter<String>(this,  android.R.layout.simple_spinner_item, travelType);
-					adapterTravel.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+					
+					HintAdapter adapterTravel = new HintAdapter(this,  android.R.layout.simple_spinner_item, travelType);
+					adapterTravel.setDropDownViewResource(R.layout.activity_settings_spinner_item);
+					adapterTravel.add(Travel_hint);
 					final Spinner ddTravelType=(Spinner)findViewById(R.id.ddTravelType);
 					ddTravelType.setAdapter(adapterTravel);
 					int spinnerTravelPosition=adapterTravel.getPosition(persistTravelMode);
+					if(spinnerTravelPosition==-1)
+					{
+						spinnerTravelPosition=adapterTravel.getCount();
+					}
 					ddTravelType.setSelection(spinnerTravelPosition);
 					
-					ArrayAdapter<String> adapterCurLocation = getLocationAdapterFromJsonResult(result,"STARTCITYLOCALITES");
-					ArrayAdapter<String> adapterEndLocation = adapterCurLocation;
+							
+					HintAdapter adapterCurLocation = getLocationAdapterFromJsonResult(result,"STARTCITYLOCALITES");
+					adapterCurLocation.add(Start_loc_hint);
+					HintAdapter adapterEndLocation = getLocationAdapterFromJsonResult(result,"STARTCITYLOCALITES");
+					adapterEndLocation.add(End_loc_hint);
 					if(!userStartLocCity.equalsIgnoreCase(userEndLocCity) )
 					{
 						adapterEndLocation = getLocationAdapterFromJsonResult(result,"ENDCITYLOCALITES");
@@ -156,10 +172,12 @@ public class TravelPlanActivity extends Activity {
 					
 					final Spinner ddCurrentLoc=(Spinner)findViewById(R.id.ddCurrentLoc);
 					ddCurrentLoc.setAdapter(adapterCurLocation);
+					ddCurrentLoc.setSelection(adapterCurLocation.getCount());		
 					
 					final Spinner ddEndLocation=(Spinner)findViewById(R.id.ddEndLocation);
 					ddEndLocation.setAdapter(adapterEndLocation);
-					
+					ddEndLocation.setSelection(adapterEndLocation.getCount());
+
 					
 					if(locPosition.equals("CURLOC"))
 					{
@@ -203,19 +221,20 @@ public class TravelPlanActivity extends Activity {
         
 
 	}
+		
 
-	private ArrayAdapter<String> getLocationAdapterFromJsonResult(JSONObject result,String type) 
+	private HintAdapter getLocationAdapterFromJsonResult(JSONObject result,String type) 
 			throws JSONException {
 		JSONArray cityLocalitesData =result.getJSONArray(type);
-		String[] cityLocalitesType =new String[cityLocalitesData.length()];
+		ArrayList<String> cityLocalitesType =new ArrayList<String>();
 		for (int i=0;i<cityLocalitesData.length();i++ ) 
 		{
 			JSONObject row= cityLocalitesData.getJSONObject(i);
-			cityLocalitesType[i] = row.getString("LOCALITY");
+			cityLocalitesType.add(row.getString("LOCALITY"));
 		}
 						
-		ArrayAdapter<String> adapterLocation = new ArrayAdapter<String>(this,  android.R.layout.simple_spinner_item, cityLocalitesType);
-		adapterLocation.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		HintAdapter adapterLocation = new HintAdapter(this,  android.R.layout.simple_spinner_item, cityLocalitesType);
+		adapterLocation.setDropDownViewResource(R.layout.activity_settings_spinner_item);
 		return adapterLocation;
 	}
 
@@ -228,11 +247,15 @@ public class TravelPlanActivity extends Activity {
 	
 	private void setErrorLabelVisibility(int visibility,int errorResId)
 	{
-		TextView lblError =(TextView)findViewById(R.id.lblTravelErrorMsg);
-		if(lblError != null)
+		TableRow tableRow2 =(TableRow)findViewById(R.id.ErrorRowOnTravelPlanPage);
+		if(tableRow2 !=null)
 		{
-			lblError.setVisibility(visibility);
-			lblError.setText(errorResId);
+			TextView lblError =(TextView)findViewById(R.id.lblErrorMsgOnTravelPlanePage);
+			if(lblError != null)
+			{
+				tableRow2.setVisibility(visibility);
+				lblError.setText(errorResId);
+			}
 		}
 	}
 	
@@ -256,7 +279,7 @@ public class TravelPlanActivity extends Activity {
 		}
         
         ArrayAdapter<String> adapterStartTime = new ArrayAdapter<String>(this,  android.R.layout.simple_spinner_item, startTime);
-        adapterStartTime.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterStartTime.setDropDownViewResource(R.layout.activity_settings_spinner_item);
        
 		final Spinner ddStartTime=(Spinner)findViewById(R.id.ddStartTime);
 		ddStartTime.setAdapter(adapterStartTime);
@@ -309,7 +332,7 @@ public class TravelPlanActivity extends Activity {
 				try
 				{
 					JSONObject reqParameters= new JSONObject();
-					reqParameters.put("USERID", LaunchActivity.loginUserId);
+					reqParameters.put("USERID", LaunchActivity.getUserId());
 					reqParameters.put("CURRLOCATION", ddCurrentLoc.getSelectedItem());
 					reqParameters.put("STARTLOCATION", txtStartPoint.getText());
 					reqParameters.put("ENDLOCATION", ddEndLocation.getSelectedItem());

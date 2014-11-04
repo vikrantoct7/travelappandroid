@@ -19,16 +19,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.text.Layout.Alignment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -63,7 +59,7 @@ public class TravelListActivity extends Activity {
 		try
 		{
 			JSONObject reqParameters= new JSONObject();
-			reqParameters.put("CONUSERID", LaunchActivity.loginUserId);
+			reqParameters.put("CONUSERID", LaunchActivity.getUserId());
 			JsonHandler jsonHandler =JsonHandler.getInstance();
 			String url=jsonHandler.getFullUrl("UserTravelList.php");
 			JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters,this);
@@ -94,6 +90,10 @@ public class TravelListActivity extends Activity {
 			setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 		}
 		catch (IOException ex) 
+		{    
+			setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+		} 
+		catch (Exception ex) 
 		{    
 			setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 		} 
@@ -314,19 +314,7 @@ public class TravelListActivity extends Activity {
 		return true;
 	}
 	
-	/*private OnClickListener onClickQuit = new OnClickListener()
-	{
-		@Override
-		public void onClick(View view)
-		{
-			Intent intent = new Intent(Intent.ACTION_MAIN);
-			intent.addCategory(Intent.CATEGORY_HOME);
-			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			startActivity(intent);
-			
-		}
-	};*/
-	
+
 	private OnClickListener onClickRefresh = new OnClickListener()
 	{
 		@Override
@@ -414,7 +402,7 @@ public class TravelListActivity extends Activity {
 			            	JSONObject reqParameters= new JSONObject();
 			    			reqParameters.put("CURUSERTRAVELID", travelid);
 			    			reqParameters.put("USERTRAVELID", usertravelid);
-			    			reqParameters.put("CONUSERID", LaunchActivity.loginUserId);
+			    			reqParameters.put("CONUSERID", LaunchActivity.getUserId());
 			    			reqParameters.put("TRAVELERUSERID", traveleruserid);
 			    			JsonHandler jsonHandler =JsonHandler.getInstance();
 			    			String url=jsonHandler.getFullUrl("UserTravelConfirm.php");
@@ -476,7 +464,7 @@ public class TravelListActivity extends Activity {
 	            	{
 		            	JSONObject reqParameters= new JSONObject();
 		    			reqParameters.put("TRAVELID", travelid);
-		    			reqParameters.put("CONUSERID", LaunchActivity.loginUserId);
+		    			reqParameters.put("CONUSERID", LaunchActivity.getUserId());
 		    			JsonHandler jsonHandler =JsonHandler.getInstance();
 		    			String url=jsonHandler.getFullUrl("UserTravelDelete.php");
 		    			JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters,dialogView.getContext());
@@ -531,6 +519,10 @@ public class TravelListActivity extends Activity {
 	
 	@Override
 	public void onBackPressed() {
-	    // do nothing.
+		Intent startMain = new Intent(Intent.ACTION_MAIN);      
+        startMain.addCategory(Intent.CATEGORY_HOME);                        
+        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);          
+        startActivity(startMain); 
 	}
+	
 }

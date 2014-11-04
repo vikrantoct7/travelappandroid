@@ -46,7 +46,8 @@
         </activity>
         <activity
             android:name="saavy.brothers.LetsGoo.LoginActivity"
-            android:label="@string/app_name" >
+            android:label="@string/title_activity_login_page"
+                  >
         </activity>
         <activity
             android:name="saavy.brothers.LetsGoo.LocationLocatorActivity"
@@ -55,11 +56,17 @@
         <activity
             android:name="saavy.brothers.LetsGoo.TermsAndCondition"
             android:label="@string/title_activity_terms_and_condition" >
- 			<intent-filter>
-                <data  android:scheme="TermsAndCondition"/>
+            <intent-filter>
+                <data android:scheme="TermsAndCondition" />
+
                 <action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="saavy.brothers.LetsGoo.LetsGooTitleBar"
+            android:label="@string/title_activity_lets_goo_title_bar" >
         </activity>
     </application>
 

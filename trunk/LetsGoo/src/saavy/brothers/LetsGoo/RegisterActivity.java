@@ -3,8 +3,6 @@ package saavy.brothers.LetsGoo;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.util.ArrayList;
-import java.util.regex.Pattern;
-
 import org.apache.http.client.ClientProtocolException;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,9 +12,7 @@ import saavy.brothers.LetsGoo.R;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,10 +22,10 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.text.*;
 import android.text.method.LinkMovementMethod;
-import android.text.util.Linkify;
 
 
 
@@ -95,11 +91,10 @@ public class RegisterActivity extends Activity {
 						cityAdapeterData.add(row.getString("CITY"));
 					}
 					
-					ArrayAdapter<String> adapterCity = new ArrayAdapter<String>(this,  android.R.layout.simple_spinner_item,cityAdapeterData);
-					adapterCity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+					ArrayAdapter<String> adapterCity = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,cityAdapeterData);
+					adapterCity.setDropDownViewResource(R.layout.activity_settings_spinner_item);
 					final Spinner ddCity=(Spinner)findViewById(R.id.ddCity);
 					ddCity.setAdapter(adapterCity);
-					
 				}
 			}
 		}
@@ -284,11 +279,15 @@ public class RegisterActivity extends Activity {
 	
 	private void setErrorLabelVisibility(int visibility,int errorResId)
 	{
-		TextView lblError =(TextView)findViewById(R.id.lblErrorMsg);
-		if(lblError != null)
+		TableRow tableRow2 =(TableRow)findViewById(R.id.ErrorRowOnRegisterPage);
+		if(tableRow2 !=null)
 		{
-			lblError.setVisibility(visibility);
-			lblError.setText(errorResId);
+			TextView lblError =(TextView)findViewById(R.id.lblErrorMsgOnRegisterPage);
+			if(lblError != null)
+			{
+				tableRow2.setVisibility(visibility);
+				lblError.setText(errorResId);
+			}
 		}
 	}
 }
