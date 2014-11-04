@@ -5,16 +5,16 @@
     <string name="action_settings">Settings</string>
     <string name="lblUserName">Registered mobile number</string>
     <string name="lblPassword">Password</string>
-    <string name="btnSubmit">Login</string>
-    <string name="btnSingUp">Sign Up</string>
-    <string name="title_activity_register">User Registration</string>
+    <string name="btnSubmit">Get in</string>
+    <string name="btnSingUp">Register</string>
+    <string name="title_activity_register">Registration</string>
     <string name="lblFName">First Name</string>
     <string name="lblLName">Last Name</string>
     <string name="lblGender">Gender</string>
-    <string name="genderMale">M</string>
-    <string name="genderFemale">F</string>
+    <string name="genderMale">Male</string>
+    <string name="genderFemale">Female</string>
     <string name="lblAge">Age</string>
-    <string name="lblContactNo">Mobile No</string>
+    <string name="lblContactNo">Mobile Number</string>
     <string name="lblRegister">I Agree</string>
     <string name="lblError">Technical error – Please try again later</string>
     <string name="lblErrorUserExist">This mobile no is already exist.</string>
@@ -22,26 +22,28 @@
     <string name="lblErrorTechnical">Technical error – Please try again later</string>
     <string name="lblGoToLoginBtn">Go back to login screen</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_login_page">Get in</string>
     <string name="title_activity_home_page">Travel Detail List</string>
     <string name="btnNewTravelPlan">New plan</string>
     <string name="title_activity_travel_plan">Enter Travel Details</string>
     <string name="lblCurrentLoc">Current Location</string>
     <string name="lblCurLocNotfound">Current Location not found</string>
-    <string name="lblStartLoc">Start Location</string>
+    <string name="lblStartLoc">Meeting point</string>
     <string name="lblEndLoc">End Location</string>
     <string name="lblTravelTime">Starting time</string>
     <string name="lblTravelMode">Mode of Travel</string>
     <string name="lblNoOfPassenger">Total Person</string>
-    <string name="ddTravelType">Select Travel Mode</string>
+    <string name="SelTravelType">Select Travel Mode</string>
+    <string name="SelStartTime">Select Travel time</string>
     <string name="btnTravelSubmit">Submit</string>
     <string name="lblUserDetails">User Details</string>
     <string name="lblTravelDetails">Travel Details</string>
     <string name="btnConfimTravel">Confirm</string>
     <string name="lblTermCondition">I have read and agree to <a href="https://www.google.com">terms and condition </a> for using this app</string>
-    <string name="lblLoginInformation">If you already registered, please login with registered 10 digits mobile number. otherwise click on "Sign Up" for register yourself.</string>
+    <string name="lblLoginInformation">Welcome to LetsGoo!\n\nIf you already registered, please login with registered 10 digits mobile number. otherwise click on "Sign Up" for register yourself.</string>
     <string name="ddSelLocation">Select location</string>
     <string name="btnDeleteTravel">Delete</string>
-     <string name="lblTravelConfirmed">Already Confirmed</string>
+    <string name="lblTravelConfirmed">Already Confirmed</string>
     <string name="titleConfirmBox">Confirm</string>
     <string name="lblPlanDeleteMsg">Are you sure, you want to delete your plan?</string>
     <string name="lblYes">Yes</string>
@@ -63,14 +65,18 @@
     <string name="lblLocality">Locality</string>
     <string name="lblOK">OK</string>
     <string name="lblErrorLocalityExist">This locality is already exist.</string>
-    <string name="InternetConnectiivityErrorMsg">Internent connection is not avaiable.Please try later.</string>
+    <string name="InternetConnectiivityErrorMsg">Internent connection is not avaiable.\nPlease try later.</string>
     <string name="title_activity_terms_and_condition">Terms And Condition</string>
-	<string name="termsandcondition">By downloading or otherwise accessing the App you agree to be bound by the following terms and conditions. If you do not agree with these Terms, you should stop using the App immediately.
+    <string name="termsandcondition">By downloading or otherwise accessing the App you agree to be bound by the following terms and conditions. If you do not agree with these Terms, you should stop using the App immediately.
 	    \n\nThis App is made available to benefit the travelers by sharing their vehicle with travelers traveling same destination. The App function will be limited to connect the two interested travelers by sharing their mobile numbers. Travelers are therefore recommended to verify contact and share their travel in own responsibility.
 	    \n\nThe App may contain links to websites/services operated by third parties and for those we do not have any influence or control.
 	    \n\nWe will not use your personal information including mobile number for any commercial use. And will be deleted in routine manner.
-	    \n\nWe reserves the right to suspend or cease providing any services relating to the apps published by it, with or without notice, and shall have no liability or responsibility to you in any manner whatsoever if it chooses to do so.
-   </string>
-   <string name="feedbackurl">CONTACT US: \n<a href="www.facebook.com/LetsGoo">www.facebook.com/LetsGoo</a>\nsaavy.brothers@gmail.com</string>
-   <string name="hintMinimumlengthForLocation">Minimum 5 characters allow searching location</string>
+	    \n\nWe reserves the right to suspend or cease providing any services relating to the apps published by it, with or without notice, and shall have no liability or responsibility to you in any manner whatsoever if it chooses to do so.</string>
+    <string name="feedbackurl">CONTACT US: \n<a href="www.facebook.com/LetsGoo">www.facebook.com/LetsGoo</a>\nsaavy.brothers@gmail.com</string>
+    <string name="hintMinimumlengthForLocation">Minimum 5 characters allow searching location</string>
+    <string name="title_activity_lets_goo_title_bar">LetsGooTitleBar</string>
+	<string name="lbllogocopyright">\u00A9 SAAVY</string>
+	<string name="lblRegisterInformation">Thanks for choosing LetsGoo, please register yourself and agree to the terms and conditions.</string>
+	<string name="lblTravekPlanInformation">Plan your travel from start location to desired end location</string>
+	    
 </resources>

@@ -21,6 +21,18 @@ public class LaunchActivity extends Activity {
 
 	public static XmlDataRepository repository=null;
 	public static int loginUserId;
+	
+	public static int getUserId()
+	{
+		if(loginUserId == 0)
+		{
+			if(repository !=null)
+			{
+				loginUserId=repository.getUsersData().getUserId();
+			}
+		}
+		return loginUserId;
+	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -70,7 +82,7 @@ public class LaunchActivity extends Activity {
 		}
 		else
 		{
-			if(repository.getUsersData().getContactNo() != mPhoneNumber)
+			if(mPhoneNumber.trim().length() > 0 && repository.getUsersData().getContactNo() != mPhoneNumber)
 			{
 				repository.clearRepository();
 				LaunchLoginWindew();

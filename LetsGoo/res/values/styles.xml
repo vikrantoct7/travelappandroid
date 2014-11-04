@@ -1,20 +1,94 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="android:Theme.Light">
+
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
+            backward-compatibility can go here.
         -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowTitleSize">35dip</item>
+        <item name="android:windowTitleBackgroundStyle">@style/android:windowTitleStyle</item>
+        <item name="android:spinnerStyle">@style/SpinnerDefaultStyle</item>
+        <item name="android:spinnerItemStyle">@style/SpinnerItemDefaultStyle</item>
+        <!-- <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemDefaultStyle</item> -->
+        <item name="android:radioButtonStyle">@style/RadioButtonDefaultStyle</item>
+        
     </style>
-
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
+    <style name="ActivtyStyle">
+        <item name="android:background">#C5E0B4</item>
+    </style>
+    <style name="MyAlertDialogStyle">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="android:windowTitleStyle">
+        <item name="android:background">#00B050</item>
+        <item name="android:windowNoTitle">false</item>
+    </style>
+
+    <style name="TextViewInformationStyle" parent="@android:style/TextAppearance">
+        <item name="android:textSize">12sp</item>
+        <item name="android:typeface">sans</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="TextViewErrorStyle" parent="@android:style/TextAppearance">
+        <item name="android:textSize">12sp</item>
+        <item name="android:typeface">sans</item>
+        <item name="android:textColor">#FF4500</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="EditTextStyle" parent="@android:style/TextAppearance">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#54823B</item>
+        <item name="android:gravity">center</item>
+        <item name="android:ellipsize">start</item>
+        <item name="android:background">@drawable/edit_boxstyle</item>
+    </style>
+
+    <style name="btnDefaultStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">38dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">#10BE5A</item>
+    </style>
+
+    <style name="SpinnerDefaultStyle" parent="android:Widget.Spinner">
+        <item name="android:background">@drawable/spinner_default</item>
+    </style>
+
+    <style name="SpinnerItemDefaultStyle" parent="android:Widget.TextView.SpinnerItem">
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:ellipsize">start</item>
+        <item name="android:background">@drawable/spinner_default</item>
+    </style>
+
+    <style name="SpinnerDropDownItemDefaultStyle" parent="android:Widget.DropDownItem.Spinner">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="RadioButtonDefaultStyle" parent="android:Widget.CompoundButton.RadioButton">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#54823B</item>
+    </style>
+    
 </resources>

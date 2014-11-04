@@ -15,6 +15,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
+import android.view.ContextThemeWrapper;
 public class GPSTracker extends Service implements LocationListener {
 
     private final Context mContext;
@@ -160,16 +161,17 @@ public class GPSTracker extends Service implements LocationListener {
      * On pressing Settings button will launch Settings Options
      * */
     public void showSettingsAlert(){
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
-
+    	ContextThemeWrapper wrapper=new ContextThemeWrapper(mContext,R.style.MyAlertDialogStyle);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(wrapper);
+        
         // Setting Dialog Title
-        alertDialog.setTitle("GPS is settings");
+        alertDialogBuilder.setTitle("GPS is settings");
 
         // Setting Dialog Message
-        alertDialog.setMessage("GPS is not enabled. Do you want to go to settings menu?");
+        alertDialogBuilder.setMessage("GPS is not enabled. Do you want to go to settings menu?");
 
         // On pressing Settings button
-        alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
+        alertDialogBuilder.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog,int which) {
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 mContext.startActivity(intent);
@@ -177,14 +179,18 @@ public class GPSTracker extends Service implements LocationListener {
         });
 
         // on pressing cancel button
-        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
             dialog.cancel();
             }
         });
-
+        
         // Showing Alert Message
-        alertDialog.show();
+        alertDialogBuilder.show();
+        //Dialog alertDialog= alertDialogBuilder.create();
+       // alertDialog.getWindow().setBackgroundDrawableResource(R.drawable.null_image);
+       // alertDialog.show();
+
     }
 
     @Override
