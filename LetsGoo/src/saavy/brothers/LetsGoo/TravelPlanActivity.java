@@ -35,9 +35,10 @@ public class TravelPlanActivity extends Activity {
 	public static TravelPlanDTO travelPlanDTO=null;
 	String userStartLocCity ="";
 	String userEndLocCity =""; 
-	String Travel_hint="[Chose travel mode]";
+	String Travel_mode_hint="[Chose travel mode]";
 	String Start_loc_hint="[Select Start location]";
 	String End_loc_hint="[Select End location]";
+	String Travel_time_hint="[Select traveling time]";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +53,8 @@ public class TravelPlanActivity extends Activity {
 		
 		
 		ActivityHelper.setApplicationTitle(getWindow());
-		
+		userStartLocCity=LaunchActivity.repository.getUsersData().getUserCity();
+		userEndLocCity=userStartLocCity;
         Bundle extras  = getIntent().getExtras();
 		if(extras != null) {
 			 if(travelPlanDTO !=null)
@@ -150,7 +152,7 @@ public class TravelPlanActivity extends Activity {
 					
 					HintAdapter adapterTravel = new HintAdapter(this,  android.R.layout.simple_spinner_item, travelType);
 					adapterTravel.setDropDownViewResource(R.layout.activity_settings_spinner_item);
-					adapterTravel.add(Travel_hint);
+					adapterTravel.add(Travel_mode_hint);
 					final Spinner ddTravelType=(Spinner)findViewById(R.id.ddTravelType);
 					ddTravelType.setAdapter(adapterTravel);
 					int spinnerTravelPosition=adapterTravel.getPosition(persistTravelMode);
@@ -163,12 +165,17 @@ public class TravelPlanActivity extends Activity {
 							
 					HintAdapter adapterCurLocation = getLocationAdapterFromJsonResult(result,"STARTCITYLOCALITES");
 					adapterCurLocation.add(Start_loc_hint);
-					HintAdapter adapterEndLocation = getLocationAdapterFromJsonResult(result,"STARTCITYLOCALITES");
-					adapterEndLocation.add(End_loc_hint);
+					HintAdapter adapterEndLocation = null;
+					
 					if(!userStartLocCity.equalsIgnoreCase(userEndLocCity) )
 					{
 						adapterEndLocation = getLocationAdapterFromJsonResult(result,"ENDCITYLOCALITES");
 					}
+					else
+					{
+						adapterEndLocation= getLocationAdapterFromJsonResult(result,"STARTCITYLOCALITES");
+					}
+					adapterEndLocation.add(End_loc_hint);
 					
 					final Spinner ddCurrentLoc=(Spinner)findViewById(R.id.ddCurrentLoc);
 					ddCurrentLoc.setAdapter(adapterCurLocation);
@@ -261,7 +268,7 @@ public class TravelPlanActivity extends Activity {
 	
 	private void fillStartTimeDd()
 	{
-		String[] startTime =new String[8];
+		ArrayList<String> startTime =new ArrayList<String>();
 		
         Calendar cal= Calendar.getInstance();
         cal.setTimeInMillis(System.currentTimeMillis());
@@ -274,13 +281,13 @@ public class TravelPlanActivity extends Activity {
         	calculatedDate.setMinutes(calMinutes);
             String showTime=String.format("%1$tI:%1$tM %1$Tp",calculatedDate);
             calMinutes =calculatedDate.getMinutes();
-        	startTime[i]=showTime;
+        	startTime.add(showTime);
         	calMinutes =calMinutes+15;
 		}
         
-        ArrayAdapter<String> adapterStartTime = new ArrayAdapter<String>(this,  android.R.layout.simple_spinner_item, startTime);
+        HintAdapter adapterStartTime = new HintAdapter(this,  android.R.layout.simple_spinner_item, startTime);
         adapterStartTime.setDropDownViewResource(R.layout.activity_settings_spinner_item);
-       
+        adapterStartTime.add(Travel_time_hint);
 		final Spinner ddStartTime=(Spinner)findViewById(R.id.ddStartTime);
 		ddStartTime.setAdapter(adapterStartTime);
 		if(travelPlanDTO !=null)
@@ -288,6 +295,10 @@ public class TravelPlanActivity extends Activity {
         	int spinnerPosition = adapterStartTime.getPosition(travelPlanDTO.getStartTime());
         	ddStartTime.setSelection(spinnerPosition);
         }
+		else
+		{
+			ddStartTime.setSelection(adapterStartTime.getCount());
+		}
 		
         
 	}
@@ -310,8 +321,41 @@ public class TravelPlanActivity extends Activity {
 			GenericValidator validator = new GenericValidator();
 			validationResult= validator.validate(txtStartPoint);
 			validationResult= validator.validate(txtNoOfPass);
+			if(ddCurrentLoc.getSelectedItem()==Start_loc_hint)
+			{
+				View v= ddCurrentLoc.getSelectedView();
+				TextView temp= (TextView)v.findViewById(android.R.id.text1);
+				temp.setError("This is mandatory!");
+				validationResult=false;
+			}
+			
+			if(ddEndLocation.getSelectedItem()==End_loc_hint)
+			{
+				View v= ddEndLocation.getSelectedView();
+				TextView temp= (TextView)v.findViewById(android.R.id.text1);
+				temp.setError(End_loc_hint);
+				validationResult=false;
+			}
+			
+			if(ddTravelType.getSelectedItem()==Travel_mode_hint)
+			{
+				View v= ddTravelType.getSelectedView();
+				TextView temp= (TextView)v.findViewById(android.R.id.text1);
+				temp.setError(Travel_mode_hint);
+				validationResult=false;
+			}
+			
+			if(ddStartTime.getSelectedItem()==Travel_time_hint)
+			{
+				View v= ddStartTime.getSelectedView();
+				TextView temp= (TextView)v.findViewById(android.R.id.text1);
+				temp.setError(Travel_time_hint);
+				validationResult=false;
+			}
+			
 			if(validationResult)
 			{
+				
 				if(ddCurrentLoc.getSelectedItem() == ddEndLocation.getSelectedItem())
 		        {
 		        	setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorForSameLocation);
@@ -384,6 +428,10 @@ public class TravelPlanActivity extends Activity {
 				{
 					setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 				}
+			}
+			else
+			{
+				setErrorLabelVisibility(View.VISIBLE,R.string.ErrorMandatoryMsg);
 			}
 			
 		}

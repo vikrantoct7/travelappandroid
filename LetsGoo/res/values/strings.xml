@@ -25,7 +25,7 @@
     <string name="title_activity_login_page">Get in</string>
     <string name="title_activity_home_page">Travel Detail List</string>
     <string name="btnNewTravelPlan">New plan</string>
-    <string name="title_activity_travel_plan">Enter Travel Details</string>
+    <string name="title_activity_travel_plan">Travel Details</string>
     <string name="lblCurrentLoc">Current Location</string>
     <string name="lblCurLocNotfound">Current Location not found</string>
     <string name="lblStartLoc">Meeting point</string>
@@ -78,5 +78,5 @@
 	<string name="lbllogocopyright">\u00A9 SAAVY</string>
 	<string name="lblRegisterInformation">Thanks for choosing LetsGoo, please register yourself and agree to the terms and conditions.</string>
 	<string name="lblTravekPlanInformation">Plan your travel from start location to desired end location</string>
-	    
+	<string name="ErrorMandatoryMsg">Please fill mandatory fields</string>    
 </resources>

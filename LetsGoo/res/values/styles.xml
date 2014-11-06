@@ -43,6 +43,7 @@
         <item name="android:typeface">sans</item>
         <item name="android:textColor">#000000</item>
         <item name="android:gravity">center_horizontal</item>
+        
     </style>
 
     <style name="TextViewErrorStyle" parent="@android:style/TextAppearance">
@@ -57,6 +58,7 @@
         <item name="android:textColor">#54823B</item>
         <item name="android:gravity">center</item>
         <item name="android:ellipsize">start</item>
+        <item name="android:textColorHint">#949694</item>
         <item name="android:background">@drawable/edit_boxstyle</item>
     </style>
 
@@ -79,6 +81,7 @@
         <item name="android:textSize">14sp</item>
         <item name="android:gravity">center</item>
         <item name="android:ellipsize">start</item>
+        <item name="android:textColor">#54823B</item>
         <item name="android:background">@drawable/spinner_default</item>
     </style>
 

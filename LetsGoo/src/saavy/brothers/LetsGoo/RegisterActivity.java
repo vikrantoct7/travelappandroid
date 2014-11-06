@@ -30,7 +30,8 @@ import android.text.method.LinkMovementMethod;
 
 
 public class RegisterActivity extends Activity {
-
+	String User_City_hint="[Select city]";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -91,10 +92,12 @@ public class RegisterActivity extends Activity {
 						cityAdapeterData.add(row.getString("CITY"));
 					}
 					
-					ArrayAdapter<String> adapterCity = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,cityAdapeterData);
+					HintAdapter adapterCity = new HintAdapter(this, android.R.layout.simple_spinner_item,cityAdapeterData);
 					adapterCity.setDropDownViewResource(R.layout.activity_settings_spinner_item);
+					adapterCity.add(User_City_hint);
 					final Spinner ddCity=(Spinner)findViewById(R.id.ddCity);
 					ddCity.setAdapter(adapterCity);
+					ddCity.setSelection(adapterCity.getCount());
 				}
 			}
 		}
@@ -149,6 +152,13 @@ public class RegisterActivity extends Activity {
 				validationResult= validationResult && validator.validate(txtPhNo);
 				validationResult= validationResult && validator.validate(txtAge);
 				
+				if(ddcity.getSelectedItem()==User_City_hint)
+				{
+					View v= ddcity.getSelectedView();
+					TextView temp= (TextView)v.findViewById(android.R.id.text1);
+					temp.setError("Please select city...");
+					validationResult=false;
+				}
 				if(txtAge.getText().length()> 0)
 				{
 					int age = Integer.parseInt(txtAge.getText().toString());
@@ -226,6 +236,7 @@ public class RegisterActivity extends Activity {
 								userDto.setGender(jsonData.getInt("GENDER"));
 								userDto.setAge(jsonData.getInt("AGE"));
 								userDto.setContactNo(jsonData.getString("UCONTACTNO"));
+								userDto.setUserCity(jsonData.getString("USERCITY"));
 								userDto.setAppLoginUser(true);
 								LaunchActivity.repository.addUserDTO(userDto);
 								Intent intent = new Intent(view.getContext(),TravelListActivity.class);
@@ -254,6 +265,10 @@ public class RegisterActivity extends Activity {
 					{
 						setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 					}
+				}
+				else
+				{
+					setErrorLabelVisibility(View.VISIBLE,R.string.ErrorMandatoryMsg);
 				}
 			}
 	};

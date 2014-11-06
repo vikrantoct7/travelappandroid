@@ -63,6 +63,7 @@ public final class ActivityHelper {
 					userDto.setGender(jsonData.getInt("GENDER"));
 					userDto.setAge(jsonData.getInt("AGE"));
 					userDto.setContactNo(jsonData.getString("UCONTACTNO"));
+					userDto.setUserCity(jsonData.getString("USERCITY"));
 					userDto.setAppLoginUser(true);
 					LaunchActivity.repository.addUserDTO(userDto);
 				}
