@@ -16,6 +16,7 @@ public class UserDTO implements Serializable
 	private int age;
 	private int travelId;
 	private int cityId; 
+	private String userCity; 
 	private boolean isAppLoginUser;
 	
 	public String getFirstName()
@@ -43,6 +44,15 @@ public class UserDTO implements Serializable
 	
 	public void setCityId(int cityId) {
         this.cityId = cityId;
+    }
+	
+	public String getUserCity()
+	{
+		return this.userCity;
+	}
+	
+	public void setUserCity(String city) {
+        this.userCity = city;
     }
 	
 	public String getContactNo()
