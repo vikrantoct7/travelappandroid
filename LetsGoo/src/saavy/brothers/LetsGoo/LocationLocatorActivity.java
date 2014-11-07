@@ -28,6 +28,7 @@ import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.SimpleAdapter;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 
@@ -60,11 +61,11 @@ public class LocationLocatorActivity extends Activity {
 				HashMap<String, String> hm = (HashMap<String, String>) adapter.getItem(position);
 				if(hm !=null)
 				{
-					TextView lblSelectedLoc =(TextView)findViewById(R.id.lblSelectedSubLocality);
-					lblSelectedLoc.setText(hm.get("sublocality"));
+					TextView subLocalitySelected =(TextView)findViewById(R.id.subLocalitySelected);
+					subLocalitySelected.setText(hm.get("sublocality"));
 					
-					TextView lblSelectedLocality =(TextView)findViewById(R.id.lblSelectedLocality);
-					lblSelectedLocality.setText(hm.get("locality"));
+					TextView localitySelected =(TextView)findViewById(R.id.localitySelected);
+					localitySelected.setText(hm.get("locality"));
 				}
 			}
 	    });
@@ -216,11 +217,11 @@ public class LocationLocatorActivity extends Activity {
 						HashMap<String, String> hm = (HashMap<String, String>) adapter.getItem(position);
 						if(hm !=null)
 						{
-							TextView lblSelectedLoc =(TextView)findViewById(R.id.lblSelectedSubLocality);
-							lblSelectedLoc.setText(hm.get("sublocality"));
+							TextView subLocalitySelected =(TextView)findViewById(R.id.subLocalitySelected);
+							subLocalitySelected.setText(hm.get("sublocality"));
 							
-							TextView lblSelectedLocality =(TextView)findViewById(R.id.lblSelectedLocality);
-							lblSelectedLocality.setText(hm.get("locality"));
+							TextView localitySelected =(TextView)findViewById(R.id.localitySelected);
+							localitySelected.setText(hm.get("locality"));
 						}
 					}
 			    });
@@ -241,15 +242,15 @@ public class LocationLocatorActivity extends Activity {
 		
 		@Override
 		public void onClick(View v) {
-			TextView lblSelectedLoc =(TextView)findViewById(R.id.lblSelectedSubLocality);
-			TextView lblSelectedLocality =(TextView)findViewById(R.id.lblSelectedLocality);
-			if(lblSelectedLoc.getText().length()>0)
+			TextView subLocalitySelected =(TextView)findViewById(R.id.subLocalitySelected);
+			TextView localitySelected =(TextView)findViewById(R.id.localitySelected);
+			if(subLocalitySelected.getText().length()>0)
 			{
 				try
             	{
 	            	JSONObject reqParameters= new JSONObject();
-	    			reqParameters.put("LOCALITYNAME", lblSelectedLoc.getText());
-	    			reqParameters.put("CITYNAME", lblSelectedLocality.getText());
+	    			reqParameters.put("LOCALITYNAME", subLocalitySelected.getText());
+	    			reqParameters.put("CITYNAME", localitySelected.getText());
 	    			JsonHandler jsonHandler =JsonHandler.getInstance();
 	    			String url=jsonHandler.getFullUrl("LocalityDataAdapter.php");
 	    			JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters,v.getContext());
@@ -262,14 +263,14 @@ public class LocationLocatorActivity extends Activity {
 		    				
 		    				if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.ALREADYEXISTS))
 		    				{
-		    					goToTravelPlanActivity(v, lblSelectedLoc.getText(),
-										lblSelectedLocality.getText());
+		    					goToTravelPlanActivity(v, subLocalitySelected.getText(),
+										localitySelected.getText());
 		    				}
 		    			}
 		    			else
 		    			{
-		    				goToTravelPlanActivity(v, lblSelectedLoc.getText(),
-									lblSelectedLocality.getText());
+		    				goToTravelPlanActivity(v, subLocalitySelected.getText(),
+									localitySelected.getText());
 		    			}
 	    			}
 	            }
@@ -290,25 +291,30 @@ public class LocationLocatorActivity extends Activity {
 
 	};
 	
-	private void goToTravelPlanActivity(View v, CharSequence lblSelectedLoc,
-			CharSequence lblSelectedLocality) {
+	private void goToTravelPlanActivity(View v, CharSequence subLocalitySelected,
+			CharSequence localitySelected) {
 		//final TextView lblLocPosition =(TextView) findViewById(R.id.lblLocPosition);
 		//final TextView lblPersistPosition =(TextView) findViewById(R.id.lblPersistPosition);
 	
 		Intent intent = new Intent(v.getContext(),TravelPlanActivity.class);
-		intent.putExtra("SELLOCALITY", lblSelectedLoc);
-		intent.putExtra("SELCITY", lblSelectedLocality);
+		intent.putExtra("SELLOCALITY", subLocalitySelected);
+		intent.putExtra("SELCITY", localitySelected);
 		//intent.putExtra("LOCPOSITION", lblLocPosition.getText());
 		//intent.putExtra("PERSISTPOSITION", lblPersistPosition.getText());
 		startActivity(intent);
 	}
+	
 	private void setErrorLabelVisibility(int visibility,int errorResId)
 	{
-		TextView lblError =(TextView)findViewById(R.id.lblLocErrorMsg);
-		if(lblError != null)
+		TableRow tableRow2 =(TableRow)findViewById(R.id.ErrorRowOnLocatorPage);
+		if(tableRow2 !=null)
 		{
-			lblError.setVisibility(visibility);
-			lblError.setText(errorResId);
+			TextView lblError =(TextView)findViewById(R.id.lblLocErrorMsgOnLocatorPage);
+			if(lblError != null)
+			{
+				tableRow2.setVisibility(visibility);
+				lblError.setText(errorResId);
+			}
 		}
 	}
 }

@@ -1,114 +1,113 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/ActivtyStyle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-     style="@style/ActivtyStyle"
     tools:context=".LocationLocatorActivity" >
+
     <TableLayout
-        android:id="@+id/tblUserLogin"
+        android:id="@+id/tblLocationLocator"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/lblLocErrorMsg"
-        android:paddingTop="10dp"
-       	android:paddingBottom="10dp"
-        android:orientation="horizontal" >
+        android:layout_centerHorizontal="true" >
+
         <TableRow
             android:id="@+id/tableRow1"
-            android:paddingBottom="5dp"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            >
-	    	<saavy.brothers.LetsGoo.CustomAutoCompleteTextView
-		        android:id="@+id/atv_places"
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"     
-		        android:layout_weight="1"   
-		        android:textColor="#000000"
-		        android:textSize="14sp"
-		        android:hint="@string/hintMinimumlengthForLocation"
-				 />
-		</TableRow>  
-		<TableRow
-            android:id="@+id/tableRow2"
-            android:paddingBottom="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-		    <TextView
-		        android:id="@+id/lblSubLocality"
-		        android:layout_width="0dp"
-		        android:layout_height="wrap_content"
-		        android:layout_weight=".35"
-		        android:paddingTop="10dp"
-		        android:text="@string/lblSubLocality"
-		        android:textColor="#000000" />
-    
-		    <TextView
-		        android:id="@+id/lblSelectedSubLocality"
-		        android:layout_width="0dp"
-		        android:layout_height="wrap_content"
-		        android:layout_weight=".65"
-		        android:textColor="#000000" />
-    	</TableRow>
-    	<TableRow
-            android:id="@+id/tableRow3"
-            android:paddingBottom="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-		    <TextView
-		        android:id="@+id/lblLocality"
-		        android:layout_width="0dp"
-		        android:layout_height="wrap_content"
-		        android:layout_weight=".35"
-		        android:paddingTop="10dp"
-		        android:text="@string/lblLocality"
-		        android:textColor="#000000" />
-    
-		    <TextView
-		        android:id="@+id/lblSelectedLocality"
-		        android:layout_width="0dp"
-		        android:layout_height="wrap_content"
-		        android:layout_weight=".65"
-		        android:textColor="#000000" />
-    	</TableRow>
-    	<TableRow
-	            android:id="@+id/tableRow4"
-	            android:paddingBottom="5dp"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content" >
-				<TextView
-				    android:id="@+id/dumy1"
-				    android:layout_width="0dp"
-				    android:layout_height="fill_parent"
-				    android:layout_weight=".5" />
-        		<Button
-        		    android:id="@+id/btnLocationOK"
-        		    android:layout_width="wrap_content"
-        		    android:layout_height="40dp"
-        		    android:layout_weight=".5"
-        		    android:text="@string/lblOK"
-        		    android:textColor="#000000"
-        		    android:background="#938953"
-        		    android:visibility="visible" />
-				<TextView
-				    android:id="@+id/dumy2"
-				    android:layout_width="0dp"
-				    android:layout_height="fill_parent"
-				    android:layout_weight=".5" />
-        	</TableRow>
-    </TableLayout>
+            android:paddingBottom="5dp" >
 
-    <TextView
-        android:id="@+id/lblLocErrorMsg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:text="@string/lblError"
-        android:textColor="#FF0000"
-        android:visibility="visible" />
+            <TextView
+                android:id="@+id/lblLocationInformation"
+                style="@style/TextViewInformationStyle"
+                android:layout_weight="1"
+                android:text="@string/lblLocationInformation" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/ErrorRowOnLocatorPage"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:visibility="invisible" >
+
+            <TextView
+                android:id="@+id/lblLocErrorMsgOnLocatorPage"
+                style="@style/TextViewErrorStyle"
+                android:layout_weight="1"
+                android:text="@string/lblError"
+                android:textColor="#FF0000" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:paddingBottom="5dp" >
+
+            <saavy.brothers.LetsGoo.CustomAutoCompleteTextView
+                android:id="@+id/atv_places"
+                style="@style/EditTextStyle"
+                android:layout_weight="1"
+                android:hint="@string/hintMinimumlengthForLocation"
+                android:paddingLeft="5sp"
+                android:textSize="12sp" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:paddingTop="15dp" >
+
+            <TextView
+                android:id="@+id/lblSubLocality"
+                style="@style/TextViewInformationStyle"
+                android:layout_width="0dp"
+                android:layout_weight=".30"
+                android:gravity="left"
+                android:text="@string/lblSubLocality" />
+
+            <TextView
+                android:id="@+id/subLocalitySelected"
+                style="@style/TextViewInformationStyle"
+                android:layout_width="0dp"
+                android:layout_weight=".70"
+                android:gravity="left" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:paddingTop="15dp" >
+
+            <TextView
+                android:id="@+id/lblLocality"
+                style="@style/TextViewInformationStyle"
+                android:layout_width="0dp"
+                android:layout_weight=".30"
+                android:gravity="left"
+                android:text="@string/lblLocality" />
+
+            <TextView
+                android:id="@+id/localitySelected"
+                style="@style/TextViewInformationStyle"
+                android:layout_width="0dp"
+                android:layout_weight=".70"
+                android:gravity="left"/>
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow5"
+            android:paddingLeft="85dp"
+            android:paddingRight="85dp"
+            android:paddingTop="15dp" >
+
+            <Button
+                android:id="@+id/btnLocationOK"
+                style="@style/btnDefaultStyle"
+                android:layout_weight="1"
+                android:text="@string/lblOK"
+                android:visibility="visible" />
+        </TableRow>
+    </TableLayout>
 
 </RelativeLayout>
