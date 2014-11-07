@@ -79,4 +79,5 @@
 	<string name="lblRegisterInformation">Thanks for choosing LetsGoo, please register yourself and agree to the terms and conditions.</string>
 	<string name="lblTravekPlanInformation">Plan your travel from start location to desired end location</string>
 	<string name="ErrorMandatoryMsg">Please fill mandatory fields</string>    
+	<string name="lblLocationInformation">Find your location. If it found then it will be filled in sub locality and locality(city) labels.</string>
 </resources>
