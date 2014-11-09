@@ -1,8 +1,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/ActivtyStyle"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-     style="@style/ActivtyStyle" >
+    android:layout_height="match_parent" >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,13 +15,11 @@
 
         <TableLayout
             android:id="@+id/tblTravelPlan"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent" 
             android:layout_centerHorizontal="true" >
 
-            <TableRow
-                android:id="@+id/tableRow1"
-                android:paddingBottom="5dp" >
+            <TableRow android:id="@+id/tableRow1" >
 
                 <TextView
                     android:id="@+id/lblTravekPlanInformation"
@@ -32,8 +30,7 @@
 
             <TableRow
                 android:id="@+id/ErrorRowOnTravelPlanPage"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
+                android:paddingTop="5dp"
                 android:visibility="invisible" >
 
                 <TextView
@@ -45,9 +42,7 @@
             </TableRow>
 
             <TableRow
-                android:id="@+id/tableRow2"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp" >
+                android:id="@+id/tableRow2" >
 
                 <!--
                       <TextView
@@ -57,7 +52,8 @@
                     android:layout_weight=".25"
                     android:paddingTop="10dp"
                     android:text="@string/lblCurrentLoc"
-                    android:textColor="#000000" />    -->
+                    android:textColor="#000000" />
+                -->
 
                 <Spinner
                     android:id="@+id/ddCurrentLoc"
@@ -74,20 +70,17 @@
 
             <TableRow
                 android:id="@+id/tableRow3"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="15dp" >
+                android:paddingRight="25dp"
+                android:paddingTop="10dp" >
 
-                <!--
-                     <TextView
+                <!--<TextView
                     android:id="@+id/lblStartLoc"
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:layout_weight=".25"
                     android:paddingTop="10dp"
                     android:text="@string/lblStartLoc"
-                    android:textColor="#000000" />
-                -->
+                    android:textColor="#000000" />-->
 
                 <EditText
                     android:id="@+id/txtStartLoc"
@@ -102,26 +95,22 @@
 
             <TableRow
                 android:id="@+id/tableRow4"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="15dp" >
+                android:paddingTop="10dp" >
 
-                <!--
-                     <TextView
+                <!--<TextView
                     android:id="@+id/lblEndLoc"
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:layout_weight=".25"
                     android:paddingTop="10dp"
                     android:text="@string/lblEndLoc"
-                    android:textColor="#000000" />
-                -->
+                    android:textColor="#000000" />-->
 
                 <Spinner
                     android:id="@+id/ddEndLocation"
                     android:layout_weight="1"
                     android:prompt="@string/ddSelLocation"
-                    android:spinnerMode="dropdown"/>
+                    android:spinnerMode="dropdown" />
 
                 <Button
                     android:id="@+id/btnPlusEndLoc"
@@ -132,18 +121,19 @@
 
             <TableRow
                 android:id="@+id/tableRow5"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="15dp" >
+                android:paddingRight="25dp"
+                android:paddingTop="10dp" >
 
-               <!--  <TextView
+                <!--
+                     <TextView
                     android:id="@+id/lblTravelMode"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight=".25"
                     android:paddingTop="10dp"
                     android:text="@string/lblTravelMode"
-                    android:textColor="#000000" /> -->
+                    android:textColor="#000000" />
+                -->
 
                 <Spinner
                     android:id="@+id/ddTravelType"
@@ -154,47 +144,49 @@
 
             <TableRow
                 android:id="@+id/tableRow6"
-                 android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="15dp" >
+                android:paddingRight="25dp"
+                android:paddingTop="10dp" >
 
-                <!-- <TextView
+                <!--
+                     <TextView
                     android:id="@+id/lblTravelTime"
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:layout_weight=".25"
                     android:paddingTop="10dp"
                     android:text="@string/lblTravelTime"
-                    android:textColor="#000000" /> -->
+                    android:textColor="#000000" />
+                -->
 
                 <Spinner
                     android:id="@+id/ddStartTime"
                     android:layout_weight="1"
                     android:prompt="@string/SelStartTime"
-                    android:spinnerMode="dropdown"/>
+                    android:spinnerMode="dropdown" />
             </TableRow>
 
             <TableRow
                 android:id="@+id/tableRow7"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="15dp" >
+                android:paddingRight="25dp"
+                android:paddingTop="10dp" >
 
-               <!--  <TextView
+                <!--
+                     <TextView
                     android:id="@+id/lblNoOfPassenger"
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:layout_weight=".25"
                     android:paddingTop="10dp"
                     android:text="@string/lblNoOfPassenger"
-                    android:textColor="#000000" /> -->
+                    android:textColor="#000000" />
+                -->
 
                 <EditText
                     android:id="@+id/txtNoOfPass"
                     style="@style/EditTextStyle"
                     android:layout_weight="1"
                     android:hint="@string/lblNoOfPassenger"
-                    android:inputType="number"/>
+                    android:inputType="number" />
             </TableRow>
 
             <TableRow
@@ -208,8 +200,6 @@
                     style="@style/btnDefaultStyle"
                     android:layout_weight="1"
                     android:text="@string/btnTravelSubmit" />
-
-
             </TableRow>
         </TableLayout>
     </RelativeLayout>
