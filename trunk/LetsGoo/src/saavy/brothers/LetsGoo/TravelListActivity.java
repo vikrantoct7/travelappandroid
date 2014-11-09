@@ -18,6 +18,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -43,7 +44,6 @@ public class TravelListActivity extends Activity {
 		
 		final Button btnRefresh = (Button)findViewById(R.id.btnRefresh);
 		btnRefresh.setOnClickListener(onClickRefresh);
-
 	}
 	
 	@Override
@@ -118,17 +118,17 @@ public class TravelListActivity extends Activity {
 			TableLayout tblParentTravelDetails = (TableLayout) findViewById(R.id.tblParentTravelDetails);
 			tblParentTravelDetails.removeAllViews();
 			
-	
+				
 			@SuppressWarnings("deprecation")
-			TableLayout.LayoutParams tblparams = new TableLayout.LayoutParams(TableLayout.LayoutParams.FILL_PARENT,TableLayout.LayoutParams.WRAP_CONTENT);
-			@SuppressWarnings("deprecation")
-			TableRow.LayoutParams rowparams = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT,TableRow.LayoutParams.WRAP_CONTENT);
-			@SuppressWarnings("deprecation")
-			TableRow.LayoutParams viewParams = new TableRow.LayoutParams(0,TableRow.LayoutParams.FILL_PARENT,1);
-			@SuppressWarnings("deprecation")
-			TableRow.LayoutParams lblNoOfPassengerParams = new TableRow.LayoutParams(0,TableRow.LayoutParams.FILL_PARENT,(float)0.5);
-			@SuppressWarnings("deprecation")
-			TableRow.LayoutParams displayNoOfPassengerParams = new TableRow.LayoutParams(0,TableRow.LayoutParams.FILL_PARENT,(float)0.25);
+			TableLayout.LayoutParams tblparams = new TableLayout.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,TableRow.LayoutParams.FILL_PARENT,1);
+			//@SuppressWarnings("deprecation")
+			//TableRow.LayoutParams rowparams = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT,TableRow.LayoutParams.WRAP_CONTENT);
+			//@SuppressWarnings("deprecation")
+			//TableRow.LayoutParams viewParams = new TableRow.LayoutParams(0,TableRow.LayoutParams.FILL_PARENT,1);
+			//@SuppressWarnings("deprecation")
+			//TableRow.LayoutParams lblNoOfPassengerParams = new TableRow.LayoutParams(0,TableRow.LayoutParams.FILL_PARENT,(float)0.5);
+			//@SuppressWarnings("deprecation")
+			//TableRow.LayoutParams displayNoOfPassengerParams = new TableRow.LayoutParams(0,TableRow.LayoutParams.FILL_PARENT,(float)0.25);
 			
 			int btnTextColor = Color.parseColor("#000000");
 			int btnBackColor = Color.parseColor("#938953");
@@ -152,24 +152,20 @@ public class TravelListActivity extends Activity {
 		
 				
 				TableLayout tblTravelDetails = new TableLayout(this);
-				tblTravelDetails.setBackgroundColor(Color.WHITE);
 				tblTravelDetails.setLayoutParams(tblparams);
-				tblTravelDetails.setPadding(2, 0, 2, 0);
-				tblTravelDetails.setBackgroundResource(R.drawable.cell_shape_new);
-				tblTravelDetails.setOrientation(LinearLayout.HORIZONTAL);
 				
 				TableRow tblrow1= new TableRow(this);
-				tblrow1.setLayoutParams(rowparams);
-				tblrow1.setPadding(0, 3, 0, 0);
+				//tblrow1.setLayoutParams(rowparams);
+				//tblrow1.setPadding(0, 3, 0, 0);
 				TextView lblUserDetails =new TextView(this);
 
-				lblUserDetails.setLayoutParams(viewParams);
+				//lblUserDetails.setLayoutParams(viewParams);
 				lblUserDetails.setText(R.string.lblUserDetails);
 				
 				TextView displayUserDetails =new TextView(this);
 				displayUserDetails.setTextSize(textSize);
 				displayUserDetails.setTextColor(btnTextColor);
-				displayUserDetails.setLayoutParams(viewParams);
+				//displayUserDetails.setLayoutParams(viewParams);
 				
 				String age = Integer.toString(userDto.getAge());
 				String userDetail = userDto.getUserFullName() + " "  + age + " " +userDto.getGenderStringValue();
@@ -179,48 +175,48 @@ public class TravelListActivity extends Activity {
 				
 				TableRow tblrow2= new TableRow(this);
 				
-				tblrow2.setLayoutParams(rowparams);
-				tblrow2.setPadding(0, 3, 0, 0);
+				//tblrow2.setLayoutParams(rowparams);
+				//tblrow2.setPadding(0, 3, 0, 0);
 				TextView lblTravelDetails =new TextView(this);
 				lblTravelDetails.setTextSize(textSize);
-				lblTravelDetails.setLayoutParams(viewParams);
+				//lblTravelDetails.setLayoutParams(viewParams);
 				lblTravelDetails.setText(R.string.lblTravelDetails);
 				
 				TextView displayTravelDetails =new TextView(this);
 				displayTravelDetails.setTextSize(textSize);
 				displayTravelDetails.setTextColor(btnTextColor);
-				displayTravelDetails.setLayoutParams(viewParams);
+				//displayTravelDetails.setLayoutParams(viewParams);
 				displayTravelDetails.setText(datarow.getString("CURRLOCATION") + "("+datarow.getString("STARTLOCATION")+") To " +datarow.getString("ENDLOCATION"));
 				tblrow2.addView(lblTravelDetails);
 				tblrow2.addView(displayTravelDetails);
 				
 				TableRow tblrow3= new TableRow(this);
-				tblrow3.setLayoutParams(rowparams);
-				tblrow3.setPadding(0, 3, 0, 0);
+				//tblrow3.setLayoutParams(rowparams);
+				//tblrow3.setPadding(0, 3, 0, 0);
 				TextView lblStartTime =new TextView(this);
-				lblStartTime.setLayoutParams(viewParams);
+				//lblStartTime.setLayoutParams(viewParams);
 				lblStartTime.setText(R.string.lblTravelerTimeMode);
 				
 				TextView displayStartTime =new TextView(this);
 				displayStartTime.setTextSize(textSize);
 				displayStartTime.setTextColor(btnTextColor);
-				displayStartTime.setLayoutParams(viewParams);
+				//displayStartTime.setLayoutParams(viewParams);
 				displayStartTime.setText(datarow.getString("TRAVELTIME") + "/"+ datarow.getString("TRAVELMODE"));
 				tblrow3.addView(lblStartTime);
 				tblrow3.addView(displayStartTime);
 								
 				TableRow tblrow4= new TableRow(this);
-				tblrow4.setLayoutParams(rowparams);
-				tblrow4.setPadding(0, 3, 0, 0);
+				//tblrow4.setLayoutParams(rowparams);
+				//tblrow4.setPadding(0, 3, 0, 0);
 				
 				TextView lblNoOfPassenger =new TextView(this);
 				lblNoOfPassenger.setTextSize(textSize);
-				lblNoOfPassenger.setLayoutParams(lblNoOfPassengerParams);
+				//lblNoOfPassenger.setLayoutParams(lblNoOfPassengerParams);
 				lblNoOfPassenger.setText(R.string.lblNoOfPassenger);
 				
 				TextView displayNoOfPassenger =new TextView(this);
 				displayNoOfPassenger.setTextSize(textSize);
-				displayNoOfPassenger.setLayoutParams(displayNoOfPassengerParams);
+				//displayNoOfPassenger.setLayoutParams(displayNoOfPassengerParams);
 				displayNoOfPassenger.setText(datarow.getString("NOOFPASSENGER"));
 				tblrow4.addView(lblNoOfPassenger);
 				tblrow4.addView(displayNoOfPassenger);
@@ -300,9 +296,11 @@ public class TravelListActivity extends Activity {
 				tblTravelDetails.addView(tblrow3);
 				tblTravelDetails.addView(tblrow4);
 				tblParentTravelDetails.addView(tblTravelDetails,i);
+				
+				
 			}
 		}
-		catch(JSONException ex)
+		catch(Exception ex)
 		{
 			setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 		}
@@ -509,11 +507,15 @@ public class TravelListActivity extends Activity {
 	
 	private void setErrorLabelVisibility(int visibility,int errorResId)
 	{
-		TextView lblError =(TextView)findViewById(R.id.lblTravelErrorMsg);
-		if(lblError != null)
+		TableRow tableRow2 =(TableRow)findViewById(R.id.ErrorRowOnTravelListPage);
+		if(tableRow2 !=null)
 		{
-			lblError.setVisibility(visibility);
-			lblError.setText(errorResId);
+			TextView lblError =(TextView)findViewById(R.id.lblLocErrorMsgOnTravelListPage);
+			if(lblError != null)
+			{
+				tableRow2.setVisibility(visibility);
+				lblError.setText(errorResId);
+			}
 		}
 	}
 	

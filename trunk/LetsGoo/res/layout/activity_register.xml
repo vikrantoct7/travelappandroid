@@ -15,13 +15,12 @@
 
         <TableLayout
             android:id="@+id/tblUserRegister"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent" 
             android:layout_centerHorizontal="true" >
 
             <TableRow
-                android:id="@+id/tableRow1"
-                android:paddingBottom="5dp" >
+                android:id="@+id/tableRow1" >
 
                 <TextView
                     android:id="@+id/lblLoginInformation"
@@ -32,8 +31,9 @@
 
             <TableRow
                 android:id="@+id/ErrorRowOnRegisterPage"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
                 android:visibility="invisible" >
 
                 <TextView
@@ -46,8 +46,9 @@
 
             <TableRow
                 android:id="@+id/tableRow2"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp" >
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp" >
 
                 <EditText
                     android:id="@+id/txtFName"
@@ -62,8 +63,8 @@
 
             <TableRow
                 android:id="@+id/tableRow3"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:paddingTop="15dp" >
 
                 <EditText
@@ -76,8 +77,8 @@
 
             <TableRow
                 android:id="@+id/tableRow4"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:paddingTop="15dp" >
 
                 <Spinner
@@ -89,8 +90,8 @@
 
             <TableRow
                 android:id="@+id/tableRow5"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:paddingTop="15dp" >
 
                 <EditText
@@ -103,8 +104,8 @@
 
             <TableRow
                 android:id="@+id/tableRow6"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:paddingTop="10dp" >
 
                 <RadioGroup
@@ -129,8 +130,8 @@
 
             <TableRow
                 android:id="@+id/tableRow7"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:paddingTop="10dp" >
 
                 <EditText
@@ -143,8 +144,8 @@
 
             <TableRow
                 android:id="@+id/tableRow8"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:paddingTop="10dp" >
 
                 <TextView

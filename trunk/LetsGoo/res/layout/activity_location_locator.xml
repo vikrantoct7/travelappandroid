@@ -11,13 +11,11 @@
 
     <TableLayout
         android:id="@+id/tblLocationLocator"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent" 
         android:layout_centerHorizontal="true" >
 
-        <TableRow
-            android:id="@+id/tableRow1"
-            android:paddingBottom="5dp" >
+        <TableRow android:id="@+id/tableRow1" >
 
             <TextView
                 android:id="@+id/lblLocationInformation"
@@ -28,8 +26,9 @@
 
         <TableRow
             android:id="@+id/ErrorRowOnLocatorPage"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
             android:visibility="invisible" >
 
             <TextView
@@ -42,7 +41,9 @@
 
         <TableRow
             android:id="@+id/tableRow2"
-            android:paddingBottom="5dp" >
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp" >
 
             <saavy.brothers.LetsGoo.CustomAutoCompleteTextView
                 android:id="@+id/atv_places"
@@ -55,7 +56,9 @@
 
         <TableRow
             android:id="@+id/tableRow3"
-            android:paddingTop="15dp" >
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp" >
 
             <TextView
                 android:id="@+id/lblSubLocality"
@@ -63,7 +66,8 @@
                 android:layout_width="0dp"
                 android:layout_weight=".30"
                 android:gravity="left"
-                android:text="@string/lblSubLocality" />
+                android:text="@string/lblSubLocality"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/subLocalitySelected"
@@ -71,12 +75,13 @@
                 android:layout_width="0dp"
                 android:layout_weight=".70"
                 android:gravity="left" />
-
         </TableRow>
 
         <TableRow
             android:id="@+id/tableRow4"
-            android:paddingTop="15dp" >
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp" >
 
             <TextView
                 android:id="@+id/lblLocality"
@@ -84,22 +89,22 @@
                 android:layout_width="0dp"
                 android:layout_weight=".30"
                 android:gravity="left"
-                android:text="@string/lblLocality" />
+                android:text="@string/lblLocality"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/localitySelected"
                 style="@style/TextViewInformationStyle"
                 android:layout_width="0dp"
                 android:layout_weight=".70"
-                android:gravity="left"/>
-
+                android:gravity="left" />
         </TableRow>
 
         <TableRow
             android:id="@+id/tableRow5"
             android:paddingLeft="85dp"
             android:paddingRight="85dp"
-            android:paddingTop="15dp" >
+            android:paddingTop="10dp" >
 
             <Button
                 android:id="@+id/btnLocationOK"

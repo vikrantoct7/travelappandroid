@@ -61,8 +61,8 @@
     <string name="lblErrorForTotalNoOfPersonGTTen">Total No of person can not be greater than 10.</string>
     <string name="title_activity_location_locator">Location Locator</string>
     <string name="str_atv_places">Enter Place Here</string>
-    <string name="lblSubLocality">Sub Locality</string>
-    <string name="lblLocality">Locality</string>
+    <string name="lblSubLocality">Sub Locality :</string>
+    <string name="lblLocality">Locality\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0:</string>
     <string name="lblOK">OK</string>
     <string name="lblErrorLocalityExist">This locality is already exist.</string>
     <string name="InternetConnectiivityErrorMsg">Internent connection is not avaiable.\nPlease try later.</string>
@@ -77,7 +77,8 @@
     <string name="title_activity_lets_goo_title_bar">LetsGooTitleBar</string>
 	<string name="lbllogocopyright">\u00A9 SAAVY</string>
 	<string name="lblRegisterInformation">Thanks for choosing LetsGoo, please register yourself and agree to the terms and conditions.</string>
-	<string name="lblTravekPlanInformation">Plan your travel from start location to desired end location</string>
+	<string name="lblTravekPlanInformation">Enter your travel route in which you would like go.\nAll fields are mandatory.</string>
 	<string name="ErrorMandatoryMsg">Please fill mandatory fields</string>    
 	<string name="lblLocationInformation">Find your location. If it found then it will be filled in sub locality and locality(city) labels.</string>
+	<string name="lblTravelListInformation">Thanks for partnering with us in saving money, making friends and keeping earth green.</string>
 </resources>
