@@ -20,6 +20,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -130,10 +131,11 @@ public class TravelListActivity extends Activity {
 			//@SuppressWarnings("deprecation")
 			//TableRow.LayoutParams displayNoOfPassengerParams = new TableRow.LayoutParams(0,TableRow.LayoutParams.FILL_PARENT,(float)0.25);
 			
+			int textColor = Color.parseColor("#568536");
 			int btnTextColor = Color.parseColor("#000000");
 			int btnBackColor = Color.parseColor("#938953");
 			int isTravelAlreadyconfirmedByCurrentUser=0;
-			int textSize=12;
+			int textSize=14;
 
 			for (int i=0;i<jsonData.length();i++ ) 
 			{
@@ -155,71 +157,74 @@ public class TravelListActivity extends Activity {
 				tblTravelDetails.setLayoutParams(tblparams);
 				
 				TableRow tblrow1= new TableRow(this);
+				tblrow1.setPadding(5, 5, 0, 0);
 				//tblrow1.setLayoutParams(rowparams);
 				//tblrow1.setPadding(0, 3, 0, 0);
-				TextView lblUserDetails =new TextView(this);
+				//TextView lblUserDetails =new TextView(this);
 
 				//lblUserDetails.setLayoutParams(viewParams);
-				lblUserDetails.setText(R.string.lblUserDetails);
+				//lblUserDetails.setText(R.string.lblUserDetails);
 				
 				TextView displayUserDetails =new TextView(this);
+				displayUserDetails.setTypeface(Typeface.DEFAULT_BOLD);
 				displayUserDetails.setTextSize(textSize);
-				displayUserDetails.setTextColor(btnTextColor);
+				displayUserDetails.setTextColor(textColor);
 				//displayUserDetails.setLayoutParams(viewParams);
 				
 				String age = Integer.toString(userDto.getAge());
-				String userDetail = userDto.getUserFullName() + " "  + age + " " +userDto.getGenderStringValue();
+				String userDetail = userDto.getUserFullName() + " ("  + age + "/" +userDto.getGenderStringValue()+")";
 				displayUserDetails.setText(userDetail);
-				tblrow1.addView(lblUserDetails);
+				//tblrow1.addView(lblUserDetails);
 				tblrow1.addView(displayUserDetails);
 				
 				TableRow tblrow2= new TableRow(this);
-				
+				tblrow2.setPadding(5, 0, 0, 0);
 				//tblrow2.setLayoutParams(rowparams);
 				//tblrow2.setPadding(0, 3, 0, 0);
-				TextView lblTravelDetails =new TextView(this);
-				lblTravelDetails.setTextSize(textSize);
+				//TextView lblTravelDetails =new TextView(this);
+				//lblTravelDetails.setTextSize(textSize);
 				//lblTravelDetails.setLayoutParams(viewParams);
-				lblTravelDetails.setText(R.string.lblTravelDetails);
+				//lblTravelDetails.setText(R.string.lblTravelDetails);
 				
 				TextView displayTravelDetails =new TextView(this);
 				displayTravelDetails.setTextSize(textSize);
-				displayTravelDetails.setTextColor(btnTextColor);
+				displayTravelDetails.setTextColor(textColor);
 				//displayTravelDetails.setLayoutParams(viewParams);
 				displayTravelDetails.setText(datarow.getString("CURRLOCATION") + "("+datarow.getString("STARTLOCATION")+") To " +datarow.getString("ENDLOCATION"));
-				tblrow2.addView(lblTravelDetails);
+				//tblrow2.addView(lblTravelDetails);
 				tblrow2.addView(displayTravelDetails);
 				
 				TableRow tblrow3= new TableRow(this);
+				tblrow3.setPadding(5, 0, 0, 0);
 				//tblrow3.setLayoutParams(rowparams);
 				//tblrow3.setPadding(0, 3, 0, 0);
-				TextView lblStartTime =new TextView(this);
+				//TextView lblStartTime =new TextView(this);
 				//lblStartTime.setLayoutParams(viewParams);
-				lblStartTime.setText(R.string.lblTravelerTimeMode);
+				//lblStartTime.setText(R.string.lblTravelerTimeMode);
 				
 				TextView displayStartTime =new TextView(this);
 				displayStartTime.setTextSize(textSize);
-				displayStartTime.setTextColor(btnTextColor);
+				displayStartTime.setTextColor(textColor);
 				//displayStartTime.setLayoutParams(viewParams);
 				displayStartTime.setText(datarow.getString("TRAVELTIME") + "/"+ datarow.getString("TRAVELMODE"));
-				tblrow3.addView(lblStartTime);
+				//tblrow3.addView(lblStartTime);
 				tblrow3.addView(displayStartTime);
 								
 				TableRow tblrow4= new TableRow(this);
 				//tblrow4.setLayoutParams(rowparams);
 				//tblrow4.setPadding(0, 3, 0, 0);
 				
-				TextView lblNoOfPassenger =new TextView(this);
-				lblNoOfPassenger.setTextSize(textSize);
+				//TextView lblNoOfPassenger =new TextView(this);
+				//lblNoOfPassenger.setTextSize(textSize);
 				//lblNoOfPassenger.setLayoutParams(lblNoOfPassengerParams);
-				lblNoOfPassenger.setText(R.string.lblNoOfPassenger);
+				//lblNoOfPassenger.setText(R.string.lblNoOfPassenger);
 				
-				TextView displayNoOfPassenger =new TextView(this);
-				displayNoOfPassenger.setTextSize(textSize);
+				//TextView displayNoOfPassenger =new TextView(this);
+				//displayNoOfPassenger.setTextSize(textSize);
 				//displayNoOfPassenger.setLayoutParams(displayNoOfPassengerParams);
-				displayNoOfPassenger.setText(datarow.getString("NOOFPASSENGER"));
-				tblrow4.addView(lblNoOfPassenger);
-				tblrow4.addView(displayNoOfPassenger);
+				//displayNoOfPassenger.setText(datarow.getString("NOOFPASSENGER"));
+				//tblrow4.addView(lblNoOfPassenger);
+				//tblrow4.addView(displayNoOfPassenger);
 				
 				Button btnSubmitTravel = new Button(this);
 				btnSubmitTravel.setTextSize(textSize);

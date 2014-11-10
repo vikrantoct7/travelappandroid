@@ -48,7 +48,7 @@
                 android:id="@+id/tableRow2"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:paddingTop="10dp" >
+                android:paddingTop="5dp" >
 
                 <EditText
                     android:id="@+id/txtFName"
@@ -65,7 +65,7 @@
                 android:id="@+id/tableRow3"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:paddingTop="15dp" >
+                android:paddingTop="5dp" >
 
                 <EditText
                     android:id="@+id/txtLName"
@@ -79,7 +79,7 @@
                 android:id="@+id/tableRow4"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:paddingTop="15dp" >
+                android:paddingTop="5dp" >
 
                 <Spinner
                     android:id="@+id/ddCity"
@@ -92,7 +92,7 @@
                 android:id="@+id/tableRow5"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:paddingTop="15dp" >
+                android:paddingTop="5dp" >
 
                 <EditText
                     android:id="@+id/txtAge"
@@ -106,7 +106,7 @@
                 android:id="@+id/tableRow6"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:paddingTop="10dp" >
+                android:paddingTop="5dp" >
 
                 <RadioGroup
                     android:id="@+id/rdoGender"
@@ -132,7 +132,7 @@
                 android:id="@+id/tableRow7"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:paddingTop="10dp" >
+                android:paddingTop="5dp" >
 
                 <EditText
                     android:id="@+id/txtPhNo"
@@ -146,7 +146,7 @@
                 android:id="@+id/tableRow8"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:paddingTop="10dp" >
+                android:paddingTop="5dp" >
 
                 <TextView
                     android:id="@+id/lblCondition"
