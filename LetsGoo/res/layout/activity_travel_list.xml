@@ -56,7 +56,7 @@
 
             <TableRow
                 android:id="@+id/ErrorRowOnTravelListPage"
-                android:paddingTop="10dp"
+                android:paddingTop="5dp"
                 android:visibility="invisible" >
 
                 <TextView
@@ -70,10 +70,11 @@
 
         <TableLayout
             android:id="@+id/tblParentTravelDetails"
-             android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="fill_parent" 
             android:layout_below="@+id/tblStaticTravelDetails"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:background="#E2F0D9" >
         </TableLayout>
     </RelativeLayout>
 

@@ -23,7 +23,7 @@
     <string name="lblGoToLoginBtn">Go back to login screen</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_login_page">Get in</string>
-    <string name="title_activity_home_page">Travel Detail List</string>
+    <string name="title_activity_home_page">Co-TravelersList</string>
     <string name="btnNewTravelPlan">New plan</string>
     <string name="title_activity_travel_plan">Travel Details</string>
     <string name="lblCurrentLoc">Current Location</string>
