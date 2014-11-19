@@ -81,4 +81,5 @@
 	<string name="ErrorMandatoryMsg">Please fill mandatory fields</string>    
 	<string name="lblLocationInformation">Find your location. If it found then it will be filled in sub locality and locality(city) labels.</string>
 	<string name="lblTravelListInformation">Thanks for partnering with us in saving money, making friends and keeping earth green.</string>
+	<string name="lblNoTravellerFoundMsg">Add your travel plan to find match with co-travel patterners.</string>
 </resources>

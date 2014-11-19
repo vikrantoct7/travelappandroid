@@ -201,6 +201,20 @@
                     android:layout_weight="1"
                     android:text="@string/btnTravelSubmit" />
             </TableRow>
+            <TableRow
+            android:id="@+id/tableRow15"
+            android:paddingLeft="100dp"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_launcher"
+                android:gravity="bottom"
+                android:text="@string/lbllogocopyright"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </TableRow>
         </TableLayout>
     </RelativeLayout>
 
