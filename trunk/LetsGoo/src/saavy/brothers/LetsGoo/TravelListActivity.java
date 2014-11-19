@@ -21,12 +21,15 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -79,6 +82,7 @@ public class TravelListActivity extends Activity {
 				{
 					JSONArray jsonData =result.getJSONArray("TRAVELLIST");
 					generateTravelList(jsonData);
+					
 				}
 			}
 		}
@@ -100,6 +104,7 @@ public class TravelListActivity extends Activity {
 		} 
 	}
 
+	@SuppressWarnings("deprecation")
 	@SuppressLint({ "ResourceAsColor", "NewApi" })
 	private void generateTravelList(JSONArray jsonData)
 	{
@@ -122,10 +127,10 @@ public class TravelListActivity extends Activity {
 				
 			@SuppressWarnings("deprecation")
 			TableLayout.LayoutParams tblparams = new TableLayout.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,TableRow.LayoutParams.FILL_PARENT,1);
-			//@SuppressWarnings("deprecation")
-			//TableRow.LayoutParams rowparams = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT,TableRow.LayoutParams.WRAP_CONTENT);
-			//@SuppressWarnings("deprecation")
-			//TableRow.LayoutParams viewParams = new TableRow.LayoutParams(0,TableRow.LayoutParams.FILL_PARENT,1);
+			@SuppressWarnings("deprecation")
+			TableRow.LayoutParams txtViewParams = new TableRow.LayoutParams(0,TableRow.LayoutParams.FILL_PARENT,1);
+			@SuppressWarnings("deprecation")
+			TableRow.LayoutParams paramsFordisplayStartTime = new TableRow.LayoutParams(0,TableRow.LayoutParams.FILL_PARENT,(float)0.75);
 			//@SuppressWarnings("deprecation")
 			//TableRow.LayoutParams lblNoOfPassengerParams = new TableRow.LayoutParams(0,TableRow.LayoutParams.FILL_PARENT,(float)0.5);
 			//@SuppressWarnings("deprecation")
@@ -133,176 +138,200 @@ public class TravelListActivity extends Activity {
 			
 			int textColor = Color.parseColor("#568536");
 			int btnTextColor = Color.parseColor("#000000");
-			int btnBackColor = Color.parseColor("#938953");
+			int btnBackColor = Color.parseColor("#CECECE");
 			int isTravelAlreadyconfirmedByCurrentUser=0;
 			int textSize=14;
-
-			for (int i=0;i<jsonData.length();i++ ) 
+			if(jsonData.length()==0)
 			{
-				JSONObject datarow= jsonData.getJSONObject(i);
-				
-				UserDTO userDto = new UserDTO();
-				int userId = datarow.getInt("USERID");
-				userDto.setUserId(userId);
-				userDto.setFirstName(datarow.getString("UFNAME"));
-				userDto.setLastName(datarow.getString("ULNAME"));
-				userDto.setGender(datarow.getInt("GENDER"));
-				userDto.setAge(datarow.getInt("AGE"));
-				userDto.setContactNo(datarow.getString("UCONTACTNO"));
-				userDto.setTravelId(datarow.getInt("TRAVELID"));
-				userDto.setAppLoginUser(false);
-		
-				
 				TableLayout tblTravelDetails = new TableLayout(this);
 				tblTravelDetails.setLayoutParams(tblparams);
-				
 				TableRow tblrow1= new TableRow(this);
 				tblrow1.setPadding(5, 5, 0, 0);
-				//tblrow1.setLayoutParams(rowparams);
-				//tblrow1.setPadding(0, 3, 0, 0);
-				//TextView lblUserDetails =new TextView(this);
-
-				//lblUserDetails.setLayoutParams(viewParams);
-				//lblUserDetails.setText(R.string.lblUserDetails);
-				
-				TextView displayUserDetails =new TextView(this);
-				displayUserDetails.setTypeface(Typeface.DEFAULT_BOLD);
-				displayUserDetails.setTextSize(textSize);
-				displayUserDetails.setTextColor(textColor);
-				//displayUserDetails.setLayoutParams(viewParams);
-				
-				String age = Integer.toString(userDto.getAge());
-				String userDetail = userDto.getUserFullName() + " ("  + age + "/" +userDto.getGenderStringValue()+")";
-				displayUserDetails.setText(userDetail);
-				//tblrow1.addView(lblUserDetails);
-				tblrow1.addView(displayUserDetails);
-				
-				TableRow tblrow2= new TableRow(this);
-				tblrow2.setPadding(5, 0, 0, 0);
-				//tblrow2.setLayoutParams(rowparams);
-				//tblrow2.setPadding(0, 3, 0, 0);
-				//TextView lblTravelDetails =new TextView(this);
-				//lblTravelDetails.setTextSize(textSize);
-				//lblTravelDetails.setLayoutParams(viewParams);
-				//lblTravelDetails.setText(R.string.lblTravelDetails);
-				
-				TextView displayTravelDetails =new TextView(this);
-				displayTravelDetails.setTextSize(textSize);
-				displayTravelDetails.setTextColor(textColor);
-				//displayTravelDetails.setLayoutParams(viewParams);
-				displayTravelDetails.setText(datarow.getString("CURRLOCATION") + "("+datarow.getString("STARTLOCATION")+") To " +datarow.getString("ENDLOCATION"));
-				//tblrow2.addView(lblTravelDetails);
-				tblrow2.addView(displayTravelDetails);
-				
-				TableRow tblrow3= new TableRow(this);
-				tblrow3.setPadding(5, 0, 0, 0);
-				//tblrow3.setLayoutParams(rowparams);
-				//tblrow3.setPadding(0, 3, 0, 0);
-				//TextView lblStartTime =new TextView(this);
-				//lblStartTime.setLayoutParams(viewParams);
-				//lblStartTime.setText(R.string.lblTravelerTimeMode);
-				
-				TextView displayStartTime =new TextView(this);
-				displayStartTime.setTextSize(textSize);
-				displayStartTime.setTextColor(textColor);
-				//displayStartTime.setLayoutParams(viewParams);
-				displayStartTime.setText(datarow.getString("TRAVELTIME") + "/"+ datarow.getString("TRAVELMODE"));
-				//tblrow3.addView(lblStartTime);
-				tblrow3.addView(displayStartTime);
-								
-				TableRow tblrow4= new TableRow(this);
-				//tblrow4.setLayoutParams(rowparams);
-				//tblrow4.setPadding(0, 3, 0, 0);
-				
-				//TextView lblNoOfPassenger =new TextView(this);
-				//lblNoOfPassenger.setTextSize(textSize);
-				//lblNoOfPassenger.setLayoutParams(lblNoOfPassengerParams);
-				//lblNoOfPassenger.setText(R.string.lblNoOfPassenger);
-				
-				//TextView displayNoOfPassenger =new TextView(this);
-				//displayNoOfPassenger.setTextSize(textSize);
-				//displayNoOfPassenger.setLayoutParams(displayNoOfPassengerParams);
-				//displayNoOfPassenger.setText(datarow.getString("NOOFPASSENGER"));
-				//tblrow4.addView(lblNoOfPassenger);
-				//tblrow4.addView(displayNoOfPassenger);
-				
-				Button btnSubmitTravel = new Button(this);
-				btnSubmitTravel.setTextSize(textSize);
-				btnSubmitTravel.setTextColor(btnTextColor);
-				btnSubmitTravel.setBackgroundColor(btnBackColor);
-	
-				// TODO To be check whether it is effective to use setTag method for passing object
-				if(datarow.getInt("ISSELFPLAN")==1)
+				TextView displayNoRecordMsg =new TextView(this);
+				displayNoRecordMsg.setLayoutParams(txtViewParams);
+				displayNoRecordMsg.setTypeface(Typeface.DEFAULT_BOLD);
+				displayNoRecordMsg.setTextSize(textSize);
+				displayNoRecordMsg.setTextColor(textColor);
+				displayNoRecordMsg.setText(R.string.lblNoTravellerFoundMsg);
+				tblrow1.addView(displayNoRecordMsg);
+				tblTravelDetails.addView(tblrow1);
+				tblParentTravelDetails.addView(tblTravelDetails,0);
+			}
+			else
+			{
+				for (int i=0;i<jsonData.length();i++ ) 
 				{
-					if(isTravelAlreadyconfirmedByCurrentUser ==0 && !datarow.isNull("ISCONFIRMED"))
-					{
-						isTravelAlreadyconfirmedByCurrentUser =datarow.getInt("ISCONFIRMED");
-					}
+					JSONObject datarow= jsonData.getJSONObject(i);
 					
+					UserDTO userDto = new UserDTO();
+					int userId = datarow.getInt("USERID");
+					userDto.setUserId(userId);
+					userDto.setFirstName(datarow.getString("UFNAME"));
+					userDto.setLastName(datarow.getString("ULNAME"));
+					userDto.setGender(datarow.getInt("GENDER"));
+					userDto.setAge(datarow.getInt("AGE"));
+					userDto.setContactNo(datarow.getString("UCONTACTNO"));
+					userDto.setTravelId(datarow.getInt("TRAVELID"));
+					userDto.setAppLoginUser(false);
+			
+					
+					TableLayout tblTravelDetails = new TableLayout(this);
+					tblTravelDetails.setLayoutParams(tblparams);
+					
+					TableRow tblrow1= new TableRow(this);
+					tblrow1.setPadding(5, 5, 0, 0);
+					//tblrow1.setLayoutParams(rowparams);
+					//tblrow1.setPadding(0, 3, 0, 0);
+					//TextView lblUserDetails =new TextView(this);
+	
+					//lblUserDetails.setLayoutParams(viewParams);
+					//lblUserDetails.setText(R.string.lblUserDetails);
+					
+					TextView displayUserDetails =new TextView(this);
+					displayUserDetails.setTypeface(Typeface.DEFAULT_BOLD);
+					displayUserDetails.setTextSize(textSize);
+					displayUserDetails.setTextColor(textColor);
+					displayUserDetails.setLayoutParams(txtViewParams);
+					
+					String age = Integer.toString(userDto.getAge());
+					String userDetail = userDto.getUserFullName() + " ("  + age + "/" +userDto.getGenderStringValue()+")";
+					displayUserDetails.setText(userDetail);
+					//tblrow1.addView(lblUserDetails);
+					tblrow1.addView(displayUserDetails);
+					
+					TableRow tblrow2= new TableRow(this);
+					tblrow2.setPadding(5, 0, 0, 0);
+					//tblrow2.setLayoutParams(rowparams);
+					//tblrow2.setPadding(0, 3, 0, 0);
+					//TextView lblTravelDetails =new TextView(this);
+					//lblTravelDetails.setTextSize(textSize);
+					//lblTravelDetails.setLayoutParams(viewParams);
+					//lblTravelDetails.setText(R.string.lblTravelDetails);
+					
+					TextView displayTravelDetails =new TextView(this);
+					displayTravelDetails.setTextSize(textSize);
+					displayTravelDetails.setTextColor(textColor);
+					displayTravelDetails.setLayoutParams(txtViewParams);
+					displayTravelDetails.setText(datarow.getString("CURRLOCATION") + "("+datarow.getString("STARTLOCATION")+") To " +datarow.getString("ENDLOCATION"));
+					//tblrow2.addView(lblTravelDetails);
+					tblrow2.addView(displayTravelDetails);
+					
+					TableRow tblrow3= new TableRow(this);
+					tblrow3.setPadding(5, 0, 0, 0);
+					//tblrow3.setLayoutParams(rowparams);
+					//tblrow3.setPadding(0, 3, 0, 0);
+					//TextView lblStartTime =new TextView(this);
+					//lblStartTime.setLayoutParams(viewParams);
+					//lblStartTime.setText(R.string.lblTravelerTimeMode);
+					
+					TextView displayStartTime =new TextView(this);
+					displayStartTime.setTextSize(textSize);
+					displayStartTime.setTextColor(textColor);
+					displayStartTime.setLayoutParams(paramsFordisplayStartTime );
+					displayStartTime.setText(datarow.getString("TRAVELTIME") + "/"+ datarow.getString("TRAVELMODE"));
+					//tblrow3.addView(lblStartTime);
+					tblrow3.addView(displayStartTime);
+					
+					TextView dumyBox= new TextView(this);
+					dumyBox.setBackgroundResource(R.drawable.textview_boxstyle);
+					dumyBox.setTextColor(Color.WHITE);
+					dumyBox.setGravity(Gravity.CENTER);
+					dumyBox.setWidth(40);
+					dumyBox.setText(datarow.getString("NOOFPASSENGER"));
+					tblrow3.addView(dumyBox);
+									
+					TableRow tblrow4= new TableRow(this);
+					tblrow4.setPadding(5, 0, 0, 0);
+					
+					
+					//TextView lblNoOfPassenger =new TextView(this);
+					//lblNoOfPassenger.setTextSize(textSize);
+					//lblNoOfPassenger.setLayoutParams(lblNoOfPassengerParams);
+					//lblNoOfPassenger.setText(R.string.lblNoOfPassenger);
+					
+					//TextView displayNoOfPassenger =new TextView(this);
+					//displayNoOfPassenger.setTextSize(textSize);
+					//displayNoOfPassenger.setLayoutParams(displayNoOfPassengerParams);
+					//displayNoOfPassenger.setText(datarow.getString("NOOFPASSENGER"));
+					//tblrow4.addView(lblNoOfPassenger);
+					//tblrow4.addView(displayNoOfPassenger);
+					
+					Button btnSubmitTravel = new Button(this);
+					btnSubmitTravel.setWidth(16);
+					btnSubmitTravel.setHeight(22);
 					currentUserTravelID=datarow.getInt("TRAVELID");
 					btnSubmitTravel.setOnClickListener(onDeleteAction);
 					btnSubmitTravel.setTag(Integer.toString(currentUserTravelID));
-					btnSubmitTravel.setText(R.string.btnDeleteTravel);
+					btnSubmitTravel.setBackgroundResource(R.drawable.deleteicon_style);
+					btnSubmitTravel.setEnabled(false);
 					tblrow4.addView(btnSubmitTravel);
-				}
-				else
-				{
-					
-					if( !datarow.isNull("CONFIRMEDTO"))
+		
+					// TODO To be check whether it is effective to use setTag method for passing object
+					if(datarow.getInt("ISSELFPLAN")==1)
 					{
-						Button btnShowMobileNo = new Button(this);
-						btnShowMobileNo.setTextSize(textSize);
-						btnShowMobileNo.setTextColor(btnTextColor);
-						btnShowMobileNo.setBackgroundColor(btnBackColor);
-						btnShowMobileNo.setText(R.string.btnShowMobileNo);
-						btnShowMobileNo.setTag(userDto.getContactNo());
-						btnShowMobileNo.setOnClickListener(onShowMobileAction);
-						tblrow4.addView(btnShowMobileNo);
+						if(isTravelAlreadyconfirmedByCurrentUser ==0 && !datarow.isNull("ISCONFIRMED"))
+						{
+							isTravelAlreadyconfirmedByCurrentUser =datarow.getInt("ISCONFIRMED");
+						}
+						btnSubmitTravel.setEnabled(true);
 					}
 					else
 					{
-						int isUserConfirmTravel =0;
-						if(!datarow.isNull("ISCONFIRMED"))
+						
+						if( !datarow.isNull("CONFIRMEDTO"))
 						{
-							isUserConfirmTravel =datarow.getInt("ISCONFIRMED");
-							
-						}
-						if(isTravelAlreadyconfirmedByCurrentUser ==1 || isUserConfirmTravel ==1 )
-						{
-							
-							if(isUserConfirmTravel ==1)
-							{
-								
-								TextView confirmedMsg= new TextView(this);
-								confirmedMsg.setTextSize(textSize);
-								confirmedMsg.setBackgroundColor(btnBackColor);
-								confirmedMsg.setText(R.string.lblTravelConfirmed);
-								tblrow4.addView(confirmedMsg);
-							}
-							else
-							{
-								btnSubmitTravel.setEnabled(false);
-							}
-							
+							Button btnShowMobileNo = new Button(this);
+							btnShowMobileNo.setTextSize(textSize);
+							btnShowMobileNo.setTextColor(btnTextColor);
+							btnShowMobileNo.setBackgroundColor(btnBackColor);
+							btnShowMobileNo.setText(R.string.btnShowMobileNo);
+							btnShowMobileNo.setTag(userDto.getContactNo());
+							btnShowMobileNo.setOnClickListener(onShowMobileAction);
+							tblrow4.addView(btnShowMobileNo);
 						}
 						else
 						{
-							btnSubmitTravel.setText(R.string.btnConfimTravel);
-							btnSubmitTravel.setOnClickListener(onConfirmAction);
-							btnSubmitTravel.setTag(userDto);
-							tblrow4.addView(btnSubmitTravel);
+							int isUserConfirmTravel =0;
+							if(!datarow.isNull("ISCONFIRMED"))
+							{
+								isUserConfirmTravel =datarow.getInt("ISCONFIRMED");
+								
+							}
+							if(isTravelAlreadyconfirmedByCurrentUser ==1 || isUserConfirmTravel ==1 )
+							{
+								
+								if(isUserConfirmTravel ==1)
+								{
+									
+									TextView confirmedMsg= new TextView(this);
+									confirmedMsg.setTextSize(textSize);
+									confirmedMsg.setBackgroundColor(btnBackColor);
+									confirmedMsg.setText(R.string.lblTravelConfirmed);
+									tblrow4.addView(confirmedMsg);
+								}
+								else
+								{
+									btnSubmitTravel.setEnabled(false);
+								}
+								
+							}
+							else
+							{
+								btnSubmitTravel.setText(R.string.btnConfimTravel);
+								btnSubmitTravel.setOnClickListener(onConfirmAction);
+								btnSubmitTravel.setTag(userDto);
+								tblrow4.addView(btnSubmitTravel);
+							}
 						}
+						
 					}
 					
+					tblTravelDetails.addView(tblrow1);
+					tblTravelDetails.addView(tblrow2);
+					tblTravelDetails.addView(tblrow3);
+					tblTravelDetails.addView(tblrow4);
+					tblParentTravelDetails.addView(tblTravelDetails,i);
 				}
-				
-				tblTravelDetails.addView(tblrow1);
-				tblTravelDetails.addView(tblrow2);
-				tblTravelDetails.addView(tblrow3);
-				tblTravelDetails.addView(tblrow4);
-				tblParentTravelDetails.addView(tblTravelDetails,i);
-				
-				
 			}
 		}
 		catch(Exception ex)

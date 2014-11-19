@@ -71,6 +71,14 @@
         <item name="android:gravity">center</item>
         <item name="android:background">#10BE5A</item>
     </style>
+    
+    <style name="SmallDefaultStyle">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">#10BE5A</item>
+    </style>
 
     <style name="SpinnerDefaultStyle" parent="android:Widget.Spinner">
          <item name="android:background">@drawable/spinner_default</item>
