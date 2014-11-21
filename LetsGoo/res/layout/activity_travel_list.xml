@@ -75,6 +75,52 @@
             android:layout_below="@+id/tblStaticTravelDetails"
             android:orientation="horizontal"
             android:background="#E2F0D9" >
+        <!--   <TableLayout 
+          		android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="1">
+                <TableRow android:paddingLeft="5dp" >
+                      <TextView android:layout_width="0dp"
+                          		android:layout_height="fill_parent"
+                          		android:layout_weight="1" android:textSize="14dp" android:textColor="#568536"
+                          		android:textStyle="bold"
+                          		android:text="Android VM (34/M)"
+                          />
+                     </TableRow>
+                 <TableRow android:paddingLeft="5dp" >
+                      <TextView android:layout_width="0dp"
+                          		android:layout_height="fill_parent"
+                          		android:layout_weight="1" android:textSize="14dp" android:textColor="#568536"
+                          		android:text="Sector 64 (sopra office near by sahara) to sector 18"
+                          />
+                     </TableRow>
+                 <TableRow android:paddingLeft="5dp" 
+                    >
+
+                     <TextView
+                         android:layout_width="0dp"
+                         android:layout_weight=".75"
+                         android:text="01:30 AM/PRIVATE VECHICLE"
+                         android:textColor="#568536"
+                         android:textSize="13sp" />
+
+                     <TextView  
+                         android:layout_column = "4" android:width="40dp"  android:text="2" 
+                         android:gravity="center" android:textColor="@android:color/white"
+                         android:background="@drawable/textview_boxstyle"
+ />
+
+                 </TableRow>
+                <TableRow 	android:paddingLeft="5dp" >
+                    <Button 
+                         android:background="@drawable/deleteicon_style"  android:width="16dp" android:height="22dp" />
+                    <Button android:enabled="false"  android:layout_marginLeft="10dp" android:background="@drawable/phone_icon_style" android:width="16dp" android:height="22dp"/>
+                    <Button  android:enabled="false" android:layout_marginLeft="10dp"  android:background="@drawable/confirm_icon_style"  android:width="16dp" android:height="22dp"/>
+					 <Button android:enabled="false" android:layout_marginLeft="10dp"  android:background="@drawable/alreadyconfirmed_icon_style"  android:width="16dp" android:height="22dp"/>
+                </TableRow>
+                
+            </TableLayout>
+              -->
         </TableLayout>
          <TableLayout
             android:id="@+id/tblFooter"
@@ -97,6 +143,7 @@
                 android:textStyle="bold" />
         </TableRow>
         </TableLayout>
+        
     </RelativeLayout>
 
 </ScrollView>
