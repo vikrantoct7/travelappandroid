@@ -266,7 +266,6 @@ public class TravelListActivity extends Activity {
 					//displayNoOfPassenger.setText(datarow.getString("NOOFPASSENGER"));
 					//tblrow4.addView(lblNoOfPassenger);
 					//tblrow4.addView(displayNoOfPassenger);
-					currentUserTravelID=datarow.getInt("TRAVELID");
 					Button btnDeleteTravel = new Button(this);
 					//btnDeleteTravel.setLayoutParams(paramsForIcons);
 					btnDeleteTravel.setWidth(16);
@@ -309,6 +308,7 @@ public class TravelListActivity extends Activity {
 						{
 							isTravelAlreadyconfirmedByCurrentUser =datarow.getInt("ISCONFIRMED");
 						}
+						currentUserTravelID=datarow.getInt("TRAVELID");
 						btnDeleteTravel.setEnabled(true);
 					}
 					else

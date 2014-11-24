@@ -75,11 +75,10 @@ public class TravelPlanActivity extends Activity {
 			{
 				//set the default according to value
 				userStartLocCity=extras.getString("SELCITY");
-				if(userEndLocCity.length()==0)
-				{
+				//if(userEndLocCity.length()==0)
+				//{
 					userEndLocCity=userStartLocCity;
-				}
-
+				//}
 			}
 			else if(locPosition.equals("ENDLOC"))
 			{
@@ -453,7 +452,7 @@ public class TravelPlanActivity extends Activity {
 			
 			travelPlanDTO = new TravelPlanDTO();
 			travelPlanDTO.setLocationPosition("ENDLOC");
-			if(ddCurrentLoc.getSelectedItem() !=null)
+			if(ddCurrentLoc.getSelectedItem() !=null && ddCurrentLoc.getSelectedItem()!=Start_loc_hint)
 			{
 				travelPlanDTO.setLocationValue(ddCurrentLoc.getSelectedItem().toString());
 			}
@@ -483,7 +482,7 @@ public class TravelPlanActivity extends Activity {
 
 			travelPlanDTO = new TravelPlanDTO();
 			travelPlanDTO.setLocationPosition("CURLOC");
-			if(ddEndLocation.getSelectedItem() !=null)
+			if(ddEndLocation.getSelectedItem() !=null && ddEndLocation.getSelectedItem()!=End_loc_hint)
 			{
 				travelPlanDTO.setLocationValue(ddEndLocation.getSelectedItem().toString());
 			}
