@@ -39,7 +39,7 @@
                     android:id="@+id/btnNewTravelPlan"
                     style="@style/btnDefaultStyle"
                     android:layout_width="0dp"
-                    android:layout_weight=".35"          
+                    android:layout_weight=".25"
                     android:text="@string/btnNewTravelPlan" />
 
                 <TextView
@@ -48,10 +48,9 @@
 
                 <Button
                     android:id="@+id/btnRefresh"
-                    style="@style/btnDefaultStyle"
-                    android:layout_width="0dp"
-                    android:layout_weight=".38"
-                    android:text="@string/lblBtnRefresh" />
+                    android:background="@drawable/refresh_icon"
+                  
+                   />
             </TableRow>
 
             <TableRow

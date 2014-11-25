@@ -73,7 +73,7 @@
 	    \n\nWe will not use your personal information including mobile number for any commercial use. And will be deleted in routine manner.
 	    \n\nWe reserves the right to suspend or cease providing any services relating to the apps published by it, with or without notice, and shall have no liability or responsibility to you in any manner whatsoever if it chooses to do so.</string>
     <string name="feedbackurl">CONTACT US: \n<a href="www.facebook.com/LetsGoo">www.facebook.com/LetsGoo</a>\nsaavy.brothers@gmail.com</string>
-    <string name="hintMinimumlengthForLocation">Minimum 5 characters allow searching location</string>
+    <string name="hintMinimumlengthForLocation">Minimum 10 characters allow searching location</string>
     <string name="title_activity_lets_goo_title_bar">LetsGooTitleBar</string>
 	<string name="lbllogocopyright">\u00A9 SAAVY</string>
 	<string name="lblRegisterInformation">Thanks for choosing LetsGoo, please register yourself and agree to the terms and conditions.</string>
