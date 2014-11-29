@@ -43,18 +43,6 @@
 
             <TableRow
                 android:id="@+id/tableRow2" >
-
-                <!--
-                      <TextView
-                    android:id="@+id/lblCurrentLoc"
-                    android:layout_width="0dp"
-                    android:layout_height="fill_parent"
-                    android:layout_weight=".25"
-                    android:paddingTop="10dp"
-                    android:text="@string/lblCurrentLoc"
-                    android:textColor="#000000" />
-                -->
-
                 <Spinner
                     android:id="@+id/ddCurrentLoc"
                     android:layout_weight="1"
@@ -75,16 +63,6 @@
                 android:id="@+id/tableRow3"
                 android:paddingRight="25dp"
                 android:paddingTop="5dp" >
-
-                <!--<TextView
-                    android:id="@+id/lblStartLoc"
-                    android:layout_width="0dp"
-                    android:layout_height="fill_parent"
-                    android:layout_weight=".25"
-                    android:paddingTop="10dp"
-                    android:text="@string/lblStartLoc"
-                    android:textColor="#000000" />-->
-
                 <EditText
                     android:id="@+id/txtStartLoc"
                     style="@style/EditTextStyle"
@@ -99,16 +77,6 @@
             <TableRow
                 android:id="@+id/tableRow4"
                 android:paddingTop="5dp" >
-
-                <!--<TextView
-                    android:id="@+id/lblEndLoc"
-                    android:layout_width="0dp"
-                    android:layout_height="fill_parent"
-                    android:layout_weight=".25"
-                    android:paddingTop="10dp"
-                    android:text="@string/lblEndLoc"
-                    android:textColor="#000000" />-->
-
                 <Spinner
                     android:id="@+id/ddEndLocation"
                     android:layout_weight="1"
@@ -130,17 +98,6 @@
                 android:paddingRight="25dp"
                 android:paddingTop="5dp" >
 
-                <!--
-                     <TextView
-                    android:id="@+id/lblTravelMode"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".25"
-                    android:paddingTop="10dp"
-                    android:text="@string/lblTravelMode"
-                    android:textColor="#000000" />
-                -->
-
                 <Spinner
                     android:id="@+id/ddTravelType"
                     android:layout_weight="1"
@@ -153,17 +110,6 @@
                 android:paddingRight="25dp"
                 android:paddingTop="5dp" >
 
-                <!--
-                     <TextView
-                    android:id="@+id/lblTravelTime"
-                    android:layout_width="0dp"
-                    android:layout_height="fill_parent"
-                    android:layout_weight=".25"
-                    android:paddingTop="10dp"
-                    android:text="@string/lblTravelTime"
-                    android:textColor="#000000" />
-                -->
-
                 <Spinner
                     android:id="@+id/ddStartTime"
                     android:layout_weight="1"
@@ -175,18 +121,6 @@
                 android:id="@+id/tableRow7"
                 android:paddingRight="25dp"
                 android:paddingTop="5dp" >
-
-                <!--
-                     <TextView
-                    android:id="@+id/lblNoOfPassenger"
-                    android:layout_width="0dp"
-                    android:layout_height="fill_parent"
-                    android:layout_weight=".25"
-                    android:paddingTop="10dp"
-                    android:text="@string/lblNoOfPassenger"
-                    android:textColor="#000000" />
-                -->
-
                 <EditText
                     android:id="@+id/txtNoOfPass"
                     style="@style/EditTextStyle"
