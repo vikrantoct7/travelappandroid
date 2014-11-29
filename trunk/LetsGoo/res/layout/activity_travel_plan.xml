@@ -65,7 +65,10 @@
                     android:id="@+id/btnPlusCurLoc"
                     android:layout_width="25dp"
                     android:layout_height="28dp"
-                    android:background="@drawable/plus_icon" />
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/plus_icon"
+                     />
+
             </TableRow>
 
             <TableRow
@@ -116,7 +119,10 @@
                     android:id="@+id/btnPlusEndLoc"
                     android:layout_width="25dp"
                     android:layout_height="28dp"
-                    android:background="@drawable/plus_icon" />
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/plus_icon"
+                    />
+
             </TableRow>
 
             <TableRow
