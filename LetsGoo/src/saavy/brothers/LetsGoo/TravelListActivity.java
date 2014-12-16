@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import saavy.brothers.LetsGoo.R;
 import saavy.brothers.LetsGoo.R.id;
 
+import android.R.color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.annotation.SuppressLint;
@@ -21,12 +22,14 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable.Orientation;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
@@ -124,31 +127,38 @@ public class TravelListActivity extends Activity {
 			TableLayout tblParentTravelDetails = (TableLayout) findViewById(R.id.tblParentTravelDetails);
 			tblParentTravelDetails.removeAllViews();
 			
-				
+			//TableRow.LayoutParams rowParams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
+
+			
 			@SuppressWarnings("deprecation")
-			TableLayout.LayoutParams tblparams = new TableLayout.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,TableRow.LayoutParams.FILL_PARENT,1);
+			TableLayout.LayoutParams tblparams = new TableLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,TableRow.LayoutParams.WRAP_CONTENT,1);
+			tblparams.setMargins(0, 0, 0, 5);
+			//@SuppressWarnings("deprecation")
+			//TableLayout.LayoutParams tblparamsWrapper = new TableLayout.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,TableRow.LayoutParams.FILL_PARENT,1);
+			
 			@SuppressWarnings("deprecation")
 			TableRow.LayoutParams txtViewParams = new TableRow.LayoutParams(0,TableRow.LayoutParams.FILL_PARENT,1);
-			@SuppressWarnings("deprecation")
-			TableRow.LayoutParams paramsForDisplayTime = new TableRow.LayoutParams();
-			paramsForDisplayTime.width=0;
-			paramsForDisplayTime.weight=(float).75;
 			
 			@SuppressWarnings("deprecation")
-			TableRow.LayoutParams paramsForDumyBox = new TableRow.LayoutParams();
-			paramsForDumyBox.column=4;
+			TableRow.LayoutParams paramsForFirstRow = new TableRow.LayoutParams();
+			paramsForFirstRow.span=2;
+			paramsForFirstRow.weight=(float).85;
 			
-						
-			TableRow.LayoutParams paramsForIcons = new TableRow.LayoutParams();
-			paramsForIcons.setMargins(10, 0, 0, 0);
+			@SuppressWarnings("deprecation")
+			TableRow.LayoutParams paramsForActionRow = new TableRow.LayoutParams();
+			paramsForActionRow.weight=(float).75;
+			
+
 			
 			int textColor = Color.parseColor("#568536");
+			int tableBackGroundColor=Color.parseColor("#F7FBEC");
 			int isTravelAlreadyconfirmedByCurrentUser=0;
 			int textSize=14;
 			if(jsonData.length()==0)
 			{
 				TableLayout tblTravelDetails = new TableLayout(this);
 				tblTravelDetails.setLayoutParams(tblparams);
+				tblTravelDetails.setBackgroundColor(tableBackGroundColor);
 				TableRow tblrow1= new TableRow(this);
 				tblrow1.setPadding(5, 5, 0, 0);
 				TextView displayNoRecordMsg =new TextView(this);
@@ -165,6 +175,13 @@ public class TravelListActivity extends Activity {
 			{
 				for (int i=0;i<jsonData.length();i++ ) 
 				{
+					
+					TableLayout tblTravelDetails = new TableLayout(this);
+					tblTravelDetails.setLayoutParams(tblparams);
+					tblTravelDetails.setBackgroundColor(tableBackGroundColor);
+					
+					
+					
 					JSONObject datarow= jsonData.getJSONObject(i);
 					
 					UserDTO userDto = new UserDTO();
@@ -177,98 +194,68 @@ public class TravelListActivity extends Activity {
 					userDto.setContactNo(datarow.getString("UCONTACTNO"));
 					userDto.setTravelId(datarow.getInt("TRAVELID"));
 					userDto.setAppLoginUser(false);
-			
-					
-					TableLayout tblTravelDetails = new TableLayout(this);
-					tblTravelDetails.setLayoutParams(tblparams);
-					
+								
+										
 					TableRow tblrow1= new TableRow(this);
-					tblrow1.setPadding(5, 5, 0, 0);
+					tblrow1.setPadding(4, 1, 2, 0);
 										
 					TextView displayUserDetails =new TextView(this);
 					displayUserDetails.setTypeface(Typeface.DEFAULT_BOLD);
 					displayUserDetails.setTextSize(textSize);
 					displayUserDetails.setTextColor(textColor);
-					displayUserDetails.setLayoutParams(txtViewParams);
+					displayUserDetails.setLayoutParams(paramsForFirstRow);
 					
 					String age = Integer.toString(userDto.getAge());
 					String userDetail = userDto.getUserFullName() + " ("  + age + "/" +userDto.getGenderStringValue()+")";
 					displayUserDetails.setText(userDetail);
 					
+					TextView dumyBox= new TextView(this);
+					dumyBox.setBackgroundResource(R.drawable.textview_boxstyle);
+					dumyBox.setTextColor(Color.WHITE);
+					dumyBox.setGravity(Gravity.CENTER);
+					dumyBox.setWidth(22);
+					dumyBox.setText(datarow.getString("NOOFPASSENGER"));
+					
+					
 					tblrow1.addView(displayUserDetails);
+					tblrow1.addView(dumyBox);
 					
 					TableRow tblrow2= new TableRow(this);
-					tblrow2.setPadding(5, 0, 0, 0);
+					tblrow2.setPadding(4, 0, 2, 0);
 					
 					
 					TextView displayTravelDetails =new TextView(this);
 					displayTravelDetails.setTextSize(textSize);
 					displayTravelDetails.setTextColor(textColor);
 					displayTravelDetails.setLayoutParams(txtViewParams);
-					displayTravelDetails.setText(datarow.getString("CURRLOCATION") + "("+datarow.getString("STARTLOCATION")+") To " +datarow.getString("ENDLOCATION"));
+					String startFrom ="";
+					if(datarow.getString("STARTLOCATION").length()>0)
+					{
+						startFrom=" ("+datarow.getString("STARTLOCATION")+")";
+					}
+					displayTravelDetails.setText(datarow.getString("CURRLOCATION") + startFrom+" to " +datarow.getString("ENDLOCATION"));
 					
 					tblrow2.addView(displayTravelDetails);
 					
 					TableRow tblrow3= new TableRow(this);
-					tblrow3.setPadding(5, 0, 0, 0);
+					tblrow3.setPadding(4, 0, 2, 2);
 					
 					
 					TextView displayStartTime =new TextView(this);
-					displayStartTime.setLayoutParams(paramsForDisplayTime);
 					displayStartTime.setTextSize(12);
 					displayStartTime.setTextColor(textColor);
 					displayStartTime.setText(datarow.getString("TRAVELTIME") + "/"+ datarow.getString("TRAVELMODE"));
+					//displayStartTime.setLayoutParams(txtViewParams);
 					
-					tblrow3.addView(displayStartTime);
 					
-					TextView dumyBox= new TextView(this);
-					dumyBox.setLayoutParams(paramsForDumyBox);
-					dumyBox.setBackgroundResource(R.drawable.textview_boxstyle);
-					dumyBox.setTextColor(Color.WHITE);
-					dumyBox.setGravity(Gravity.CENTER);
-					dumyBox.setWidth(40);
-					dumyBox.setText(datarow.getString("NOOFPASSENGER"));
-					tblrow3.addView(dumyBox);
-								
-					TableRow tblrow4= new TableRow(this);
-					tblrow4.setPadding(5, 0, 0, 0);
 										
-					
-					
-					Button btnDeleteTravel = new Button(this);
-					btnDeleteTravel.setWidth(16);
-					btnDeleteTravel.setHeight(22);
-					btnDeleteTravel.setOnClickListener(onDeleteAction);
-					btnDeleteTravel.setTag(Integer.toString(currentUserTravelID));
-					btnDeleteTravel.setBackgroundResource(R.drawable.deleteicon_style);
-					btnDeleteTravel.setEnabled(false);
-					
-									
-					Button btnPhone = new Button(this);
-					btnPhone.setLayoutParams(paramsForIcons);
-					btnPhone.setWidth(16);
-					btnPhone.setHeight(22);
-					btnPhone.setOnClickListener(onShowMobileAction);
-					btnPhone.setBackgroundResource(R.drawable.phone_icon_style);
-					btnPhone.setEnabled(false);
-					
-					Button btnConfirm = new Button(this);
-					btnConfirm.setLayoutParams(paramsForIcons);
-					btnConfirm.setWidth(16);
-					btnConfirm.setHeight(22);
-					btnConfirm.setOnClickListener(onConfirmAction);
-					btnConfirm.setBackgroundResource(R.drawable.confirm_icon_style);
-					btnConfirm.setEnabled(false);
-					
-					Button btnAlreadyConfirmed = new Button(this);
-					btnAlreadyConfirmed.setLayoutParams(paramsForIcons);
-					btnAlreadyConfirmed.setWidth(16);
-					btnAlreadyConfirmed.setHeight(22);
-					btnAlreadyConfirmed.setBackgroundResource(R.drawable.alreadyconfirmed_icon_style);
-					btnAlreadyConfirmed.setEnabled(false);
-					
-					
-		
+					Button actionbuttonBox= new Button(this);
+					actionbuttonBox.setBackgroundResource(R.drawable.actionbutton_statecontroller);
+					actionbuttonBox.setTextSize(9);
+					actionbuttonBox.setTextColor(Color.parseColor("#2D3121"));
+					actionbuttonBox.setGravity(Gravity.CENTER_VERTICAL);
+					actionbuttonBox.setWidth(60);
+					actionbuttonBox.setHeight(20);			
 					// TODO To be check whether it is effective to use setTag method for passing object
 					if(datarow.getInt("ISSELFPLAN")==1)
 					{
@@ -277,15 +264,26 @@ public class TravelListActivity extends Activity {
 							isTravelAlreadyconfirmedByCurrentUser =datarow.getInt("ISCONFIRMED");
 						}
 						currentUserTravelID=datarow.getInt("TRAVELID");
-						btnDeleteTravel.setEnabled(true);
+						//btnDisplayOnLeft.setOnClickListener(onDeleteAction);
+						//btnDisplayOnLeft.setBackgroundResource(R.drawable.deleteicon_style);
+						//btnDisplayOnLeft.setTag(Integer.toString(currentUserTravelID));
+						actionbuttonBox.setTag(Integer.toString(currentUserTravelID));
+						actionbuttonBox.setOnClickListener(onDeleteAction);
+						actionbuttonBox.setCompoundDrawablesWithIntrinsicBounds(R.drawable.delete_icon,0,0,0);
+						actionbuttonBox.setText(R.string.btnDeleteTravel);
 					}
 					else
 					{
 						
 						if( !datarow.isNull("CONFIRMEDTO"))
 						{
-							btnPhone.setTag(userDto.getContactNo());
-							btnPhone.setEnabled(true);
+							//btnDisplayOnLeft.setOnClickListener(onShowMobileAction);
+							//btnDisplayOnLeft.setBackgroundResource(R.drawable.phone_icon_style);
+							//btnDisplayOnLeft.setTag(userDto.getContactNo());
+							actionbuttonBox.setOnClickListener(onShowMobileAction);
+							actionbuttonBox.setCompoundDrawablesWithIntrinsicBounds(R.drawable.phonecall_icon,0,0,0);
+							actionbuttonBox.setText(R.string.btnShowMobileNo);
+							actionbuttonBox.setTag(userDto.getContactNo());
 						}
 						else
 						{
@@ -300,7 +298,9 @@ public class TravelListActivity extends Activity {
 								
 								if(isUserConfirmTravel ==1)
 								{
-									btnAlreadyConfirmed.setEnabled(true);
+									//btnDisplayOnLeft.setBackgroundResource(R.drawable.alreadyconfirmed_icon_style);
+									actionbuttonBox.setCompoundDrawablesWithIntrinsicBounds(R.drawable.alreadyconfirmed_icon,0,0,0);
+									actionbuttonBox.setText(R.string.lblTravelConfirmed);
 								}
 								else
 								{
@@ -310,23 +310,42 @@ public class TravelListActivity extends Activity {
 							}
 							else
 							{
-								btnConfirm.setTag(userDto);
-								btnConfirm.setEnabled(true);
+								//btnDisplayOnLeft.setOnClickListener(onConfirmAction);
+								//btnDisplayOnLeft.setBackgroundResource(R.drawable.confirm_icon_style);
+								//btnDisplayOnLeft.setTag(userDto);
+								actionbuttonBox.setOnClickListener(onConfirmAction);
+								actionbuttonBox.setCompoundDrawablesWithIntrinsicBounds(R.drawable.confirm_icon,0,0,0);
+								actionbuttonBox.setText(R.string.titleConfirmBox);
+								actionbuttonBox.setTag(userDto);
 							}
 						}
 						
 					}
-					tblrow4.addView(btnDeleteTravel);
-					tblrow4.addView(btnPhone);
-					tblrow4.addView(btnConfirm);
-					tblrow4.addView(btnAlreadyConfirmed);
+					
+					displayStartTime.setLayoutParams(paramsForActionRow);
+					tblrow3.addView(displayStartTime);
+					
+					
+					
+					
+					tblrow3.addView(actionbuttonBox);
 					
 					
 					tblTravelDetails.addView(tblrow1);
 					tblTravelDetails.addView(tblrow2);
 					tblTravelDetails.addView(tblrow3);
-					tblTravelDetails.addView(tblrow4);
+					
+					
+									
+					//wrapperRow.setGravity(Gravity.CENTER);
+					//wrapperRow.addView(btnDisplayOnLeft);
+					//wrapperRow.addView(tblTravelDetails);
+					
+					
+					//tblWrapper.addView(wrapperRow);
+					
 					tblParentTravelDetails.addView(tblTravelDetails,i);
+					
 				}
 			}
 		}

@@ -35,10 +35,10 @@ public class TravelPlanActivity extends Activity {
 	public static TravelPlanDTO travelPlanDTO=null;
 	String userStartLocCity ="";
 	String userEndLocCity =""; 
-	String Travel_mode_hint="[Chose travel mode]";
-	String Start_loc_hint="[Select Start location]";
-	String End_loc_hint="[Select End location]";
-	String Travel_time_hint="[Select traveling time]";
+	String Travel_mode_hint="Travel Mode";
+	String Start_loc_hint="Start Location";
+	String End_loc_hint="End Location";
+	String Travel_time_hint="Start Time";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -318,7 +318,7 @@ public class TravelPlanActivity extends Activity {
 			
 			boolean validationResult=true;
 			GenericValidator validator = new GenericValidator();
-			validationResult= validator.validate(txtStartPoint);
+			//validationResult= validator.validate(txtStartPoint);
 			validationResult= validator.validate(txtNoOfPass);
 			if(ddCurrentLoc.getSelectedItem()==Start_loc_hint)
 			{

@@ -62,7 +62,7 @@
             <TableRow
                 android:id="@+id/tableRow3"
                 android:paddingRight="25dp"
-                android:paddingTop="5dp" >
+                android:paddingTop="10dp" >
                 <EditText
                     android:id="@+id/txtStartLoc"
                     style="@style/EditTextStyle"
@@ -76,7 +76,7 @@
 
             <TableRow
                 android:id="@+id/tableRow4"
-                android:paddingTop="5dp" >
+                android:paddingTop="10dp" >
                 <Spinner
                     android:id="@+id/ddEndLocation"
                     android:layout_weight="1"
@@ -96,7 +96,7 @@
             <TableRow
                 android:id="@+id/tableRow5"
                 android:paddingRight="25dp"
-                android:paddingTop="5dp" >
+                android:paddingTop="10dp" >
 
                 <Spinner
                     android:id="@+id/ddTravelType"
@@ -108,7 +108,7 @@
             <TableRow
                 android:id="@+id/tableRow6"
                 android:paddingRight="25dp"
-                android:paddingTop="5dp" >
+                android:paddingTop="10dp" >
 
                 <Spinner
                     android:id="@+id/ddStartTime"
@@ -120,7 +120,7 @@
             <TableRow
                 android:id="@+id/tableRow7"
                 android:paddingRight="25dp"
-                android:paddingTop="5dp" >
+                android:paddingTop="10dp" >
                 <EditText
                     android:id="@+id/txtNoOfPass"
                     style="@style/EditTextStyle"

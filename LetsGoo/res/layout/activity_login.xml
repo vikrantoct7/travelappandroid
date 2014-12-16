@@ -49,8 +49,9 @@
                 style="@style/EditTextStyle"
                 android:layout_weight="1"
                 android:inputType="phone"
-                android:maxLength="10" >
-
+                android:maxLength="10"
+                android:hint="@string/hintForLoginText" >
+				
                 <requestFocus />
             </EditText>
         </TableRow>
