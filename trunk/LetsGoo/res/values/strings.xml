@@ -5,7 +5,7 @@
     <string name="action_settings">Settings</string>
     <string name="lblUserName">Registered mobile number</string>
     <string name="lblPassword">Password</string>
-    <string name="btnSubmit">Get in</string>
+    <string name="btnSubmit">Get In</string>
     <string name="btnSingUp">Register</string>
     <string name="title_activity_register">Registration</string>
     <string name="lblFName">First Name</string>
@@ -22,13 +22,14 @@
     <string name="lblErrorTechnical">Technical error – Please try again later</string>
     <string name="lblGoToLoginBtn">Go back to login screen</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_login_page">Get in</string>
-    <string name="title_activity_home_page">Co-TravelersList</string>
-    <string name="btnNewTravelPlan">New plan</string>
+    <string name="title_activity_login_page">Get In</string>
+    <string name="title_activity_home_page">Co-Travelers List</string>
+    <string name="btnNewTravelPlan">Travel Plan</string>
     <string name="title_activity_travel_plan">Travel Details</string>
     <string name="lblCurrentLoc">Current Location</string>
+    <string name="hintForLoginText">Enter 10 digit mobile number</string>
     <string name="lblCurLocNotfound">Current Location not found</string>
-    <string name="lblStartLoc">Meeting point</string>
+    <string name="lblStartLoc">Starting From   </string>
     <string name="lblEndLoc">End Location</string>
     <string name="lblTravelTime">Starting time</string>
     <string name="lblTravelMode">Mode of Travel</string>
@@ -40,10 +41,10 @@
     <string name="lblTravelDetails">Travel Details</string>
     <string name="btnConfimTravel">Confirm</string>
     <string name="lblTermCondition">I have read and agree to <a href="https://www.google.com">terms and condition </a> for using this app</string>
-    <string name="lblLoginInformation">Welcome to LetsGoo!\n\nIf you already registered, please login with registered 10 digits mobile number. otherwise click on "Sign Up" for register yourself.</string>
+    <string name="lblLoginInformation">Welcome to LetsGoo!\n\nAlready Registered, Please enter your mobile number and tap Get In.Otherwise Register yourself.</string>
     <string name="ddSelLocation">Select location</string>
     <string name="btnDeleteTravel">Delete</string>
-    <string name="lblTravelConfirmed">Already Confirmed</string>
+    <string name="lblTravelConfirmed">Confirmed</string>
     <string name="titleConfirmBox">Confirm</string>
     <string name="lblPlanDeleteMsg">Are you sure, you want to delete your plan?</string>
     <string name="lblYes">Yes</string>
@@ -73,13 +74,13 @@
 	    \n\nWe will not use your personal information including mobile number for any commercial use. And will be deleted in routine manner.
 	    \n\nWe reserves the right to suspend or cease providing any services relating to the apps published by it, with or without notice, and shall have no liability or responsibility to you in any manner whatsoever if it chooses to do so.</string>
     <string name="feedbackurl">CONTACT US: \n<a href="www.facebook.com/LetsGoo">www.facebook.com/LetsGoo</a>\nsaavy.brothers@gmail.com</string>
-    <string name="hintMinimumlengthForLocation">Minimum 10 characters allow searching location</string>
+    <string name="hintMinimumlengthForLocation">Enter minimum 10 characters</string>
     <string name="title_activity_lets_goo_title_bar">LetsGooTitleBar</string>
 	<string name="lbllogocopyright">\u00A9 SAAVY</string>
 	<string name="lblRegisterInformation">Thanks for choosing LetsGoo, please register yourself and agree to the terms and conditions.</string>
-	<string name="lblTravekPlanInformation">Enter your travel route in which you would like go.\nAll fields are mandatory.</string>
-	<string name="ErrorMandatoryMsg">Please fill mandatory fields</string>    
-	<string name="lblLocationInformation">Find your location. If it found then it will be filled in sub locality and locality(city) labels.</string>
+	<string name="lblTravekPlanInformation">Enter travel details – tap plus to add location</string>
+	<string name="ErrorMandatoryMsg">Please enter mandatory fields</string>    
+	<string name="lblLocationInformation">Search and add location</string>
 	<string name="lblTravelListInformation">Thanks for partnering with us in saving money, making friends and keeping earth green.</string>
-	<string name="lblNoTravellerFoundMsg">Add your travel plan to find match with co-travel patterners.</string>
+	<string name="lblNoTravellerFoundMsg">Create your travel plan to find co-travelers</string>
 </resources>
