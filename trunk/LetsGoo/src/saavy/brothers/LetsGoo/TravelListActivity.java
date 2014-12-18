@@ -171,7 +171,7 @@ public class TravelListActivity extends Activity {
 				
 				
 				TableRow tblrow2= new TableRow(this);
-				tblrow2.setPadding(5, 5, 5, 5);
+				tblrow2.setPadding(0, 5, 0, 0);
 				Button btnNewTravelPlan = new Button(this);
 				btnNewTravelPlan.setBackgroundColor(Color.parseColor("#10BE5A"));
 				btnNewTravelPlan.setTypeface(Typeface.DEFAULT_BOLD);
