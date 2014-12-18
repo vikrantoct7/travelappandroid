@@ -111,7 +111,7 @@ public class TravelListActivity extends Activity {
 	@SuppressLint({ "ResourceAsColor", "NewApi" })
 	private void generateTravelList(JSONArray jsonData)
 	{
-		final Button btnNewPlan = (Button)findViewById(R.id.btnNewTravelPlan);
+		/*final Button btnNewPlan = (Button)findViewById(R.id.btnNewTravelPlan);
 		btnNewPlan.setOnClickListener(onClickNewPlan);
 		if(jsonData.length()>0)
 		{
@@ -120,7 +120,7 @@ public class TravelListActivity extends Activity {
 		else
 		{
 			btnNewPlan.setEnabled(true);
-		}
+		}*/
 		setErrorLabelVisibility(View.INVISIBLE,R.string.lblErrorTechnical);
 		try
 		{
@@ -132,9 +132,8 @@ public class TravelListActivity extends Activity {
 			
 			@SuppressWarnings("deprecation")
 			TableLayout.LayoutParams tblparams = new TableLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,TableRow.LayoutParams.WRAP_CONTENT,1);
-			tblparams.setMargins(0, 0, 0, 5);
-			//@SuppressWarnings("deprecation")
-			//TableLayout.LayoutParams tblparamsWrapper = new TableLayout.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,TableRow.LayoutParams.FILL_PARENT,1);
+			tblparams.setMargins(0, 5, 0, 0);
+			
 			
 			@SuppressWarnings("deprecation")
 			TableRow.LayoutParams txtViewParams = new TableRow.LayoutParams(0,TableRow.LayoutParams.FILL_PARENT,1);
@@ -151,7 +150,7 @@ public class TravelListActivity extends Activity {
 
 			
 			int textColor = Color.parseColor("#568536");
-			int tableBackGroundColor=Color.parseColor("#F7FBEC");
+			int tableBackGroundColor=Color.parseColor("#FDFFF8");
 			int isTravelAlreadyconfirmedByCurrentUser=0;
 			int textSize=14;
 			if(jsonData.length()==0)
@@ -160,7 +159,7 @@ public class TravelListActivity extends Activity {
 				tblTravelDetails.setLayoutParams(tblparams);
 				tblTravelDetails.setBackgroundColor(tableBackGroundColor);
 				TableRow tblrow1= new TableRow(this);
-				tblrow1.setPadding(5, 5, 0, 0);
+				tblrow1.setPadding(5, 5, 0, 5);
 				TextView displayNoRecordMsg =new TextView(this);
 				displayNoRecordMsg.setLayoutParams(txtViewParams);
 				displayNoRecordMsg.setTypeface(Typeface.DEFAULT_BOLD);
@@ -168,7 +167,26 @@ public class TravelListActivity extends Activity {
 				displayNoRecordMsg.setTextColor(textColor);
 				displayNoRecordMsg.setText(R.string.lblNoTravellerFoundMsg);
 				tblrow1.addView(displayNoRecordMsg);
+				
+				
+				
+				TableRow tblrow2= new TableRow(this);
+				tblrow2.setPadding(5, 5, 5, 5);
+				Button btnNewTravelPlan = new Button(this);
+				btnNewTravelPlan.setBackgroundColor(Color.parseColor("#10BE5A"));
+				btnNewTravelPlan.setTypeface(Typeface.DEFAULT_BOLD);
+				btnNewTravelPlan.setTextSize(14);
+				btnNewTravelPlan.setGravity(Gravity.CENTER);
+				btnNewTravelPlan.setTextColor(Color.parseColor("#FFFFFF"));
+				btnNewTravelPlan.setText(R.string.btnNewTravelPlan);
+				btnNewTravelPlan.setOnClickListener(onClickNewPlan);
+				btnNewTravelPlan.setHeight(33);							
+				btnNewTravelPlan.setLayoutParams(txtViewParams);
+				
+				tblrow2.addView(btnNewTravelPlan);
+				
 				tblTravelDetails.addView(tblrow1);
+				tblTravelDetails.addView(tblrow2);
 				tblParentTravelDetails.addView(tblTravelDetails,0);
 			}
 			else
@@ -556,16 +574,12 @@ public class TravelListActivity extends Activity {
 	
 	private void setErrorLabelVisibility(int visibility,int errorResId)
 	{
-		TableRow tableRow2 =(TableRow)findViewById(R.id.ErrorRowOnTravelListPage);
-		if(tableRow2 !=null)
-		{
 			TextView lblError =(TextView)findViewById(R.id.lblLocErrorMsgOnTravelListPage);
 			if(lblError != null)
 			{
-				tableRow2.setVisibility(visibility);
+				lblError.setVisibility(visibility);
 				lblError.setText(errorResId);
 			}
-		}
 	}
 	
 	@Override

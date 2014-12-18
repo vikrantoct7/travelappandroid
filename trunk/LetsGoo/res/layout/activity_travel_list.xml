@@ -32,35 +32,20 @@
 
             <TableRow
                 android:id="@+id/tableRow3"
-                android:paddingTop="5dp" >
-
-                <Button
-                    android:id="@+id/btnNewTravelPlan"
-                    style="@style/btnDefaultStyle"
-                    android:layout_width="0dp"
-                    android:layout_weight=".25"
-                    android:text="@string/btnNewTravelPlan" />
-
-                <TextView
-                    android:id="@+id/dumy"
-                    android:layout_weight=".25" />
-
-                <Button
-                    android:id="@+id/btnRefresh"
-                    android:background="@drawable/refresh_icon" />
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/ErrorRowOnTravelListPage"
-                android:paddingTop="5dp"
-                android:visibility="invisible" >
+                 >
 
                 <TextView
                     android:id="@+id/lblLocErrorMsgOnTravelListPage"
                     style="@style/TextViewErrorStyle"
-                    android:layout_weight="1"
+                    android:layout_weight=".75"
+                    android:gravity="left"
                     android:text="@string/lblError"
-                    android:textColor="#FF0000" />
+                    android:textColor="#FF0000" 
+                    android:visibility="invisible"/>
+
+                <Button
+                    android:id="@+id/btnRefresh"
+                    android:background="@drawable/refresh_icon" />
             </TableRow>
         </TableLayout>
 
@@ -72,275 +57,7 @@
             android:background="#C5E0B4"
             android:orientation="horizontal" >
 
-            
-            <TableLayout
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                 android:background="#E2F0D9"
-                 android:orientation="horizontal"
-                 >
-
-                <TableRow
-                    android:gravity="center">
-					<Button 
-
- 					    android:background="@drawable/delete_icon"
-					    />
-					
-                    <TableLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="horizontal" >
-
-                        <TableRow android:paddingLeft="5dp" 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                            >
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_weight=".75"
-                                android:text="Android VM (34/M)"
-                                android:textColor="#568536"
-                                android:textSize="14dp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_column="4"
-                                android:background="@drawable/textview_boxstyle"
-                                android:gravity="center"
-                                android:text="1"
-                                android:textColor="@android:color/white"
-                                android:width="22dp" />
-                        </TableRow>
-
-                        <TableRow android:paddingLeft="5dp" >
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="fill_parent"
-                                android:layout_weight="1"
-                                android:text="Sector 64 (sopra office near by sahara) to sector 18"
-                                android:textColor="#568536"
-                                android:textSize="14dp" />
-                        </TableRow>
-
-                        <TableRow android:paddingLeft="5dp" >
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="fill_parent"
-                                android:layout_weight="1"
-                                android:text="01:30 AM/PRIVATE VECHICLE"
-                                android:textColor="#568536"
-                                android:textSize="13sp" />
-                        </TableRow>
-                    
-                    </TableLayout>
-                </TableRow>
-            </TableLayout>
-            
-             
-            <TableLayout
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:background="#E2F0D9"
-                android:layout_marginTop="5dp"
-                >
-
-                <TableRow
-                    android:gravity="center"
-                    >
-					<Button 
-					    
- 					    android:background="@drawable/confirm_icon"
-					    />
-                    <TableLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" >
-
-                        <TableRow android:paddingLeft="5dp" 
-                            >
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_weight=".75"
-                                android:text="Vikrant Jain (34/M)"
-                                android:textColor="#568536"
-                                android:textSize="14dp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_column="4"
-                                android:background="@drawable/textview_boxstyle"
-                                android:gravity="center"
-                                android:text="2"
-                                android:textColor="@android:color/white"
-                                android:width="22dp" />
-                        </TableRow>
-
-                        <TableRow android:paddingLeft="5dp" >
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="fill_parent"
-                                android:layout_weight="1"
-                                android:text="Sector 64 to sector 18"
-                                android:textColor="#568536"
-                                android:textSize="14dp" />
-                        </TableRow>
-
-                        <TableRow android:paddingLeft="5dp" >
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="fill_parent"
-                                android:layout_weight="1"
-                                android:text="01:00 AM/TAXI"
-                                android:textColor="#568536"
-                                android:textSize="13sp" />
-                        </TableRow>
-                       
-                    </TableLayout>
-                </TableRow>
-            </TableLayout>
-            
-            
-             <TableLayout
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:background="#E2F0D9"
-                android:layout_marginTop="5dp"
-                >
-
-                <TableRow
-                    android:gravity="center"
-                    >
-					<Button 
-					    
- 					    android:background="@drawable/phonecall_icon"
- 					    android:gravity="left"
- 					    android:text="ssss"
-					    />
-                    <TableLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" >
-
-                        <TableRow android:paddingLeft="5dp" 
-                            >
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_weight=".75"
-                                android:text="Amit Shroti (32/M)"
-                                android:textColor="#568536"
-                                android:textSize="14dp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_column="4"
-                                android:background="@drawable/textview_boxstyle"
-                                android:gravity="center"
-                                android:text="1"
-                                android:textColor="@android:color/white"
-                                android:width="22dp" />
-                        </TableRow>
-
-                        <TableRow android:paddingLeft="5dp" >
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="fill_parent"
-                                android:layout_weight="1"
-                                android:text="Sector 64(Fortis hospital) to sector 18"
-                                android:textColor="#568536"
-                                android:textSize="14dp" />
-                        </TableRow>
-
-                        <TableRow android:paddingLeft="5dp" >
-
-                            <TextView
-                               android:layout_width="0dp"
-                                android:layout_height="fill_parent"
-                                android:layout_weight="1"
-                                android:text="01:00 AM/TAXI"
-                                android:textColor="#568536"
-                                android:textSize="13sp" />
-                        </TableRow>
-                      
-                    </TableLayout>
-                </TableRow>
-            </TableLayout>
-            
-             
-             <TableLayout
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:background="#E2F0D9"
-                android:layout_marginTop="5dp"
-                >
-
-                <TableRow
-                    android:gravity="center"
-                    >
-					<Button 
- 					    android:background="@drawable/alreadyconfirmed_icon"
-					    />
-                    <TableLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" >
-
-                        <TableRow android:paddingLeft="5dp" 
-                            >
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_weight=".75"
-                                android:text="Sakshi Gupta (28/F)"
-                                android:textColor="#568536"
-                                android:textSize="14dp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_column="4"
-                                android:background="@drawable/textview_boxstyle"
-                                android:gravity="center"
-                                android:text="1"
-                                android:textColor="@android:color/white"
-                                android:width="22dp" />
-                        </TableRow>
-
-                        <TableRow android:paddingLeft="5dp" >
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="fill_parent"
-                                android:layout_weight="1"
-                                android:text="Sector 64 to sector 18"
-                                android:textColor="#568536"
-                                android:textSize="14dp" />
-                        </TableRow>
-
-                        <TableRow android:paddingLeft="5dp" >
-
-                            <TextView
-                              android:layout_width="0dp"
-                                android:layout_height="fill_parent"
-                                android:layout_weight="1"
-                                android:text="01:00 AM/TAXI"
-                                android:textColor="#568536"
-                                android:textSize="13sp" />
-                        </TableRow>
-                        
-                    </TableLayout>
-                </TableRow>
-            </TableLayout>             
-                   </TableLayout>
+        </TableLayout>
 
         <!--
         <TableLayout
@@ -364,7 +81,8 @@
                     android:textSize="14sp"
                     android:textStyle="bold" />
             </TableRow>
-        </TableLayout>        -->
+        </TableLayout>
+        -->
     </RelativeLayout>
 
 </ScrollView>

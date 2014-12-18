@@ -166,7 +166,7 @@
                     android:layout_weight="1"
                     android:text="@string/lblRegister" />
             </TableRow>
-            <TableRow
+           <!--  <TableRow
             android:id="@+id/tableRow15"
             android:paddingLeft="100dp"
             android:paddingTop="10dp" >
@@ -179,7 +179,7 @@
                 android:textColor="#FFFFFF"
                 android:textSize="14sp"
                 android:textStyle="bold" />
-        </TableRow>
+        </TableRow> -->
         </TableLayout>
     </RelativeLayout>
 
