@@ -30,7 +30,7 @@ import android.text.method.LinkMovementMethod;
 
 
 public class RegisterActivity extends Activity {
-	String User_City_hint="[Select city]";
+	String User_City_hint="Select city";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

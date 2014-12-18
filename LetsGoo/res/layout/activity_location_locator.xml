@@ -41,9 +41,8 @@
 
         <TableRow
             android:id="@+id/tableRow2"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="10dp" >
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp" >
 
             <saavy.brothers.LetsGoo.CustomAutoCompleteTextView
                 android:id="@+id/atv_places"
@@ -56,8 +55,8 @@
 
         <TableRow
             android:id="@+id/tableRow3"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
             android:paddingTop="10dp" >
 
             <TextView
@@ -79,8 +78,8 @@
 
         <TableRow
             android:id="@+id/tableRow4"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
             android:paddingTop="10dp" >
 
             <TextView
@@ -113,7 +112,7 @@
                 android:text="@string/lblOK"
                 android:visibility="visible" />
         </TableRow>
-        <TableRow
+        <!-- <TableRow
             android:id="@+id/tableRow15"
             android:paddingLeft="100dp"
             android:paddingTop="10dp" >
@@ -126,7 +125,7 @@
                 android:textColor="#FFFFFF"
                 android:textSize="14sp"
                 android:textStyle="bold" />
-        </TableRow>
+        </TableRow> -->
     </TableLayout>
 
 </RelativeLayout>

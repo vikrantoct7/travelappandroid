@@ -71,6 +71,7 @@
         <item name="android:gravity">center</item>
         <item name="android:background">#10BE5A</item>
     </style>
+  
     <style name="btnActionStyle">
         <item name="android:textSize">9px</item>
         <item name="android:gravity">center</item>

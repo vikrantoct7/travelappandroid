@@ -16,7 +16,7 @@
         <TableLayout
             android:id="@+id/tblTravelPlan"
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent" 
+            android:layout_height="fill_parent"
             android:layout_centerHorizontal="true" >
 
             <TableRow android:id="@+id/tableRow1" >
@@ -41,8 +41,8 @@
                     android:textColor="#FF0000" />
             </TableRow>
 
-            <TableRow
-                android:id="@+id/tableRow2" >
+            <TableRow android:id="@+id/tableRow2" >
+
                 <Spinner
                     android:id="@+id/ddCurrentLoc"
                     android:layout_weight="1"
@@ -54,15 +54,14 @@
                     android:layout_width="25dp"
                     android:layout_height="28dp"
                     android:layout_gravity="center_vertical"
-                    android:background="@drawable/plus_icon"
-                     />
-
+                    android:background="@drawable/plus_icon" />
             </TableRow>
 
             <TableRow
                 android:id="@+id/tableRow3"
                 android:paddingRight="25dp"
                 android:paddingTop="10dp" >
+
                 <EditText
                     android:id="@+id/txtStartLoc"
                     style="@style/EditTextStyle"
@@ -77,6 +76,7 @@
             <TableRow
                 android:id="@+id/tableRow4"
                 android:paddingTop="10dp" >
+
                 <Spinner
                     android:id="@+id/ddEndLocation"
                     android:layout_weight="1"
@@ -88,9 +88,7 @@
                     android:layout_width="25dp"
                     android:layout_height="28dp"
                     android:layout_gravity="center_vertical"
-                    android:background="@drawable/plus_icon"
-                    />
-
+                    android:background="@drawable/plus_icon" />
             </TableRow>
 
             <TableRow
@@ -121,6 +119,7 @@
                 android:id="@+id/tableRow7"
                 android:paddingRight="25dp"
                 android:paddingTop="10dp" >
+
                 <EditText
                     android:id="@+id/txtNoOfPass"
                     style="@style/EditTextStyle"
@@ -141,7 +140,8 @@
                     android:layout_weight="1"
                     android:text="@string/btnTravelSubmit" />
             </TableRow>
-            <TableRow
+           
+         <!--<TableRow
             android:id="@+id/tableRow15"
             android:paddingLeft="100dp"
             android:paddingTop="10dp" >
@@ -153,8 +153,8 @@
                 android:text="@string/lbllogocopyright"
                 android:textColor="#FFFFFF"
                 android:textSize="14sp"
-                android:textStyle="bold" />
-        </TableRow>
+                android:textStyle="bold" />            
+        </TableRow> -->
         </TableLayout>
     </RelativeLayout>
 
