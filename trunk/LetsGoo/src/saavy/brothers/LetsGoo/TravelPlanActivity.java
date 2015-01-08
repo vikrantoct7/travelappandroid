@@ -31,7 +31,6 @@ import android.widget.TextView;
 
 public class TravelPlanActivity extends Activity {
 
-	GPSTracker gps;
 	public static TravelPlanDTO travelPlanDTO=null;
 	String userStartLocCity ="";
 	String userEndLocCity =""; 
@@ -43,6 +42,7 @@ public class TravelPlanActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		ActivityHelper.turnGPSOn(this);
 		setContentView(R.layout.activity_travel_plan);
 		
 		String selLocality="";
@@ -94,7 +94,7 @@ public class TravelPlanActivity extends Activity {
 		else
 		{
 			// create class object
-	        gps = new GPSTracker(this);
+			GPSTracker gps = new GPSTracker(this);
 	        // check if GPS enabled     
 	        if(gps.canGetLocation())
 	        {
@@ -162,17 +162,17 @@ public class TravelPlanActivity extends Activity {
 					ddTravelType.setSelection(spinnerTravelPosition);
 					
 							
-					HintAdapter adapterCurLocation = getLocationAdapterFromJsonResult(result,"STARTCITYLOCALITES");
+					HintAdapter adapterCurLocation = getLocationAdapterFromJsonResult(result,"STARTCITYLOCALITES",Start_loc_hint);
 					adapterCurLocation.add(Start_loc_hint);
 					HintAdapter adapterEndLocation = null;
 					
 					if(!userStartLocCity.equalsIgnoreCase(userEndLocCity) )
 					{
-						adapterEndLocation = getLocationAdapterFromJsonResult(result,"ENDCITYLOCALITES");
+						adapterEndLocation = getLocationAdapterFromJsonResult(result,"ENDCITYLOCALITES",End_loc_hint);
 					}
 					else
 					{
-						adapterEndLocation= getLocationAdapterFromJsonResult(result,"STARTCITYLOCALITES");
+						adapterEndLocation= getLocationAdapterFromJsonResult(result,"STARTCITYLOCALITES",End_loc_hint);
 					}
 					adapterEndLocation.add(End_loc_hint);
 					
@@ -229,16 +229,24 @@ public class TravelPlanActivity extends Activity {
 	}
 		
 
-	private HintAdapter getLocationAdapterFromJsonResult(JSONObject result,String type) 
+	private HintAdapter getLocationAdapterFromJsonResult(JSONObject result,String type,String hint) 
 			throws JSONException {
 		JSONArray cityLocalitesData =result.getJSONArray(type);
 		ArrayList<String> cityLocalitesType =new ArrayList<String>();
-		for (int i=0;i<cityLocalitesData.length();i++ ) 
+		if(cityLocalitesData.length()==0)
 		{
-			JSONObject row= cityLocalitesData.getJSONObject(i);
-			cityLocalitesType.add(row.getString("LOCALITY"));
+			cityLocalitesType.add(AppConstant.EMPTYSTRING);
 		}
-						
+		else
+		{
+			for (int i=0;i<cityLocalitesData.length();i++ ) 
+			{
+				JSONObject row= cityLocalitesData.getJSONObject(i);
+				cityLocalitesType.add(row.getString("LOCALITY"));
+			}
+		}
+		
+								
 		HintAdapter adapterLocation = new HintAdapter(this,  android.R.layout.simple_spinner_item, cityLocalitesType);
 		adapterLocation.setDropDownViewResource(R.layout.activity_settings_spinner_item);
 		return adapterLocation;
@@ -320,15 +328,16 @@ public class TravelPlanActivity extends Activity {
 			GenericValidator validator = new GenericValidator();
 			//validationResult= validator.validate(txtStartPoint);
 			validationResult= validator.validate(txtNoOfPass);
-			if(ddCurrentLoc.getSelectedItem()==Start_loc_hint)
+			if(ddCurrentLoc.getSelectedItem()==Start_loc_hint || ddCurrentLoc.getSelectedItem()==AppConstant.EMPTYSTRING)
 			{
 				View v= ddCurrentLoc.getSelectedView();
 				TextView temp= (TextView)v.findViewById(android.R.id.text1);
 				temp.setError("This is mandatory!");
 				validationResult=false;
 			}
+	
 			
-			if(ddEndLocation.getSelectedItem()==End_loc_hint)
+			if(ddEndLocation.getSelectedItem()==End_loc_hint || ddEndLocation.getSelectedItem()==AppConstant.EMPTYSTRING)
 			{
 				View v= ddEndLocation.getSelectedView();
 				TextView temp= (TextView)v.findViewById(android.R.id.text1);
@@ -496,5 +505,5 @@ public class TravelPlanActivity extends Activity {
 			
 		}
 	};
-
+	
 }

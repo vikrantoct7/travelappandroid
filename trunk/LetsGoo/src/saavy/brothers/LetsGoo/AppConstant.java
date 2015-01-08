@@ -5,6 +5,7 @@ public final class AppConstant {
 	public static final String PHPRESPONSE_KO="KO";
 	public static final String DATABASEFILE = "Users.db";
 	public static final String STORAGEFOLDER ="LetsGoo";
+	public static final String EMPTYSTRING="";
 	
 	public static final class PHP_ERROR_CODE
 	{

@@ -35,6 +35,7 @@ public class RegisterActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		ActivityHelper.turnGPSOn(this);
 		setContentView(R.layout.activity_register);
 		ActivityHelper.setApplicationTitle(getWindow());
 		setErrorLabelVisibility(View.INVISIBLE,R.string.lblError);
@@ -49,6 +50,7 @@ public class RegisterActivity extends Activity {
         if(gps.canGetLocation())
         {
         	userCurrentCity=gps.getCurrentCity();
+        	gps.stopUsingGPS();
        	}else
        	{
     		// can't get location

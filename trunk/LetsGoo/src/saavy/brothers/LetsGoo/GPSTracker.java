@@ -12,6 +12,7 @@ import android.location.Address;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
@@ -42,7 +43,6 @@ public class GPSTracker extends Service implements LocationListener {
     // Declaring a Location Manager
     protected LocationManager locationManager;
     
-    
     public GPSTracker(Context context) {
         this.mContext = context;
         getLocation();
@@ -55,7 +55,7 @@ public class GPSTracker extends Service implements LocationListener {
             // getting GPS status
             isGPSEnabled = locationManager
                     .isProviderEnabled(LocationManager.GPS_PROVIDER);
-
+            
             // getting network status
             isNetworkEnabled = locationManager
                     .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
@@ -102,6 +102,7 @@ public class GPSTracker extends Service implements LocationListener {
                                 longitude = location.getLongitude();
                                 this.canGetLocation = true;
                             }
+                            ActivityHelper.turnGPSOff(this.mContext);
                         }
                     }
                 }

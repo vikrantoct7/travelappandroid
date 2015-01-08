@@ -145,7 +145,7 @@ public class TravelListActivity extends Activity {
 			
 			@SuppressWarnings("deprecation")
 			TableRow.LayoutParams paramsForActionRow = new TableRow.LayoutParams();
-			paramsForActionRow.weight=(float).75;
+			paramsForActionRow.weight=(float).70;
 			
 
 			
@@ -272,8 +272,8 @@ public class TravelListActivity extends Activity {
 					actionbuttonBox.setTextSize(9);
 					actionbuttonBox.setTextColor(Color.parseColor("#2D3121"));
 					actionbuttonBox.setGravity(Gravity.CENTER_VERTICAL);
-					actionbuttonBox.setWidth(60);
-					actionbuttonBox.setHeight(20);			
+					actionbuttonBox.setWidth(70);
+					actionbuttonBox.setHeight(25);			
 					// TODO To be check whether it is effective to use setTag method for passing object
 					if(datarow.getInt("ISSELFPLAN")==1)
 					{
@@ -584,6 +584,7 @@ public class TravelListActivity extends Activity {
 	
 	@Override
 	public void onBackPressed() {
+		ActivityHelper.turnGPSOff(this);
 		Intent startMain = new Intent(Intent.ACTION_MAIN);      
         startMain.addCategory(Intent.CATEGORY_HOME);                        
         startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);          
