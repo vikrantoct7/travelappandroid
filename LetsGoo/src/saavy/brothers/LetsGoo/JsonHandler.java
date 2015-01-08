@@ -31,7 +31,7 @@ public final class JsonHandler {
 	//Private constructor to declare single ton class
 	private JsonHandler()
 	{
-		
+	
 	}
 	
 	public boolean checkInternetConnection(Context context) {

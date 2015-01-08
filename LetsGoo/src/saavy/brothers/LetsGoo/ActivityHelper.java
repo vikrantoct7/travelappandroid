@@ -9,7 +9,10 @@ import saavy.brothers.LetsGoo.AppConstant.PHP_ERROR_CODE;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
+import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.view.Gravity;
 import android.view.View;
@@ -24,6 +27,37 @@ import android.widget.TextView;
 
 public final class ActivityHelper {
 
+	public static void turnGPSOn(Context context)
+    {
+         Intent intent = new Intent("android.location.GPS_ENABLED_CHANGE");
+         intent.putExtra("enabled", true);
+         context.sendBroadcast(intent);
+
+         String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+	     if(!provider.contains("gps")){ //if gps is disabled
+	         final Intent poke = new Intent();
+	         poke.setClassName("com.android.settings", "com.android.settings.widget.SettingsAppWidgetProvider"); 
+	         poke.addCategory(Intent.CATEGORY_ALTERNATIVE);
+	         poke.setData(Uri.parse("3")); 
+	         context.sendBroadcast(poke);
+	     }
+    }
+	    
+    public static void turnGPSOff(Context context)
+    {
+    	Intent intent = new Intent("android.location.GPS_ENABLED_CHANGE");
+        intent.putExtra("enabled", false);
+        context.sendBroadcast(intent);
+        
+        String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+        if(provider.contains("gps")){ //if gps is enabled
+            final Intent poke = new Intent();
+            poke.setClassName("com.android.settings", "com.android.settings.widget.SettingsAppWidgetProvider");
+            poke.addCategory(Intent.CATEGORY_ALTERNATIVE);
+            poke.setData(Uri.parse("3")); 
+            context.sendBroadcast(poke);
+        }
+    }
 	public static String checkLogin(String userMobileNo,Context _context) throws Exception
 	{
 		String errorCode="";

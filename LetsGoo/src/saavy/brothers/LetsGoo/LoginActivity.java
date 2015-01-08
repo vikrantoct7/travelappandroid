@@ -7,9 +7,11 @@ import saavy.brothers.LetsGoo.R;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -120,4 +122,16 @@ public class LoginActivity extends Activity {
         startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);          
         startActivity(startMain); 
 	}
+	/*@Override
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        this.getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD);           
+    }
+	@Override  
+	public boolean onKeyDown(int keyCode, KeyEvent event){
+        if (keyCode == KeyEvent.KEYCODE_HOME || keyCode == KeyEvent.KEYCODE_MENU) {
+        	ActivityHelper.turnGPSOff(this);
+        }
+        return super.onKeyDown(keyCode, event);
+    }*/
 }

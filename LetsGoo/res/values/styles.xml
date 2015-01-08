@@ -11,7 +11,6 @@
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
         -->
-		<item name="android:fontFamily">Segoe UI</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowTitleSize">35dip</item>
         <item name="android:windowTitleBackgroundStyle">@style/android:windowTitleStyle</item>
