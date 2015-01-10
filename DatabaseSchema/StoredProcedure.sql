@@ -296,15 +296,26 @@ BEGIN
 
       SELECT otherusers.TRAVELID,matchusers.USERID,matchusers.UCONTACTNO,otherusers.TRAVELID,matchusers.UFNAME ,matchusers.ULNAME,matchusers.GENDER,matchusers.AGE,matchusers.UCONTACTNO,
         otherusers.CURRLOCATION,otherusers.STARTLOCATION,otherusers.ENDLOCATION,otherusers.STARTLOCATION,otherusers.NOOFPASSENGER,otherusers.TRAVELMODE,otherusers.TRAVELTIME
-        ,otherusers.USERID=LOGINUSERID AS ISSELFPLAN,otherusers.ISCONFIRMED
+        ,otherusers.USERID=LOGINUSERID AS ISSELFPLAN,
+        (SELECT 1 FROM aasv_travelconfirmdet confirmdet WHERE ARCHIVE=0 AND (confirmdet.TRAVELID=connecteduser.TRAVELID
+         AND confirmdet.MAPEDTRAVELID=otherusers.TRAVELID) OR (confirmdet.TRAVELID=otherusers.TRAVELID
+         AND confirmdet.MAPEDTRAVELID=connecteduser.TRAVELID) ) AS CONFIRMEDTO,
+         otherusers.ISCONFIRMED
+
       FROM aasv_travel otherusers
-      INNER JOIN aasv_user matchusers ON matchusers.USERID=otherusers.USERID
-      WHERE otherusers.ISDELETED=0 AND EXISTS(SELECT 1 FROM aasv_travel connecteduser
-            WHERE  connecteduser.ISDELETED=0 AND connecteduser.CURRLOCATION=otherusers.CURRLOCATION
+      INNER JOIN aasv_travel connecteduser ON
+            connecteduser.CURRLOCATION=otherusers.CURRLOCATION
             /*AND onnecteduser.ENDLOCATION =otherusers.ENDLOCATION */
-            AND connecteduser.USERID=LOGINUSERID AND otherusers.ISCONFIRMED<= connecteduser.ISCONFIRMED ANd (connecteduser.TRAVELID=otherusers.TRAVELID  OR connecteduser.NOOFPASSENGER +otherusers.NOOFPASSENGER
-       <= (SELECT NOFPASSENGER FROM aasv_travelmode WHERE aasv_travelmode.TYPE =otherusers.TRAVELMODE)))
-      ORDER BY ISSELFPLAN DESC,ISCONFIRMED DESC;
+            AND connecteduser.USERID=LOGINUSERID
+            /*AND otherusers.ISCONFIRMED<= connecteduser.ISCONFIRMED*/
+            ANd (connecteduser.TRAVELID=otherusers.TRAVELID  OR connecteduser.NOOFPASSENGER +otherusers.NOOFPASSENGER
+       <= (SELECT NOFPASSENGER FROM aasv_travelmode WHERE aasv_travelmode.TYPE =otherusers.TRAVELMODE))
+      INNER JOIN aasv_user matchusers ON matchusers.USERID=otherusers.USERID
+      WHERE otherusers.ISDELETED=0 AND connecteduser.ISDELETED=0  AND EXISTS(SELECT 1 FROM aasv_travel WHERE ISDELETED=0 AND USERID=LOGINUSERID)
+      ORDER BY ISSELFPLAN DESC,CONFIRMEDTO DESC;
+
+	  
+	  
 END $$
 /*!50003 SET SESSION SQL_MODE=@TEMP_SQL_MODE */  $$
 
