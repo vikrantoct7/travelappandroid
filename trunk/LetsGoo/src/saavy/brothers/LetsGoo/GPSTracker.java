@@ -102,7 +102,7 @@ public class GPSTracker extends Service implements LocationListener {
                                 longitude = location.getLongitude();
                                 this.canGetLocation = true;
                             }
-                            ActivityHelper.turnGPSOff(this.mContext);
+                            
                         }
                     }
                 }
@@ -111,7 +111,7 @@ public class GPSTracker extends Service implements LocationListener {
         } catch (Exception e) {
             //e.printStackTrace();
         }
-
+        ActivityHelper.turnGPSOff(this.mContext);
         return location;
     }
 

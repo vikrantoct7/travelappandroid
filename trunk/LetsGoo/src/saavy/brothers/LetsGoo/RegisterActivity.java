@@ -45,11 +45,11 @@ public class RegisterActivity extends Activity {
 		btnSubmit.setOnClickListener(addRegisterButtonListener);
 		// create class object
 		GPSTracker gps = new GPSTracker(this);
-		String userCurrentCity="";
+		String userGpsLocationCity="";
         // check if GPS enabled     
         if(gps.canGetLocation())
         {
-        	userCurrentCity=gps.getCurrentCity();
+        	userGpsLocationCity=gps.getCurrentCity();
         	gps.stopUsingGPS();
        	}else
        	{
@@ -81,11 +81,11 @@ public class RegisterActivity extends Activity {
 					JSONArray cityData =result.getJSONArray("CITYDATA");
 					ArrayList<String> cityAdapeterData = new ArrayList<String>();
 					
-					if(userCurrentCity.length()>0)
+					if(userGpsLocationCity.length()>0)
 					{
-						if(!cityData.toString().toLowerCase().contains(userCurrentCity.toLowerCase()))
+						if(!cityData.toString().toLowerCase().contains(userGpsLocationCity.toLowerCase()))
 						{
-							cityAdapeterData.add(userCurrentCity);
+							cityAdapeterData.add(userGpsLocationCity);
 						}
 					}
 					for (int i=0;i<cityData.length();i++ ) 
@@ -99,7 +99,13 @@ public class RegisterActivity extends Activity {
 					adapterCity.add(User_City_hint);
 					final Spinner ddCity=(Spinner)findViewById(R.id.ddCity);
 					ddCity.setAdapter(adapterCity);
-					ddCity.setSelection(adapterCity.getCount());
+					int gpsCitySelectionIndex=adapterCity.getCount();
+					if(userGpsLocationCity.length()>0)
+					{
+						gpsCitySelectionIndex =adapterCity.getPosition(userGpsLocationCity);
+					}
+					ddCity.setSelection(gpsCitySelectionIndex);
+					
 				}
 			}
 		}

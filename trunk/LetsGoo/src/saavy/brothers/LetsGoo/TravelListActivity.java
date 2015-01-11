@@ -43,6 +43,7 @@ public class TravelListActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		ActivityHelper.turnGPSOff(this);
 		setContentView(R.layout.activity_travel_list);
 		ActivityHelper.setApplicationTitle(getWindow());
 		
@@ -171,16 +172,17 @@ public class TravelListActivity extends Activity {
 				
 				
 				TableRow tblrow2= new TableRow(this);
-				tblrow2.setPadding(0, 5, 0, 0);
+				tblrow2.setPadding(1, 5, 1, 1);
 				Button btnNewTravelPlan = new Button(this);
-				btnNewTravelPlan.setBackgroundColor(Color.parseColor("#10BE5A"));
+				//btnNewTravelPlan.setBackgroundColor(Color.parseColor("#10BE5A"));
+				btnNewTravelPlan.setBackgroundResource(R.drawable.defaultbutton_statecontroller);
 				btnNewTravelPlan.setTypeface(Typeface.DEFAULT_BOLD);
 				btnNewTravelPlan.setTextSize(14);
 				btnNewTravelPlan.setGravity(Gravity.CENTER);
 				btnNewTravelPlan.setTextColor(Color.parseColor("#FFFFFF"));
 				btnNewTravelPlan.setText(R.string.btnNewTravelPlan);
 				btnNewTravelPlan.setOnClickListener(onClickNewPlan);
-				btnNewTravelPlan.setHeight(33);							
+				btnNewTravelPlan.setHeight(40);							
 				btnNewTravelPlan.setLayoutParams(txtViewParams);
 				
 				tblrow2.addView(btnNewTravelPlan);
@@ -269,8 +271,8 @@ public class TravelListActivity extends Activity {
 										
 					Button actionbuttonBox= new Button(this);
 					actionbuttonBox.setBackgroundResource(R.drawable.actionbutton_statecontroller);
-					actionbuttonBox.setTextSize(9);
-					actionbuttonBox.setTextColor(Color.parseColor("#2D3121"));
+					actionbuttonBox.setTextSize(10);
+					actionbuttonBox.setTextColor(textColor);
 					actionbuttonBox.setGravity(Gravity.CENTER_VERTICAL);
 					actionbuttonBox.setWidth(70);
 					actionbuttonBox.setHeight(25);			
@@ -584,7 +586,6 @@ public class TravelListActivity extends Activity {
 	
 	@Override
 	public void onBackPressed() {
-		ActivityHelper.turnGPSOff(this);
 		Intent startMain = new Intent(Intent.ACTION_MAIN);      
         startMain.addCategory(Intent.CATEGORY_HOME);                        
         startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);          

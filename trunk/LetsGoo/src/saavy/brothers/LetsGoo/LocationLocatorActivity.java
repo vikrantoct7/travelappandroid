@@ -41,6 +41,7 @@ public class LocationLocatorActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		ActivityHelper.turnGPSOff(this);
 		setContentView(R.layout.activity_location_locator);
 		ActivityHelper.setApplicationTitle(this.getWindow());
 		

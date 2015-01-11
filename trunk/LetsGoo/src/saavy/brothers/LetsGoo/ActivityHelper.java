@@ -22,41 +22,49 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-//import com.android.internal.telephony.Phone; 
-//import com.android.internal.telephony.PhoneFactory; 
 
 public final class ActivityHelper {
 
 	public static void turnGPSOn(Context context)
     {
-         Intent intent = new Intent("android.location.GPS_ENABLED_CHANGE");
-         intent.putExtra("enabled", true);
-         context.sendBroadcast(intent);
-
-         String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-	     if(!provider.contains("gps")){ //if gps is disabled
-	         final Intent poke = new Intent();
-	         poke.setClassName("com.android.settings", "com.android.settings.widget.SettingsAppWidgetProvider"); 
-	         poke.addCategory(Intent.CATEGORY_ALTERNATIVE);
-	         poke.setData(Uri.parse("3")); 
-	         context.sendBroadcast(poke);
-	     }
+		try
+		{
+			 String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+		     if(!provider.contains("gps")){ //if gps is disabled
+		         final Intent poke = new Intent();
+		         poke.setClassName("com.android.settings", "com.android.settings.widget.SettingsAppWidgetProvider"); 
+		         poke.addCategory(Intent.CATEGORY_ALTERNATIVE);
+		         poke.setData(Uri.parse("3")); 
+		         context.sendBroadcast(poke);
+		     }
+		}
+		catch(Exception e)
+		{
+	         Intent intent = new Intent("android.location.GPS_ENABLED_CHANGE");
+	         intent.putExtra("enabled", true);
+	         context.sendBroadcast(intent);
+		}
     }
 	    
     public static void turnGPSOff(Context context)
     {
-    	Intent intent = new Intent("android.location.GPS_ENABLED_CHANGE");
-        intent.putExtra("enabled", false);
-        context.sendBroadcast(intent);
-        
-        String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-        if(provider.contains("gps")){ //if gps is enabled
-            final Intent poke = new Intent();
-            poke.setClassName("com.android.settings", "com.android.settings.widget.SettingsAppWidgetProvider");
-            poke.addCategory(Intent.CATEGORY_ALTERNATIVE);
-            poke.setData(Uri.parse("3")); 
-            context.sendBroadcast(poke);
-        }
+    	try
+		{
+	    	String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+	        if(provider.contains("gps")){ //if gps is enabled
+	            final Intent poke = new Intent();
+	            poke.setClassName("com.android.settings", "com.android.settings.widget.SettingsAppWidgetProvider");
+	            poke.addCategory(Intent.CATEGORY_ALTERNATIVE);
+	            poke.setData(Uri.parse("3")); 
+	            context.sendBroadcast(poke);
+	        }
+		}
+		catch(Exception e)
+		{
+			Intent intent = new Intent("android.location.GPS_ENABLED_CHANGE");
+	        intent.putExtra("enabled", false);
+	        context.sendBroadcast(intent);
+		}
     }
 	public static String checkLogin(String userMobileNo,Context _context) throws Exception
 	{
@@ -76,14 +84,7 @@ public final class ActivityHelper {
 				if(resultCode.contentEquals(AppConstant.PHPRESPONSE_KO))
 				{
 					errorCode=result.getString("ERRORCODE");
-					/*if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.NOTEXISTS))
-					{
-						SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorUserNotExist);
-					}
-					else if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
-					{
-						SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorUserNotExist);
-					}*/
+					
 				}
 				else
 				{
