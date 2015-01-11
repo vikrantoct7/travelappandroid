@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true" 
-          android:drawable="@drawable/actionbutton_pressedstate"  />
+          android:drawable="@drawable/defaultbutton_pressedstate"  />
     <item android:state_enabled="true" 
-          android:drawable="@drawable/actionbutton_enabledstate" />
+          android:drawable="@drawable/defaultbutton_enabledstate" />
 </selector>

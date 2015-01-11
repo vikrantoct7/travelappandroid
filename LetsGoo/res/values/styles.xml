@@ -47,13 +47,12 @@
 
     <style name="TextViewErrorStyle" parent="@android:style/TextAppearance">
         <item name="android:textSize">12sp</item>
-       <!--  <item name="android:typeface">sans</item> -->
         <item name="android:textColor">#FF4500</item>
         <item name="android:gravity">center_horizontal</item>
     </style>
 
     <style name="EditTextStyle" parent="@android:style/TextAppearance">
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:textColor">#54823B</item>
         <item name="android:gravity">center</item>
         <item name="android:ellipsize">start</item>
@@ -68,31 +67,15 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:gravity">center</item>
-        <item name="android:background">#10BE5A</item>
+        <item name="android:background">@drawable/defaultbutton_statecontroller</item>
     </style>
-  
-    <style name="btnActionStyle">
-        <item name="android:textSize">9px</item>
-        <item name="android:gravity">center</item>
-        <item name="android:width">50sp</item>
-        <item name="android:height">20sp</item>
-        <item name="android:textColor">#2D3121</item>
-    </style>
-    <style name="SmallDefaultStyle">
-        <item name="android:textSize">12sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">#FFFFFF</item>
-        <item name="android:gravity">center</item>
-        <item name="android:background">#10BE5A</item>
-    </style>
-
     <style name="SpinnerDefaultStyle" parent="android:Widget.Spinner">
          <item name="android:background">@drawable/spinner_default</item>
     </style>
 
     <style name="SpinnerItemDefaultStyle" parent="android:Widget.TextView.SpinnerItem">
         <item name="android:singleLine">true</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:gravity">center</item>
         <item name="android:ellipsize">start</item>
         <item name="android:textColor">#54823B</item>
