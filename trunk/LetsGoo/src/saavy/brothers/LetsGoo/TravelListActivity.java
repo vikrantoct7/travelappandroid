@@ -174,7 +174,6 @@ public class TravelListActivity extends Activity {
 				TableRow tblrow2= new TableRow(this);
 				tblrow2.setPadding(1, 5, 1, 1);
 				Button btnNewTravelPlan = new Button(this);
-				//btnNewTravelPlan.setBackgroundColor(Color.parseColor("#10BE5A"));
 				btnNewTravelPlan.setBackgroundResource(R.drawable.defaultbutton_statecontroller);
 				btnNewTravelPlan.setTypeface(Typeface.DEFAULT_BOLD);
 				btnNewTravelPlan.setTextSize(14);
@@ -182,7 +181,6 @@ public class TravelListActivity extends Activity {
 				btnNewTravelPlan.setTextColor(Color.parseColor("#FFFFFF"));
 				btnNewTravelPlan.setText(R.string.btnNewTravelPlan);
 				btnNewTravelPlan.setOnClickListener(onClickNewPlan);
-				btnNewTravelPlan.setHeight(40);							
 				btnNewTravelPlan.setLayoutParams(txtViewParams);
 				
 				tblrow2.addView(btnNewTravelPlan);
@@ -233,7 +231,6 @@ public class TravelListActivity extends Activity {
 					dumyBox.setBackgroundResource(R.drawable.textview_boxstyle);
 					dumyBox.setTextColor(Color.WHITE);
 					dumyBox.setGravity(Gravity.CENTER);
-					dumyBox.setWidth(22);
 					dumyBox.setText(datarow.getString("NOOFPASSENGER"));
 					
 					
@@ -265,7 +262,6 @@ public class TravelListActivity extends Activity {
 					displayStartTime.setTextSize(12);
 					displayStartTime.setTextColor(textColor);
 					displayStartTime.setText(datarow.getString("TRAVELTIME") + "/"+ datarow.getString("TRAVELMODE"));
-					//displayStartTime.setLayoutParams(txtViewParams);
 					
 					
 										
@@ -274,8 +270,6 @@ public class TravelListActivity extends Activity {
 					actionbuttonBox.setTextSize(10);
 					actionbuttonBox.setTextColor(textColor);
 					actionbuttonBox.setGravity(Gravity.CENTER_VERTICAL);
-					actionbuttonBox.setWidth(70);
-					actionbuttonBox.setHeight(25);			
 					// TODO To be check whether it is effective to use setTag method for passing object
 					if(datarow.getInt("ISSELFPLAN")==1)
 					{
