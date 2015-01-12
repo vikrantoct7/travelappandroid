@@ -14,5 +14,5 @@
         android:top="1dp" />
 
     <solid android:color="#3C9D65" />
-
+	<size android:height="40dip" ></size> 
 </shape>

@@ -13,5 +13,5 @@
         android:endColor="#96CD02"
         android:startColor="#96CD02"
         android:type="linear" />
-
+	<size android:width="22dip" ></size> 
 </shape>

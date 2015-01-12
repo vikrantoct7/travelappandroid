@@ -7,11 +7,9 @@ import saavy.brothers.LetsGoo.R;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -63,30 +61,23 @@ public class LoginActivity extends Activity {
 			final  TextView txtUserName = (TextView)findViewById(R.id.txtLogin);
 			try {
 				
-				//if(txtUserName.getText().length()!= 10)
-				//{
-				//	txtUserName.setError("Use 10 digit mobile number.");
-				//}
-				//else
-				//{
-					String errorCode = ActivityHelper.checkLogin(txtUserName.getText().toString(),view.getContext());
-					if(errorCode.length()> 0)
+				String errorCode = ActivityHelper.checkLogin(txtUserName.getText().toString(),view.getContext());
+				if(errorCode.length()> 0)
+				{
+					if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.NOTEXISTS))
 					{
-						if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.NOTEXISTS))
-						{
-							setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorUserNotExist);
-						}
-						else if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
-						{
-							setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-						}
+						setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorUserNotExist);
 					}
-					else
+					else if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
 					{
-						Intent intent = new Intent(view.getContext(),TravelListActivity.class);
-						startActivity(intent);
+						setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 					}
-				//}
+				}
+				else
+				{
+					Intent intent = new Intent(view.getContext(),TravelListActivity.class);
+					startActivity(intent);
+				}
 			} 
 			catch(ConnectException ie)
 			{
