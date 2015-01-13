@@ -109,7 +109,7 @@ BEGIN
 
       -- declare cursor to fetch all trevel which are passed by last three hours
       DEClARE travel_cursor CURSOR FOR
-      SELECT TRAVELID FROM aasv_travel where DATCRETRAVEL<= DATE_SUB(now(),INTERVAL 3 HOUR) AND ISDELETED=0;
+      SELECT TRAVELID FROM aasv_travel where DATCRETRAVEL<= DATE_SUB(now(),INTERVAL 2 HOUR) AND ISDELETED=0;
 
       DECLARE CONTINUE HANDLER FOR NOT FOUND SET not_found_travel = 1;
       OPEN travel_cursor;
