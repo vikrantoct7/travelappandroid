@@ -126,10 +126,10 @@ public class RegisterActivity extends Activity {
 			String mPhoneNumber =  ActivityHelper.getUserMobileNo(this);
 			final EditText txtPhNo= (EditText)findViewById(R.id.txtPhNo);
 			txtPhNo.setText(mPhoneNumber);
-			if(mPhoneNumber.length()> 0)
-			{
-				txtPhNo.setEnabled(false);
-			}
+			//if(mPhoneNumber.length()> 0)
+			//{
+			//	txtPhNo.setEnabled(false);
+			//}
 		}
 		catch(Exception ex)
 		{

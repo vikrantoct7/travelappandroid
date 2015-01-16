@@ -83,4 +83,5 @@
 	<string name="lblLocationInformation">Search and add location</string>
 	<string name="lblTravelListInformation">Thanks for partnering with us in saving money, making friends and keeping earth green.</string>
 	<string name="lblNoTravellerFoundMsg">Create your travel plan to find co-travelers</string>
+	<string name="lblPhoneNotAllow">Not Allow</string>
 </resources>
