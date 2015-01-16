@@ -137,7 +137,7 @@ public final class JsonHandler {
 	
 	public String getFullUrl(String relativePage)
 	{
-		//return "http://192.168.0.100:90/" +relativePage;
+		//return "http://192.168.0.101:90/" +relativePage;
 		return "http://letsgetout.esy.es/" +relativePage;
 	}
 
