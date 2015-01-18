@@ -8,13 +8,20 @@ try
 	
 	$jsonInput = json_decode(filter_var(file_get_contents('php://input'), FILTER_UNSAFE_RAW)); 
 	$LOGGEDINUSERID = $jsonInput->LOGGEDINUSERID;
-	$GPSLOCATIONCITY = $jsonInput->GPSLOCATIONCITY;
+	$STARTLOCATIONCITY = $jsonInput->STARTLOCATIONCITY;
+	$ENDLOCATIONCITY = $jsonInput->ENDLOCATIONCITY;
 	$db->Query("CALL aasv_travelmode_getall()");
 	$result['TRAVELMODE'] = $db->loadObjectList();
 	$db->ReConnect();
-	$db->Query("CALL aasv_user_getusercitylocalites('".$LOGGEDINUSERID."','".$GPSLOCATIONCITY."')");
-	$result['CITYLOCALITES'] = $db->loadObjectList();
+	$db->Query("CALL aasv_user_getusercitylocalites('".$LOGGEDINUSERID."','".$STARTLOCATIONCITY."')");
+	$result['STARTCITYLOCALITES'] = $db->loadObjectList();
 	
+	if($STARTLOCATIONCITY != $ENDLOCATIONCITY)
+	{
+		$db->ReConnect();
+		$db->Query("CALL aasv_user_getusercitylocalites('".$LOGGEDINUSERID."','".$ENDLOCATIONCITY."')");
+		$result['ENDCITYLOCALITES'] = $db->loadObjectList();
+	}
 	if(count($result)>0)
 	{
 		$result['RESULT'] = 'OK';
