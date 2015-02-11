@@ -181,6 +181,13 @@
                 android:textStyle="bold" />
         </TableRow> -->
         </TableLayout>
+        <ProgressBar
+       android:id="@+id/RegisterProgressBar"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_centerHorizontal="true"
+       android:visibility="invisible"
+       android:layout_marginTop="100dp" />
     </RelativeLayout>
 
 </ScrollView>

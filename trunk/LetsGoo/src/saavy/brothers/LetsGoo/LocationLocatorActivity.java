@@ -21,12 +21,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -38,12 +41,16 @@ public class LocationLocatorActivity extends Activity {
 	PlacesTask placesTask;
 	ParserTask parserTask;
 	
+	ProgressBar locationLocatorProgressBar =null;
+	Handler myHandler=null ;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		ActivityHelper.turnGPSOff(this);
 		setContentView(R.layout.activity_location_locator);
 		ActivityHelper.setApplicationTitle(this.getWindow());
+		myHandler= new Handler(Looper.getMainLooper());
 		
 		setErrorLabelVisibility(View.INVISIBLE,R.string.lblError);
 		
@@ -71,6 +78,17 @@ public class LocationLocatorActivity extends Activity {
 			}
 	    });
 		
+	}
+	
+	@Override
+	protected void onRestart()
+	{
+		super.onRestart();
+		if(locationLocatorProgressBar ==null)
+		{
+			locationLocatorProgressBar = (ProgressBar)findViewById(R.id.locationLocaterProgressBar);
+		}
+		locationLocatorProgressBar.setVisibility(View.INVISIBLE);
 	}
 
 	/** A method to download json data from url 
@@ -243,61 +261,70 @@ public class LocationLocatorActivity extends Activity {
 		
 		@Override
 		public void onClick(View v) {
-			TextView subLocalitySelected =(TextView)findViewById(R.id.subLocalitySelected);
-			TextView localitySelected =(TextView)findViewById(R.id.localitySelected);
+			final TextView subLocalitySelected =(TextView)findViewById(R.id.subLocalitySelected);
+			final TextView localitySelected =(TextView)findViewById(R.id.localitySelected);
 			if(subLocalitySelected.getText().length()>0)
 			{
-				try
-            	{
-	            	JSONObject reqParameters= new JSONObject();
-	    			reqParameters.put("LOCALITYNAME", subLocalitySelected.getText());
-	    			reqParameters.put("CITYNAME", localitySelected.getText());
-	    			JsonHandler jsonHandler =JsonHandler.getInstance();
-	    			String url=jsonHandler.getFullUrl("LocalityDataAdapter.php");
-	    			JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters,v.getContext());
-	    			if(result !=null)
-	    			{
-		    			String resultCode= result.getString("RESULT");
-		    			if(resultCode.contentEquals(AppConstant.PHPRESPONSE_KO))
-		    			{
-		    				String errorCode=result.getString("ERRORCODE");
-		    				
-		    				if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.ALREADYEXISTS))
-		    				{
-		    					goToTravelPlanActivity(v, subLocalitySelected.getText(),
-										localitySelected.getText());
-		    				}
-		    			}
-		    			else
-		    			{
-		    				goToTravelPlanActivity(v, subLocalitySelected.getText(),
-									localitySelected.getText());
-		    			}
-	    			}
-	            }
-				catch(ConnectException ie)
+				if(locationLocatorProgressBar ==null)
 				{
-					setErrorLabelVisibility(View.VISIBLE,R.string.InternetConnectiivityErrorMsg);
+					locationLocatorProgressBar = (ProgressBar)findViewById(R.id.locationLocaterProgressBar);
 				}
-				catch(JSONException ex)
-		    	{
-		    		setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-		    	}
-	            catch (IOException e) 
-	        	{    
-	        		setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-	        	} 
+				locationLocatorProgressBar.setVisibility(View.VISIBLE);
+				new Thread(new Runnable() {             
+					public void run() {
+						try
+		            	{
+			            	JSONObject reqParameters= new JSONObject();
+			    			reqParameters.put("LOCALITYNAME", subLocalitySelected.getText());
+			    			reqParameters.put("CITYNAME", localitySelected.getText());
+			    			JsonHandler jsonHandler =JsonHandler.getInstance();
+			    			String url=jsonHandler.getFullUrl("LocalityDataAdapter.php");
+			    			JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters,LocationLocatorActivity.this);
+			    			if(result !=null)
+			    			{
+				    			String resultCode= result.getString("RESULT");
+				    			if(resultCode.contentEquals(AppConstant.PHPRESPONSE_KO))
+				    			{
+				    				String errorCode=result.getString("ERRORCODE");
+				    				
+				    				if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.ALREADYEXISTS))
+				    				{
+				    					goToTravelPlanActivity(subLocalitySelected.getText(),
+												localitySelected.getText());
+				    				}
+				    			}
+				    			else
+				    			{
+				    				goToTravelPlanActivity(subLocalitySelected.getText(),
+											localitySelected.getText());
+				    			}
+			    			}
+			            }
+						catch(ConnectException ie)
+						{
+							setErrorLabelVisibility(View.VISIBLE,R.string.InternetConnectiivityErrorMsg);
+						}
+						catch(JSONException ex)
+				    	{
+				    		setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+				    	}
+			            catch (IOException e) 
+			        	{    
+			        		setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+			        	} 
+					}
+				}).start();	
 			}
 		}
 
 	};
 	
-	private void goToTravelPlanActivity(View v, CharSequence subLocalitySelected,
+	private void goToTravelPlanActivity(CharSequence subLocalitySelected,
 			CharSequence localitySelected) {
 		//final TextView lblLocPosition =(TextView) findViewById(R.id.lblLocPosition);
 		//final TextView lblPersistPosition =(TextView) findViewById(R.id.lblPersistPosition);
 	
-		Intent intent = new Intent(v.getContext(),TravelPlanActivity.class);
+		Intent intent = new Intent(LocationLocatorActivity.this,TravelPlanActivity.class);
 		intent.putExtra("SELLOCALITY", subLocalitySelected);
 		intent.putExtra("SELCITY", localitySelected);
 		//intent.putExtra("LOCPOSITION", lblLocPosition.getText());
@@ -307,15 +334,27 @@ public class LocationLocatorActivity extends Activity {
 	
 	private void setErrorLabelVisibility(int visibility,int errorResId)
 	{
-		TableRow tableRow2 =(TableRow)findViewById(R.id.ErrorRowOnLocatorPage);
-		if(tableRow2 !=null)
-		{
-			TextView lblError =(TextView)findViewById(R.id.lblLocErrorMsgOnLocatorPage);
-			if(lblError != null)
-			{
-				tableRow2.setVisibility(visibility);
-				lblError.setText(errorResId);
+		final int finalvisibility=visibility;
+		final int finalerrorResId=errorResId;
+		myHandler.post(new Runnable(){
+			public void run() {
+				if(locationLocatorProgressBar ==null)
+				{
+					locationLocatorProgressBar = (ProgressBar)findViewById(R.id.locationLocaterProgressBar);
+				}
+				locationLocatorProgressBar.setVisibility(View.INVISIBLE);
+				
+				TableRow tableRow2 =(TableRow)findViewById(R.id.ErrorRowOnLocatorPage);
+				if(tableRow2 !=null)
+				{
+					TextView lblError =(TextView)findViewById(R.id.lblLocErrorMsgOnLocatorPage);
+					if(lblError != null)
+					{
+						tableRow2.setVisibility(finalvisibility);
+						lblError.setText(finalerrorResId);
+					}
+				}
 			}
-		}
+		});
 	}
 }

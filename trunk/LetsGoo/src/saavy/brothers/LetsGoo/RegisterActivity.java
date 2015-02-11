@@ -11,6 +11,8 @@ import org.json.JSONObject;
 import saavy.brothers.LetsGoo.R;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
@@ -19,6 +21,7 @@ import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -31,6 +34,8 @@ import android.text.method.LinkMovementMethod;
 
 public class RegisterActivity extends Activity {
 	String User_City_hint="Select city";
+	Handler myHandler=null ;
+	ProgressBar registerProgressBar =null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +43,7 @@ public class RegisterActivity extends Activity {
 		ActivityHelper.turnGPSOn(this);
 		setContentView(R.layout.activity_register);
 		ActivityHelper.setApplicationTitle(getWindow());
+		myHandler= new Handler(Looper.getMainLooper());
 		setErrorLabelVisibility(View.INVISIBLE,R.string.lblError);
 		
 		addFocusChangeListernerOnEditText();
@@ -126,10 +132,10 @@ public class RegisterActivity extends Activity {
 			String mPhoneNumber =  ActivityHelper.getUserMobileNo(this);
 			final EditText txtPhNo= (EditText)findViewById(R.id.txtPhNo);
 			txtPhNo.setText(mPhoneNumber);
-			//if(mPhoneNumber.length()> 0)
-			//{
-			//	txtPhNo.setEnabled(false);
-			//}
+			if(mPhoneNumber.length()> 0)
+			{
+				txtPhNo.setEnabled(false);
+			}
 		}
 		catch(Exception ex)
 		{
@@ -140,6 +146,7 @@ public class RegisterActivity extends Activity {
 	    TextView link = (TextView) findViewById(R.id.lblCondition);
 	    link.setText(Html.fromHtml("I have read and agree to <a href=\"TermsAndCondition://TermsAndCondition\">terms and condition</a> for using this app."));
 	    link.setMovementMethod(LinkMovementMethod.getInstance());
+	    
   
 	}
 	
@@ -148,6 +155,15 @@ public class RegisterActivity extends Activity {
 	{
 			@Override
 			public void onClick(View view) {
+				
+				if(registerProgressBar==null)
+				{
+					registerProgressBar = (ProgressBar)findViewById(R.id.RegisterProgressBar);
+				}
+				registerProgressBar.setVisibility(View.VISIBLE);
+				
+				
+				
 				final TextView txtFName= (TextView)findViewById(R.id.txtFName);
 				final TextView txtLName= (TextView)findViewById(R.id.txtLName);
 				final TextView txtPhNo= (TextView)findViewById(R.id.txtPhNo);
@@ -206,18 +222,22 @@ public class RegisterActivity extends Activity {
 								
 				if(validationResult)
 				{
+					final int finalgenderValue=genderValue;
+					new Thread(new Runnable() {             
+						public void run() {
+					
 					try
 					{
 						JSONObject reqParameters= new JSONObject();
 						reqParameters.put("UFNAME", txtFName.getText());
 						reqParameters.put("ULNAME", txtLName.getText());
 						reqParameters.put("CITY", ddcity.getSelectedItem());
-						reqParameters.put("GENDER", genderValue);
+						reqParameters.put("GENDER", finalgenderValue);
 						reqParameters.put("AGE", txtAge.getText());
 						reqParameters.put("UCONTACTNO", txtPhNo.getText());
 						JsonHandler jsonHandler =JsonHandler.getInstance();
 						String url=jsonHandler.getFullUrl("UserRegisteration.php");
-						JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters,view.getContext());
+						JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters,RegisterActivity.this);
 						if(result !=null)
 						{
 							String resultCode= result.getString("RESULT");
@@ -247,11 +267,10 @@ public class RegisterActivity extends Activity {
 								userDto.setUserCity(jsonData.getString("USERCITY"));
 								userDto.setAppLoginUser(true);
 								LaunchActivity.repository.addUserDTO(userDto);
-								Intent intent = new Intent(view.getContext(),TravelListActivity.class);
+								Intent intent = new Intent(RegisterActivity.this,TravelListActivity.class);
 								startActivity(intent);
 							}
 						}
-
 					}
 					catch(ConnectException ie)
 					{
@@ -273,11 +292,15 @@ public class RegisterActivity extends Activity {
 					{
 						setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 					}
+					
+						}
+					}).start();	
 				}
 				else
 				{
 					setErrorLabelVisibility(View.VISIBLE,R.string.ErrorMandatoryMsg);
 				}
+					
 			}
 	};
 	
@@ -302,15 +325,29 @@ public class RegisterActivity extends Activity {
 	
 	private void setErrorLabelVisibility(int visibility,int errorResId)
 	{
-		TableRow tableRow2 =(TableRow)findViewById(R.id.ErrorRowOnRegisterPage);
-		if(tableRow2 !=null)
-		{
-			TextView lblError =(TextView)findViewById(R.id.lblErrorMsgOnRegisterPage);
-			if(lblError != null)
-			{
-				tableRow2.setVisibility(visibility);
-				lblError.setText(errorResId);
+		final int finalvisibility=visibility;
+		final int finalerrorResId=errorResId;
+		
+		myHandler.post(new Runnable(){
+			public void run() {
+				if(registerProgressBar==null)
+				{
+					registerProgressBar = (ProgressBar)findViewById(R.id.RegisterProgressBar);
+				}
+				registerProgressBar.setVisibility(View.INVISIBLE);
+				
+		
+				TableRow tableRow2 =(TableRow)findViewById(R.id.ErrorRowOnRegisterPage);
+				if(tableRow2 !=null)
+				{
+					TextView lblError =(TextView)findViewById(R.id.lblErrorMsgOnRegisterPage);
+					if(lblError != null)
+					{
+						tableRow2.setVisibility(finalvisibility);
+						lblError.setText(finalerrorResId);
+					}
+				}
 			}
-		}
+		});
 	}
 }

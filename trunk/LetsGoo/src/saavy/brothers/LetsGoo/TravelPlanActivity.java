@@ -13,6 +13,8 @@ import org.json.JSONObject;
 import saavy.brothers.LetsGoo.R;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -24,6 +26,7 @@ import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -38,6 +41,8 @@ public class TravelPlanActivity extends Activity {
 	String Start_loc_hint="Start Location";
 	String End_loc_hint="End Location";
 	String Travel_time_hint="Start Time";
+	ProgressBar travelProgressBar =null;
+	Handler myHandler=null ;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +58,8 @@ public class TravelPlanActivity extends Activity {
 		
 		
 		ActivityHelper.setApplicationTitle(getWindow());
+		myHandler= new Handler(Looper.getMainLooper());
+		
 		userStartLocCity=LaunchActivity.repository.getUsersData().getUserCity();
 		userEndLocCity=userStartLocCity;
         Bundle extras  = getIntent().getExtras();
@@ -261,16 +268,27 @@ public class TravelPlanActivity extends Activity {
 	
 	private void setErrorLabelVisibility(int visibility,int errorResId)
 	{
-		TableRow tableRow2 =(TableRow)findViewById(R.id.ErrorRowOnTravelPlanPage);
-		if(tableRow2 !=null)
-		{
-			TextView lblError =(TextView)findViewById(R.id.lblErrorMsgOnTravelPlanePage);
-			if(lblError != null)
-			{
-				tableRow2.setVisibility(visibility);
-				lblError.setText(errorResId);
+		final int finalvisibility=visibility;
+		final int finalerrorResId=errorResId;
+		myHandler.post(new Runnable(){
+			public void run() {
+				if(travelProgressBar ==null)
+				{
+					travelProgressBar = (ProgressBar)findViewById(R.id.travelProgressBar);
+				}
+				travelProgressBar.setVisibility(View.INVISIBLE);
+				TableRow tableRow2 =(TableRow)findViewById(R.id.ErrorRowOnTravelPlanPage);
+				if(tableRow2 !=null)
+				{
+					TextView lblError =(TextView)findViewById(R.id.lblErrorMsgOnTravelPlanePage);
+					if(lblError != null)
+					{
+						tableRow2.setVisibility(finalvisibility);
+						lblError.setText(finalerrorResId);
+					}
+				}
 			}
-		}
+		});
 	}
 	
 	private void fillStartTimeDd()
@@ -316,6 +334,12 @@ public class TravelPlanActivity extends Activity {
 		@Override
 		public void onClick(View view)
 		{
+			if(travelProgressBar ==null)
+			{
+				travelProgressBar = (ProgressBar)findViewById(R.id.travelProgressBar);
+			}
+			travelProgressBar.setVisibility(View.VISIBLE);
+			
 			travelPlanDTO=null;
 			final  Spinner  ddCurrentLoc =(Spinner)findViewById(R.id.ddCurrentLoc);
 			final  TextView txtStartPoint = (TextView)findViewById(R.id.txtStartLoc);
@@ -360,6 +384,13 @@ public class TravelPlanActivity extends Activity {
 				temp.setError(Travel_time_hint);
 				validationResult=false;
 			}
+			if(txtNoOfPass.getText().length()>10)
+			{
+				View v= ddCurrentLoc.getSelectedView();
+				TextView temp= (TextView)v.findViewById(android.R.id.text1);
+				temp.setError("Can not be accept long number!");
+				validationResult=false;
+			}
 			
 			if(validationResult)
 			{
@@ -381,61 +412,65 @@ public class TravelPlanActivity extends Activity {
 					setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorForTotalNoOfPersonGTTen);
 		        	return;
 				}
-				try
-				{
-					JSONObject reqParameters= new JSONObject();
-					reqParameters.put("USERID", LaunchActivity.getUserId());
-					reqParameters.put("CURRLOCATION", ddCurrentLoc.getSelectedItem());
-					reqParameters.put("STARTLOCATION", txtStartPoint.getText());
-					reqParameters.put("ENDLOCATION", ddEndLocation.getSelectedItem());
-					reqParameters.put("TRAVELTIME", ddStartTime.getSelectedItem());
-					reqParameters.put("TRAVELMODE", ddTravelType.getSelectedItem());
-					reqParameters.put("NOOFPASSENGER", txtNoOfPass.getText());
-					JsonHandler jsonHandler =JsonHandler.getInstance();
-					String url=jsonHandler.getFullUrl("UserTravelPlan.php");
-					JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters,view.getContext());
-					if(result!=null)
-					{
-						String resultCode= result.getString("RESULT");
-						if(resultCode.contentEquals(AppConstant.PHPRESPONSE_KO))
+				new Thread(new Runnable() {             
+					public void run() {
+						try
 						{
-							String errorCode=result.getString("ERRORCODE");
-							if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.NOTEXISTS))
+							JSONObject reqParameters= new JSONObject();
+							reqParameters.put("USERID", LaunchActivity.getUserId());
+							reqParameters.put("CURRLOCATION", ddCurrentLoc.getSelectedItem());
+							reqParameters.put("STARTLOCATION", txtStartPoint.getText());
+							reqParameters.put("ENDLOCATION", ddEndLocation.getSelectedItem());
+							reqParameters.put("TRAVELTIME", ddStartTime.getSelectedItem());
+							reqParameters.put("TRAVELMODE", ddTravelType.getSelectedItem());
+							reqParameters.put("NOOFPASSENGER", txtNoOfPass.getText());
+							JsonHandler jsonHandler =JsonHandler.getInstance();
+							String url=jsonHandler.getFullUrl("UserTravelPlan.php");
+							JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters,TravelPlanActivity.this);
+							if(result!=null)
 							{
-								setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorUserNotExist);
-							}
-							else if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
-							{
-								setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+								String resultCode= result.getString("RESULT");
+								if(resultCode.contentEquals(AppConstant.PHPRESPONSE_KO))
+								{
+									String errorCode=result.getString("ERRORCODE");
+									if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.NOTEXISTS))
+									{
+										setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorUserNotExist);
+									}
+									else if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
+									{
+										setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+									}
+								}
+								else
+								{
+									Intent intent = new Intent(TravelPlanActivity.this,TravelListActivity.class);
+									startActivity(intent);
+								}
 							}
 						}
-						else
+						catch(ConnectException ie)
 						{
-							Intent intent = new Intent(view.getContext(),TravelListActivity.class);
-							startActivity(intent);
+							setErrorLabelVisibility(View.VISIBLE,R.string.InternetConnectiivityErrorMsg);
+						}
+						catch(JSONException ex)
+						{
+							setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+						}
+						catch (ClientProtocolException e)
+						{    
+							setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+						}    
+						catch (IOException e) 
+						{    
+							setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+						} 
+						catch(Exception e)
+						{
+							setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
 						}
 					}
-				}
-				catch(ConnectException ie)
-				{
-					setErrorLabelVisibility(View.VISIBLE,R.string.InternetConnectiivityErrorMsg);
-				}
-				catch(JSONException ex)
-				{
-					setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-				}
-				catch (ClientProtocolException e)
-				{    
-					setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-				}    
-				catch (IOException e) 
-				{    
-					setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-				} 
-				catch(Exception e)
-				{
-					setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-				}
+				}).start();	
 			}
 			else
 			{
@@ -450,29 +485,39 @@ public class TravelPlanActivity extends Activity {
 		@Override
 		public void onClick(View view)
 		{
-			
-			Intent intent = new Intent(view.getContext(),LocationLocatorActivity.class);
-						
-			final  Spinner  ddCurrentLoc =(Spinner)findViewById(R.id.ddCurrentLoc);
-			final  TextView txtStartPoint = (TextView)findViewById(R.id.txtStartLoc);
-			final  Spinner ddStartTime = (Spinner)findViewById(R.id.ddStartTime);
-			final  TextView txtNoOfPass = (TextView)findViewById(R.id.txtNoOfPass);
-			final  Spinner  ddTravelType =(Spinner)findViewById(R.id.ddTravelType);
-			
-			travelPlanDTO = new TravelPlanDTO();
-			travelPlanDTO.setLocationPosition("ENDLOC");
-			if(ddCurrentLoc.getSelectedItem() !=null && ddCurrentLoc.getSelectedItem()!=Start_loc_hint)
+			if(travelProgressBar ==null)
 			{
-				travelPlanDTO.setLocationValue(ddCurrentLoc.getSelectedItem().toString());
+				travelProgressBar = (ProgressBar)findViewById(R.id.travelProgressBar);
 			}
-			travelPlanDTO.setStartLocation(txtStartPoint.getText().toString());
-			travelPlanDTO.setStartTime(ddStartTime.getSelectedItem().toString());
-			travelPlanDTO.setTravelMode(ddTravelType.getSelectedItem().toString());
-			travelPlanDTO.setTotalNoOfPerson(txtNoOfPass.getText().toString());
-			travelPlanDTO.setCurUserCity(userStartLocCity);
-			travelPlanDTO.setEndUserCity(userEndLocCity);
-			startActivity(intent);
+			travelProgressBar.setVisibility(View.VISIBLE);
+
+			myHandler.post(new Runnable() {             
+				public void run() {
 			
+					Intent intent = new Intent(TravelPlanActivity.this,LocationLocatorActivity.class);
+								
+					final  Spinner  ddCurrentLoc =(Spinner)findViewById(R.id.ddCurrentLoc);
+					final  TextView txtStartPoint = (TextView)findViewById(R.id.txtStartLoc);
+					final  Spinner ddStartTime = (Spinner)findViewById(R.id.ddStartTime);
+					final  TextView txtNoOfPass = (TextView)findViewById(R.id.txtNoOfPass);
+					final  Spinner  ddTravelType =(Spinner)findViewById(R.id.ddTravelType);
+					
+					travelPlanDTO = new TravelPlanDTO();
+					travelPlanDTO.setLocationPosition("ENDLOC");
+					if(ddCurrentLoc.getSelectedItem() !=null && ddCurrentLoc.getSelectedItem()!=Start_loc_hint)
+					{
+						travelPlanDTO.setLocationValue(ddCurrentLoc.getSelectedItem().toString());
+					}
+					travelPlanDTO.setStartLocation(txtStartPoint.getText().toString());
+					travelPlanDTO.setStartTime(ddStartTime.getSelectedItem().toString());
+					travelPlanDTO.setTravelMode(ddTravelType.getSelectedItem().toString());
+					travelPlanDTO.setTotalNoOfPerson(txtNoOfPass.getText().toString());
+					travelPlanDTO.setCurUserCity(userStartLocCity);
+					travelPlanDTO.setEndUserCity(userEndLocCity);
+					startActivity(intent);
+
+				}
+			});
 		}
 	};
 	
@@ -481,29 +526,55 @@ public class TravelPlanActivity extends Activity {
 		@Override
 		public void onClick(View view)
 		{
-			Intent intent = new Intent(view.getContext(),LocationLocatorActivity.class);
-			
-			final  Spinner  ddEndLocation =(Spinner)findViewById(R.id.ddEndLocation);
-			final  TextView txtStartPoint = (TextView)findViewById(R.id.txtStartLoc);
-			final  Spinner ddStartTime = (Spinner)findViewById(R.id.ddStartTime);
-			final  TextView txtNoOfPass = (TextView)findViewById(R.id.txtNoOfPass);
-			final  Spinner  ddTravelType =(Spinner)findViewById(R.id.ddTravelType);
-
-			travelPlanDTO = new TravelPlanDTO();
-			travelPlanDTO.setLocationPosition("CURLOC");
-			if(ddEndLocation.getSelectedItem() !=null && ddEndLocation.getSelectedItem()!=End_loc_hint)
+			if(travelProgressBar ==null)
 			{
-				travelPlanDTO.setLocationValue(ddEndLocation.getSelectedItem().toString());
+				travelProgressBar = (ProgressBar)findViewById(R.id.travelProgressBar);
 			}
-			travelPlanDTO.setStartLocation(txtStartPoint.getText().toString());
-			travelPlanDTO.setStartTime(ddStartTime.getSelectedItem().toString());
-			travelPlanDTO.setTravelMode(ddTravelType.getSelectedItem().toString());
-			travelPlanDTO.setTotalNoOfPerson(txtNoOfPass.getText().toString());
-			travelPlanDTO.setCurUserCity(userStartLocCity);
-			travelPlanDTO.setEndUserCity(userEndLocCity);
-			startActivity(intent);
+			travelProgressBar.setVisibility(View.VISIBLE);
+
+			myHandler.post(new Runnable() {             
+				public void run() {
+					Intent intent = new Intent(TravelPlanActivity.this,LocationLocatorActivity.class);
+					
+					final  Spinner  ddEndLocation =(Spinner)findViewById(R.id.ddEndLocation);
+					final  TextView txtStartPoint = (TextView)findViewById(R.id.txtStartLoc);
+					final  Spinner ddStartTime = (Spinner)findViewById(R.id.ddStartTime);
+					final  TextView txtNoOfPass = (TextView)findViewById(R.id.txtNoOfPass);
+					final  Spinner  ddTravelType =(Spinner)findViewById(R.id.ddTravelType);
+		
+					travelPlanDTO = new TravelPlanDTO();
+					travelPlanDTO.setLocationPosition("CURLOC");
+					if(ddEndLocation.getSelectedItem() !=null && ddEndLocation.getSelectedItem()!=End_loc_hint)
+					{
+						travelPlanDTO.setLocationValue(ddEndLocation.getSelectedItem().toString());
+					}
+					travelPlanDTO.setStartLocation(txtStartPoint.getText().toString());
+					travelPlanDTO.setStartTime(ddStartTime.getSelectedItem().toString());
+					travelPlanDTO.setTravelMode(ddTravelType.getSelectedItem().toString());
+					travelPlanDTO.setTotalNoOfPerson(txtNoOfPass.getText().toString());
+					travelPlanDTO.setCurUserCity(userStartLocCity);
+					travelPlanDTO.setEndUserCity(userEndLocCity);
+					startActivity(intent);
+			
+				}
+			});
 			
 		}
 	};
 	
+	@Override
+	protected void onRestart()
+	{
+		super.onRestart();
+		if(travelProgressBar ==null)
+		{
+			travelProgressBar = (ProgressBar)findViewById(R.id.travelProgressBar);
+		}
+		travelProgressBar.setVisibility(View.INVISIBLE);
+	}
+	@Override
+	public void onBackPressed() {
+		Intent intent = new Intent(this,TravelListActivity.class);
+		startActivity(intent);
+	}
 }
