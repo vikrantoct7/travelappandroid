@@ -19,5 +19,4 @@ public  class GenericValidator {
 		}
 		return result;
 	}
-
 }

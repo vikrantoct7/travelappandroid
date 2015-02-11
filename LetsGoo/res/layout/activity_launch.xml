@@ -22,5 +22,27 @@
         android:text="@string/lblError"
         android:textColor="#FF0000"
         android:visibility="visible" />
-   
+
+   <ProgressBar
+       android:id="@+id/launchProgressBar"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_below="@+id/lblLaunchErrorMsg"
+       android:layout_centerHorizontal="true"
+       android:layout_marginTop="48dp"
+        />
+
+   <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignRight="@+id/lblLaunchErrorMsg"
+       android:layout_marginTop="196dp" 
+       android:layout_marginRight="63dp"
+       android:drawableLeft="@drawable/ic_launcher"
+       android:gravity="bottom"
+       android:text="@string/lbllogocopyright"
+       android:textColor="#FFFFFF"
+       android:textSize="14sp"
+       android:textStyle="bold" />
+    
 </RelativeLayout>

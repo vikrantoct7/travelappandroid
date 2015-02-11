@@ -6,6 +6,8 @@ import saavy.brothers.LetsGoo.R;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.StrictMode;
 
 import android.annotation.SuppressLint;
@@ -14,6 +16,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 @SuppressLint("NewApi")
@@ -21,6 +24,8 @@ public class LaunchActivity extends Activity {
 
 	public static XmlDataRepository repository=null;
 	public static int loginUserId;
+	ProgressBar launchProgressBar =null;
+	Handler myHandler=null ;
 	
 	public static int getUserId()
 	{
@@ -41,8 +46,19 @@ public class LaunchActivity extends Activity {
 			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 			StrictMode.setThreadPolicy(policy); 
 		}
-				
-		ActivityHelper.setApplicationTitle(this.getWindow());
+		myHandler= new Handler(Looper.getMainLooper());
+		
+		ActivityHelper.setApplicationTitle(this.getWindow());		
+		new Thread(new Runnable() {             
+			public void run() {
+				BoforeLoginProcess();
+			}	
+		}).start();
+	}
+	
+	private void BoforeLoginProcess()
+	{
+		
 		SetErrorLabelVisibility(View.INVISIBLE,R.string.lblError);
 		try 
 		{	
@@ -61,22 +77,23 @@ public class LaunchActivity extends Activity {
 				{
 					ActivityHelper.checkLogin(mPhoneNumber,this);
 				}
+				if(repository.getUsersData() == null)
+				{
+					LaunchLoginWindew();
+				}
+				else
+				{
+					LaunchHomeActivity();
+				}
 			}
 			catch(ConnectException ie)
 			{
-				SetErrorLabelVisibility(View.VISIBLE,R.string.InternetConnectiivityErrorMsg);
+					SetErrorLabelVisibilityOnThread(View.VISIBLE,R.string.InternetConnectiivityErrorMsg);
+					
 			}
 			catch(Exception ex)
 			{
-				SetErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-			}
-			if(repository.getUsersData() == null)
-			{
-				LaunchLoginWindew();
-			}
-			else
-			{
-				LaunchHomeActivity();
+					SetErrorLabelVisibilityOnThread(View.VISIBLE,R.string.lblErrorTechnical);
 			}
 		}
 		else
@@ -92,7 +109,6 @@ public class LaunchActivity extends Activity {
 			}
 		}
 	}
-	
 	private void LaunchLoginWindew()
 	{
 		Intent intent = new Intent(this.getApplicationContext(),LoginActivity.class);
@@ -109,6 +125,27 @@ public class LaunchActivity extends Activity {
 	{
 		Intent intent = new Intent(this.getApplicationContext(),TravelListActivity.class);
 		startActivity(intent);
+	}
+	
+	private void SetErrorLabelVisibilityOnThread(int visibility,int errorResId)
+	{
+		final int finalvisibility=visibility;
+		final int finalerrorResId=errorResId;
+		myHandler.post(new Runnable(){
+		public void run() {
+			if(launchProgressBar ==null)
+			{
+				launchProgressBar = (ProgressBar)findViewById(R.id.launchProgressBar);
+			}
+			launchProgressBar.setVisibility(View.INVISIBLE);
+			TextView lblError =(TextView)findViewById(R.id.lblLaunchErrorMsg);
+			if(lblError != null)
+			{
+				lblError.setVisibility(finalvisibility);
+				lblError.setText(finalerrorResId);
+			}
+		}
+		});
 	}
 	
 	private void SetErrorLabelVisibility(int visibility,int errorResId)

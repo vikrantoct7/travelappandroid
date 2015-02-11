@@ -13,6 +13,8 @@ import saavy.brothers.LetsGoo.R.id;
 import android.R.color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -31,6 +33,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TableLayout;
@@ -39,6 +42,8 @@ import android.widget.TextView;
 
 public class TravelListActivity extends Activity {
 
+	ProgressBar travelListProgressBar =null;
+	Handler myHandler=null ;
 	private int currentUserTravelID;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +51,7 @@ public class TravelListActivity extends Activity {
 		ActivityHelper.turnGPSOff(this);
 		setContentView(R.layout.activity_travel_list);
 		ActivityHelper.setApplicationTitle(getWindow());
-		
+		myHandler= new Handler(Looper.getMainLooper());
 		setErrorLabelVisibility(View.INVISIBLE,R.string.lblError);
 		loadTravelList();
 		
@@ -58,7 +63,17 @@ public class TravelListActivity extends Activity {
 	protected void onRestart()
 	{
 		super.onRestart();
-		loadTravelList();
+
+			if(travelListProgressBar ==null)
+			{
+				travelListProgressBar = (ProgressBar)findViewById(R.id.launchProgressBar);
+			}
+			travelListProgressBar.setVisibility(View.VISIBLE);
+			myHandler.post(new Runnable() {             
+				public void run() {
+					loadTravelList();
+				}
+			});
 	}
 	
 	
@@ -353,7 +368,16 @@ public class TravelListActivity extends Activity {
 		@Override
 		public void onClick(View view)
 		{
-			loadTravelList();
+			if(travelListProgressBar ==null)
+			{
+				travelListProgressBar = (ProgressBar)findViewById(R.id.travelListProgressBar);
+			}
+			travelListProgressBar.setVisibility(View.VISIBLE);
+			myHandler.post(new Runnable() {             
+				public void run() {
+					loadTravelList();
+				}
+			});
 		}
 	};
 			
@@ -363,8 +387,17 @@ public class TravelListActivity extends Activity {
 		@Override
 		public void onClick(View view)
 		{
-			Intent intent = new Intent(view.getContext(),TravelPlanActivity.class);
-			startActivity(intent);
+			if(travelListProgressBar ==null)
+			{
+				travelListProgressBar = (ProgressBar)findViewById(R.id.travelListProgressBar);
+			}
+			travelListProgressBar.setVisibility(View.VISIBLE);
+			new Thread(new Runnable() {             
+				public void run() {
+				Intent intent = new Intent(TravelListActivity.this,TravelPlanActivity.class);
+				startActivity(intent);
+				}
+			}).start();
 		}
 	};
 	
@@ -397,8 +430,16 @@ public class TravelListActivity extends Activity {
 	private OnClickListener onConfirmAction = new OnClickListener()
 	{
 		@Override
-		public void onClick(View view)
+		public void onClick(final View view)
 		{
+			if(travelListProgressBar ==null)
+			{
+				travelListProgressBar = (ProgressBar)findViewById(R.id.travelListProgressBar);
+			}
+			travelListProgressBar.setVisibility(View.VISIBLE);
+			new Thread(new Runnable() {             
+				public void run() {
+			
 			UserDTO userDto= (UserDTO) view.getTag();
 			
 			if(userDto !=null)
@@ -454,8 +495,12 @@ public class TravelListActivity extends Activity {
 				    			}
 				    			else
 				    			{
-				    				JSONArray jsonData =result.getJSONArray("TRAVELLIST");
-				    				generateTravelList(jsonData);
+				    				final JSONArray jsonData =result.getJSONArray("TRAVELLIST");
+				    				myHandler.post(new Runnable() {             
+				    					public void run() {
+				    						generateTravelList(jsonData);
+				    					}
+				    				});
 				    			}
 			    			}
 			            }
@@ -476,6 +521,8 @@ public class TravelListActivity extends Activity {
 			        //.setNegativeButton(R.string.lblNo, null)
 			        //.show();
 			}
+				}
+			}).start();
 		}
 	};
 	
@@ -484,6 +531,7 @@ public class TravelListActivity extends Activity {
 		@Override
 		public void onClick(final View dialogView)
 		{
+			
 			final String travelid=(String) dialogView.getTag();
 			//Ask the user if they want to quit
 	        new AlertDialog.Builder(dialogView.getContext())
@@ -493,45 +541,58 @@ public class TravelListActivity extends Activity {
 	        .setPositiveButton(R.string.lblYes, new DialogInterface.OnClickListener() {
 	            @Override
 	            public void onClick(DialogInterface dialog, int which) {
-	            	try
-	            	{
-		            	JSONObject reqParameters= new JSONObject();
-		    			reqParameters.put("TRAVELID", travelid);
-		    			reqParameters.put("CONUSERID", LaunchActivity.getUserId());
-		    			JsonHandler jsonHandler =JsonHandler.getInstance();
-		    			String url=jsonHandler.getFullUrl("UserTravelDelete.php");
-		    			JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters,dialogView.getContext());
-		    			if(result !=null)
-		    			{
-			    			String resultCode= result.getString("RESULT");
-			    			if(resultCode.contentEquals(AppConstant.PHPRESPONSE_KO))
-			    			{
-			    				String errorCode=result.getString("ERRORCODE");
-			    				
-			    				if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
-			    				{
-			    					setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-			    				}
-			    			}
-			    			else
-			    			{
-			    				JSONArray jsonData =result.getJSONArray("TRAVELLIST");
-			    				generateTravelList(jsonData);
-			    			}
-		    			}
-		            }
-	            	catch(ConnectException ie)
-					{
-						setErrorLabelVisibility(View.VISIBLE,R.string.InternetConnectiivityErrorMsg);
-					}
-			    	catch(JSONException ex)
-			    	{
-			    		setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-			   		}
-		           	catch (IOException e) 
-		       		{    
-		       			setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
-		       		} 
+	            	if(travelListProgressBar ==null)
+	    			{
+	    				travelListProgressBar = (ProgressBar)findViewById(R.id.travelListProgressBar);
+	    			}
+	    			travelListProgressBar.setVisibility(View.VISIBLE);
+	    			new Thread(new Runnable() {             
+	    				public void run() {
+			            	try
+			            	{
+				            	JSONObject reqParameters= new JSONObject();
+				    			reqParameters.put("TRAVELID", travelid);
+				    			reqParameters.put("CONUSERID", LaunchActivity.getUserId());
+				    			JsonHandler jsonHandler =JsonHandler.getInstance();
+				    			String url=jsonHandler.getFullUrl("UserTravelDelete.php");
+				    			JSONObject result = jsonHandler.postJsonDataToServer(url, reqParameters,dialogView.getContext());
+				    			if(result !=null)
+				    			{
+					    			String resultCode= result.getString("RESULT");
+					    			if(resultCode.contentEquals(AppConstant.PHPRESPONSE_KO))
+					    			{
+					    				String errorCode=result.getString("ERRORCODE");
+					    				
+					    				if(errorCode.contentEquals(AppConstant.PHP_ERROR_CODE.TECHNICAL))
+					    				{
+					    					setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+					    				}
+					    			}
+					    			else
+					    			{
+					    				final JSONArray jsonData =result.getJSONArray("TRAVELLIST");
+					    				myHandler.post(new Runnable() {             
+					    					public void run() {
+					    						generateTravelList(jsonData);
+					    					}
+					    				});
+					    			}
+				    			}
+				            }
+			            	catch(ConnectException ie)
+							{
+								setErrorLabelVisibility(View.VISIBLE,R.string.InternetConnectiivityErrorMsg);
+							}
+					    	catch(JSONException ex)
+					    	{
+					    		setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+					   		}
+				           	catch (IOException e) 
+				       		{    
+				       			setErrorLabelVisibility(View.VISIBLE,R.string.lblErrorTechnical);
+				       		} 
+	    				}
+	    			}).start();
 	            }
 
 	        })
@@ -542,12 +603,23 @@ public class TravelListActivity extends Activity {
 	
 	private void setErrorLabelVisibility(int visibility,int errorResId)
 	{
-			TextView lblError =(TextView)findViewById(R.id.lblLocErrorMsgOnTravelListPage);
-			if(lblError != null)
-			{
-				lblError.setVisibility(visibility);
-				lblError.setText(errorResId);
+		final int finalvisibility=visibility;
+		final int finalerrorResId=errorResId;
+		myHandler.post(new Runnable(){
+			public void run() {
+				if(travelListProgressBar ==null)
+				{
+					travelListProgressBar = (ProgressBar)findViewById(R.id.travelListProgressBar);
+				}
+				travelListProgressBar.setVisibility(View.INVISIBLE);
+				TextView lblError =(TextView)findViewById(R.id.lblLocErrorMsgOnTravelListPage);
+				if(lblError != null)
+				{
+					lblError.setVisibility(finalvisibility);
+					lblError.setText(finalerrorResId);
+				}
 			}
+		});
 	}
 	
 	@Override
