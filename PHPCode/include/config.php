@@ -1,8 +1,8 @@
 <?php // CONFIG FILE
-define("DB_HOST","localhost");
+define("DB_HOST","letsgoodbhost.czbccdqqlfi3.us-east-1.rds.amazonaws.com");
 define("DB_USER","root");
-define("DB_PASSWORD","sa");
-define("DB_DATABASE","mindyourtravel");	
+define("DB_PASSWORD","password");
+define("DB_DATABASE","letsgoodb");	
 ob_start();
 //session_start();
 // DB VARIABLES
